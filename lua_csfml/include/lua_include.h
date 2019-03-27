@@ -14,4 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define check_type(L, i, t) (lua_type(L, i) == t)
+
 #endif /* !LUA_INCLUDE_H_ */

@@ -4,7 +4,9 @@ CC	= gcc
 
 RM	= rm -f
 
-SRCS	= ./main.c
+SRCS	= ./main.c \
+		  ./lsfml.c \
+		  ./funcs/render_window_1.c
 
 OBJS	= $(SRCS:.c=.o)
 
