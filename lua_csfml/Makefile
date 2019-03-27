@@ -6,7 +6,8 @@ RM	= rm -f
 
 SRCS	= ./main.c \
 		  ./lsfml.c \
-		  ./funcs/render_window_1.c
+		  ./funcs/render_window_1.c \
+		  ./funcs/render_window_3.c \
 
 OBJS	= $(SRCS:.c=.o)
 
