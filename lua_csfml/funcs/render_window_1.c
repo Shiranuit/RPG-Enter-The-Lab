@@ -11,16 +11,75 @@
 
 int win_clear(lua_State *L)
 {
+    sfRenderWindow *window = 0;
+
     if (lua_gettop(L) < 4) {
-        luaL_error(L, "Needed 4 arguments");
+        luaL_error(L, "Expected (Window, Number, Number, Number)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_isinteger(L, 2) && lua_isinteger(L, 3) && lua_isinteger(L, 4)) {
-        sfRenderWindow **window = (sfRenderWindow **)lua_touserdata(L, 1);
-        sfRenderWindow_clear(*window,
-        (sfColor){lua_tointeger(L, 2), lua_tointeger(L, 3), lua_tointeger(L, 4), 255});
+    if (lua_isuserdata(L, 1) && lua_isinteger(L, 2) &&
+        lua_isinteger(L, 3) && lua_isinteger(L, 4)) {
+        window = userdata_pointer(L, 1, sfRenderWindow);
+        sfRenderWindow_clear(window,
+        (sfColor){lua_tointeger(L, 2), lua_tointeger(L, 3),
+        lua_tointeger(L, 4), 255});
     } else {
-        luaL_error(L, "Expected window_clear(RenderWindow, Number, Number, Number)");
+        luaL_error(L, "Expected (Window, Number, Number, Number)");
     }
     return (0);
+}
+
+int win_cursor_visible(lua_State *L)
+{
+    sfRenderWindow *window = 0;
+
+    if (lua_gettop(L) < 2) {
+        luaL_error(L, "Expected (Window, Boolean)");
+        return (0);
+    }
+    if (lua_isuserdata(L, 1) && lua_isboolean(L, 2)) {
+        window = userdata_pointer(L, 1, sfRenderWindow);
+        sfRenderWindow_setMouseCursorVisible(window, lua_toboolean(L, 2));
+    } else {
+        luaL_error(L, "Expected (Window, Boolean)");
+    }
+    return (0);
+}
+
+int win_close(lua_State *L)
+{
+    sfRenderWindow **window = 0;
+
+    if (lua_gettop(L) < 1) {
+        luaL_error(L, "Expected (Window)");
+        return (0);
+    }
+    if (lua_isuserdata(L, 1)) {
+        window = userdata_pointer(L, 1, sfRenderWindow);
+        sfRenderWindow_close(*window);
+    } else {
+        luaL_error(L, "Expected (Window)");
+    }
+    return (0);
+}
+
+int win_draw_circle_shape(lua_State *L)
+{
+    sfRenderWindow *window = 0;
+    sfCircleShape *circle = 0;
+    sfRenderStates *state = 0;
+
+    if (lua_gettop(L) < 3) {
+        luaL_error(L, "Expected (Window, CircleShape, RenderStates)");
+        return (0);
+    }
+    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
+        (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
+        window = userdata_pointer(L, 1, sfRenderWindow);
+        circle = userdata_pointer(L, 2, sfCircleShape);
+        state = lua_isnil(L, 3) ? 0 : userdata_pointer(L, 3, sfRenderStates);
+        sfRenderWindow_drawCircleShape(window, circle, state);
+    } else {
+        luaL_error(L, "Expected (Window, CircleShape, RenderStates)");
+    }
 }
