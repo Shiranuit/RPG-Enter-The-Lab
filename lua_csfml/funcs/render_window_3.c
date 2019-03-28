@@ -12,7 +12,7 @@
 int win_get_size(lua_State *L)
 {
     sfRenderWindow *window = 0;
-    sfVector2u vector;
+    sfVector2u vector = {0, 0};
 
     if (lua_gettop(L) < 1) {
         luaL_error(L, "Expected (Window)");

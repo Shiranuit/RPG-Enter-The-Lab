@@ -55,7 +55,7 @@ int win_close(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
+        *window = userdata_pointer(L, 1, sfRenderWindow);
         sfRenderWindow_close(*window);
     } else {
         luaL_error(L, "Expected (Window)");
@@ -82,4 +82,5 @@ int win_draw_circle_shape(lua_State *L)
     } else {
         luaL_error(L, "Expected (Window, CircleShape, RenderStates)");
     }
+    return (0);
 }

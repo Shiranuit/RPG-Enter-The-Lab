@@ -8,6 +8,10 @@ SRCS	= ./main.c \
 		  ./lsfml.c \
 		  ./funcs/render_window_1.c \
 		  ./funcs/render_window_3.c \
+		  ./funcs/sprite_1.c \
+		  ./funcs/sprite_2.c \
+		  ./funcs/sprite_3.c \
+		  ./funcs/utility.c
 
 OBJS	= $(SRCS:.c=.o)
 
