@@ -27,6 +27,6 @@ int sprite_get_scale(lua_State *L);
 int sprite_set_rotation(lua_State *L);
 int sprite_rotate(lua_State *L);
 int sprite_get_rotation(lua_State *L);
-int get_vector_2f(lua_State *L, sfVector2f *vector);
+int get_vector_2f(lua_State *L, sfVector2f *vector, int index)
 
 #endif /* !LSFML_FUNCTION_H_ */

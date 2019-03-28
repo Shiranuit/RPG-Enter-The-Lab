@@ -90,7 +90,7 @@ int sprite_move(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 1)) {
         sprite = userdata_pointer(L, 1, sfSprite);
-        if (get_vector_2f(L, &vector))
+        if (get_vector_2f(L, &vector, 2))
             return (0);
         sfSprite_move(sprite, vector);
     } else {
