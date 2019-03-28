@@ -84,3 +84,25 @@ int win_draw_circle_shape(lua_State *L)
     }
     return (0);
 }
+
+int win_draw_convex_shape(lua_State *L)
+{
+    sfRenderWindow *window = 0;
+    sfConvexShape *convex = 0;
+    sfRenderStates *state = 0;
+
+    if (lua_gettop(L) < 3) {
+        luaL_error(L, "Expected (Window, ConvexShape, RenderStates)");
+        return (0);
+    }
+    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
+        (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
+        window = userdata_pointer(L, 1, sfRenderWindow);
+        convex = userdata_pointer(L, 2, sfConvexShape);
+        state = lua_isnil(L, 3) ? 0 : userdata_pointer(L, 3, sfRenderStates);
+        sfRenderWindow_drawConvexShape(window, convex, state);
+    } else {
+        luaL_error(L, "Expected (Window, ConvexShape, RenderStates)");
+    }
+    return (0);
+}
