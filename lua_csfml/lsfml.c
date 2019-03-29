@@ -36,6 +36,9 @@ static const luaL_Reg lsfmllib[] = {
     {"sprite_setRotation", sprite_set_rotation},
     {"sprite_rotate", sprite_rotate},
     {"sprite_getRotation", sprite_get_rotation},
+    {"sprite_getOrigin", sprite_get_origin},
+    {"sprite_scale", sprite_scale},
+    {"sprite_set_origin", sprite_set_origin},
 
     {"shader_bind", shader_bind},
     {"shader_createFromFile", shader_create_from_file},

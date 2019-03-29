@@ -37,6 +37,9 @@ int sprite_get_scale(lua_State *L);
 int sprite_set_rotation(lua_State *L);
 int sprite_rotate(lua_State *L);
 int sprite_get_rotation(lua_State *L);
+int sprite_get_origin(lua_State *L);
+int sprite_scale(lua_State *L);
+int sprite_set_origin(lua_State *L);
 
 int shader_bind(lua_State *L);
 int shader_create_from_file(lua_State *L);
