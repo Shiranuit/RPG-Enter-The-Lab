@@ -54,6 +54,4 @@ int shader_set_float_parameter(lua_State *L);
 int shader_setcurrenttextureparameter(lua_State *L);
 int shader_set_transform_parameter(lua_State *L);
 
-int get_vector_2f(lua_State *L, sfVector2f *vector, int index);
-
 #endif /* !LSFML_FUNCTION_H_ */

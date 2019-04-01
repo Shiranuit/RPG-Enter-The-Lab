@@ -8,6 +8,7 @@
 #include "lua_include.h"
 #include <SFML/Graphics.h>
 #include <SFML/Window.h>
+#include "utility.h"
 
 int sprite_set_position(lua_State *L)
 {

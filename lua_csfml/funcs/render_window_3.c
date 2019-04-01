@@ -20,7 +20,7 @@ int win_get_size(lua_State *L)
     }
     if (lua_isuserdata(L, 1)) {
         window = userdata_pointer(L, 1, sfRenderWindow);
-        vector = sfWindow_getSize(window);
+        vector = sfWindow_getSize((sfWindow *)window);
         lua_pushnumber(L, vector.x);
         lua_pushnumber(L, vector.y);
     } else {
@@ -33,7 +33,6 @@ int win_set_framerate_limit(lua_State *L)
 {
     sfRenderWindow *window = 0;
     int fps = 0;
-    sfRenderStates *state = 0;
 
     if (lua_gettop(L) < 2) {
         luaL_error(L, "Expected (Window, Number)");
@@ -52,7 +51,6 @@ int win_set_framerate_limit(lua_State *L)
 int win_set_mouse_cursor_grabbed(lua_State *L)
 {
     sfRenderWindow *window = 0;
-    sfRenderStates *state = 0;
 
     if (lua_gettop(L) < 2) {
         luaL_error(L, "Expected (Window, Boolean)");

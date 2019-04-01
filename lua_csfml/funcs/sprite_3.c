@@ -8,6 +8,7 @@
 #include "lua_include.h"
 #include <SFML/Graphics.h>
 #include <SFML/Window.h>
+#include "utility.h"
 
 int sprite_rotate(lua_State *L)
 {
@@ -61,7 +62,7 @@ int sprite_scale(lua_State *L)
         sprite = userdata_pointer(L, 1, sfSprite);
         if (get_vector_2f(L, &vector, 2))
             return (0);
-        sfSprite_Scale(sprite, vector);
+        sfSprite_scale(sprite, vector);
     } else {
         luaL_error(L, "Expected (Sprite, Table)");
     }
@@ -85,4 +86,5 @@ int sprite_set_origin(lua_State *L)
     } else {
         luaL_error(L, "Expected (Sprite, Table)");
     }
+    return (0);
 }
