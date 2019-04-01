@@ -26,7 +26,7 @@ int sprite_set_texture(lua_State *L)
         nb = lua_tonumber(L, 3);
         sfSprite_setTexture(sprite, texture, nb);
     } else {
-        luaL_error(L, "Expected (Sprite, Texture, resetRect)");
+        luaL_error(L, "Expected (Sprite, Texture, Bool)");
         return (0);
     }
     return (0);
@@ -89,12 +89,12 @@ int sprite_move(lua_State *L)
     sfVector2f vector = {0, 0};
 
     if (lua_gettop(L) < 2) {
-        luaL_error(L, "Expected (Sprite, Table)");
+        luaL_error(L, "Expected (Sprite, Vector2f)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_istable(L, 1)) {
+    if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
         sprite = userdata_pointer(L, 1, sfSprite);
-        if (get_vector_2f(L, &vector, 2))
+        if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfSprite_move(sprite, vector);
     } else {

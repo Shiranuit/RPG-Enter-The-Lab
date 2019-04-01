@@ -41,6 +41,24 @@ int sprite_scale(lua_State *L);
 int sprite_set_origin(lua_State *L);
 int sprite_set_texture_rect(lua_State *L);
 
+int text_create(lua_State *L);
+int text_destroy(lua_State *L);
+int text_get_position(lua_State *L);
+int text_set_scale(lua_State *L);
+int text_set_position(lua_State *L);
+int text_move(lua_State *L);
+int text_rotate(lua_State *L);
+int text_scale(lua_State *L);
+int text_set_rotation(lua_State *L);
+int text_get_origin(lua_State *L);
+int text_get_scale(lua_State *L);
+int text_set_origin(lua_State *L);
+int text_get_rotation(lua_State *L);
+int text_set_string(lua_State *L);
+int text_set_font(lua_State *L);
+int text_set_character_size(lua_State *L);
+int text_get_string(lua_State *L);
+
 int shader_bind(lua_State *L);
 int shader_create_from_file(lua_State *L);
 int shader_create_from_memory(lua_State *L);
