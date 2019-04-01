@@ -15,6 +15,10 @@ SRCS	= ./main.c \
 		  ./funcs/shader_1.c \
 		  ./funcs/shader_2.c \
 		  ./funcs/shader_3.c \
+		  ./funcs/texture_1.c \
+		  ./funcs/texture_2.c \
+		  ./funcs/texture_3.c \
+		  ./funcs/clock_1.c \
 		  ./funcs/utility.c
 
 OBJS	= $(SRCS:.c=.o)

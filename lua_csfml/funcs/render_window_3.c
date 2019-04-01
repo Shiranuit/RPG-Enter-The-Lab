@@ -25,6 +25,7 @@ int win_get_size(lua_State *L)
         lua_pushnumber(L, vector.y);
     } else {
         luaL_error(L, "Expected (Window)");
+        return (0);
     }
     return (2);
 }
@@ -44,6 +45,7 @@ int win_set_framerate_limit(lua_State *L)
         sfRenderWindow_setFramerateLimit(window, fps);
     } else {
         luaL_error(L, "Expected (Window, Number)");
+        return (0);
     }
     return (0);
 }
@@ -61,6 +63,7 @@ int win_set_mouse_cursor_grabbed(lua_State *L)
         sfRenderWindow_setMouseCursorGrabbed(window, lua_toboolean(L, 2));
     } else {
         luaL_error(L, "Expected (Window, Boolean)");
+        return (0);
     }
     return (0);
 }

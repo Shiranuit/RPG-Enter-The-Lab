@@ -27,6 +27,7 @@ int win_draw_vertex_array(lua_State *L)
         sfRenderWindow_drawVertexArray(window, vertexs, state);
     } else {
         luaL_error(L, "Expected (Window, VertexArray, RenderStates)");
+        return (0);
     }
     return (0);
 }
@@ -49,6 +50,7 @@ int win_draw_rectangle_shape(lua_State *L)
         sfRenderWindow_drawRectangleShape(window, rect, state);
     } else {
         luaL_error(L, "Expected (Window, RectangleShape, RenderStates)");
+        return (0);
     }
     return (0);
 }
@@ -71,6 +73,7 @@ int win_draw_shape(lua_State *L)
         sfRenderWindow_drawShape(window, shape, state);
     } else {
         luaL_error(L, "Expected (Window, Shape, RenderStates)");
+        return (0);
     }
     return (0);
 }
@@ -93,6 +96,7 @@ int win_draw_sprite(lua_State *L)
         sfRenderWindow_drawSprite(window, sprite, state);
     } else {
         luaL_error(L, "Expected (Window, Sprite, RenderStates)");
+        return (0);
     }
     return (0);
 }
@@ -115,6 +119,7 @@ int win_draw_text(lua_State *L)
         sfRenderWindow_drawText(window, text, state);
     } else {
         luaL_error(L, "Expected (Window, Text, RenderStates)");
+        return (0);
     }
     return (0);
 }

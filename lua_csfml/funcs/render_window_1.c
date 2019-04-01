@@ -25,6 +25,7 @@ int win_clear(lua_State *L)
         lua_tointeger(L, 4), 255});
     } else {
         luaL_error(L, "Expected (Window, Number, Number, Number)");
+        return (0);
     }
     return (0);
 }
@@ -42,6 +43,7 @@ int win_cursor_visible(lua_State *L)
         sfRenderWindow_setMouseCursorVisible(window, lua_toboolean(L, 2));
     } else {
         luaL_error(L, "Expected (Window, Boolean)");
+        return (0);
     }
     return (0);
 }
@@ -59,6 +61,7 @@ int win_close(lua_State *L)
         sfRenderWindow_close(*window);
     } else {
         luaL_error(L, "Expected (Window)");
+        return (0);
     }
     return (0);
 }
@@ -81,6 +84,7 @@ int win_draw_circle_shape(lua_State *L)
         sfRenderWindow_drawCircleShape(window, circle, state);
     } else {
         luaL_error(L, "Expected (Window, CircleShape, RenderStates)");
+        return (0);
     }
     return (0);
 }
@@ -103,6 +107,7 @@ int win_draw_convex_shape(lua_State *L)
         sfRenderWindow_drawConvexShape(window, convex, state);
     } else {
         luaL_error(L, "Expected (Window, ConvexShape, RenderStates)");
+        return (0);
     }
     return (0);
 }

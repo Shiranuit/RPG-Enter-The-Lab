@@ -26,6 +26,7 @@ int sprite_set_position(lua_State *L)
         sfSprite_setPosition(sprite, vector);
     } else {
         luaL_error(L, "Expected (Sprite, Table)");
+        return (0);
     }
     return (0);
 }
@@ -46,6 +47,7 @@ int sprite_set_scale(lua_State *L)
         sfSprite_setScale(sprite, vector);
     } else {
         luaL_error(L, "Expected (Sprite, Table)");
+        return (0);
     }
     return (0);
 }
@@ -85,6 +87,7 @@ int sprite_get_rotation(lua_State *L)
         lua_pushnumber(L, nb);
     } else {
         luaL_error(L, "Expected (Sprite)");
+        return (0);
     }
     return (1);
 }
@@ -104,6 +107,7 @@ int sprite_set_rotation(lua_State *L)
         sfSprite_setRotation(sprite, nb);
     } else {
         luaL_error(L, "Expected (Sprite, Float)");
+        return (0);
     }
     return (0);
 }

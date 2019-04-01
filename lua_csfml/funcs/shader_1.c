@@ -22,6 +22,7 @@ int shader_bind(lua_State *L)
         sfShader_bind(shader);
     } else {
         luaL_error(L, "Expected (Shader)");
+        return (0);
     }
     return (0);
 }
@@ -42,6 +43,7 @@ int shader_create_from_file(lua_State *L)
         *mshader = shader;
     } else {
         luaL_error(L, "Expected (String, String)");
+        return (0);
     }
     return (0);
 }
@@ -80,6 +82,7 @@ int shader_destroy(lua_State *L)
         sfShader_destroy(shader);
     } else {
         luaL_error(L, "Expected (Shader)");
+        return (0);
     }
     return (0);
 }

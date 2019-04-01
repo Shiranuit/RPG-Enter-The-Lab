@@ -54,6 +54,27 @@ static const luaL_Reg lsfmllib[] = {
     {"shader_setFloatParameter", shader_set_float_parameter},
     {"shader_setCurrentTextureParameter", shader_setcurrenttextureparameter},
     {"shader_setTransformParameter", shader_set_transform_parameter},
+
+    {"texture_bind", texture_bind},
+    {"texture_copy", texture_copy},
+    {"texture_copyFromImage", texture_copy_to_image},
+    {"texture_create", texture_create},
+    {"texture_createFromFile", texture_create_from_file},
+    {"texture_createFromImage", texture_create_from_image},
+    {"texture_destroy", texture_destroy},
+    {"texture_getMaximumSize", texture_get_maximum_size},
+    {"texture_getSize", texture_get_size},
+    {"texture_isRepeated", texture_is_repeated},
+    {"texture_isSmooth", texture_is_smooth},
+    {"texture_setRepeated", texture_set_repeated},
+    {"texture_setSmooth", texture_set_smooth},
+    {"texture_updateFromImage", texture_update_from_image},
+
+    {"clock_copy", clock_copy},
+    {"clock_create", clock_create},
+    {"clock_restart", clock_restart},
+    {"clock_getEllapsedTime", clock_get_ellapsed_time},
+    {"clock_destroy", clock_destroy},
     {NULL, NULL},
 };
 

@@ -27,6 +27,7 @@ int sprite_set_texture(lua_State *L)
         sfSprite_setTexture(sprite, texture, nb);
     } else {
         luaL_error(L, "Expected (Sprite, Texture, resetRect)");
+        return (0);
     }
     return (0);
 }
@@ -48,6 +49,7 @@ int sprite_get_position(lua_State *L)
         lua_pushnumber(L, vector.y);
     } else {
         luaL_error(L, "Expected (Sprite)");
+        return (0);
     }
     return (2);
 }
@@ -76,6 +78,7 @@ int sprite_destroy(lua_State *L)
         sfSprite_destroy(sprite);
     } else {
         luaL_error(L, "Expected (Sprite)");
+        return (0);
     }
     return (0);
 }
@@ -96,6 +99,7 @@ int sprite_move(lua_State *L)
         sfSprite_move(sprite, vector);
     } else {
         luaL_error(L, "Expected (Sprite, Table)");
+        return (0);
     }
     return (0);
 }

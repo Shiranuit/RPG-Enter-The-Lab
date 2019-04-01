@@ -60,6 +60,7 @@ int shader_set_color_parameter(lua_State *L)
         lua_tocolor(L, 3));
     } else {
         luaL_error(L, "Expected (Shader, String, Color)");
+        return (0);
     }
     return (0);
 }
@@ -80,6 +81,7 @@ int shader_set_texture_parameter(lua_State *L)
         texture);
     } else {
         luaL_error(L, "Expected (Shader, String, Texture)");
+        return (0);
     }
     return (0);
 }
@@ -99,6 +101,7 @@ int shader_set_float2_parameter(lua_State *L)
         lua_tonumber(L, 3), lua_tonumber(L, 4));
     } else {
         luaL_error(L, "Expected (Shader, String, Number, Number)");
+        return (0);
     }
     return (0);
 }

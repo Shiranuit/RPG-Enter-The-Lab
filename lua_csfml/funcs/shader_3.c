@@ -24,6 +24,7 @@ int shader_set_float3_parameter(lua_State *L)
         lua_tonumber(L, 3), lua_tonumber(L, 4), lua_tonumber(L, 5));
     } else {
         luaL_error(L, "Expected (Shader, String, Number, Number, Number)");
+        return (0);
     }
     return (0);
 }
@@ -46,6 +47,7 @@ int shader_set_float4_parameter(lua_State *L)
     } else {
         luaL_error(L, "Expected (Shader, String, %s, %s, %s, %s)",
         "Number", "Number", "Number", "Number");
+        return (0);
     }
     return (0);
 }
@@ -64,6 +66,7 @@ int shader_set_float_parameter(lua_State *L)
         lua_tonumber(L, 3));
     } else {
         luaL_error(L, "Expected (Shader, String, Number)");
+        return (0);
     }
     return (0);
 }
@@ -81,6 +84,7 @@ int shader_setcurrenttextureparameter(lua_State *L)
         sfShader_setCurrentTextureParameter(shader, lua_tostring(L, 2));
     } else {
         luaL_error(L, "Expected (Shader, String)");
+        return (0);
     }
     return (0);
 }
@@ -101,6 +105,7 @@ int shader_set_transform_parameter(lua_State *L)
         *transform);
     } else {
         luaL_error(L, "Expected (Shader, String, Transform)");
+        return (0);
     }
     return (0);
 }

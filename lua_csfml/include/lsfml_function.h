@@ -55,4 +55,25 @@ int shader_set_float_parameter(lua_State *L);
 int shader_setcurrenttextureparameter(lua_State *L);
 int shader_set_transform_parameter(lua_State *L);
 
+int texture_bind(lua_State *L);
+int texture_copy(lua_State *L);
+int texture_copy_to_image(lua_State *L);
+int texture_create(lua_State *L);
+int texture_create_from_file(lua_State *L);
+int texture_create_from_image(lua_State *L);
+int texture_get_maximum_size(lua_State *L);
+int texture_get_size(lua_State *L);
+int texture_destroy(lua_State *L);
+int texture_is_repeated(lua_State *L);
+int texture_is_smooth(lua_State *L);
+int texture_set_repeated(lua_State *L);
+int texture_set_smooth(lua_State *L);
+int texture_update_from_image(lua_State *L);
+
+int clock_create(lua_State *L);
+int clock_copy(lua_State *L);
+int clock_destroy(lua_State *L);
+int clock_get_ellapsed_time(lua_State *L);
+int clock_restart(lua_State *L);
+
 #endif /* !LSFML_FUNCTION_H_ */
