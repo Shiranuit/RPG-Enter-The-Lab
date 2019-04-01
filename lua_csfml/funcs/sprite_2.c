@@ -16,12 +16,12 @@ int sprite_set_position(lua_State *L)
     sfVector2f vector = {0, 0};
 
     if (lua_gettop(L) < 2) {
-        luaL_error(L, "Expected (Sprite, Table)");
+        luaL_error(L, "Expected (Sprite, Vector2f)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_istable(L, 1)) {
+    if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
         sprite = userdata_pointer(L, 1, sfSprite);
-        if (get_vector_2f(L, &vector, 2))
+        if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfSprite_setPosition(sprite, vector);
     } else {
@@ -36,12 +36,12 @@ int sprite_set_scale(lua_State *L)
     sfVector2f vector = {0, 0};
 
     if (lua_gettop(L) < 2) {
-        luaL_error(L, "Expected (Sprite, Table)");
+        luaL_error(L, "Expected (Sprite, Vector2f)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_istable(L, 1)) {
+    if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
         sprite = userdata_pointer(L, 1, sfSprite);
-        if (get_vector_2f(L, &vector, 2))
+        if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfSprite_setScale(sprite, vector);
     } else {
@@ -95,10 +95,10 @@ int sprite_set_rotation(lua_State *L)
     double nb = 0.0;
 
     if (lua_gettop(L) < 3) {
-        luaL_error(L, "Expected (Sprite, Float)");
+        luaL_error(L, "Expected (Sprite, Rotation)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_isnumber(L, 3)) {
+    if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
         sprite = userdata_pointer(L, 1, sfSprite);
         nb = lua_tonumber(L, 3);
         sfSprite_setRotation(sprite, nb);
