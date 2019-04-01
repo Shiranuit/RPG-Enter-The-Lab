@@ -13,5 +13,6 @@
 #include <SFML/Window.h>
 
 int get_vector_2f(lua_State *L, sfVector2f *vector, int index);
+int get_int_rect(lua_State *L, sfIntRect *rect, int index);
 
 #endif

@@ -39,6 +39,7 @@ static const luaL_Reg lsfmllib[] = {
     {"sprite_getOrigin", sprite_get_origin},
     {"sprite_scale", sprite_scale},
     {"sprite_set_origin", sprite_set_origin},
+    {"sprite_setTextureRect", sprite_set_texture_rect},
 
     {"shader_bind", shader_bind},
     {"shader_createFromFile", shader_create_from_file},

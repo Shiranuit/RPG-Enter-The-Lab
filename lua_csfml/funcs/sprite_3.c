@@ -88,3 +88,23 @@ int sprite_set_origin(lua_State *L)
     }
     return (0);
 }
+
+int sprite_set_texture_rect(lua_State *L)
+{
+    sfSprite *sprite = 0;
+    sfIntRect rect = {0, 0, 0, 0};
+
+    if (lua_gettop(L) < 2) {
+        luaL_error(L, "Expected (Sprite, Table)");
+        return (0);
+    }
+    if (lua_isuserdata(L, 1) && lua_istable(L, 1)) {
+        sprite = userdata_pointer(L, 1, sfSprite);
+        if (get_int_rect(L, &rect, 2))
+            return (0);
+        sfSprite_setTextureRect(sprite, rect);
+    } else {
+        luaL_error(L, "Expected (Sprite, Table)");
+    }
+    return (0);
+}
