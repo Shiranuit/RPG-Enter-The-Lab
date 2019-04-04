@@ -19,9 +19,9 @@ int text_set_character_size(lua_State *L)
         luaL_error(L, "Expected (Text, Size)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
+    if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
         text = userdata_pointer(L, 1, sfText);
-        size = lua_tonumber(L, 2);
+        size = lua_tointeger(L, 2);
         sfText_setCharacterSize(text, size);
     } else {
         luaL_error(L, "Expected (Text, Number)");
@@ -39,13 +39,13 @@ int text_set_color(lua_State *L)
         luaL_error(L, "Expected (Text, R, G, B, A)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_isnumber(L, 2) && lua_isnumber(L, 3)
-    && lua_isnumber(L, 4) && lua_isnumber(L, 5)) {
+    if (lua_isuserdata(L, 1) && lua_isinteger(L, 2) && lua_isinteger(L, 3)
+    && lua_isinteger(L, 4) && lua_isinteger(L, 5)) {
         text = userdata_pointer(L, 1, sfText);
-        color.r = lua_tonumber(L, 2);
-        color.g = lua_tonumber(L, 3);
-        color.b = lua_tonumber(L, 4);
-        color.a = lua_tonumber(L, 5);
+        color.r = lua_tointeger(L, 2);
+        color.g = lua_tointeger(L, 3);
+        color.b = lua_tointeger(L, 4);
+        color.a = lua_tointeger(L, 5);
         sfText_setColor(text, color);
     } else {
         luaL_error(L, "Expected (Text, Number, Number, Number, Number)");

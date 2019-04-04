@@ -16,7 +16,7 @@ end
 -- Called when an event is produced
 function event(...)
     local event = {...}
-    print(event[1], event[2], event[3], event[5], event[5], event[6])
+    print(lsfml.keyboard_keyPressed(0))
     if (event[1] == "close") then
         lsfml.window_close(window)
     end

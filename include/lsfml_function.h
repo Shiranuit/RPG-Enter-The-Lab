@@ -143,4 +143,6 @@ int mouse_get_position(lua_State *L);
 int mouse_set_position(lua_State *L);
 int mouse_is_button_pressed(lua_State *L);
 
+int keyboard_key_pressed(lua_State *L);
+
 #endif /* !LSFML_FUNCTION_H_ */

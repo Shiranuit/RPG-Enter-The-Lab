@@ -63,7 +63,7 @@ int music_get_duration(lua_State *L)
     if (lua_isuserdata(L, 1)) {
         music = userdata_pointer(L, 1, sfMusic);
         time_m = sfMusic_getDuration(music);
-        lua_pushnumber(L, time_m.microseconds);
+        lua_pushinteger(L, time_m.microseconds);
     } else {
         luaL_error(L, "Expected (Music)");
         return (0);
@@ -74,7 +74,7 @@ int music_get_duration(lua_State *L)
 int music_get_volume(lua_State *L)
 {
     sfMusic *music = 0;
-    float vol = 0.0;
+    double vol = 0.0;
 
     if (lua_gettop(L) < 1) {
         luaL_error(L, "Expected (Music)");

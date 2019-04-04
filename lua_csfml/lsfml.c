@@ -143,6 +143,8 @@ static const luaL_Reg lsfmllib[] = {
     {"mouse_getPosition", mouse_get_position},
     {"mouse_setPosition", mouse_set_position},
     {"mouse_isButtonPressed", mouse_is_button_pressed},
+    
+    {"keyboard_keyPressed", keyboard_key_pressed},
     {NULL, NULL},
 };
 

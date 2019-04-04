@@ -20,10 +20,10 @@ int sprite_set_texture(lua_State *L)
         luaL_error(L, "Expected (Sprite, Texture, resetRect)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) && lua_isnumber(L, 3)) {
+    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) && lua_isinteger(L, 3)) {
         sprite = userdata_pointer(L, 1, sfSprite);
         texture = userdata_pointer(L, 2, sfTexture);
-        nb = lua_tonumber(L, 3);
+        nb = lua_tointeger(L, 3);
         sfSprite_setTexture(sprite, texture, nb);
     } else {
         luaL_error(L, "Expected (Sprite, Texture, Bool)");
