@@ -1,11 +1,10 @@
-NAME	= program
+NAME	= lsfml.a
 
 CC	= gcc
 
 RM	= rm -f
 
-SRCS	= ./main.c \
-		  ./lsfml.c \
+SRCS	= ./lsfml.c \
 		  ./funcs/render_window_1.c \
 		  ./funcs/render_window_2.c \
 		  ./funcs/render_window_3.c \
@@ -35,13 +34,14 @@ SRCS	= ./main.c \
 
 OBJS	= $(SRCS:.c=.o)
 
-CFLAGS = -I ./include/ -L./lua/src/ -llua -ldl -lm -lcsfml-window -lcsfml-graphics -lcsfml-system
+CFLAGS = -I ./include/ -lm -lcsfml-window -lcsfml-graphics -lcsfml-system -L../externs/lua/src/ -llua -ldl
 CFLAGS += -Wall -Wextra
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	 $(CC) $(OBJS) -o $(NAME) $(CFLAGS)
+	 $(CC) -c $(SRCS) $(CFLAGS)
+	 ar rc -o $(NAME) $(OBJS)
 
 clean:
 	$(RM) $(OBJS)
