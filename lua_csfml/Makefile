@@ -20,10 +20,14 @@ SRCS	= ./main.c \
 		  ./funcs/texture_3.c \
 		  ./funcs/clock_1.c \
 		  ./funcs/utility.c \
+		  ./funcs/utility_2.c \
 		  ./funcs/text_1.c \
 		  ./funcs/text_2.c \
 		  ./funcs/text_3.c \
-		  ./funcs/text_4.c
+		  ./funcs/text_4.c \
+		  ./funcs/vertexarray_1.c \
+		  ./funcs/vertexarray_2.c \
+		  ./funcs/vertexarray_3.c
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -94,4 +94,17 @@ int clock_destroy(lua_State *L);
 int clock_get_ellapsed_time(lua_State *L);
 int clock_restart(lua_State *L);
 
+int vertexarray_append(lua_State *L);
+int vertexarray_clear(lua_State *L);
+int vertexarray_copy(lua_State *L);
+int vertexarray_create(lua_State *L);
+int vertexarray_destroy(lua_State *L);
+int vertexarray_get_bounds(lua_State *L);
+char *primitive_type_to_char(sfPrimitiveType type);
+int vertexarray_get_primitive_type(lua_State *L);
+int vertexarray_get_vertex(lua_State *L);
+int vertexarray_get_vertex_count(lua_State *L);
+int vertexarray_resize(lua_State *L);
+int vertexarray_set_primitive_type(lua_State *L);
+
 #endif /* !LSFML_FUNCTION_H_ */

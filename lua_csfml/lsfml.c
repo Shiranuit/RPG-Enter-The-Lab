@@ -93,6 +93,18 @@ static const luaL_Reg lsfmllib[] = {
     {"clock_restart", clock_restart},
     {"clock_getEllapsedTime", clock_get_ellapsed_time},
     {"clock_destroy", clock_destroy},
+
+    {"vertexarray_append", vertexarray_append},
+    {"vertexarray_clear", vertexarray_clear},
+    {"vertexarray_copy", vertexarray_copy},
+    {"vertexarray_create", vertexarray_create},
+    {"vertexarray_destroy", vertexarray_destroy},
+    {"vertexarray_getBounds", vertexarray_get_bounds},
+    {"vertexarray_getPrimitiveType", vertexarray_get_primitive_type},
+    {"vertexarray_getVertex", vertexarray_get_vertex},
+    {"vertexarray_getVertexCount", vertexarray_get_vertex_count},
+    {"vertexarray_resize", vertexarray_resize},
+    {"vertexarray_setPrimitiveType", vertexarray_set_primitive_type},
     {NULL, NULL},
 };
 
