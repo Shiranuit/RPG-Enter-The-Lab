@@ -1,4 +1,4 @@
-NAME	= lsfml.a
+NAME	= program
 
 CC	= gcc
 
@@ -34,14 +34,13 @@ SRCS	= ./lsfml.c \
 
 OBJS	= $(SRCS:.c=.o)
 
-CFLAGS = -I ./include/ -lm -lcsfml-window -lcsfml-graphics -lcsfml-system -L../externs/lua/src/ -llua -ldl
+CFLAGS = -I ./include/ -L../externs/lua/src/ -llua -ldl -lm -lcsfml-window -lcsfml-graphics -lcsfml-system
 CFLAGS += -Wall -Wextra
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	 $(CC) -c $(SRCS) $(CFLAGS)
-	 ar rc -o $(NAME) $(OBJS)
+	 $(CC) $(OBJS) -o $(NAME) $(CFLAGS)
 
 clean:
 	$(RM) $(OBJS)
