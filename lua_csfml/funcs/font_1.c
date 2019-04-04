@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2019
-** sprite
+** font
 ** File description:
-** sprite
+** font
 */
 
 #include "lua_include.h"

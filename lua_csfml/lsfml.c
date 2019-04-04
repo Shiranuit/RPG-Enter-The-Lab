@@ -96,6 +96,18 @@ static const luaL_Reg lsfmllib[] = {
     {"clock_restart", clock_restart},
     {"clock_getEllapsedTime", clock_get_ellapsed_time},
     {"clock_destroy", clock_destroy},
+
+    {"music_createFromFile", music_create_from_file},
+    {"music_get_duration", music_get_duration},
+    {"music_destroy", music_destroy},
+    {"music_getVolume", music_get_volume},
+    {"music_pause", music_pause},
+    {"music_play", music_play},
+    {"music_stop", music_stop},
+    {"music_setVolume", music_set_volume},
+    {"music_setPosition", music_set_position},
+    {"music_getPosition", music_get_position},
+    {"music_setString", music_set_string},
     {NULL, NULL},
 };
 

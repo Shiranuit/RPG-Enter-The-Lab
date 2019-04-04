@@ -65,3 +65,20 @@ int get_int_rect(lua_State *L, sfIntRect *rect, int index)
     rect->top = lua_tonumber(L, -1);
     return (get_int_rect_2(L, rect, index));
 }
+
+int get_vector_3f(lua_State *L, sfVector3f *vector, int index)
+{
+    sfVector2f vec = {0, 0};
+
+    get_vector_2f(L, &vec, index);
+    vector->x = vec.x;
+    vector->y = vec.y;
+    lua_pushstring(L, "z");
+    lua_gettable(L, index);
+    if (lua_isnumber(L, -1)) {
+        luaL_error(L, "z must be a number");
+        return (0);
+    }
+    vector->z = lua_tonumber(L, -1);
+    return (1);
+}

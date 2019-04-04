@@ -9,7 +9,6 @@
 #define LSFML_FUNCTION_H_
 
 #include "lua_include.h"
-#include <SFML/Graphics.h>
 
 int win_clear(lua_State *L);
 int win_cursor_visible(lua_State *L);
@@ -96,5 +95,17 @@ int clock_copy(lua_State *L);
 int clock_destroy(lua_State *L);
 int clock_get_ellapsed_time(lua_State *L);
 int clock_restart(lua_State *L);
+
+int music_create_from_file(lua_State *L);
+int music_destroy(lua_State *L);
+int music_get_duration(lua_State *L);
+int music_get_volume(lua_State *L);
+int music_pause(lua_State *L);
+int music_play(lua_State *L);
+int music_stop(lua_State *L);
+int music_set_volume(lua_State *L);
+int music_set_position(lua_State *L);
+int music_get_position(lua_State *L);
+int music_set_string(lua_State *L);
 
 #endif /* !LSFML_FUNCTION_H_ */
