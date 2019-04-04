@@ -50,15 +50,15 @@ int win_cursor_visible(lua_State *L)
 
 int win_close(lua_State *L)
 {
-    sfRenderWindow **window = 0;
+    sfRenderWindow *window = 0;
 
     if (lua_gettop(L) < 1) {
         luaL_error(L, "Expected (Window)");
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        *window = userdata_pointer(L, 1, sfRenderWindow);
-        sfRenderWindow_close(*window);
+        window = userdata_pointer(L, 1, sfRenderWindow);
+        sfRenderWindow_close(window);
     } else {
         luaL_error(L, "Expected (Window)");
         return (0);
