@@ -27,7 +27,11 @@ SRCS	= ./main.c \
 		  ./funcs/text_4.c \
 		  ./funcs/vertexarray_1.c \
 		  ./funcs/vertexarray_2.c \
-		  ./funcs/vertexarray_3.c
+		  ./funcs/vertexarray_3.c \
+		  ./funcs/vertex_1.c \
+		  ./funcs/vertex_2.c \
+		  ./funcs/vertex_3.c \
+		  ./funcs/vertex_4.c
 
 OBJS	= $(SRCS:.c=.o)
 

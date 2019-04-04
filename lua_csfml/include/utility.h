@@ -19,5 +19,6 @@ sfColor lua_tocolor(lua_State *L, int index);
 sfVertex lua_tovertex(lua_State *L, int index);
 int lua_isvertex(lua_State *L, int index);
 int lua_checktype(int (*func)(lua_State *, int), lua_State *L, int id);
+char *primitive_type_to_char(sfPrimitiveType type);
 
 #endif

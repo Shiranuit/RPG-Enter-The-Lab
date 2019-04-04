@@ -100,11 +100,29 @@ int vertexarray_copy(lua_State *L);
 int vertexarray_create(lua_State *L);
 int vertexarray_destroy(lua_State *L);
 int vertexarray_get_bounds(lua_State *L);
-char *primitive_type_to_char(sfPrimitiveType type);
 int vertexarray_get_primitive_type(lua_State *L);
 int vertexarray_get_vertex(lua_State *L);
 int vertexarray_get_vertex_count(lua_State *L);
 int vertexarray_resize(lua_State *L);
 int vertexarray_set_primitive_type(lua_State *L);
+
+int vertex_destroy(lua_State *L);
+int vertex_create(lua_State *L);
+int vertex_set_x(lua_State *L);
+int vertex_set_y(lua_State *L);
+int vertex_set_tx(lua_State *L);
+int vertex_set_ty(lua_State *L);
+int vertex_set_r(lua_State *L);
+int vertex_set_g(lua_State *L);
+int vertex_set_b(lua_State *L);
+int vertex_set_a(lua_State *L);
+int vertex_get_x(lua_State *L);
+int vertex_get_y(lua_State *L);
+int vertex_get_tx(lua_State *L);
+int vertex_get_ty(lua_State *L);
+int vertex_get_r(lua_State *L);
+int vertex_get_g(lua_State *L);
+int vertex_get_b(lua_State *L);
+int vertex_get_a(lua_State *L);
 
 #endif /* !LSFML_FUNCTION_H_ */
