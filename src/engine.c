@@ -9,6 +9,7 @@
 #include <SFML/Window.h>
 #include <SFML/Graphics.h>
 #include <SFML/System.h>
+#include "engine.h"
 
 int pcall(lua_State *L, int args, int result)
 {
