@@ -139,4 +139,8 @@ int vertex_get_g(lua_State *L);
 int vertex_get_b(lua_State *L);
 int vertex_get_a(lua_State *L);
 
+int mouse_get_position(lua_State *L);
+int mouse_set_position(lua_State *L);
+int mouse_is_button_pressed(lua_State *L);
+
 #endif /* !LSFML_FUNCTION_H_ */
