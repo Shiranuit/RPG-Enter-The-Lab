@@ -62,8 +62,12 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+
+flclean:
 	make -C ./externs/lua clean
 
 re: fclean all
+
+rel: fclean flclean all
 
 .PHONY: all clean fclean re
