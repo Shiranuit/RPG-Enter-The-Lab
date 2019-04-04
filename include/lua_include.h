@@ -8,9 +8,9 @@
 #ifndef LUA_INCLUDE_H_
 #define LUA_INCLUDE_H_
 
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
+#include "../externs/lua/src/lua.h"
+#include "../externs/lua/src/lauxlib.h"
+#include "../externs/lua/src/lualib.h"
 #include <stdlib.h>
 #include <unistd.h>
 
