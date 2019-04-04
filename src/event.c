@@ -9,7 +9,7 @@
 #include <SFML/Window.h>
 #include <SFML/Graphics.h>
 #include <SFML/System.h>
-
+#include "engine.h"
 
 int get_event(lua_State *L, sfEvent *event)
 {

@@ -14,6 +14,8 @@ RM	= rm -f
 SRCS	= ./src/main.c \
 		  ./src/engine.c \
 		  ./src/event.c \
+		  ./src/event_function_1.c \
+		  ./src/event_function_3.c \
 
 LSFML = ./lua_csfml/lsfml.c \
 		  ./lua_csfml/funcs/render_window_1.c \

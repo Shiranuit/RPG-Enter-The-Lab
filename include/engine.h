@@ -17,4 +17,11 @@
 int engine(lua_State *L, sfRenderWindow *window);
 int get_event(lua_State *L, sfEvent *event);
 
+int event_close(lua_State *L, sfEvent *event);
+int event_lost_focus(lua_State *L, sfEvent *event);
+int event_gained_focus(lua_State *L, sfEvent *event);
+int event_text_entered(lua_State *L, sfEvent *event);
+int event_keypressed(lua_State *L, sfEvent *event);
+int event_keyreleased(lua_State *L, sfEvent *event);
+
 #endif /* !ENGINE_H_ */
