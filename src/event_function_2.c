@@ -14,9 +14,9 @@
 int event_mouse_scroll(lua_State *L, sfEvent *event)
 {
     lua_pushstring(L, "mouse_scroll");
-    lua_pushnumber(L, event->mouseWheelScroll.x);
+    lua_pushinteger(L, event->mouseWheelScroll.x);
     lua_pushinteger(L, event->mouseWheelScroll.y);
-    lua_pushinteger(L, event->mouseWheelScroll.delta);
+    lua_pushnumber(L, event->mouseWheelScroll.delta);
     return (4);
 }
 

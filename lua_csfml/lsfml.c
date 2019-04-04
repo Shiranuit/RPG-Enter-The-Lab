@@ -108,7 +108,7 @@ static const luaL_Reg lsfmllib[] = {
     {"music_setPosition", music_set_position},
     {"music_getPosition", music_get_position},
     {"music_setString", music_set_string},
-    
+
     {"vertexarray_append", vertexarray_append},
     {"vertexarray_clear", vertexarray_clear},
     {"vertexarray_copy", vertexarray_copy},
@@ -139,6 +139,10 @@ static const luaL_Reg lsfmllib[] = {
     {"vertex_getG", vertex_get_g},
     {"vertex_getB", vertex_get_b},
     {"vertex_getA", vertex_get_a},
+
+    {"mouse_getPosition", mouse_get_position},
+    {"mouse_setPosition", mouse_set_position},
+    {"mouse_isButtonPressed", mouse_is_button_pressed},
     {NULL, NULL},
 };
 
