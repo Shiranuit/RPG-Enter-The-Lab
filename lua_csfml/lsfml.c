@@ -59,6 +59,9 @@ static const luaL_Reg lsfmllib[] = {
     {"text_setCharacterSize", text_set_character_size},
     {"text_getString", text_get_string},
 
+    {"font_createFromFile", font_create_from_file},
+    {"font_destroy", font_destroy},
+
     {"shader_bind", shader_bind},
     {"shader_createFromFile", shader_create_from_file},
     {"shader_createFromMemory", shader_create_from_memory},

@@ -23,7 +23,8 @@ SRCS	= ./main.c \
 		  ./funcs/text_1.c \
 		  ./funcs/text_2.c \
 		  ./funcs/text_3.c \
-		  ./funcs/text_4.c
+		  ./funcs/text_4.c \
+		  ./funcs/font_1.c
 
 OBJS	= $(SRCS:.c=.o)
 

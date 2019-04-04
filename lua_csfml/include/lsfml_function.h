@@ -59,6 +59,9 @@ int text_set_font(lua_State *L);
 int text_set_character_size(lua_State *L);
 int text_get_string(lua_State *L);
 
+int font_create_from_file(lua_State *L);
+int font_destroy(lua_State *L);
+
 int shader_bind(lua_State *L);
 int shader_create_from_file(lua_State *L);
 int shader_create_from_memory(lua_State *L);
