@@ -139,6 +139,8 @@ static const luaL_Reg lsfmllib[] = {
     {"vertex_getG", vertex_get_g},
     {"vertex_getB", vertex_get_b},
     {"vertex_getA", vertex_get_a},
+
+    {"keyboard_keyPressed", keyboard_key_pressed},
     {NULL, NULL},
 };
 

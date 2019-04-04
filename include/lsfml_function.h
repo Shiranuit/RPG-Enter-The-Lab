@@ -139,4 +139,6 @@ int vertex_get_g(lua_State *L);
 int vertex_get_b(lua_State *L);
 int vertex_get_a(lua_State *L);
 
+int keyboard_key_pressed(lua_State *L);
+
 #endif /* !LSFML_FUNCTION_H_ */

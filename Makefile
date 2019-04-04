@@ -49,6 +49,7 @@ LSFML = ./lua_csfml/lsfml.c \
 		  ./lua_csfml/funcs/music_2.c \
 		  ./lua_csfml/funcs/music_3.c \
 		  ./lua_csfml/funcs/font_1.c \
+		  ./lua_csfml/funcs/keyboard_1.c \
 
 SRCS += $(LSFML)
 OBJS	= $(SRCS:.c=.o)
