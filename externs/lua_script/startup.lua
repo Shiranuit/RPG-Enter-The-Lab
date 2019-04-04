@@ -94,6 +94,6 @@ end
 
 local myclock = clock.new()
 function draw()
-    print(clock.time(window))
+    print(myclock:time())
     myclock:restart()
 end

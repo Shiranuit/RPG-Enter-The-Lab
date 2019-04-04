@@ -6,6 +6,9 @@
 */
 
 #include "lsfml.h"
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
 #include <SFML/Graphics.h>
 #include <SFML/Window.h>
 #include <SFML/System.h>
@@ -47,7 +50,7 @@ int main(void)
 
     *win = window;
     lua_setglobal(L, "window");
-    run_file(L, "../startup.lua");
+    run_file(L, "./externs/lua_script/startup.lua");
     while (sfRenderWindow_isOpen(window)) {
         lua_getglobal(L, "draw");
         if (pcall(L, 0, 0) != LUA_OK) {
