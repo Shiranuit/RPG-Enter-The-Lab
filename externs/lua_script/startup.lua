@@ -1,99 +1,20 @@
-local o_lsfml = lsfml
-local o_type = _G.type
+-- Called at the beginning of the program
+function init()
 
-function type(val)
-    local meta = getmetatable(val)
-    if meta then
-        if meta.__type then
-            return meta.__type
-        end
-    end
-    return o_type(val)
 end
 
-local clock = {}
-
-function clock.new()
-    return setmetatable({}, {__index = clock, __type = "clock", __ptr = o_lsfml.clock_create()})
-end
-
-function clock.destroy(var)
-    if (type(var) == "clock") then
-        local meta = getmetatable(var)
-        o_lsfml.clock_destroy(meta.__ptr)
-    else
-        error("Wrong Argument #1, got "..type(var)..", Expected clock", 2)
-    end
-end
-
-function clock.restart(var)
-    if (type(var) == "clock") then
-        local meta = getmetatable(var)
-        o_lsfml.clock_restart(meta.__ptr)
-    else
-        error("Wrong Argument #1, got "..type(var)..", Expected clock", 2)
-    end
-end
-
-function clock.time(var)
-    if (type(var) == "clock") then
-        local meta = getmetatable(var)
-        return o_lsfml.clock_getEllapsedTime(meta.__ptr)
-    else
-        error("Wrong Argument #1, got "..type(var)..", Expected clock", 2)
-    end
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local myclock = clock.new()
+-- Called each time we need to draw a frame
 function draw()
-    print(myclock:time())
-    myclock:restart()
+    lsfml.window_clear(window, 255, 255, 255, 255)
+end
+
+-- Called each time we need to update the game-logic
+function update()
+
+end
+
+-- Called when an event is produced
+function event(...)
+    local event = {...}
+    print(event[1], event[2], event[3])
 end

@@ -12,6 +12,8 @@ CC	= gcc
 RM	= rm -f
 
 SRCS	= ./src/main.c \
+		  ./src/engine.c \
+		  ./src/event.c \
 
 LSFML = ./lua_csfml/lsfml.c \
 		  ./lua_csfml/funcs/render_window_1.c \

@@ -9,6 +9,7 @@
 #include "lua.h"
 #include "lauxlib.h"
 #include "lualib.h"
+#include "engine.h"
 #include <SFML/Graphics.h>
 #include <SFML/Window.h>
 #include <SFML/System.h>
@@ -37,13 +38,9 @@ void run_file(lua_State *L, char const *filename)
     }
 }
 
-int pcall(lua_State *L, int args, int result)
-{
-    return lua_pcall(L, args, result, 0);
-}
-
 int main(void)
 {
+    int code = 0;
     lua_State *L = init_lua();
     sfRenderWindow *window = sfRenderWindow_create((sfVideoMode){800, 600, 32}, "Lua", sfClose, 0);
     sfRenderWindow **win = (sfRenderWindow **)lua_newuserdata(L, sizeof(sfRenderWindow *));
@@ -51,14 +48,7 @@ int main(void)
     *win = window;
     lua_setglobal(L, "window");
     run_file(L, "./externs/lua_script/startup.lua");
-    while (sfRenderWindow_isOpen(window)) {
-        lua_getglobal(L, "draw");
-        if (pcall(L, 0, 0) != LUA_OK) {
-            printf("%s\n", lua_tostring(L, -1));
-            return (84);
-        }
-        sfRenderWindow_display(window);
-    }
+    code = engine(L, window);
     delete_lua(L);
-    return 0;
+    return (code);
 }
