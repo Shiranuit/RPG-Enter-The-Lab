@@ -16,5 +16,12 @@
 
 int engine(lua_State *L, sfRenderWindow *window);
 int get_event(lua_State *L, sfEvent *event);
+int event_mouse_left(lua_State *L, sfEvent *event);
+int event_mouse_scroll(lua_State *L, sfEvent *event);
+int event_button_pressed(lua_State *L, sfEvent *event);
+int event_button_released(lua_State *L, sfEvent *event);
+int event_mouse_move(lua_State *L, sfEvent *event);
+int event_mouse_entered(lua_State *L, sfEvent *event);
+int get_event(lua_State *L, sfEvent *event);
 
 #endif /* !ENGINE_H_ */
