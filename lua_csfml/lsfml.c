@@ -25,10 +25,10 @@ static const luaL_Reg lsfmllib[] = {
     {"window_setFramerateLimit", win_set_framerate_limit},
     {"window_setMouseCursorGrabbed", win_set_mouse_cursor_grabbed},
 
-    {"sprite_setTexture", sprite_set_texture},
-    {"sprite_getPosition", sprite_get_position},
     {"sprite_create", sprite_create},
     {"sprite_destroy", sprite_destroy},
+    {"sprite_setTexture", sprite_set_texture},
+    {"sprite_getPosition", sprite_get_position},
     {"sprite_move", sprite_move},
     {"sprite_setPosition", sprite_set_position},
     {"sprite_setScale", sprite_set_scale},
