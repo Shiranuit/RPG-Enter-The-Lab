@@ -13,7 +13,7 @@ static const luaL_Reg lsfmllib[] = {
     {"window_clear", win_clear},
     {"window_setMouseCursorVisible", win_cursor_visible},
     {"window_close", win_close},
-    {"window_draw_circle", win_draw_circle_shape},
+    {"window_drawCircle", win_draw_circle_shape},
     {"window_getSize", win_get_size},
     {"window_drawCircleShape", win_draw_circle_shape},
     {"window_drawConvexShape", win_draw_convex_shape},
@@ -143,7 +143,7 @@ static const luaL_Reg lsfmllib[] = {
     {"mouse_getPosition", mouse_get_position},
     {"mouse_setPosition", mouse_set_position},
     {"mouse_isButtonPressed", mouse_is_button_pressed},
-    
+
     {"keyboard_keyPressed", keyboard_key_pressed},
     {NULL, NULL},
 };
