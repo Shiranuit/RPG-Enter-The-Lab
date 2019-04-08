@@ -11,7 +11,7 @@
 #include <SFML/Audio.h>
 #include "utility.h"
 
-int music_set_string(lua_State *L)
+int music_set_loop(lua_State *L)
 {
     sfMusic *music = 0;
     int nb = 0;

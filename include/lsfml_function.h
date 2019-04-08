@@ -106,7 +106,7 @@ int music_stop(lua_State *L);
 int music_set_volume(lua_State *L);
 int music_set_position(lua_State *L);
 int music_get_position(lua_State *L);
-int music_set_string(lua_State *L);
+int music_set_loop(lua_State *L);
 
 int vertexarray_append(lua_State *L);
 int vertexarray_clear(lua_State *L);
