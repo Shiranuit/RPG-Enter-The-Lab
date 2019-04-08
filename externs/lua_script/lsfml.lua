@@ -14,6 +14,12 @@ function _G.type(var)
     return otype(var)
 end
 
+function check(var, Type)
+    if type(var) ~= Type then
+        error("Expected "..Type..", Got "..type(var), 3)
+    end
+end
+
 -- =========================================
 -- =            LSFML CLASSES              =
 -- =========================================
@@ -39,30 +45,24 @@ function lsfml.clock.create()
 end
 
 function lsfml.clock.restart(clock)
-    if type(clock) == "clock" then
-        local meta = getmetatable(clock)
-        olsfml.clock_restart(meta.__ptr)
-    else
-        error("Expected clock, got "..type(clock), 2)
-    end
+    check(clock, "clock")
+
+    local meta = getmetatable(clock)
+    olsfml.clock_restart(meta.__ptr)
 end
 
 function lsfml.clock.getEllapsedTime(clock)
-    if type(clock) == "clock" then
-        local meta = getmetatable(clock)
-        return olsfml.clock_getEllapsedTime(meta.__ptr)
-    else
-        error("Expected clock, got "..type(clock), 2)
-    end
+    check(clock, "clock")
+
+    local meta = getmetatable(clock)
+    return olsfml.clock_getEllapsedTime(meta.__ptr)
 end
 
 function lsfml.clock.destroy(clock)
-    if type(clock) == "clock" then
-        local meta = getmetatable(clock)
-        olsfml.clock_destroy(meta.__ptr)
-    else
-        error("Expected clock, got "..type(clock), 2)
-    end
+    check(clock, "clock")
+
+    local meta = getmetatable(clock)
+    olsfml.clock_destroy(meta.__ptr)
 end
 
 function lsfml.clock.copy(clock)
