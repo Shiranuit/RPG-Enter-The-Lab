@@ -26,7 +26,8 @@ end
 
 _G.lsfml = {}
 lsfml.clock = {}
-
+lsfml.sprite = {}
+lsfml.text = {}
 
 -- =======================
 -- =       CLOCK         =
@@ -110,7 +111,125 @@ end
 -- =       SPRITE        =
 -- =======================
 
+function lsfml.sprite.create()
+    return setmetatable({}, {
+        __index = lsfml.sprite,
+        __type = "sprite",
+        __ptr = olsfml.sprite_create(),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.sprite_destroy(meta.__ptr)
+        end,
+    })
+end
 
+function lsfml.sprite.destroy(sprite)
+    check(sprite, "sprite", 1);
+    
+    local meta = getmetatable(sprite)
+    olsfml.sprite_destroy(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_setTexture(sprite, texture, boolean)
+    check(sprite, "sprite", 1);
+    check(texture, "texture", 2);
+    check(boolean, "boolean", 3);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_setTexture(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_getPosition(sprite)
+    check(sprite, "sprite", 1);
+
+    local meta = getmetatable(sprite)
+    return olsfml.sprite_getPosition(meta.__ptr)
+
+end
+
+function lsfml.sprite.sprite_move(sprite, table)
+    check(sprite, "sprite", 1);
+    check(table, "table", 2);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_move(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_setPosition(sprite, table)
+    check(sprite, "sprite", 1);
+    check(table, "table", 2);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_setPosition(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_setScale(sprite)
+    check(sprite, "sprite", 1);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_setScale(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_getScale(sprite)
+    check(sprite, "sprite", 1);
+
+    local meta = getmetatable(sprite)
+    return olsfml.sprite_getScale(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_setRotation(sprite, table)
+    check(sprite, "sprite", 1);
+    check(table, "table", 2);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_setRotation(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_rotate(sprite, table)
+    check(sprite, "sprite", 1);
+    check(table, "table", 2);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_rotate(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_getRotation(sprite)
+    check(sprite, "sprite", 1);
+
+    local meta = getmetatable(sprite)
+    return olsfml.sprite_getRotation(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_getOrigin(sprite)
+    check(sprite, "sprite", 1);
+
+    local meta = getmetatable(sprite)
+    return olsfml.sprite_getOrigin(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_scale(sprite, table)
+    check(sprite, "sprite", 1);
+    check(table, "table", 2);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_scale(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_set_origin(sprite, table)
+    check(sprite, "sprite", 1);
+    check(table, "table", 2);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_set_origin(meta.__ptr)
+end
+
+function lsfml.sprite.sprite_setTextureRect(sprite, table)
+    check(sprite, "sprite", 1);
+    check(table, "table", 2);
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_setTextureRect(meta.__ptr)
+end
 
 -- =======================
 -- =       VERTEX        =
@@ -127,7 +246,6 @@ end
 -- =======================
 -- =        TEXT         =
 -- =======================
-
 
 
 -- =======================
