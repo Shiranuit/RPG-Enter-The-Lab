@@ -17,11 +17,8 @@ dofile("lsfml.lua")
 -- =           MYRPG VARIABLES             =
 -- =========================================
 
-
 assets = {}
-local clock = lsfml.clock.create()
-local vertex = lsfml.vertex.create()
-vertex.x = 2
+
 -- =========================================
 -- =           MYRPG GAME-LOGIC            =
 -- =========================================
@@ -39,10 +36,7 @@ end
 
 -- Called each time we need to draw a frame
 function draw()
-    if clock:getEllapsedTime() > 250000 then
-        clock:restart()
-        window:clear(math.random(0, 255), math.random(0, 255), math.random(0, 255))
-    end
+
 end
 
 -- Called each time we need to update the game-logic
