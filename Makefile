@@ -5,7 +5,7 @@
 ## makefile
 ##
 
-NAME	= program
+NAME	= my_rpg
 
 CC	= gcc
 
