@@ -35,6 +35,7 @@ lsfml.font = {}
 lsfml.keyboard = {}
 lsfml.mouse = {}
 lsfml.music = {}
+lsfml.vertexarray = {}
 
 -- =======================
 -- =       CLOCK         =
@@ -689,7 +690,103 @@ end
 -- =    VERTEXARRAY      =
 -- =======================
 
+function lsfml.vertexarray.create()
+    return setmetatable({}, {
+        __index = lsfml.vertexarray,
+        __type = "vertexarray",
+        __ptr = olsfml.vertexarray_create(),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.vertexarray_destroy(meta.__ptr)
+        end,
+    })
+end
 
+function lsfml.vertexarray.destroy(vertexarray)
+    check(vertexarray, "vertexarray", 1)
+    
+    local meta = getmetatable(vertexarray)
+    olsfml.vertexarray_destroy(meta.__ptr)
+end
+
+function lsfml.vertexarray.append(vertexarray, vertex)
+    check(vertexarray, "vertexarray", 1)
+    check(vertex, "vertex", 2)
+    
+    local meta = getmetatable(vertexarray)
+    local meta_v = getmetatable(vertex)
+    olsfml.vertexarray_append(meta.__ptr, meta_v.__ptr)
+end
+
+function lsfml.vertexarray.clear(vertexarray)
+    check(vertexarray, "vertexarray", 1)
+    
+    local meta = getmetatable(vertexarray)
+    olsfml.vertexarray_clear(meta.__ptr)
+end
+
+function lsfml.vertexarray.copy(vertexarray)
+    check(vertexarray, "vertexarray", 1)
+
+    local meta = getmetatable(vertexarray)
+    return setmetatable({}, {
+        __index = lsfml.vertexarray,
+        __type = "vertexarray",
+        __ptr = olsfml.vertexarray_copy(meta.__ptr),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.vertexarray_destroy(meta.__ptr)
+        end,
+    })
+end
+
+function lsfml.vertexarray.getBounds(vertexarray)
+    check(vertexarray, "vertexarray", 1)
+    
+    local meta = getmetatable(vertexarray)
+    return olsfml.vertexarray_getBounds(meta.__ptr)
+end
+
+function lsfml.vertexarray.getPrimitiveType(vertexarray)
+    check(vertexarray, "vertexarray", 1)
+    
+    local meta = getmetatable(vertexarray)
+    return olsfml.vertexarray_getPrimitiveType(meta.__ptr)
+end
+
+function lsfml.vertexarray.getVertex(vertexarray, number)
+    check(vertexarray, "vertexarray", 1)
+    check(number, "number", 2)
+
+    local meta = getmetatable(vertexarray)
+    local meta_n = getmetatable(number)
+    return olsfml.vertexarray_getVertex(meta.__ptr, meta_n.__ptr)
+end
+
+function lsfml.vertexarray.getVertexCount(vertexarray)
+    check(vertexarray, "vertexarray", 1)
+
+    local meta = getmetatable(vertexarray)
+    return olsfml.vertexarray_getVertexCount(meta.__ptr)
+end
+
+function lsfml.vertexarray.resize(vertexarray, number)
+    check(vertexarray, "vertexarray", 1)
+    check(number, "number", 2)
+
+    local meta = getmetatable(vertexarray)
+    local meta_n = getmetatable(number)
+    olsfml.vertexarray_resize(meta.__ptr, meta_n.__ptr)
+end
+
+function lsfml.vertexarray.setPrimitiveType(vertexarray, string)
+    check(vertexarray, "vertexarray", 1)
+    check(string, "string", 2)
+
+    local meta = getmetatable(vertexarray)
+    local meta_s = getmetatable(string)
+    olsfml.vertexarray_setPrimitiveType(meta.__ptr, meta_s.__ptr)
+end
 
 -- =======================
 -- =        TEXT         =
