@@ -24,7 +24,7 @@ int text_set_character_size(lua_State *L)
         size = lua_tointeger(L, 2);
         sfText_setCharacterSize(text, size);
     } else {
-        luaL_error(L, "Expected (Text, Number)");
+        luaL_error(L, "Expected (Text, Integer)");
         return (0);
     }
     return (0);
