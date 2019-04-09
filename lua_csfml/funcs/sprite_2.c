@@ -21,8 +21,10 @@ int sprite_set_position(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
         sprite = userdata_pointer(L, 1, sfSprite);
-        if (!get_vector_2f(L, &vector, 2))
+        if (!get_vector_2f(L, &vector, 2)) {
+            luaL_error(L, "Expected (Sprite, Table)");
             return (0);
+        }
         sfSprite_setPosition(sprite, vector);
     } else {
         luaL_error(L, "Expected (Sprite, Table)");
