@@ -72,7 +72,7 @@ int engine(lua_State *L, sfRenderWindow *window)
     sfRenderWindow_setFramerateLimit(window, 60);
     while (sfRenderWindow_isOpen(window)) {
         if (event(L, window) == 84) return (84);
-        if (sfClock_getElapsedTime(update_clock).microseconds / 1000000 > 20) {
+        if (sfClock_getElapsedTime(update_clock).microseconds > 1000000 / 20) {
             if (update(L) == 84) return (84);
             sfClock_restart(update_clock);
         }
