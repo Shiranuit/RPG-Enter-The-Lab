@@ -137,25 +137,25 @@ function lsfml.window.draw(window, shape, renderstate)
     local render_meta = getmetatable(renderstate)
     if type(shape) == "circleShape" then
         local shape_meta = getmetatable(shape)
-        olsfml.window_drawConvexShape(window, shape_meta.__ptr, render_meta.__ptr)
+        olsfml.window_drawConvexShape(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
     elseif type(shape) == "convexShape" then
         local shape_meta = getmetatable(shape)
-        olsfml.window_drawConvexShape(window, shape_meta.__ptr, render_meta.__ptr)
+        olsfml.window_drawConvexShape(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
     elseif type(shape) == "vertexArray" then
         local shape_meta = getmetatable(shape)
-        olsfml.window_drawVertexArray(window, shape_meta.__ptr, render_meta.__ptr)
+        olsfml.window_drawVertexArray(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
     elseif type(shape) == "shape" then
         local shape_meta = getmetatable(shape)
-        olsfml.window_drawShape(window, shape_meta.__ptr, render_meta.__ptr)
+        olsfml.window_drawShape(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
     elseif type(shape) == "sprite" then
         local shape_meta = getmetatable(shape)
-        olsfml.window_drawSprite(window, shape_meta.__ptr, render_meta.__ptr)
+        olsfml.window_drawSprite(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
     elseif type(shape) == "text" then
         local shape_meta = getmetatable(shape)
-        olsfml.window_drawText(window, shape_meta.__ptr, render_meta.__ptr)
+        olsfml.window_drawText(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
     elseif type(shape) == "rectangleShape" then
         local shape_meta = getmetatable(shape)
-        olsfml.window_drawRectangleShape(window, shape_meta.__ptr, render_meta.__ptr)
+        olsfml.window_drawRectangleShape(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
     else
         error("Argument #2 Expected [circleShape, convexShape, vertexArray, shape, sprite, text, rectangleShape], Got "..type(shape), 2)
     end
@@ -382,7 +382,7 @@ function lsfml.texture.createFromFile(filename, rect)
     return setmetatable({}, {
         __index = lsfml.texture,
         __type = "texture",
-        __ptr = olsfml.texture_createFromFile(filename, rect),
+        __ptr = olsfml.texture_createFromFile(filename, {x=rect[1], y=rect[2], width=rect[3], height=rect[4]}),
         __gc = function(self)
             local meta = getmetatable(self)
             olsfml.texture_destroy(meta.__ptr)
@@ -398,7 +398,7 @@ function lsfml.texture.createFromImage(image, rect)
     return setmetatable({}, {
         __index = lsfml.texture,
         __type = "texture",
-        __ptr = olsfml.texture_createFromImage(meta.__ptr, rect),
+        __ptr = olsfml.texture_createFromImage(meta.__ptr, {x=rect[1], y=rect[2], width=rect[3], height=rect[4]}),
         __gc = function(self)
             local meta = getmetatable(self)
             olsfml.texture_destroy(meta.__ptr)
@@ -545,7 +545,7 @@ function lsfml.music.getPosition(music, table)
     check(music, "music", 1)
 
     local meta = getmetatable(music)
-    return olsfml.music_setPosition(meta.__ptr)
+    return olsfml.music_getPosition(meta.__ptr)
 end
 
 function lsfml.music.setLoop(music, boolean)
@@ -598,22 +598,21 @@ function lsfml.sprite.getPosition(sprite)
 
 end
 
-function lsfml.sprite.move(sprite, table)
+function lsfml.sprite.move(sprite, tble)
     check(sprite, "sprite", 1)
-    check(table, "table", 2)
+    check(tble, "table", 2)
 
     local meta = getmetatable(sprite)
-    local meta_t = getmetatable(table)
-    olsfml.sprite_move(meta.__ptr, meta.__ptr)
+    olsfml.sprite_move(meta.__ptr, tble)
 end
 
-function lsfml.sprite.setPosition(sprite, table)
+function lsfml.sprite.setPosition(sprite, x, y)
     check(sprite, "sprite", 1)
-    check(table, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(sprite)
-    local meta_t = getmetatable(table)
-    olsfml.sprite_move(meta.__ptr, meta.__ptr)
+    olsfml.sprite_setPosition(meta.__ptr, {x=x, y=y})
 end
 
 function lsfml.sprite.setScale(sprite)
@@ -630,22 +629,20 @@ function lsfml.sprite.getScale(sprite)
     return olsfml.sprite_getScale(meta.__ptr)
 end
 
-function lsfml.sprite.setRotation(sprite, table)
+function lsfml.sprite.setRotation(sprite, tble)
     check(sprite, "sprite", 1)
-    check(table, "table", 2)
+    check(tble, "table", 2)
 
     local meta = getmetatable(sprite)
-    local meta_t = getmetatable(table)
-    olsfml.sprite_move(meta.__ptr, meta.__ptr)
+    olsfml.sprite_setRotation(meta.__ptr, tble)
 end
 
-function lsfml.sprite.rotate(sprite, table)
+function lsfml.sprite.rotate(sprite, tble)
     check(sprite, "sprite", 1)
-    check(table, "table", 2)
+    check(tble, "table", 2)
 
     local meta = getmetatable(sprite)
-    local meta_t = getmetatable(table)
-    olsfml.sprite_move(meta.__ptr, meta.__ptr)
+    olsfml.sprite_rotate(meta.__ptr, tble)
 end
 
 function lsfml.sprite.getRotation(sprite)
@@ -662,31 +659,28 @@ function lsfml.sprite.getOrigin(sprite)
     return olsfml.sprite_getOrigin(meta.__ptr)
 end
 
-function lsfml.sprite.scale(sprite, table)
+function lsfml.sprite.scale(sprite, tble)
     check(sprite, "sprite", 1)
-    check(table, "table", 2)
+    check(tble, "table", 2)
 
     local meta = getmetatable(sprite)
-    local meta_t = getmetatable(table)
-    olsfml.sprite_move(meta.__ptr, meta.__ptr)
+    olsfml.sprite_scale(meta.__ptr, tble)
 end
 
-function lsfml.sprite.set_origin(sprite, table)
+function lsfml.sprite.setOrigin(sprite, tble)
     check(sprite, "sprite", 1)
-    check(table, "table", 2)
+    check(tble, "table", 2)
 
     local meta = getmetatable(sprite)
-    local meta_t = getmetatable(table)
-    olsfml.sprite_move(meta.__ptr, meta.__ptr)
+    olsfml.sprite_setOrigin(meta.__ptr, tble)
 end
 
-function lsfml.sprite.setTextureRect(sprite, table)
+function lsfml.sprite.setTextureRect(sprite, tble)
     check(sprite, "sprite", 1)
-    check(table, "table", 2)
+    check(tble, "table", 2)
 
     local meta = getmetatable(sprite)
-    local meta_t = getmetatable(table)
-    olsfml.sprite_move(meta.__ptr, meta.__ptr)
+    olsfml.sprite_setTextureRect(meta.__ptr, tble)
 end
 
 -- =======================

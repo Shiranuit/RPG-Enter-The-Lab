@@ -26,7 +26,7 @@ local function loadScene(name)
         local env = setmetatable({}, {__index = _G})
         local func, err = load(code, "loadScene", "t", env)
         if func then
-            pcall(func)
+            func()
             local name = name:gsub(".lua", "")
             scenes[name] = {}
             for k, v in pairs(env) do

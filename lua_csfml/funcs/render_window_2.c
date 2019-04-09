@@ -19,7 +19,7 @@ int win_draw_vertex_array(lua_State *L)
         luaL_error(L, "Expected (Window, VertexArray, RenderStates)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_istable(L, 2) &&
+    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
         window = userdata_pointer(L, 1, sfRenderWindow);
         vertexs = userdata_pointer(L, 2, sfVertexArray);
@@ -42,7 +42,7 @@ int win_draw_rectangle_shape(lua_State *L)
         luaL_error(L, "Expected (Window, RectangleShape, RenderStates)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_istable(L, 2) &&
+    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
         window = userdata_pointer(L, 1, sfRenderWindow);
         rect = userdata_pointer(L, 2, sfRectangleShape);
@@ -65,7 +65,7 @@ int win_draw_shape(lua_State *L)
         luaL_error(L, "Expected (Window, Shape, RenderStates)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_istable(L, 2) &&
+    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
         window = userdata_pointer(L, 1, sfRenderWindow);
         shape = userdata_pointer(L, 2, sfShape);
@@ -88,7 +88,7 @@ int win_draw_sprite(lua_State *L)
         luaL_error(L, "Expected (Window, Sprite, RenderStates)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_istable(L, 2) &&
+    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
         window = userdata_pointer(L, 1, sfRenderWindow);
         sprite = userdata_pointer(L, 2, sfSprite);
@@ -111,7 +111,7 @@ int win_draw_text(lua_State *L)
         luaL_error(L, "Expected (Window, Text, RenderStates)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_istable(L, 2) &&
+    if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
         window = userdata_pointer(L, 1, sfRenderWindow);
         text = userdata_pointer(L, 2, sfText);
