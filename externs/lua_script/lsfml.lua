@@ -100,7 +100,7 @@ function lsfml.window.clear(window, r, g, b)
     check(b, "number", 4)
 
     local meta = getmetatable(window)
-    olsfml.window_clear(meta.__ptr)
+    olsfml.window_clear(meta.__ptr, r, g, b)
 end
 
 function lsfml.window.setMouseCursorVisible(window, visible)
@@ -577,8 +577,7 @@ function lsfml.sprite.setTexture(sprite, texture, boolean)
 
     local meta = getmetatable(sprite)
     local meta_t = getmetatable(texture)
-    local meta_b = getmetatable(boolean)
-    olsfml.sprite_setTexture(meta.__ptr, meta_t.__ptr, meta_b.__ptr)
+    olsfml.sprite_setTexture(meta.__ptr, meta_t.__ptr, boolean)
 end
 
 function lsfml.sprite.getPosition(sprite)
@@ -759,8 +758,7 @@ function lsfml.vertexarray.getVertex(vertexarray, number)
     check(number, "number", 2)
 
     local meta = getmetatable(vertexarray)
-    local meta_n = getmetatable(number)
-    return olsfml.vertexarray_getVertex(meta.__ptr, meta_n.__ptr)
+    return olsfml.vertexarray_getVertex(meta.__ptr, number)
 end
 
 function lsfml.vertexarray.getVertexCount(vertexarray)
@@ -775,8 +773,7 @@ function lsfml.vertexarray.resize(vertexarray, number)
     check(number, "number", 2)
 
     local meta = getmetatable(vertexarray)
-    local meta_n = getmetatable(number)
-    olsfml.vertexarray_resize(meta.__ptr, meta_n.__ptr)
+    olsfml.vertexarray_resize(meta.__ptr, number)
 end
 
 function lsfml.vertexarray.setPrimitiveType(vertexarray, string)
@@ -784,8 +781,7 @@ function lsfml.vertexarray.setPrimitiveType(vertexarray, string)
     check(string, "string", 2)
 
     local meta = getmetatable(vertexarray)
-    local meta_s = getmetatable(string)
-    olsfml.vertexarray_setPrimitiveType(meta.__ptr, meta_s.__ptr)
+    olsfml.vertexarray_setPrimitiveType(meta.__ptr, string)
 end
 
 -- =======================
@@ -851,8 +847,7 @@ function lsfml.text.rotate(text, number)
     check(rotate, "number", 2)
 
     local meta = getmetatable(text)
-    local meta_n = getmetatable(number)
-    olsfml.text_setScale(meta.__ptr, meta_n.__ptr)
+    olsfml.text_setScale(meta.__ptr, number)
 end
 
 function lsfml.text.scale(text, table)
@@ -908,8 +903,7 @@ function lsfml.text.setString(text, string)
     check(string, "string", 2)
 
     local meta = getmetatable(text)
-    local meta_s = getmetatable(string)
-    olsfml.text_setScale(meta.__ptr, meta_s.__ptr)
+    olsfml.text_setScale(meta.__ptr, string)
 end
 
 function lsfml.text.setFont(text, font)
@@ -926,8 +920,7 @@ function lsfml.text.setCharacterSize(text, number)
     check(number, "number", 2)
 
     local meta = getmetatable(text)
-    local meta_n = getmetatable(number)
-    olsfml.text_setScale(meta.__ptr, meta_n.__ptr)
+    olsfml.text_setScale(meta.__ptr, number)
 end
 
 function lsfml.text.getString(text)
@@ -969,8 +962,7 @@ end
 function lsfml.keyboard.keyPressed(number)
     check(number, "number", 1)
     
-    local meta = getmetatable(font)
-    return olsfml.keyboard_keyPressed(meta.__ptr)
+    return olsfml.keyboard_keyPressed(number)
 end
 
 -- =======================
@@ -990,9 +982,7 @@ function lsfml.mouse.setPosition(mouse, x, y)
     check(y, "number", 3)
     
     local meta = getmetatable(mouse)
-    local meta_x = getmetatable(x)
-    local meta_y = getmetatable(y)
-    olsfml.mouse_setPosition(meta.__ptr, meta_x.__ptr, meta_y.__ptr)
+    olsfml.mouse_setPosition(meta.__ptr, x, y)
 end
 
 function lsfml.mouse.isButtonPressed(mouse, number)
@@ -1000,6 +990,5 @@ function lsfml.mouse.isButtonPressed(mouse, number)
     check(number, "number", 2)
     
     local meta = getmetatable(mouse)
-    local meta_n = getmetatable(number)
-    return olsfml.mouse_isButtonPressed(meta.__ptr, meta_n.__ptr)
+    return olsfml.mouse_isButtonPressed(meta.__ptr, number)
 end
