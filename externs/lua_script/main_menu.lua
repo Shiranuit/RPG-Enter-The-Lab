@@ -2,8 +2,14 @@
 -- =                MAIN MENU              =
 -- =========================================
 
-function draw()
+assets["play_texture"] = lsfml.texture.createFromFile("./assets/menu/button_play.png", {0, 0, 421, 171})
+local play_button = lsfml.sprite.create()
 
+play_button:setTexture(assets["play_texture"], false)
+play_button:setPosition({0, 0})
+
+function draw()
+    window:draw(play_button)
 end
 
 function update()
@@ -11,6 +17,6 @@ function update()
 end
 
 function event(...)
-    local event = {...}
+    local evt = {...}
     print(...)
 end
