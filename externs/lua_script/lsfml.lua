@@ -528,20 +528,19 @@ function lsfml.music.setVolume(music, number)
     check(number, "number", 2)
 
     local meta = getmetatable(music)
-    local meta_n = getmetatable(number)
-    olsfml.music_setVolume(meta.__ptr, meta_n.__ptr)
+    olsfml.music_setVolume(meta.__ptr, number)
 end
 
-function lsfml.music.setPosition(music, table)
+function lsfml.music.setPosition(music, x, y)
     check(music, "music", 1)
-    check(table, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(music)
-    local meta_n = getmetatable(number)
-    olsfml.music_setPosition(meta.__ptr, meta_n.__ptr)
+    olsfml.music_setPosition(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.music.getPosition(music, table)
+function lsfml.music.getPosition(music)
     check(music, "music", 1)
 
     local meta = getmetatable(music)
@@ -553,8 +552,7 @@ function lsfml.music.setLoop(music, boolean)
     check(boolean, "boolean", 2)
 
     local meta = getmetatable(music)
-    local meta_b = getmetatable(boolean)
-    return olsfml.music_setLoop(meta.__ptr, meta_b.__ptr)
+    return olsfml.music_setLoop(meta.__ptr, boolean)
 end
 
 -- =======================
@@ -598,12 +596,13 @@ function lsfml.sprite.getPosition(sprite)
 
 end
 
-function lsfml.sprite.move(sprite, tble)
+function lsfml.sprite.move(sprite, x, y)
     check(sprite, "sprite", 1)
-    check(tble, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_move(meta.__ptr, tble)
+    olsfml.sprite_move(meta.__ptr, {x=x, y=y})
 end
 
 function lsfml.sprite.setPosition(sprite, x, y)
@@ -629,20 +628,20 @@ function lsfml.sprite.getScale(sprite)
     return olsfml.sprite_getScale(meta.__ptr)
 end
 
-function lsfml.sprite.setRotation(sprite, tble)
+function lsfml.sprite.setRotation(sprite, nb)
     check(sprite, "sprite", 1)
-    check(tble, "table", 2)
+    check(nb, "number", 2)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_setRotation(meta.__ptr, tble)
+    olsfml.sprite_setRotation(meta.__ptr, nb)
 end
 
-function lsfml.sprite.rotate(sprite, tble)
+function lsfml.sprite.rotate(sprite, nb)
     check(sprite, "sprite", 1)
-    check(tble, "table", 2)
+    check(nb, "number", 2)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_rotate(meta.__ptr, tble)
+    olsfml.sprite_rotate(meta.__ptr, nb)
 end
 
 function lsfml.sprite.getRotation(sprite)
@@ -659,28 +658,33 @@ function lsfml.sprite.getOrigin(sprite)
     return olsfml.sprite_getOrigin(meta.__ptr)
 end
 
-function lsfml.sprite.scale(sprite, tble)
+function lsfml.sprite.scale(sprite, x, y)
     check(sprite, "sprite", 1)
-    check(tble, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_scale(meta.__ptr, tble)
+    olsfml.sprite_scale(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.sprite.setOrigin(sprite, tble)
+function lsfml.sprite.set_origin(sprite, x, y)
     check(sprite, "sprite", 1)
-    check(tble, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_setOrigin(meta.__ptr, tble)
+    olsfml.sprite_setOrigin(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.sprite.setTextureRect(sprite, tble)
+function lsfml.sprite.setTextureRect(sprite, x, y, width, height)
     check(sprite, "sprite", 1)
-    check(tble, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
+    check(width, "number", 4)
+    check(height, "number", 5)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_setTextureRect(meta.__ptr, tble)
+    olsfml.sprite_setTextureRect(meta.__ptr, {x=rect[1], y=rect[2], width=rect[3], height=rect[4]})
 end
 
 -- =======================
@@ -864,57 +868,57 @@ function lsfml.text.getPosition(text)
     return olsfml.text_getPosition(meta.__ptr)
 end
 
-function lsfml.text.setScale(text, table)
+function lsfml.text.setScale(text, x, y)
     check(text, "text", 1)
-    check(table, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(text)
-    local meta_t = getmetatable(table)
-    olsfml.text_setScale(meta.__ptr, meta_t.__ptr)
+    olsfml.text_setScale(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.text.setPosition(text, table)
+function lsfml.text.setPosition(text, x, y)
     check(text, "text", 1)
-    check(table, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(text)
-    local meta_t = getmetatable(table)
-    olsfml.text_setScale(meta.__ptr, meta_t.__ptr)
+    olsfml.text_setPosition(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.text.move(text, table)
+function lsfml.text.move(text, x, y)
     check(text, "text", 1)
-    check(table, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(text)
-    local meta_t = getmetatable(table)
-    olsfml.text_setScale(meta.__ptr, meta_t.__ptr)
+    olsfml.text_move(meta.__ptr, {x=x, y=y})
 end
 
 function lsfml.text.rotate(text, number)
     check(text, "text", 1)
-    check(rotate, "number", 2)
+    check(number, "number", 2)
 
     local meta = getmetatable(text)
-    olsfml.text_setScale(meta.__ptr, number)
+    olsfml.text_rotate(meta.__ptr, number)
 end
 
-function lsfml.text.scale(text, table)
+function lsfml.text.scale(text, x, y)
     check(text, "text", 1)
-    check(table, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(text)
-    local meta_t = getmetatable(table)
-    olsfml.text_setScale(meta.__ptr, meta_t.__ptr)
+    olsfml.text_scale(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.text.setRotation(text, table)
+function lsfml.text.setRotation(text, x, y)
     check(text, "text", 1)
-    check(table, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(text)
-    local meta_t = getmetatable(table)
-    olsfml.text_setScale(meta.__ptr, meta_t.__ptr)
+    olsfml.text_setRotation(meta.__ptr, {x=x, y=y})
 end
 
 function lsfml.text.getOrigin(text)
@@ -931,13 +935,13 @@ function lsfml.text.getScale(text)
     return olsfml.text_getScale(meta.__ptr)
 end
 
-function lsfml.text.setOrigin(text, table)
+function lsfml.text.setOrigin(text, x, y)
     check(text, "text", 1)
-    check(table, "table", 2)
+    check(x, "number", 2)
+    check(y, "number", 3)
 
     local meta = getmetatable(text)
-    local meta_t = getmetatable(table)
-    olsfml.text_setScale(meta.__ptr, meta_t.__ptr)
+    olsfml.text_setOrigin(meta.__ptr, {x=x, y=y})
 end
 
 function lsfml.text.getRotation(text)
@@ -952,7 +956,7 @@ function lsfml.text.setString(text, string)
     check(string, "string", 2)
 
     local meta = getmetatable(text)
-    olsfml.text_setScale(meta.__ptr, string)
+    olsfml.text_setString(meta.__ptr, string)
 end
 
 function lsfml.text.setFont(text, font)
@@ -961,7 +965,7 @@ function lsfml.text.setFont(text, font)
 
     local meta = getmetatable(text)
     local meta_f = getmetatable(font)
-    olsfml.text_setScale(meta.__ptr, meta_f.__ptr)
+    olsfml.text_setFont(meta.__ptr, meta_f.__ptr)
 end
 
 function lsfml.text.setCharacterSize(text, number)
@@ -969,7 +973,7 @@ function lsfml.text.setCharacterSize(text, number)
     check(number, "number", 2)
 
     local meta = getmetatable(text)
-    olsfml.text_setScale(meta.__ptr, number)
+    olsfml.text_setCharacterSize(meta.__ptr, number)
 end
 
 function lsfml.text.getString(text)
