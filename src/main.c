@@ -6,9 +6,9 @@
 */
 
 #include "lsfml.h"
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
+#include "../externs/lua/src/lua.h"
+#include "../externs/lua/src/lauxlib.h"
+#include "../externs/lua/src/lualib.h"
 #include "engine.h"
 #include <SFML/Graphics.h>
 #include <SFML/Window.h>

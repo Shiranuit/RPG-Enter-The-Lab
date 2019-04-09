@@ -36,12 +36,16 @@ lsfml.keyboard = {}
 lsfml.mouse = {}
 lsfml.music = {}
 lsfml.vertexarray = {}
+lsfml.vertex = {}
 
 -- =======================
 -- =       CLOCK         =
 -- =======================
 
 function lsfml.clock.create()
+    function stringify(self)
+        return tostring(self:getEllapsedTime())
+    end
     return setmetatable({}, {
         __index = lsfml.clock,
         __type = "clock",
@@ -50,6 +54,7 @@ function lsfml.clock.create()
             local meta = getmetatable(self)
             olsfml.clock_destroy(meta.__ptr)
         end,
+        __tostring = stringify,
     })
 end
 
@@ -77,6 +82,9 @@ end
 function lsfml.clock.copy(clock)
     check(clock, "clock", 1)
 
+    function stringify(self)
+        return tostring(self:getEllapsedTime())
+    end
     local meta = getmetatable(clock)
     return setmetatable({}, {
         __index = lsfml.clock,
@@ -86,6 +94,7 @@ function lsfml.clock.copy(clock)
             local meta = getmetatable(self)
             olsfml.clock_destroy(meta.__ptr)
         end,
+        __tostring = stringify,
     })
 end
 
@@ -474,42 +483,42 @@ end
 
 function lsfml.music.destroy(music)
     check(music, "music", 1)
-    
+
     local meta = getmetatable(music)
     olsfml.music_destroy(meta.__ptr)
 end
 
 function lsfml.music.getDuration(music)
     check(music, "music", 1)
-    
+
     local meta = getmetatable(music)
     return olsfml.music_getDuration(meta.__ptr)
 end
 
 function lsfml.music.getVolume(music)
     check(music, "music", 1)
-    
+
     local meta = getmetatable(music)
     return olsfml.music_getVolume(meta.__ptr)
 end
 
 function lsfml.music.pause(music)
     check(music, "music", 1)
-    
+
     local meta = getmetatable(music)
     olsfml.music_pause(meta.__ptr)
 end
 
 function lsfml.music.play(music)
     check(music, "music", 1)
-    
+
     local meta = getmetatable(music)
     olsfml.music_play(meta.__ptr)
 end
 
 function lsfml.music.stop(music)
     check(music, "music", 1)
-    
+
     local meta = getmetatable(music)
     olsfml.music_stop(meta.__ptr)
 end
@@ -517,7 +526,7 @@ end
 function lsfml.music.setVolume(music, number)
     check(music, "music", 1)
     check(number, "number", 2)
-    
+
     local meta = getmetatable(music)
     local meta_n = getmetatable(number)
     olsfml.music_setVolume(meta.__ptr, meta_n.__ptr)
@@ -526,7 +535,7 @@ end
 function lsfml.music.setPosition(music, table)
     check(music, "music", 1)
     check(table, "table", 2)
-    
+
     local meta = getmetatable(music)
     local meta_n = getmetatable(number)
     olsfml.music_setPosition(meta.__ptr, meta_n.__ptr)
@@ -534,7 +543,7 @@ end
 
 function lsfml.music.getPosition(music, table)
     check(music, "music", 1)
-    
+
     local meta = getmetatable(music)
     return olsfml.music_setPosition(meta.__ptr)
 end
@@ -542,11 +551,12 @@ end
 function lsfml.music.setLoop(music, boolean)
     check(music, "music", 1)
     check(boolean, "boolean", 2)
-    
+
     local meta = getmetatable(music)
     local meta_b = getmetatable(boolean)
     return olsfml.music_setLoop(meta.__ptr, meta_b.__ptr)
 end
+
 -- =======================
 -- =       SPRITE        =
 -- =======================
@@ -565,7 +575,7 @@ end
 
 function lsfml.sprite.destroy(sprite)
     check(sprite, "sprite", 1)
-    
+
     local meta = getmetatable(sprite)
     olsfml.sprite_destroy(meta.__ptr)
 end
@@ -683,7 +693,52 @@ end
 -- =       VERTEX        =
 -- =======================
 
+function lsfml.vertex.create()
+    function get_index(self, key)
+        local meta = getmetatable(self)
+        if key == "x" then return olsfml.vertex_getX(meta.__ptr) end
+        if key == "y" then return olsfml.vertex_getY(meta.__ptr) end
+        if key == "tx" then return olsfml.vertex_getTX(meta.__ptr) end
+        if key == "ty" then return olsfml.vertex_getTY(meta.__ptr) end
+        if key == "r" then return olsfml.vertex_getR(meta.__ptr) end
+        if key == "g" then return olsfml.vertex_getG(meta.__ptr) end
+        if key == "b" then return olsfml.vertex_getB(meta.__ptr) end
+        if key == "a" then return olsfml.vertex_getA(meta.__ptr) end
+    end
+    function set_index(self, key, value)
+        check(value, "number", 2)
+        local meta = getmetatable(self)
+        if key == "x" then olsfml.vertex_setX(meta.__ptr, value) end
+        if key == "y" then olsfml.vertex_setY(meta.__ptr, value) end
+        if key == "tx" then olsfml.vertex_setTX(meta.__ptr, value) end
+        if key == "ty" then olsfml.vertex_setTY(meta.__ptr, value) end
+        if key == "r" then olsfml.vertex_setR(meta.__ptr, value) end
+        if key == "g" then olsfml.vertex_setG(meta.__ptr, value) end
+        if key == "b" then olsfml.vertex_setB(meta.__ptr, value) end
+        if key == "a" then olsfml.vertex_setA(meta.__ptr, value) end
+    end
+    function stringify(self)
+        return "{position = {"..self.x..", "..self.y.."}, texture = {"..self.tx..", "..self.ty.."}, color = {"..self.r..", "..self.g..", "..self.b..", "..self.a.."}}"
+    end
+    return setmetatable({}, {
+        __index = get_index,
+        __new_index = set_index,
+        __type = "vertex",
+        __ptr = olsfml.vertex_create(),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.vertex_destroy(meta.__ptr)
+        end,
+        __tostring = stringify,
+    })
+end
 
+function lsfml.vertex.destroy(vertex)
+    check(vertex, "vertex", 1)
+
+    local meta = getmetatable(vertex)
+    olsfml.vertex_destroy(meta.__ptr)
+end
 
 -- =======================
 -- =    VERTEXARRAY      =
@@ -703,7 +758,7 @@ end
 
 function lsfml.vertexarray.destroy(vertexarray)
     check(vertexarray, "vertexarray", 1)
-    
+
     local meta = getmetatable(vertexarray)
     olsfml.vertexarray_destroy(meta.__ptr)
 end
@@ -711,7 +766,7 @@ end
 function lsfml.vertexarray.append(vertexarray, vertex)
     check(vertexarray, "vertexarray", 1)
     check(vertex, "vertex", 2)
-    
+
     local meta = getmetatable(vertexarray)
     local meta_v = getmetatable(vertex)
     olsfml.vertexarray_append(meta.__ptr, meta_v.__ptr)
@@ -719,7 +774,7 @@ end
 
 function lsfml.vertexarray.clear(vertexarray)
     check(vertexarray, "vertexarray", 1)
-    
+
     local meta = getmetatable(vertexarray)
     olsfml.vertexarray_clear(meta.__ptr)
 end
@@ -741,14 +796,14 @@ end
 
 function lsfml.vertexarray.getBounds(vertexarray)
     check(vertexarray, "vertexarray", 1)
-    
+
     local meta = getmetatable(vertexarray)
     return olsfml.vertexarray_getBounds(meta.__ptr)
 end
 
 function lsfml.vertexarray.getPrimitiveType(vertexarray)
     check(vertexarray, "vertexarray", 1)
-    
+
     local meta = getmetatable(vertexarray)
     return olsfml.vertexarray_getPrimitiveType(meta.__ptr)
 end
@@ -803,7 +858,7 @@ end
 
 function lsfml.text.destroy(text)
     check(text, "text", 1)
-    
+
     local meta = getmetatable(text)
     olsfml.text_destroy(meta.__ptr)
 end
@@ -929,6 +984,7 @@ function lsfml.text.getString(text)
     local meta = getmetatable(text)
     return olsfml.text_getString(meta.__ptr)
 end
+
 -- =======================
 -- =        FONT         =
 -- =======================
@@ -949,7 +1005,7 @@ end
 
 function lsfml.font.destroy(font)
     check(font, "font", 1)
-    
+
     local meta = getmetatable(font)
     olsfml.font_destroy(meta.__ptr)
 end
@@ -961,7 +1017,7 @@ end
 
 function lsfml.keyboard.keyPressed(number)
     check(number, "number", 1)
-    
+
     return olsfml.keyboard_keyPressed(number)
 end
 
@@ -971,7 +1027,7 @@ end
 
 function lsfml.mouse.getPosition(mouse)
     check(mouse, "mouse", 1)
-    
+
     local meta = getmetatable(mouse)
     return olsfml.mouse_getPosition(meta.__ptr)
 end
@@ -980,7 +1036,7 @@ function lsfml.mouse.setPosition(mouse, x, y)
     check(mouse, "mouse", 1)
     check(x, "number", 2)
     check(y, "number", 3)
-    
+
     local meta = getmetatable(mouse)
     olsfml.mouse_setPosition(meta.__ptr, x, y)
 end
@@ -988,7 +1044,7 @@ end
 function lsfml.mouse.isButtonPressed(mouse, number)
     check(mouse, "mouse", 1)
     check(number, "number", 2)
-    
+
     local meta = getmetatable(mouse)
     return olsfml.mouse_isButtonPressed(meta.__ptr, number)
 end

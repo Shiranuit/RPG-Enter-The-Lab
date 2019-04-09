@@ -17,8 +17,11 @@ dofile("lsfml.lua")
 -- =           MYRPG VARIABLES             =
 -- =========================================
 
-local clock = lsfml.clock.create()
 
+assets = {}
+local clock = lsfml.clock.create()
+local vertex = lsfml.vertex.create()
+vertex.x = 2
 -- =========================================
 -- =           MYRPG GAME-LOGIC            =
 -- =========================================
