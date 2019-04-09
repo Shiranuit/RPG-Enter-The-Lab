@@ -43,7 +43,7 @@ lsfml.vertex = {}
 -- =======================
 
 function lsfml.clock.create()
-    function stringify(self)
+    local function stringify(self)
         return tostring(self:getEllapsedTime())
     end
     return setmetatable({}, {
@@ -82,7 +82,7 @@ end
 function lsfml.clock.copy(clock)
     check(clock, "clock", 1)
 
-    function stringify(self)
+    local function stringify(self)
         return tostring(self:getEllapsedTime())
     end
     local meta = getmetatable(clock)
@@ -1023,26 +1023,24 @@ end
 -- =       MOUSE         =
 -- =======================
 
-function lsfml.mouse.getPosition(mouse)
-    check(mouse, "mouse", 1)
+function lsfml.mouse.getPosition(window)
+    check(window, "window", 1)
 
-    local meta = getmetatable(mouse)
+    local meta = getmetatable(window)
     return olsfml.mouse_getPosition(meta.__ptr)
 end
 
-function lsfml.mouse.setPosition(mouse, x, y)
-    check(mouse, "mouse", 1)
+function lsfml.mouse.setPosition(window, x, y)
+    check(window, "window", 1)
     check(x, "number", 2)
     check(y, "number", 3)
 
-    local meta = getmetatable(mouse)
+    local meta = getmetatable(window)
     olsfml.mouse_setPosition(meta.__ptr, x, y)
 end
 
-function lsfml.mouse.isButtonPressed(mouse, number)
-    check(mouse, "mouse", 1)
+function lsfml.mouse.isButtonPressed(number)
     check(number, "number", 2)
 
-    local meta = getmetatable(mouse)
-    return olsfml.mouse_isButtonPressed(meta.__ptr, number)
+    return olsfml.mouse_isButtonPressed(number)
 end
