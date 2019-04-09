@@ -51,6 +51,7 @@ end
 
 local owindow = window
 dofile("lsfml.lua")
+dofile("tools/button.lua")
 
 -- =========================================
 -- =                 SCENES                =
