@@ -93,7 +93,7 @@ function lsfml.window.clear(window, r, g, b)
     check(b, "number", 4)
 
     local meta = getmetatable(window)
-    olsfml.window_clear(meta.__ptr)
+    olsfml.window_clear(meta.__ptr, r, g, b)
 end
 
 function lsfml.window.setMouseCursorVisible(window, visible)
