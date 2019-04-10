@@ -1,3 +1,7 @@
 .vscode
 *.o
+externs/lua/src/liblua.a
+externs/lua/src/lua
+externs/lua/src/luac
+my_rpg
 .gitignore
