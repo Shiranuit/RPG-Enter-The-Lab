@@ -10,15 +10,16 @@ function player.create(info)
     local sprite = lsfml.sprite.create()
     sprite:setTexture(info.texture, false)
     sprite:setPosition(info.pos_x, info.pos_y)
+    sprite:setScale(0.5, 0.5)
     return setmetatable({}, {
         __type = "player",
         __index = player,
         __clock = lsfml.clock.create(),
-        __pos_rect = {12, 0, 2000, 220, 500},
+        __pos_rect = {12, 100000, 0, 2000, 220, 500},
         __sprite = sprite,
         __health = info.health or 100,
         __stamina = info.stamina or 100,
-        __speed = info.speed or 1,
+        __speed = info.speed or 20,
         __level = info.level or 0,
         __experience = info.experience or 0,
         __max_health = info.max_health or 100,
@@ -180,59 +181,68 @@ function player.getStats(self)
 end
 
 function player.event(self)
+
+end
+
+function player.update(self)
     check(self ,"player", 1)
 
     meta = getmetatable(self)
     if lsfml.keyboard.keyPressed(keys.Z) then 
         if (meta.__status ~= "up") then
             meta.__status = "up"
-            meta.__pos_rect = {7, 0, 1000, 220, 500}
+            meta.__pos_rect = {7, 350000 / meta.__speed, 0, 1000, 220, 500}
             meta.__clock:restart()
-            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 2))
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
+        meta.__sprite:move(0, -meta.__speed)
     elseif lsfml.keyboard.keyPressed(keys.S) then
         if (meta.__status ~= "down") then
             meta.__status = "down"
-            meta.__pos_rect = {7, 0, 1500, 220, 500}
+            meta.__pos_rect = {7, 350000 / meta.__speed, 0, 1500, 220, 500}
             meta.__clock:restart()
-            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 2))
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
+        meta.__sprite:move(0, meta.__speed)
     elseif lsfml.keyboard.keyPressed(keys.D) then
         if (meta.__status ~= "right") then
             meta.__status = "right"
-            meta.__pos_rect = {15, 0, 0, 220, 500}
+            meta.__pos_rect = {15, 350000 / meta.__speed, 0, 0, 220, 500}
             meta.__clock:restart()
-            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 2))
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
+        meta.__sprite:move(meta.__speed, 0)
     elseif lsfml.keyboard.keyPressed(keys.Q) then
         if (meta.__status ~= "left") then
             meta.__status = "left"
-            meta.__pos_rect = {15, 0, 500, 220, 500}
+            meta.__pos_rect = {15, 350000 / meta.__speed, 0, 500, 220, 500}
             meta.__clock:restart()
-            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 2))
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
+        meta.__sprite:move(-meta.__speed, 0)
     else
-        meta.__status = "idle"
-        meta.__pos_rect = {12, 0, 2000, 220, 500}
-        meta.__clock:restart()
-        meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 2))
+        if (meta.__status ~= "idle") then
+            meta.__status = "idle"
+            meta.__pos_rect = {12, 100000, 0, 2000, 220, 500}
+            meta.__clock:restart()
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+        end
     end
-end
-
-function player.update(self)
-    check(self ,"player", 1)
+    if  meta.__health <= 0 then
+        meta.__status = "death"
+    end
 end
 
 function player.draw(self)
     check(self, "player", 1)
 
     local meta = getmetatable(self)
-    if meta.__clock:getEllapsedTime() > 70000 then
-        meta.__pos_rect[2] = meta.__pos_rect[2] + meta.__pos_rect[4]
-        if meta.__pos_rect[2] > meta.__pos_rect[4] * (meta.__pos_rect[1] - 1) then
-            meta.__pos_rect[2] = 0
+    if meta.__clock:getEllapsedTime() > meta.__pos_rect[2] then
+        meta.__pos_rect[3] = meta.__pos_rect[3] + meta.__pos_rect[5]
+        if meta.__pos_rect[3] > meta.__pos_rect[5] * (meta.__pos_rect[1] - 1) then
+            meta.__pos_rect[3] = 0
         end
-        meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 2))
+        meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         meta.__clock:restart()
     end
     window:draw(meta.__sprite)

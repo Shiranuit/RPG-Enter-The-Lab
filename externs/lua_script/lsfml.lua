@@ -614,11 +614,11 @@ function lsfml.sprite.setPosition(sprite, x, y)
     olsfml.sprite_setPosition(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.sprite.setScale(sprite)
+function lsfml.sprite.setScale(sprite, x, y)
     check(sprite, "sprite", 1)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_setScale(meta.__ptr)
+    olsfml.sprite_setScale(meta.__ptr, {x=x ,y=y})
 end
 
 function lsfml.sprite.getScale(sprite)

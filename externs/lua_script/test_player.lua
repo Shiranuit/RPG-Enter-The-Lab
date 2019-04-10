@@ -1,9 +1,10 @@
 
 
 local pedro = player.create ({
-    pos_x = 100;
-    pos_y = 100;
-    texture = assets["player"]
+    pos_x = 100,
+    pos_y = 100,
+    texture = assets["player"],
+    speed = 20
 
 })
 
@@ -14,7 +15,7 @@ function draw()
 end
 
 function update()
-
+    pedro:update()
 end
 
 function event(...)
