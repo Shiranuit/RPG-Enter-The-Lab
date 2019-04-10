@@ -614,11 +614,11 @@ function lsfml.sprite.setPosition(sprite, x, y)
     olsfml.sprite_setPosition(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.sprite.setScale(sprite)
+function lsfml.sprite.setScale(sprite, x, y)
     check(sprite, "sprite", 1)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_setScale(meta.__ptr)
+    olsfml.sprite_setScale(meta.__ptr, {x=x ,y=y})
 end
 
 function lsfml.sprite.getScale(sprite)
@@ -684,7 +684,7 @@ function lsfml.sprite.setTextureRect(sprite, x, y, width, height)
     check(height, "number", 5)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_setTextureRect(meta.__ptr, {x=rect[1], y=rect[2], width=rect[3], height=rect[4]})
+    olsfml.sprite_setTextureRect(meta.__ptr, {x=x, y=y, width=width, height=height})
 end
 
 -- =======================

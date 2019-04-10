@@ -13,7 +13,7 @@ local play_button = button.create{
     callback = function(...)
         local event = {...}
         if event[2] == "click" then
-            setScene("load")
+            setScene("test_player")
         end
     end,
     idle = assets["button_idle"],
