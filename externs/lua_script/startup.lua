@@ -58,6 +58,15 @@ dofile("lsfml.lua")
 dofile("tools/button.lua")
 
 -- =========================================
+-- =             LOADING ASSETS            =
+-- =========================================
+
+assets["button_idle"] = lsfml.texture.createFromFile("./assets/menu/button_idle.png", {0, 0, 421, 171})
+assets["button_pressed"] = lsfml.texture.createFromFile("./assets/menu/button_pressed.png", {0, 0, 421, 171})
+assets["button_hover"] = lsfml.texture.createFromFile("./assets/menu/button_hover.png", {0, 0, 421, 171})
+-- assets[""] = lsfml.front.createFromFile("./assets/fonts/")
+
+-- =========================================
 -- =                 SCENES                =
 -- =========================================
 

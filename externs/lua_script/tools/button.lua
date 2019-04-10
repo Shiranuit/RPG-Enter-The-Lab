@@ -41,6 +41,7 @@ function button.create(info)
         __hover = info.hover,
         __status = "released",
         __visible = type(info.visible) == "nil" and true or info.visible,
+        __text = info.text
     })
 end
 
