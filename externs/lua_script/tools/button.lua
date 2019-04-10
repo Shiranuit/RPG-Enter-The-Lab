@@ -199,8 +199,8 @@ function button.event(self, ...)
     local meta = getmetatable(self)
     if meta.__visible then
         if event[1] == "mouse_pressed" then
-            if event[2] >= meta.__x and event[2] <= meta.__x + meta.__width and
-            event[3] >= meta.__y and event[3] <= meta.__y + meta.__height then
+            if event[2] > meta.__x and event[2] < meta.__x + meta.__width and
+            event[3] > meta.__y and event[3] < meta.__y + meta.__height then
                 meta.__sprite:setTexture(meta.__press, false)
                 meta.__callback(self, "press", event[4], event[2], event[3])
                 meta.__status = "pressed"
@@ -208,8 +208,8 @@ function button.event(self, ...)
                 meta.__my = event[3]
             end
         elseif event[1] == "mouse_released" then
-            if event[2] >= meta.__x and event[2] <= meta.__x + meta.__width and
-                event[3] >= meta.__y and event[3] <= meta.__y + meta.__height then
+            if event[2] > meta.__x and event[2] < meta.__x + meta.__width and
+            event[3] > meta.__y and event[3] < meta.__y + meta.__height then
                 meta.__sprite:setTexture(meta.__hover, false)
                 if meta.__status == "pressed" then
                     meta.__callback(self, "click", event[4], event[2], event[3])
@@ -224,8 +224,8 @@ function button.event(self, ...)
                 end
             end
         elseif event[1] == "mouse_move" then
-            if event[2] >= meta.__x and event[2] <= meta.__x + meta.__width and
-                event[3] >= meta.__y and event[3] <= meta.__y + meta.__height then
+            if event[2] > meta.__x and event[2] < meta.__x + meta.__width and
+            event[3] > meta.__y and event[3] < meta.__y + meta.__height then
                 meta.__callback(self, "hover", event[2], event[3])
                 if meta.__status == "released" then
                     meta.__status = "hover"

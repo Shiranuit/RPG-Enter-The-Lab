@@ -71,8 +71,10 @@ function update()
 
 end
 
+dir = -1
+
 function event(...)
-    local evt = {...}
+    local event = {...}
     play_button:event(...)
     option_button:event(...)
     exit_button:event(...)
