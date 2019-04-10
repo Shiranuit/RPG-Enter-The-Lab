@@ -20,7 +20,7 @@ int font_create_from_file(lua_State *L)
         luaL_error(L, "Expected (FileName)");
         return (0);
     }
-    if (lua_isuserdata(L, 1)) {
+    if (lua_isstring(L, 1)) {
         str = lua_tostring(L, 1);
         font = sfFont_createFromFile(str);
         font_p = (sfFont **)lua_newuserdata(L, sizeof(sfFont *));
