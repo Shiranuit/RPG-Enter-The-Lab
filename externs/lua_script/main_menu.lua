@@ -2,54 +2,69 @@
 -- =                MAIN MENU              =
 -- =========================================
 
+local background = lsfml.sprite.create()
+background:setTexture(assets["background"], false)
+
 local play_button = button.create{
-    x = 0,
-    y = 0,
-    width = 421,
-    height = 171,
+    x = 750,
+    y = 1080 / 2 - 170 - 170 / 2,
+    width = 420,
+    height = 170,
     callback = function(...)
         local event = {...}
-        if event[2] == "drag" and lsfml.mouse.isButtonPressed(1) then
-            local x, y = event[1]:getPosition()
-            event[1]:setPosition(x + event[5], y + event[6])
-        elseif event[2] == "click" then
-            if event[3] == 0 then
-                window:close()
-            end
+        if event[2] == "click" then
+
         end
     end,
     idle = assets["button_idle"],
     hover = assets["button_hover"],
     press = assets["button_pressed"],
+    text = "Play",
+    csize = 100,
 }
 
 
 local option_button = button.create{
-    x = 0,
-    y = 171,
-    width = 421,
-    height = 171,
+    x = 750,
+    y = 1080 / 2 - 170 / 2,
+    width = 420,
+    height = 170,
     callback = function(...)
         local event = {...}
-        if event[2] == "drag" and lsfml.mouse.isButtonPressed(1) then
-            local x, y = event[1]:getPosition()
-            event[1]:setPosition(x + event[5], y + event[6])
-        elseif event[2] == "click" then
-            if event[3] == 0 then
-                event[1]:setVisible(false)
-            end
+        if event[2] == "click" then
+
         end
     end,
     idle = assets["button_idle"],
     hover = assets["button_hover"],
     press = assets["button_pressed"],
-    visible = true,
+    text = "Options",
+    csize = 100,
+}
+
+local exit_button = button.create{
+    x = 750,
+    y = 1080 / 2 + 170 / 2,
+    width = 420,
+    height = 170,
+    callback = function(...)
+        local event = {...}
+        if event[2] == "click" then
+            window:close()
+        end
+    end,
+    idle = assets["button_idle"],
+    hover = assets["button_hover"],
+    press = assets["button_pressed"],
+    text = "Exit",
+    csize = 100,
 }
 
 function draw()
-    window:clear(0, 0, 0)
+    window:draw(background)
     play_button:draw()
     option_button:draw()
+    exit_button:draw()
 end
 
 function update()
@@ -60,7 +75,5 @@ function event(...)
     local evt = {...}
     play_button:event(...)
     option_button:event(...)
-    if evt[1] == "key_pressed" and evt[2] == 57 then
-        option_button:setVisible(not option_button:isVisible())
-    end
+    exit_button:event(...)
 end

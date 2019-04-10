@@ -42,7 +42,7 @@ int main(void)
 {
     int code = 0;
     lua_State *L = init_lua();
-    sfRenderWindow *window = sfRenderWindow_create((sfVideoMode){800, 600, 32}, "Lua", sfClose, 0);
+    sfRenderWindow *window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32}, "Lua", sfClose, 0);
     sfRenderWindow **win = (sfRenderWindow **)lua_newuserdata(L, sizeof(sfRenderWindow *));
 
     *win = window;
