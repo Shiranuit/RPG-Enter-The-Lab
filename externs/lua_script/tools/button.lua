@@ -121,6 +121,23 @@ function button.getStatus(self)
     return meta.__status
 end
 
+function button.setStatus(self, status)
+    check(self, "button", 1)
+    check(status, "string", 2)
+
+    local meta = getmetatable(self)
+    if status == "pressed" then
+        meta.__sprite:setTexture(meta.__press, false)
+        meta.__status = status
+    elseif status == "released" then
+        meta.__sprite:setTexture(meta.__idle, false)
+        meta.__status = status
+    elseif status == "hover" then
+        meta.__sprite:setTexture(meta.__hover, false)
+        meta.__status = status
+    end
+end
+
 function button.getSize(self)
     check(self, "button", 1)
 

@@ -75,6 +75,7 @@ assets["button_hover"] = lsfml.texture.createFromFile("./assets/menu/button_hove
 assets["player"] = lsfml.texture.createFromFile("./assets/player/AllSprite.png", {0, 0, 3299, 2498})
 assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
 assets["menu_music"] = lsfml.music.createFromFile("./assets/music/main_menu.ogg")
+assets["ambiance_music"] = lsfml.music.createFromFile("./assets/music/ambiance_game.ogg")
 
 
 -- =========================================

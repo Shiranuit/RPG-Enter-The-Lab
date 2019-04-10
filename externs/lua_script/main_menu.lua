@@ -62,6 +62,9 @@ local exit_button = button.create{
 function load()
     assets["menu_music"]:setLoop(true)
     assets["menu_music"]:play()
+    exit_button:setStatus("released")
+    play_button:setStatus("released")
+    option_button:setStatus("released")
 end
 
 function unload()
@@ -78,8 +81,6 @@ end
 function update()
 
 end
-
-dir = -1
 
 function event(...)
     local event = {...}

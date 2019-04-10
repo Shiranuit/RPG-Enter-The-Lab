@@ -8,6 +8,14 @@ local pedro = player.create ({
 
 })
 
+function load()
+    assets["ambiance_music"]:setLoop(true)
+    assets["ambiance_music"]:play()
+end
+
+function unload()
+    assets["ambiance_music"]:stop()
+end
 
 function draw()
     window:clear(0, 0, 0)
@@ -19,5 +27,9 @@ function update()
 end
 
 function event(...)
+    local event = {...}
+    if event[1] == "key_pressed" and event[2] == keys.Escape then
+        setScene("main_menu")
+    end
     pedro:event()
 end
