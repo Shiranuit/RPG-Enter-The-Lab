@@ -12,6 +12,7 @@
 #include "engine.h"
 #include <SFML/Graphics.h>
 #include <SFML/Window.h>
+#include <SFML/Audio.h>
 #include <SFML/System.h>
 
 lua_State *init_lua(void)

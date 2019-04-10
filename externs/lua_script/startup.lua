@@ -34,7 +34,7 @@ local function loadScene(name)
                     scenes[name][k] = v
                 end
             else
-                print(({e:gsub('%[string "loadScene"%]', name)})[1])
+                print(name..({e:match(":.+")})[1])
             end
         else
             error("[SCENE LOADER ERROR] "..err, 2)
@@ -46,7 +46,13 @@ local function loadScene(name)
 end
 
 function setScene(name)
+    if scenes[scene_name] and scenes[scene_name].unload then
+        scenes[scene_name].unload()
+    end
     scene_name = name
+    if scenes[name] and scenes[name].load then
+        scenes[name].load()
+    end
 end
 
 function getScene()
@@ -66,6 +72,7 @@ assets["button_idle"] = lsfml.texture.createFromFile("./assets/menu/button_idle.
 assets["button_pressed"] = lsfml.texture.createFromFile("./assets/menu/button_pressed.png", {0, 0, 421, 171})
 assets["button_hover"] = lsfml.texture.createFromFile("./assets/menu/button_hover.png", {0, 0, 421, 171})
 assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
+assets["menu_music"] = lsfml.music.createFromFile("./assets/music/main_menu.ogg")
 
 -- =========================================
 -- =                 SCENES                =
@@ -86,6 +93,7 @@ function init()
         __ptr = owindow,
         __type = "window",
     })
+    setScene("main_menu")
 end
 
 -- Called each time we need to draw a frame

@@ -145,6 +145,36 @@ static const luaL_Reg lsfmllib[] = {
     {"mouse_isButtonPressed", mouse_is_button_pressed},
 
     {"keyboard_keyPressed", keyboard_key_pressed},
+
+    {"sound_copy", sound_copy},
+    {"sound_create", sound_create},
+    {"sound_getAttenuation", sound_get_attenuation},
+    {"sound_destroy", sound_destroy},
+    {"sound_getBuffer", sound_get_buffer},
+    {"sound_getIsRelativeToListener", sound_get_is_relative_to_lister},
+    {"sound_getLoop", sound_get_loop},
+    {"sound_getMinDistance", sound_get_min_distance},
+    {"sound_getPitch", sound_get_pitch},
+    {"sound_getPlayingOffset", sound_get_playing_offset},
+    {"sound_getVolume", sound_get_volume},
+    {"sound_getPosition", sound_get_position},
+    {"sound_getStatus", sound_get_status},
+    {"sound_pause", sound_pause},
+    {"sound_play", sound_play},
+    {"sound_stop", sound_stop},
+    {"sound_setBuffer", sound_set_buffer},
+    {"sound_setLoop", sound_set_loop},
+    {"sound_setMinDistance", sound_set_min_distance},
+    {"sound_setPitch", sound_set_pitch},
+    {"sound_setPlayingOffset", sound_set_playing_offset},
+    {"sound_setPosition", sound_set_position},
+    {"sound_setRelativeToListener", sound_set_relative_to_lister},
+    {"sound_setAttenuation", sound_set_attenuation},
+    {"sound_setVolume", sound_set_volume},
+
+    {"soundbuffer_createFromFile", soundbuffer_create_from_file},
+    {"soundbuffer_destroy", soundbuffer_destroy},
+
     {NULL, NULL},
 };
 

@@ -145,4 +145,33 @@ int mouse_is_button_pressed(lua_State *L);
 
 int keyboard_key_pressed(lua_State *L);
 
+int sound_copy(lua_State *L);
+int sound_create(lua_State *L);
+int sound_destroy(lua_State *L);
+int sound_get_attenuation(lua_State *L);
+int sound_get_buffer(lua_State *L);
+int sound_get_loop(lua_State *L);
+int sound_get_min_distance(lua_State *L);
+int sound_get_pitch(lua_State *L);
+int sound_get_playing_offset(lua_State *L);
+int sound_get_position(lua_State *L);
+int sound_get_status(lua_State *L);
+int sound_get_volume(lua_State *L);
+int sound_get_is_relative_to_lister(lua_State *L);
+int sound_pause(lua_State *L);
+int sound_play(lua_State *L);
+int sound_set_attenuation(lua_State *L);
+int sound_set_buffer(lua_State *L);
+int sound_set_loop(lua_State *L);
+int sound_set_min_distance(lua_State *L);
+int sound_set_pitch(lua_State *L);
+int sound_set_playing_offset(lua_State *L);
+int sound_set_position(lua_State *L);
+int sound_set_relative_to_lister(lua_State *L);
+int sound_set_volume(lua_State *L);
+int sound_stop(lua_State *L);
+
+int soundbuffer_destroy(lua_State *L);
+int soundbuffer_create_from_file(lua_State *L);
+
 #endif /* !LSFML_FUNCTION_H_ */

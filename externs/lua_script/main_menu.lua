@@ -23,7 +23,6 @@ local play_button = button.create{
     csize = 100,
 }
 
-
 local option_button = button.create{
     x = 750,
     y = 1080 / 2 - 170 / 2,
@@ -59,6 +58,15 @@ local exit_button = button.create{
     text = "Exit",
     csize = 100,
 }
+
+function load()
+    assets["menu_music"]:setLoop(true)
+    assets["menu_music"]:play()
+end
+
+function unload()
+    assets["menu_music"]:stop()
+end
 
 function draw()
     window:draw(background)
