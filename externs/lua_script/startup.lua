@@ -56,6 +56,7 @@ end
 local owindow = window
 dofile("lsfml.lua")
 dofile("tools/button.lua")
+dofile("entity/player.lua")
 
 -- =========================================
 -- =             LOADING ASSETS            =
@@ -65,13 +66,16 @@ assets["background"] = lsfml.texture.createFromFile("./assets/menu/BG.png", {0, 
 assets["button_idle"] = lsfml.texture.createFromFile("./assets/menu/button_idle.png", {0, 0, 421, 171})
 assets["button_pressed"] = lsfml.texture.createFromFile("./assets/menu/button_pressed.png", {0, 0, 421, 171})
 assets["button_hover"] = lsfml.texture.createFromFile("./assets/menu/button_hover.png", {0, 0, 421, 171})
+assets["player"] = lsfml.texture.createFromFile("./assets/player/AllSprite.png", {0, 0, 3299, 2498})
 assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
+
 
 -- =========================================
 -- =                 SCENES                =
 -- =========================================
 
 loadScene("main_menu.lua")
+loadScene("test_player.lua")
 
 -- =========================================
 -- =           MYRPG GAME-LOGIC            =

@@ -21,7 +21,7 @@ int keyboard_key_pressed(lua_State *L)
     if (lua_isinteger(L, 1)) {
         key_code = lua_tointeger(L, 1);
         nb = sfKeyboard_isKeyPressed(key_code);
-        lua_pushinteger(L, nb);
+        lua_pushboolean(L, nb);
     } else {
         luaL_error(L, "Expected (Int)");
         return (0);
