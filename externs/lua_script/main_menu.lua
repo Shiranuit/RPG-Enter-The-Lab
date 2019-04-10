@@ -13,7 +13,7 @@ local play_button = button.create{
     callback = function(...)
         local event = {...}
         if event[2] == "click" then
-
+            setScene("load")
         end
     end,
     idle = assets["button_idle"],
@@ -32,7 +32,7 @@ local option_button = button.create{
     callback = function(...)
         local event = {...}
         if event[2] == "click" then
-
+            setScene("options")
         end
     end,
     idle = assets["button_idle"],
