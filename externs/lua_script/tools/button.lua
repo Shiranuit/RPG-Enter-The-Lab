@@ -4,7 +4,7 @@
 
 button = {}
 
-local function cassert(cond, msg, lvl)
+function cassert(cond, msg, lvl)
     if not cond then
         error(msg, lvl)
     end
