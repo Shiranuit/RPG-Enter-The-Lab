@@ -1045,7 +1045,19 @@ function lsfml.mouse.isButtonPressed(number)
     return olsfml.mouse_isButtonPressed(number)
 end
 
+-- =======================
+-- =     MOUSE MACROS    =
+-- =======================
 
+mouse = {
+    LEFT = 0,
+    RIGHT = 1,
+    MIDDLE = 2
+}
+
+-- =======================
+-- =     KEYS MACROS     =
+-- =======================
 
 keys = {
 	Unknown = -1,
