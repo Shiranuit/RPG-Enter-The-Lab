@@ -15,7 +15,7 @@ function player.create(info)
         __type = "player",
         __index = player,
         __clock = lsfml.clock.create(),
-        __pos_rect = {12, 100000, 0, 2000, 220, 500},
+        __pos_rect = {4, 150000, 0, 2000, 220, 500},
         __sprite = sprite,
         __health = info.health or 100,
         __stamina = info.stamina or 100,
@@ -46,8 +46,8 @@ function player.setHealth(self, life)
     check(life, "number", 2)
 
     meta = getmetatable(self)
-    cassert(life < 0, "The life must be positive", 3)
-    cassert(life > meta.__max_health, "The life cant exceed the max health", 3)
+    cassert(life > 0, "The life must be positive", 3)
+    cassert(life < meta.__max_health, "The life cant exceed the max health", 3)
     meta.__health = life
 end
 
@@ -56,17 +56,17 @@ function player.heal(self, life)
     check(life, "number", 2)
 
     meta = getmetatable(self)
-    cassert(life < 0, "The added life must be positive", 3)
+    cassert(life > 0, "The added life must be positive", 3)
     meta.__health = meta.__health + life
     if meta.__health > meta.__max_health then meta.__health = meta.__max_health end
 end
 
-function player.hit(self)
+function player.hit(self, life)
     check(self ,"player", 1)
     check(life, "number", 2)
 
     meta = getmetatable(self)
-    cassert(life < 0, "The removed life must be positive", 3)
+    cassert(life > 0, "The removed life must be positive", 3)
     meta.__health = meta.__health - life
     if meta.__health < 0 then meta.__health = 0 end
 end
@@ -83,7 +83,7 @@ function player.setMaximumHealth(self, life)
     check(life ,"number", 1)
 
     meta = getmetatable(self)
-    assert(life < 0, "The Maximum health must be positive", 3)
+    assert(life > 0, "The Maximum health must be positive", 3)
     meta.__max_health = life
     if meta.__health > meta.__max_health then meta.__health = meta.__max_health end
 end
@@ -100,8 +100,8 @@ function player.setStamina(self, stamina)
     check(stamina, "stamina", 2)
 
     meta = getmetatable(self)
-    cassert(stamina < 0, "The stamina must be positive", 3)
-    cassert(stamina > meta.__max_stamina, "The stamina cant exceed the max stamina", 3)
+    cassert(stamina > 0, "The stamina must be positive", 3)
+    cassert(stamina < meta.__max_stamina, "The stamina cant exceed the max stamina", 3)
     meta.__stamina = stamina
 end
 
@@ -110,7 +110,7 @@ function player.addStamina(self, stamina)
     check(stamina, "stamina", 2)
     
     meta = getmetatable(self)
-    cassert(life < 0, "The added stamina must be positive", 3)
+    cassert(life > 0, "The added stamina must be positive", 3)
     meta.__stamina = meta.__stamina + stamina
     if meta.__stamina > meta.__max_stamina then meta.__stamina = meta.__max_stamina end
 end
@@ -120,7 +120,7 @@ function player.removeStamina(self, stamina)
     check(stamina, "stamina", 2)
     
     meta = getmetatable(self)
-    cassert(life < 0, "The removed stamina must be positive", 3)
+    cassert(life > 0, "The removed stamina must be positive", 3)
     meta.__stamina = meta.__stamina - stamina
     if meta.__stamina < 0 then meta.__stamina = 0 end
 end
@@ -137,7 +137,7 @@ function player.setSpeed(self, speed)
     check(speed ,"speed", 1)
 
     meta = getmetatable(self)
-    cassert(speed < 0, "The speed must be positive", 3)
+    cassert(speed > 0, "The speed must be positive", 3)
     meta.__speed = speed
 
 end
@@ -186,9 +186,10 @@ end
 
 function player.update(self)
     check(self ,"player", 1)
-
+    
     meta = getmetatable(self)
-    if lsfml.keyboard.keyPressed(keys.Z) then 
+
+    if lsfml.keyboard.keyPressed(keys.Z) and meta.__health > 0 then 
         if (meta.__status ~= "up") then
             meta.__status = "up"
             meta.__pos_rect = {7, 350000 / meta.__speed, 0, 1000, 220, 500}
@@ -196,7 +197,7 @@ function player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         meta.__sprite:move(0, -meta.__speed)
-    elseif lsfml.keyboard.keyPressed(keys.S) then
+    elseif lsfml.keyboard.keyPressed(keys.S) and meta.__health > 0 then
         if (meta.__status ~= "down") then
             meta.__status = "down"
             meta.__pos_rect = {7, 350000 / meta.__speed, 0, 1500, 220, 500}
@@ -204,7 +205,7 @@ function player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         meta.__sprite:move(0, meta.__speed)
-    elseif lsfml.keyboard.keyPressed(keys.D) then
+    elseif lsfml.keyboard.keyPressed(keys.D) and meta.__health > 0 then
         if (meta.__status ~= "right") then
             meta.__status = "right"
             meta.__pos_rect = {15, 350000 / meta.__speed, 0, 0, 220, 500}
@@ -212,7 +213,7 @@ function player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         meta.__sprite:move(meta.__speed, 0)
-    elseif lsfml.keyboard.keyPressed(keys.Q) then
+    elseif lsfml.keyboard.keyPressed(keys.Q) and meta.__health > 0 then
         if (meta.__status ~= "left") then
             meta.__status = "left"
             meta.__pos_rect = {15, 350000 / meta.__speed, 0, 500, 220, 500}
@@ -220,16 +221,20 @@ function player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         meta.__sprite:move(-meta.__speed, 0)
-    else
-        if (meta.__status ~= "idle") then
-            meta.__status = "idle"
-            meta.__pos_rect = {12, 100000, 0, 2000, 220, 500}
+    elseif  meta.__health <= 0 then
+        if (meta.__status ~= "death") then
+            meta.__status = "death"
+            meta.__pos_rect = {11, 70000, 0, 2500, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
-    end
-    if  meta.__health <= 0 then
-        meta.__status = "death"
+    else
+        if (meta.__status ~= "idle") then
+            meta.__status = "idle"
+            meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+            meta.__clock:restart()
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+        end
     end
 end
 
@@ -239,7 +244,7 @@ function player.draw(self)
     local meta = getmetatable(self)
     if meta.__clock:getEllapsedTime() > meta.__pos_rect[2] then
         meta.__pos_rect[3] = meta.__pos_rect[3] + meta.__pos_rect[5]
-        if meta.__pos_rect[3] > meta.__pos_rect[5] * (meta.__pos_rect[1] - 1) then
+        if meta.__pos_rect[3] > meta.__pos_rect[5] * (meta.__pos_rect[1] - 1) and  meta.__status ~= "death" then
             meta.__pos_rect[3] = 0
         end
         meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
