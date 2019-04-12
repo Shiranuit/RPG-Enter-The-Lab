@@ -78,15 +78,15 @@ function entity_player.getMaximumHealth(self)
     return meta.__max_health
 end
 
-function player.getMaximumStamina(self)
-    check(self ,"player", 1)
+function entity_player.getMaximumStamina(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     return meta.__max_stamina
 end 
 
-function player.setMaximumHealth(self, life)
-    check(self ,"player", 1)
+function entity_player.setMaximumHealth(self, life)
+    check(self ,"entity_player", 1)
     check(life ,"number", 1)
 
     meta = getmetatable(self)
