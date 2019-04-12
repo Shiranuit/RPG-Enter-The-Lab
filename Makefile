@@ -79,6 +79,8 @@ fclean: clean
 flclean:
 	make -C ./externs/lua clean
 
+aclean: fclean flclean
+
 re: fclean all
 
 rel: fclean flclean all
