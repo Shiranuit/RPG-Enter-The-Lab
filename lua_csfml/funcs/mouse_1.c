@@ -52,8 +52,6 @@ int mouse_set_position(lua_State *L)
 
 int mouse_is_button_pressed(lua_State *L)
 {
-    sfRenderWindow *window = 0;
-
     if (lua_gettop(L) < 1) {
         luaL_error(L, "Expected (MouseButton)");
         return (0);

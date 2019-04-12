@@ -21,7 +21,7 @@ int sound_copy(lua_State *L)
     }
     if (lua_isuserdata(L, 1)) {
         sound = userdata_pointer(L, 1, sfSound);
-        new = (sfSound *)lua_newuserdata(L, sizeof(sfSound *));
+        new = (sfSound **)lua_newuserdata(L, sizeof(sfSound *));
         *new = sfSound_copy(sound);
     } else {
         luaL_error(L, "Expected (Sound)");
@@ -34,7 +34,7 @@ int sound_create(lua_State *L)
 {
     sfSound **new = 0;
 
-    new = (sfSound *)lua_newuserdata(L, sizeof(sfSound *));
+    new = (sfSound **)lua_newuserdata(L, sizeof(sfSound *));
     *new = sfSound_create();
     return (1);
 }
@@ -78,7 +78,7 @@ int sound_get_attenuation(lua_State *L)
 int sound_get_buffer(lua_State *L)
 {
     sfSound *sound = 0;
-    sfSoundBuffer **new = 0;
+    const sfSoundBuffer **new = 0;
 
     if (lua_gettop(L) < 1) {
         luaL_error(L, "Expected (Sound)");
@@ -86,7 +86,7 @@ int sound_get_buffer(lua_State *L)
     }
     if (lua_isuserdata(L, 1)) {
         sound = userdata_pointer(L, 1, sfSound);
-        new = (sfSoundBuffer *)lua_newuserdata(L, sizeof(sfSoundBuffer *));
+        new = (const sfSoundBuffer **)lua_newuserdata(L, sizeof(sfSoundBuffer *));
         *new = sfSound_getBuffer(sound);
     } else {
         luaL_error(L, "Expected (Sound)");

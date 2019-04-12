@@ -77,7 +77,7 @@ int vertexarray_get_vertex(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
         varray = userdata_pointer(L, 1, sfVertexArray);
-        if (lua_tointeger(L, 2) >= sfVertexArray_getVertexCount(varray))
+        if (lua_tointeger(L, 2) >= (int)sfVertexArray_getVertexCount(varray))
             return (0);
         vertex = (sfVertex **)lua_newuserdata(L, sizeof(sfVertex **));
         *vertex = sfVertexArray_getVertex(varray, lua_tointeger(L, 2));

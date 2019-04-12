@@ -19,7 +19,7 @@ int soundbuffer_create_from_file(lua_State *L)
         return (0);
     }
     if (lua_isstring(L, 1)) {
-        new = (sfSoundBuffer *)lua_newuserdata(L, sizeof(sfSoundBuffer *));
+        new = (sfSoundBuffer **)lua_newuserdata(L, sizeof(sfSoundBuffer *));
         *new = sfSoundBuffer_createFromFile(lua_tostring(L, 1));
     } else {
         luaL_error(L, "Expected (String)");

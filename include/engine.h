@@ -15,6 +15,7 @@
 #include <SFML/System.h>
 
 int engine(lua_State *L, sfRenderWindow *window);
+int pcall(lua_State *L, int args, int result);
 int get_event(lua_State *L, sfEvent *event);
 int event_mouse_left(lua_State *L, sfEvent *event);
 int event_mouse_scroll(lua_State *L, sfEvent *event);

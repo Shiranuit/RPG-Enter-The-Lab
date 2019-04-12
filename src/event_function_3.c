@@ -22,7 +22,7 @@ int event_keyreleased(lua_State *L, sfEvent *event)
     return (6);
 }
 
-int event_mouse_left(lua_State *L, sfEvent *event)
+int event_mouse_left(lua_State *L, sfEvent *event UNUSED)
 {
     lua_pushstring(L, "mouse_left");
     return (1);

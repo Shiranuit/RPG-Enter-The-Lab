@@ -36,7 +36,7 @@ int vertex_create(lua_State *L)
     *vertex = malloc(sizeof(vertex));
     (*vertex)->texCoords = (sfVector2f){0, 0};
     (*vertex)->position = (sfVector2f){0, 0};
-    (*vertex)->color = (sfColor){0, 0};
+    (*vertex)->color = (sfColor){0, 0, 0, 0};
     return (1);
 }
 

@@ -46,7 +46,7 @@ int event_mouse_move(lua_State *L, sfEvent *event)
     return (3);
 }
 
-int event_mouse_entered(lua_State *L, sfEvent *event)
+int event_mouse_entered(lua_State *L, sfEvent *event UNUSED)
 {
     lua_pushstring(L, "mouse_entered");
     return (1);

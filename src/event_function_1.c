@@ -10,19 +10,19 @@
 #include <SFML/Graphics.h>
 #include <SFML/System.h>
 
-int event_close(lua_State *L, sfEvent *event)
+int event_close(lua_State *L, sfEvent *event UNUSED)
 {
     lua_pushstring(L, "close");
     return (1);
 }
 
-int event_lost_focus(lua_State *L, sfEvent *event)
+int event_lost_focus(lua_State *L, sfEvent *event UNUSED)
 {
     lua_pushstring(L, "lost_focus");
     return (1);
 }
 
-int event_gained_focus(lua_State *L, sfEvent *event)
+int event_gained_focus(lua_State *L, sfEvent *event UNUSED)
 {
     lua_pushstring(L, "gained_focus");
     return (1);

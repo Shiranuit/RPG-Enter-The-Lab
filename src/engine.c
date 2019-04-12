@@ -11,11 +11,6 @@
 #include <SFML/System.h>
 #include "engine.h"
 
-int pcall(lua_State *L, int args, int result)
-{
-    return lua_pcall(L, args, result, 0);
-}
-
 int init(lua_State *L)
 {
     lua_getglobal(L, "init");

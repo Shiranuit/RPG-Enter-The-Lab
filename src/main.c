@@ -39,6 +39,11 @@ void run_file(lua_State *L, char const *filename)
     }
 }
 
+int pcall(lua_State *L, int args, int result)
+{
+    return lua_pcall(L, args, result, 0);
+}
+
 int main(void)
 {
     int code = 0;

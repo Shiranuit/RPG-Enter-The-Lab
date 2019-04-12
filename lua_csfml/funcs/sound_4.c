@@ -87,7 +87,6 @@ int sound_set_min_distance(lua_State *L)
 int sound_set_pitch(lua_State *L)
 {
     sfSound *sound = 0;
-    sfSoundBuffer *buf = 0;
 
     if (lua_gettop(L) < 2) {
         luaL_error(L, "Expected (Sound, Pitch)");

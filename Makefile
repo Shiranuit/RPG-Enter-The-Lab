@@ -62,7 +62,7 @@ SRCS += $(LSFML)
 OBJS	= $(SRCS:.c=.o)
 
 CFLAGS = -I./include/ -lcsfml-window -lcsfml-graphics -lcsfml-system -lcsfml-audio -L./externs/lua/src -llua -ldl -lm
-CFLAGS += -Wall -Wextra
+CFLAGS += -Wall -Wno-deprecated-declarations -Wextra
 
 all: $(NAME)
 
