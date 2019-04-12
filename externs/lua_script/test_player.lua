@@ -10,7 +10,7 @@ local pedro = player.create ({
 
 function load()
     assets["ambiance_music"]:setLoop(true)
-    assets["ambiance_music"]:play()
+    --assets["ambiance_music"]:play()
 end
 
 function unload()
@@ -24,6 +24,10 @@ end
 
 function update()
     pedro:update()
+    if lsfml.keyboard.keyPressed(keys.A) then
+        pedro:hit(5)
+        print(pedro:getHealth())
+    end
 end
 
 function event(...)
