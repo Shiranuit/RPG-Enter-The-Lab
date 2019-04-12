@@ -31,6 +31,7 @@ function entity_player.create(info)
         __status = "idle",
         __position_x = info.pos_x,
         __position_y = info.pos_y,
+        __is_sprinting = false
     })
 end
 
@@ -207,49 +208,56 @@ function entity_player.update(self)
     check(self ,"entity_player", 1)
     
     meta = getmetatable(self)
+    speed = meta.__speed
 
+    if meta.__is_sprinting == true then
+        meta.__stamina = meta.__stamina - 1
+        speed = speed * 2
+    elseif meta.__max_stamina > meta.__stamina then
+        meta.__stamina = meta.__stamina + 1
+    end
     if meta.__status == "respawn" then
         return
     end
     if lsfml.keyboard.keyPressed(keys.Z) and meta.__health > 0 then 
         if (meta.__status ~= "up") then
             meta.__status = "up"
-            meta.__pos_rect = {7, 350000 / meta.__speed, 0, 1000, 220, 500}
+            meta.__pos_rect = {7, 350000 / speed, 0, 1000, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(0, -meta.__speed)
+            meta.__sprite:move(0, -speed)
         end
     elseif lsfml.keyboard.keyPressed(keys.S) and meta.__health > 0 then
         if (meta.__status ~= "down") then
             meta.__status = "down"
-            meta.__pos_rect = {7, 350000 / meta.__speed, 0, 1500, 220, 500}
+            meta.__pos_rect = {7, 350000 / speed, 0, 1500, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(0, meta.__speed)
+            meta.__sprite:move(0, speed)
         end
     elseif lsfml.keyboard.keyPressed(keys.D) and meta.__health > 0 then
         if (meta.__status ~= "right") then
             meta.__status = "right"
-            meta.__pos_rect = {15, 350000 / meta.__speed, 0, 0, 220, 500}
+            meta.__pos_rect = {15, 350000 / speed, 0, 0, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(meta.__speed, 0)
+            meta.__sprite:move(speed, 0)
         end
     elseif lsfml.keyboard.keyPressed(keys.Q) and meta.__health > 0 then
         if (meta.__status ~= "left") then
             meta.__status = "left"
-            meta.__pos_rect = {15, 350000 / meta.__speed, 0, 500, 220, 500}
+            meta.__pos_rect = {15, 350000 / speed, 0, 500, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(-meta.__speed, 0)
+            meta.__sprite:move(-speed, 0)
         end
     elseif  meta.__health <= 0 then
         if (meta.__status ~= "death") then
@@ -266,13 +274,19 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
     end
+    meta.__is_sprinting = lsfml.keyboard.keyPressed(keys.LShift) and meta.__health > 0 and meta.__stamina > 0
 end
 
 function entity_player.draw(self)
     check(self, "entity_player", 1)
 
     local meta = getmetatable(self)
-    if meta.__clock:getEllapsedTime() > meta.__pos_rect[2] then
+    time = meta.__pos_rect[2]
+
+    if meta.__is_sprinting == true then
+        time = time * 4
+    end
+    if meta.__clock:getEllapsedTime() > time then
         if meta.__status ~= "respawn" then
             meta.__pos_rect[3] = meta.__pos_rect[3] + meta.__pos_rect[5]
             if meta.__pos_rect[3] > meta.__pos_rect[5] * (meta.__pos_rect[1] - 1) and  meta.__status ~= "death" then
