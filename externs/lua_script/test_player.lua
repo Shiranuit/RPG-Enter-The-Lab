@@ -28,6 +28,10 @@ function update()
         pedro:hit(5)
         print(pedro:getHealth())
     end
+    if lsfml.keyboard.keyPressed(keys.E) then
+        pedro:respawn()
+        print(pedro:getHealth())
+    end
 end
 
 function event(...)

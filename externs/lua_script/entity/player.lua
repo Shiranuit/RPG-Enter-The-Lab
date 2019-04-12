@@ -180,6 +180,18 @@ function player.getStats(self)
     }
 end
 
+function player.respawn(self)
+    check(self ,"player", 1)
+
+    meta = getmetatable(self)
+    meta.__status = "respawn"
+    meta.__health = meta.__max_health
+    meta.__stamina = meta.__max_stamina
+    meta.__pos_rect = {12, 70000, 2640, 2500, 220, 500}
+    meta.__clock:restart()
+    meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+end
+
 function player.event(self)
 
 end
@@ -189,6 +201,9 @@ function player.update(self)
     
     meta = getmetatable(self)
 
+    if meta.__status == "respawn" then
+        return
+    end
     if lsfml.keyboard.keyPressed(keys.Z) and meta.__health > 0 then 
         if (meta.__status ~= "up") then
             meta.__status = "up"
@@ -196,7 +211,9 @@ function player.update(self)
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
-        meta.__sprite:move(0, -meta.__speed)
+        if meta.__status ~= "death" and meta.__status ~= "respawn" then
+            meta.__sprite:move(0, -meta.__speed)
+        end
     elseif lsfml.keyboard.keyPressed(keys.S) and meta.__health > 0 then
         if (meta.__status ~= "down") then
             meta.__status = "down"
@@ -204,7 +221,9 @@ function player.update(self)
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
-        meta.__sprite:move(0, meta.__speed)
+        if meta.__status ~= "death" and meta.__status ~= "respawn" then
+            meta.__sprite:move(0, meta.__speed)
+        end
     elseif lsfml.keyboard.keyPressed(keys.D) and meta.__health > 0 then
         if (meta.__status ~= "right") then
             meta.__status = "right"
@@ -212,7 +231,9 @@ function player.update(self)
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
-        meta.__sprite:move(meta.__speed, 0)
+        if meta.__status ~= "death" and meta.__status ~= "respawn" then
+            meta.__sprite:move(meta.__speed, 0)
+        end
     elseif lsfml.keyboard.keyPressed(keys.Q) and meta.__health > 0 then
         if (meta.__status ~= "left") then
             meta.__status = "left"
@@ -220,11 +241,13 @@ function player.update(self)
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
-        meta.__sprite:move(-meta.__speed, 0)
+        if meta.__status ~= "death" and meta.__status ~= "respawn" then
+            meta.__sprite:move(-meta.__speed, 0)
+        end
     elseif  meta.__health <= 0 then
         if (meta.__status ~= "death") then
             meta.__status = "death"
-            meta.__pos_rect = {11, 70000, 0, 2500, 220, 500}
+            meta.__pos_rect = {12, 70000, 0, 2500, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
@@ -243,9 +266,17 @@ function player.draw(self)
 
     local meta = getmetatable(self)
     if meta.__clock:getEllapsedTime() > meta.__pos_rect[2] then
-        meta.__pos_rect[3] = meta.__pos_rect[3] + meta.__pos_rect[5]
-        if meta.__pos_rect[3] > meta.__pos_rect[5] * (meta.__pos_rect[1] - 1) and  meta.__status ~= "death" then
-            meta.__pos_rect[3] = 0
+        if meta.__status ~= "respawn" then
+            meta.__pos_rect[3] = meta.__pos_rect[3] + meta.__pos_rect[5]
+            if meta.__pos_rect[3] > meta.__pos_rect[5] * (meta.__pos_rect[1] - 1) and  meta.__status ~= "death" then
+                meta.__pos_rect[3] = 0
+            end
+        elseif meta.__status == "respawn" then
+            meta.__pos_rect[3] = meta.__pos_rect[3] - meta.__pos_rect[5]
+            if meta.__pos_rect[3] < 0 then
+                meta.__status = "idle"
+                meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+            end
         end
         meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         meta.__clock:restart()
