@@ -20,6 +20,7 @@ function dofile(filename)
 end
 
 local function loadScene(name)
+    check(name, "string", 1)
     local handle = io.open("./externs/lua_script/"..name)
     if handle then
         local code = handle:read("*all")
@@ -28,7 +29,7 @@ local function loadScene(name)
         if func then
             local s, e = pcall(func)
             if s then
-                local name = name:gsub(".lua", "")
+                local name = name:match("([^/]+).lua$")
                 scenes[name] = {}
                 for k, v in pairs(env) do
                     scenes[name][k] = v
@@ -62,33 +63,38 @@ end
 local owindow = window
 dofile("lib/lsfml.lua")
 dofile("tools/button.lua")
-dofile("entity/player.lua")
+dofile("tools/hud.lua")
+dofile("entity/entity_player.lua")
 
 -- =========================================
 -- =             LOADING ASSETS            =
 -- =========================================
 
-assets["background"] = lsfml.texture.createFromFile("./assets/menu/BG.png", {0, 0, 1920, 1080})
-assets["button_idle"] = lsfml.texture.createFromFile("./assets/menu/button_idle.png", {0, 0, 421, 171})
-assets["button_pressed"] = lsfml.texture.createFromFile("./assets/menu/button_pressed.png", {0, 0, 421, 171})
-assets["button_hover"] = lsfml.texture.createFromFile("./assets/menu/button_hover.png", {0, 0, 421, 171})
-assets["player"] = lsfml.texture.createFromFile("./assets/player/AllSprite.png", {0, 0, 3300, 2998})
-assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
-assets["menu_music"] = lsfml.music.createFromFile("./assets/music/main_menu.ogg")
-assets["ambiance_music"] = lsfml.music.createFromFile("./assets/music/ambiance_game.ogg")
-assets["button_hover_sfx"] = lsfml.sound.createFromFile("./assets/sound/button_hover.wav")
+dofile("assets.lua")
+
+-- =========================================
+-- =               LOAD HUD                =
+-- =========================================
+
+player_hud = hud.createFromFile("hud/player_hud.lua")
 
 -- =========================================
 -- =                 SCENES                =
 -- =========================================
 
-loadScene("main_menu.lua")
-loadScene("test_player.lua")
+loadScene("menu/main_menu.lua")
+loadScene("scenes/test_player.lua")
 
 -- =========================================
 -- =           MYRPG GAME-LOGIC            =
 -- =========================================
 
+player = entity_player.create ({
+    pos_x = 100,
+    pos_y = 100,
+    texture = assets["player"],
+    speed = 20
+})
 
 -- Called at the beginning of the program
 function init()
@@ -105,6 +111,11 @@ end
 function draw()
     if scenes[scene_name] then
         scenes[scene_name].draw()
+        for i=1, #hudorder do
+            if hudorder[i]:isOpen() then
+                hudorder[i]:draw()
+            end
+        end
     else
         error("Scene not found '"..scene_name.."'", 2)
     end
@@ -114,6 +125,11 @@ end
 function update()
     if scenes[scene_name] then
         scenes[scene_name].update()
+        for i=1, #hudorder do
+            if hudorder[i]:isOpen() then
+                hudorder[i]:update()
+            end
+        end
     else
         error("Scene not found '"..scene_name.."'", 2)
     end
@@ -128,6 +144,11 @@ function event(...)
     end
     if scenes[scene_name] then
         scenes[scene_name].event(...)
+        for i=1, #hudorder do
+            if hudorder[i]:isOpen() then
+                hudorder[i]:event(...)
+            end
+        end
     else
         error("Scene not found '"..scene_name.."'", 2)
     end

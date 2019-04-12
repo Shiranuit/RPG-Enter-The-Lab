@@ -1,10 +1,10 @@
 -- =========================================
--- =                PLAYER                 =
+-- =             ENTITY PLAYER             =
 -- =========================================
 
-player = {}
+entity_player = {}
 
-function player.create(info)
+function entity_player.create(info)
     check(info, "table", 1)
 
     local sprite = lsfml.sprite.create()
@@ -12,8 +12,8 @@ function player.create(info)
     sprite:setPosition(info.pos_x, info.pos_y)
     sprite:setScale(0.5, 0.5)
     return setmetatable({}, {
-        __type = "player",
-        __index = player,
+        __type = "entity_player",
+        __index = entity_player,
         __clock = lsfml.clock.create(),
         __pos_rect = {4, 150000, 0, 2000, 220, 500},
         __sprite = sprite,
@@ -34,15 +34,15 @@ function player.create(info)
     })
 end
 
-function player.getHealth(self)
-    check(self ,"player", 1)
+function entity_player.getHealth(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     return meta.__health
 end
 
-function player.setHealth(self, life)
-    check(self ,"player", 1)
+function entity_player.setHealth(self, life)
+    check(self ,"entity_player", 1)
     check(life, "number", 2)
 
     meta = getmetatable(self)
@@ -51,8 +51,8 @@ function player.setHealth(self, life)
     meta.__health = life
 end
 
-function player.heal(self, life)
-    check(self ,"player", 1)
+function entity_player.heal(self, life)
+    check(self ,"entity_player", 1)
     check(life, "number", 2)
 
     meta = getmetatable(self)
@@ -61,8 +61,8 @@ function player.heal(self, life)
     if meta.__health > meta.__max_health then meta.__health = meta.__max_health end
 end
 
-function player.hit(self, life)
-    check(self ,"player", 1)
+function entity_player.hit(self, life)
+    check(self ,"entity_player", 1)
     check(life, "number", 2)
 
     meta = getmetatable(self)
@@ -71,15 +71,15 @@ function player.hit(self, life)
     if meta.__health < 0 then meta.__health = 0 end
 end
 
-function player.getMaximumHealth(self)
-    check(self ,"player", 1)
+function entity_player.getMaximumHealth(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     return meta.__max_health
-end 
+end
 
-function player.setMaximumHealth(self, life)
-    check(self ,"player", 1)
+function entity_player.setMaximumHealth(self, life)
+    check(self ,"entity_player", 1)
     check(life ,"number", 1)
 
     meta = getmetatable(self)
@@ -88,15 +88,15 @@ function player.setMaximumHealth(self, life)
     if meta.__health > meta.__max_health then meta.__health = meta.__max_health end
 end
 
-function player.getStamina(self)
-    check(self ,"player", 1)
+function entity_player.getStamina(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     return meta.__stamina
 end
 
-function player.setStamina(self, stamina)
-    check(self ,"player", 1)
+function entity_player.setStamina(self, stamina)
+    check(self ,"entity_player", 1)
     check(stamina, "stamina", 2)
 
     meta = getmetatable(self)
@@ -105,35 +105,35 @@ function player.setStamina(self, stamina)
     meta.__stamina = stamina
 end
 
-function player.addStamina(self, stamina)
-    check(self ,"player", 1)
+function entity_player.addStamina(self, stamina)
+    check(self ,"entity_player", 1)
     check(stamina, "stamina", 2)
-    
+
     meta = getmetatable(self)
     cassert(life > 0, "The added stamina must be positive", 3)
     meta.__stamina = meta.__stamina + stamina
     if meta.__stamina > meta.__max_stamina then meta.__stamina = meta.__max_stamina end
 end
 
-function player.removeStamina(self, stamina)
-    check(self ,"player", 1)
+function entity_player.removeStamina(self, stamina)
+    check(self ,"entity_player", 1)
     check(stamina, "stamina", 2)
-    
+
     meta = getmetatable(self)
     cassert(life > 0, "The removed stamina must be positive", 3)
     meta.__stamina = meta.__stamina - stamina
     if meta.__stamina < 0 then meta.__stamina = 0 end
 end
 
-function player.getSpeed(self)
-    check(self ,"player", 1)
+function entity_player.getSpeed(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     return meta.__speed
 end
 
-function player.setSpeed(self, speed)
-    check(self ,"player", 1)
+function entity_player.setSpeed(self, speed)
+    check(self ,"entity_player", 1)
     check(speed ,"speed", 1)
 
     meta = getmetatable(self)
@@ -143,31 +143,31 @@ function player.setSpeed(self, speed)
 end
 ---------------------------------
 
-function player.getInventory(self)
-    check(self ,"player", 1)
+function entity_player.getInventory(self)
+    check(self ,"entity_player", 1)
 end
 
-function player.getEquipement(self)
-    check(self ,"player", 1)
+function entity_player.getEquipement(self)
+    check(self ,"entity_player", 1)
 end
 ---------------------------------
 
-function player.getLevel(self)
-    check(self ,"player", 1)
+function entity_player.getLevel(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     return meta.__level
 end
 
-function player.getExperience(self)
-    check(self ,"player", 1)
+function entity_player.getExperience(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     return meta.__experience
 end
 
-function player.getStats(self)
-    check(self ,"player", 1)
+function entity_player.getStats(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     return {
@@ -180,8 +180,8 @@ function player.getStats(self)
     }
 end
 
-function player.respawn(self)
-    check(self ,"player", 1)
+function entity_player.respawn(self)
+    check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
     meta.__status = "respawn"
@@ -192,12 +192,12 @@ function player.respawn(self)
     meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
 end
 
-function player.event(self)
+function entity_player.event(self)
 
 end
 
-function player.update(self)
-    check(self ,"player", 1)
+function entity_player.update(self)
+    check(self ,"entity_player", 1)
     
     meta = getmetatable(self)
 
@@ -261,8 +261,8 @@ function player.update(self)
     end
 end
 
-function player.draw(self)
-    check(self, "player", 1)
+function entity_player.draw(self)
+    check(self, "entity_player", 1)
 
     local meta = getmetatable(self)
     if meta.__clock:getEllapsedTime() > meta.__pos_rect[2] then
