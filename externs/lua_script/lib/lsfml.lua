@@ -37,6 +37,8 @@ lsfml.mouse = {}
 lsfml.music = {}
 lsfml.vertexarray = {}
 lsfml.vertex = {}
+lsfml.sound = {}
+lsfml.soundbuffer = {}
 
 -- =======================
 -- =       CLOCK         =
@@ -1043,6 +1045,259 @@ function lsfml.mouse.isButtonPressed(number)
     check(number, "number", 2)
 
     return olsfml.mouse_isButtonPressed(number)
+end
+
+-- =======================
+-- =       SOUND         =
+-- =======================
+
+function lsfml.sound.create()
+    return setmetatable({}, {
+        __index = lsfml.sound,
+        __type = "sound",
+        __ptr = olsfml.sound_create(),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.sound_destroy(meta.__ptr)
+        end,
+    })
+end
+
+function lsfml.sound.createFromFile(filename)
+    check(filename, "string", 1)
+
+    local sound = olsfml.sound_create()
+    local soundbuf = olsfml.soundbuffer_createFromFile(filename)
+    olsfml.sound_setBuffer(sound, soundbuf)
+    return setmetatable({}, {
+        __index = lsfml.sound,
+        __type = "sound",
+        __ptr = sound,
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.sound_destroy(meta.__ptr)
+        end,
+    })
+end
+
+function lsfml.sound.copy(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return setmetatable({}, {
+        __index = lsfml.sound,
+        __type = "sound",
+        __ptr = olsfml.sound_copy(meta.__ptr),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.sound_destroy(meta.__ptr)
+        end,
+    })
+end
+
+function lsfml.sound.getAttenuation(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getAttenuation(meta.__ptr)
+end
+
+function lsfml.sound.destroy(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_destroy(meta.__ptr)
+end
+
+function lsfml.sound.getBuffer(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return setmetatable({}, {
+        __index = lsfml.sound,
+        __type = "sound",
+        __ptr = olsfml.sound_getBuffer(meta.__ptr),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.sound_destroy(meta.__ptr)
+        end,
+    })
+end
+
+function lsfml.sound.getIsRelativeToListener(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getIsRelativeToListener(meta.__ptr)
+end
+
+function lsfml.sound.getLoop(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getLoop(meta.__ptr)
+end
+
+function lsfml.sound.getMinDistance(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getMinDistance(meta.__ptr)
+end
+
+function lsfml.sound.getPitch(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getPitch(meta.__ptr)
+end
+
+function lsfml.sound.getPlayingOffset(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getPlayingOffset(meta.__ptr)
+end
+
+function lsfml.sound.getVolume(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getVolume(meta.__ptr)
+end
+
+function lsfml.sound.getPosition(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getPosition(meta.__ptr)
+end
+
+function lsfml.sound.getStatus(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getStatus(meta.__ptr)
+end
+
+function lsfml.sound.pause(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_pause(meta.__ptr)
+end
+
+function lsfml.sound.play(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_play(meta.__ptr)
+end
+
+function lsfml.sound.stop(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_stop(meta.__ptr)
+end
+
+function lsfml.sound.setBuffer(sound, soundbuf)
+    check(sound, "sound", 1)
+    check(soundbuf, "soundbuffer", 2)
+
+    local meta = getmetatable(sound)
+    local meta_s = getmetatable(soundbuf)
+    olsfml.sound_setBuffer(meta.__ptr, meta_s.__ptr)
+end
+
+function lsfml.sound.setLoop(sound, bool)
+    check(sound, "sound", 1)
+    check(bool, "boolean", 2)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_setLoop(meta.__ptr, bool)
+end
+
+function lsfml.sound.setMinDistance(sound, dst)
+    check(sound, "sound", 1)
+    check(dst, "number", 2)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_setMinDistance(meta.__ptr, dst)
+end
+
+function lsfml.sound.setPitch(sound, pitch)
+    check(sound, "sound", 1)
+    check(pitch, "number", 2)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_setPitch(meta.__ptr, pitch)
+end
+
+function lsfml.sound.setPlayingOffset(sound, offset)
+    check(sound, "sound", 1)
+    check(offset, "number", 2)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_setPlayingOffset(meta.__ptr, offset)
+end
+
+function lsfml.sound.setPosition(sound, x, y, z)
+    check(sound, "sound", 1)
+    check(x, "number", 2)
+    check(y, "number", 3)
+    check(z, "number", 4)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_setPosition(meta.__ptr, x, y, z)
+end
+
+function lsfml.sound.setRelativeToListener(sound, bool)
+    check(sound, "sound", 1)
+    check(bool, "boolean", 2)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_setRelativeToListener(meta.__ptr, bool)
+end
+
+function lsfml.sound.setAttenuation(sound, attenuation)
+    check(sound, "sound", 1)
+    check(attenuation, "number", 2)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_setAttenuation(meta.__ptr, attenuation)
+end
+
+function lsfml.sound.setVolume(sound, volume)
+    check(sound, "sound", 1)
+    check(volume, "number", 2)
+
+    local meta = getmetatable(sound)
+    olsfml.sound_setVolume(meta.__ptr, volume)
+end
+
+-- =======================
+-- =     SOUNDBUFFER     =
+-- =======================
+
+function lsfml.soundbuffer.createFromFile(file)
+    check(file, "string", 1)
+
+    return setmetatable({}, {
+        __index = lsfml.soundbuffer,
+        __type = "soundbuffer",
+        __ptr = olsfml.soundbuffer_createFromFile(file),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.soundbuffer_destroy(meta.__ptr)
+        end,
+    })
+end
+
+function lsfml.soundbuffer.destroy(soundbuf)
+    check(soundbuf, "soundbuffer", 1)
+
+    olsfml.soundbuffer_destroy(soundbuf)
 end
 
 -- =======================

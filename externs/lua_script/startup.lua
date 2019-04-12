@@ -60,7 +60,7 @@ function getScene()
 end
 
 local owindow = window
-dofile("lsfml.lua")
+dofile("lib/lsfml.lua")
 dofile("tools/button.lua")
 dofile("entity/player.lua")
 
@@ -76,7 +76,7 @@ assets["player"] = lsfml.texture.createFromFile("./assets/player/AllSprite.png",
 assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
 assets["menu_music"] = lsfml.music.createFromFile("./assets/music/main_menu.ogg")
 assets["ambiance_music"] = lsfml.music.createFromFile("./assets/music/ambiance_game.ogg")
-
+assets["button_hover_sfx"] = lsfml.sound.createFromFile("./assets/sound/button_hover.wav")
 
 -- =========================================
 -- =                 SCENES                =

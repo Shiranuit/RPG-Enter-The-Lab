@@ -14,6 +14,8 @@ local play_button = button.create{
         local event = {...}
         if event[2] == "click" then
             setScene("test_player")
+        elseif event[2] == "enter" then
+            assets["button_hover_sfx"]:play()
         end
     end,
     idle = assets["button_idle"],
@@ -32,6 +34,8 @@ local option_button = button.create{
         local event = {...}
         if event[2] == "click" then
             setScene("options")
+        elseif event[2] == "enter" then
+            assets["button_hover_sfx"]:play()
         end
     end,
     idle = assets["button_idle"],
@@ -50,6 +54,8 @@ local exit_button = button.create{
         local event = {...}
         if event[2] == "click" then
             window:close()
+        elseif event[2] == "enter" then
+            assets["button_hover_sfx"]:play()
         end
     end,
     idle = assets["button_idle"],
@@ -61,7 +67,7 @@ local exit_button = button.create{
 
 function load()
     assets["menu_music"]:setLoop(true)
-    --assets["menu_music"]:play()
+    assets["menu_music"]:play()
     exit_button:setStatus("released")
     play_button:setStatus("released")
     option_button:setStatus("released")

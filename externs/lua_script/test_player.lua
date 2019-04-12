@@ -10,7 +10,7 @@ local pedro = player.create ({
 
 function load()
     assets["ambiance_music"]:setLoop(true)
-    --assets["ambiance_music"]:play()
+    assets["ambiance_music"]:play()
 end
 
 function unload()
