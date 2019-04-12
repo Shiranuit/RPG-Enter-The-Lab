@@ -47,6 +47,7 @@ local function loadScene(name)
 end
 
 function setScene(name)
+    player_hud:open()
     if scenes[scene_name] and scenes[scene_name].unload then
         scenes[scene_name].unload()
     end
@@ -145,9 +146,7 @@ function event(...)
     if scenes[scene_name] then
         scenes[scene_name].event(...)
         for i=1, #hudorder do
-            if hudorder[i]:isOpen() then
-                hudorder[i]:event(...)
-            end
+            hudorder[i]:event(...)
         end
     else
         error("Scene not found '"..scene_name.."'", 2)

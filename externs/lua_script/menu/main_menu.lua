@@ -66,6 +66,7 @@ local exit_button = button.create{
 }
 
 function load()
+    player_hud:close()
     assets["menu_music"]:setLoop(true)
     assets["menu_music"]:play()
     exit_button:setStatus("released")

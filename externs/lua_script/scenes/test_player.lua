@@ -3,12 +3,10 @@
 function load()
     assets["ambiance_music"]:setLoop(true)
     assets["ambiance_music"]:play()
-    player_hud:open()
 end
 
 function unload()
     assets["ambiance_music"]:stop()
-    player_hud:close()
 end
 
 function draw()
