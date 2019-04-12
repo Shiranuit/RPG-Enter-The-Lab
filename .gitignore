@@ -1,12 +1,7 @@
 .vscode
 *.o
-<<<<<<< HEAD
 externs/lua/src/liblua.a
 externs/lua/src/lua
 externs/lua/src/luac
 my_rpg
 .gitignore
-=======
-.gitignore
-my_rpg
->>>>>>> yoan
