@@ -208,16 +208,15 @@ function entity_player.update(self)
     check(self ,"entity_player", 1)
     
     meta = getmetatable(self)
-    speed = meta.__speed
-
-    if meta.__is_sprinting == true then
-        meta.__stamina = meta.__stamina - 1
-        speed = speed * 2
-    elseif meta.__max_stamina > meta.__stamina then
-        meta.__stamina = meta.__stamina + 1
-    end
     if meta.__status == "respawn" then
         return
+    end
+    speed = meta.__speed
+    if meta.__is_sprinting == true and meta.__status ~= "idle" then
+        meta.__stamina = meta.__stamina - 1
+        speed = speed * 2
+    elseif meta.__max_stamina > meta.__stamina and (not lsfml.keyboard.keyPressed(keys.LShift) or meta.__status == "idle") then
+        meta.__stamina = meta.__stamina + 1
     end
     if lsfml.keyboard.keyPressed(keys.Z) and meta.__health > 0 then 
         if (meta.__status ~= "up") then
@@ -267,7 +266,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
     else
-        if (meta.__status ~= "idle") then
+        if meta.__status ~= "idle" then
             meta.__status = "idle"
             meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
             meta.__clock:restart()
@@ -283,7 +282,7 @@ function entity_player.draw(self)
     local meta = getmetatable(self)
     time = meta.__pos_rect[2]
 
-    if meta.__is_sprinting == true then
+    if meta.__is_sprinting == true and meta.__status ~= "idle" then
         time = time * 4
     end
     if meta.__clock:getEllapsedTime() > time then
