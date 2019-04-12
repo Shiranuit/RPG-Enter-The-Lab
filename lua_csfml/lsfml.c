@@ -180,7 +180,7 @@ static const luaL_Reg lsfmllib[] = {
 
 LUALIB_API int luaopen_lsfml(lua_State *L)
 {
-  luaL_newlib(L, lsfmllib);
-  lua_setglobal(L, "lsfml");
-  return (1);
+    luaL_newlib(L, lsfmllib);
+    lua_setglobal(L, "lsfml");
+    return (1);
 }

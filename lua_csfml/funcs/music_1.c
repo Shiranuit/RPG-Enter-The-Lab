@@ -29,7 +29,7 @@ int music_create_from_file(lua_State *L)
     } else {
         luaL_error(L, "Expected (String)");
         return (0);
-    }   
+    }
     return (1);
 }
 
