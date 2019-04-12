@@ -17,7 +17,7 @@ end
 function update()
     player:update()
     if lsfml.keyboard.keyPressed(keys.A) then
-        player:hit(5)
+        player:hit(DeltaTime)
         print(player:getHealth())
     end
     if lsfml.keyboard.keyPressed(keys.E) then

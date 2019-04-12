@@ -84,7 +84,7 @@ function entity_player.getMaximumStamina(self)
 
     meta = getmetatable(self)
     return meta.__max_stamina
-end 
+end
 
 function entity_player.setMaximumHealth(self, life)
     check(self ,"entity_player", 1)
@@ -179,11 +179,11 @@ function entity_player.getStats(self)
 
     meta = getmetatable(self)
     return {
-        maxHealth=meta.__max_health, 
-        maxStamina=meta.__max_stamina, 
-        luck=meta.__luck, 
-        attack=meta.__attack, 
-        defense=meta.__defense, 
+        maxHealth=meta.__max_health,
+        maxStamina=meta.__max_stamina,
+        luck=meta.__luck,
+        attack=meta.__attack,
+        defense=meta.__defense,
         parade=meta.__parade
     }
 end
@@ -206,19 +206,19 @@ end
 
 function entity_player.update(self)
     check(self ,"entity_player", 1)
-    
+
     meta = getmetatable(self)
     if meta.__status == "respawn" then
         return
     end
-    speed = meta.__speed
+    speed = meta.__speed * DeltaTime
     if meta.__is_sprinting == true and meta.__status ~= "idle" then
-        meta.__stamina = meta.__stamina - 1
+        meta.__stamina = meta.__stamina - 1 * DeltaTime
         speed = speed * 2
     elseif meta.__max_stamina > meta.__stamina and (not lsfml.keyboard.keyPressed(keys.LShift) or meta.__status == "idle") then
-        meta.__stamina = meta.__stamina + 1
+        meta.__stamina = meta.__stamina + 1 * DeltaTime
     end
-    if lsfml.keyboard.keyPressed(keys.Z) and meta.__health > 0 then 
+    if lsfml.keyboard.keyPressed(keys.Z) and meta.__health > 0 then
         if (meta.__status ~= "up") then
             meta.__status = "up"
             meta.__pos_rect = {7, 350000 / speed, 0, 1000, 220, 500}
@@ -283,9 +283,9 @@ function entity_player.draw(self)
     time = meta.__pos_rect[2]
 
     if meta.__is_sprinting == true and meta.__status ~= "idle" then
-        time = time * 4
+        time = time * 1.25
     end
-    if meta.__clock:getEllapsedTime() > time then
+    if meta.__clock:getEllapsedTime() > time * DeltaTime then
         if meta.__status ~= "respawn" then
             meta.__pos_rect[3] = meta.__pos_rect[3] + meta.__pos_rect[5]
             if meta.__pos_rect[3] > meta.__pos_rect[5] * (meta.__pos_rect[1] - 1) and  meta.__status ~= "death" then

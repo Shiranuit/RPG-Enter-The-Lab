@@ -94,7 +94,7 @@ player = entity_player.create ({
     pos_x = 100,
     pos_y = 100,
     texture = assets["player"],
-    speed = 20
+    speed = 10
 })
 
 -- Called at the beginning of the program
