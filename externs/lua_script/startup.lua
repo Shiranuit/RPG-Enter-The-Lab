@@ -63,6 +63,7 @@ end
 
 local owindow = window
 dofile("lib/lsfml.lua")
+dofile("options.lua")
 dofile("tools/button.lua")
 dofile("tools/hud.lua")
 dofile("entity/entity_player.lua")
@@ -78,6 +79,7 @@ dofile("assets.lua")
 -- =========================================
 
 player_hud = hud.createFromFile("hud/player_hud.lua")
+inventory = hud.createFromFile("hud/inventory_hud.lua")
 
 -- =========================================
 -- =                 SCENES                =
