@@ -27,9 +27,5 @@ function update()
 end
 
 function event(...)
-    local event = {...}
-    if event[1] == "key_pressed" and event[2] == keys.Escape then
-        setScene("main_menu")
-    end
     player:event()
 end
