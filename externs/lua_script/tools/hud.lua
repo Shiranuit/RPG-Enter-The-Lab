@@ -5,9 +5,10 @@
 hud = {}
 hudorder = {}
 
-function hud.createFromFile(filename, zindex)
+function hud.createFromFile(filename, zindex, canBeClosed)
     check(filename, "string", 1)
     cassert(type(zindex) == "nil" or type(zindex) == "number", "zindex must be a number", 3)
+    cassert(type(canBeClosed) == "nil" or type(canBeClosed) == "boolean", "canBeClosed must be a boolean", 3)
     local handle = io.open("./externs/lua_script/"..filename, "r")
     if handle then
         local code = handle:read("*all")
@@ -23,11 +24,18 @@ function hud.createFromFile(filename, zindex)
                     data[k] = v
                 end
                 local meta = setmetatable({}, {
-                    __index = hud,
+                    __index = function(self, key)
+                        if hud[key] then
+                            return hud[key]
+                        else
+                            return rawget(data, key)
+                        end
+                    end,
                     __env = data,
                     __type = "hud",
                     __name = name,
                     __status = "close",
+                    __canBeClosed = type(canBeClosed) == "nil" or canBeClosed
                 })
                 if data.load then
                     data.load(meta)
@@ -57,9 +65,11 @@ function hud.close(self)
     check(self, "hud", 1)
 
     local meta = getmetatable(self)
-    meta.__status = "close"
-    if meta.__env.close then
-        meta.__env.close(self)
+    if meta.__canBeClosed then
+        meta.__status = "close"
+        if meta.__env.close then
+            meta.__env.close(self)
+        end
     end
 end
 
@@ -88,6 +98,13 @@ function hud.update(self)
     if meta.__env.update then
         meta.__env.update(self)
     end
+end
+
+function hud.canBeClosed(self)
+    check(self, "hud", 1)
+
+    local meta = getmetatable(self)
+    return meta.__canBeClosed
 end
 
 function hud.getName(self)

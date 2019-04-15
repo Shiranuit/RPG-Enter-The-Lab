@@ -19,6 +19,11 @@ assets["hud_empty_stamina_bar"] = lsfml.texture.createFromFile("./assets/hud/emp
 assets["hud_empty_stamina_bar"] = lsfml.texture.createFromFile("./assets/hud/empty_stamina_bar.png", {0, 0, 980, 328})
 assets["inventory_hud"] = lsfml.texture.createFromFile("./assets/menu/inventory.png", {0, 0, 1337, 940})
 
+assets["item1"] = lsfml.texture.createFromFile("./assets/hud/spell/pic.png", {0, 0, 142, 142})
+assets["item2"] = lsfml.texture.createFromFile("./assets/hud/spell/heal.png", {0, 0, 142, 142})
+assets["item3"] = lsfml.texture.createFromFile("./assets/hud/spell/rayon.png", {0, 0, 142, 142})
+assets["item4"] = lsfml.texture.createFromFile("./assets/hud/spell/elec.png", {0, 0, 142, 142})
+
 -- =======================
 -- =        FONTS        =
 -- =======================
