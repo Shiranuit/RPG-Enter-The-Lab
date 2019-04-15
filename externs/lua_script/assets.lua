@@ -20,6 +20,12 @@ assets["sort_bar"] = lsfml.texture.createFromFile("./assets/hud/Sort_bar.png", {
 assets["hud_empty_stamina_bar"] = lsfml.texture.createFromFile("./assets/hud/empty_stamina_bar.png", {0, 0, 980, 328})
 assets["inventory_hud"] = lsfml.texture.createFromFile("./assets/menu/inventory.png", {0, 0, 1337, 940})
 
+spells["douleurSpell"] = lsfml.texture.createFromFile("./assets/hud/spell/chaine_de_douleur.png", {0, 0, 142, 142})
+spells["elecSpell"] = lsfml.texture.createFromFile("./assets/hud/spell/elec.png", {0, 0, 142, 142})
+spells["healSpell"] = lsfml.texture.createFromFile("./assets/hud/spell/heal.png", {0, 0, 142, 142})
+spells["picSpell"] = lsfml.texture.createFromFile("./assets/hud/spell/pic.png", {0, 0, 142, 142})
+spells["rayonSpell"] = lsfml.texture.createFromFile("./assets/hud/spell/rayon.png", {0, 0, 142, 142})
+
 -- =======================
 -- =        FONTS        =
 -- =======================

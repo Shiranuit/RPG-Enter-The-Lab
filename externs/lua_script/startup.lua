@@ -3,6 +3,7 @@
 -- =========================================
 
 assets = {}
+spells = {}
 local scenes = {}
 local scene_name = "main_menu"
 
@@ -98,6 +99,10 @@ player = entity_player.create ({
     pos_y = 100,
     texture = assets["player"],
     speed = 5
+})
+
+all_sort = sort.create ({
+    spell = spells
 })
 
 -- Called at the beginning of the program

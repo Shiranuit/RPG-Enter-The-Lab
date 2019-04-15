@@ -12,7 +12,7 @@ health_bar:setPosition(0, 0)
 stamina_bar:setPosition(0, 82)
 empty_bar1:setPosition(0, 0)
 empty_bar2:setPosition(0, 82)
-sort_bar:setPosition(708, 900)
+sort_bar:setPosition(705, 900)
 
 health_bar:setTexture(assets["hud_health"], false)
 stamina_bar:setTexture(assets["hud_stamina"], false)
@@ -25,7 +25,6 @@ stamina_bar:setScale(0.25, 0.25)
 empty_bar1:setScale(0.25, 0.25)
 empty_bar2:setScale(0.25, 0.25)
 sort_bar:setScale(0.5, 0.5)
-
 
 function load(self)
 
