@@ -64,7 +64,7 @@ function entity_player.addMana(self, mana)
     if meta.__mana > meta.__max_mana then meta.__mana = meta.__max_mana end
 end
 
-function entity_player.hit(self, mana)
+function entity_player.removeMana(self, mana)
     check(self ,"entity_player", 1)
     check(mana, "number", 2)
 
