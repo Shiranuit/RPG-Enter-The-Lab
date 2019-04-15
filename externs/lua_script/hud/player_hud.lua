@@ -2,11 +2,11 @@
 -- =               PLAYER HUD              =
 -- =========================================
 
-health_bar = lsfml.sprite.create()
-stamina_bar = lsfml.sprite.create()
-empty_bar1 = lsfml.sprite.create()
-empty_bar2 = lsfml.sprite.create()
-sort_bar = lsfml.sprite.create()
+local health_bar = lsfml.sprite.create()
+local stamina_bar = lsfml.sprite.create()
+local empty_bar1 = lsfml.sprite.create()
+local empty_bar2 = lsfml.sprite.create()
+local sort_bar = lsfml.sprite.create()
 
 health_bar:setPosition(0, 0)
 stamina_bar:setPosition(0, 82)

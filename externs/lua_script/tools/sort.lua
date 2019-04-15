@@ -23,14 +23,14 @@ function sort.change_sort(self, index, sort)
 
 end
 
-function entity_player.event(self)
+function sort.event(self)
     check(self, "sort")
 end
 
-function entity_player.update(self)
+function sort.update(self)
     check(self, "sort")
 end
 
-function entity_player.draw(self)
+function sort.draw(self)
     check(self, "sort")
 end
