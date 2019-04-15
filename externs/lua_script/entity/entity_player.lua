@@ -10,7 +10,7 @@ function entity_player.create(info)
     local sprite = lsfml.sprite.create()
     sprite:setTexture(info.texture, false)
     sprite:setPosition(info.pos_x, info.pos_y)
-    sprite:setScale(0.5, 0.5)
+    sprite:setScale(0.25, 0.25)
     return setmetatable({}, {
         __type = "entity_player",
         __index = entity_player,
@@ -94,6 +94,16 @@ function entity_player.setMaximumHealth(self, life)
     assert(life > 0, "The Maximum health must be positive", 3)
     meta.__max_health = life
     if meta.__health > meta.__max_health then meta.__health = meta.__max_health end
+end
+
+function entity_player.setMaximumStamina(self, stamina)
+    check(self ,"entity_player", 1)
+    check(life ,"number", 1)
+
+    meta = getmetatable(self)
+    assert(life > 0, "The Maximum stamina must be positive", 3)
+    meta.__max_stamina = life
+    if meta.__stamina > meta.__max_stamina then meta.__stamina = meta.__max_stamina end
 end
 
 function entity_player.getStamina(self)
@@ -195,7 +205,7 @@ function entity_player.respawn(self)
     meta.__status = "respawn"
     meta.__health = meta.__max_health
     meta.__stamina = meta.__max_stamina
-    meta.__pos_rect = {12, 70000, 2640, 2500, 220, 500}
+    meta.__pos_rect = {12, 30000, 2640, 2500, 220, 500}
     meta.__clock:restart()
     meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
 end
@@ -221,7 +231,7 @@ function entity_player.update(self)
     if lsfml.keyboard.keyPressed(keys.Z) and meta.__health > 0 then
         if (meta.__status ~= "up") then
             meta.__status = "up"
-            meta.__pos_rect = {7, 350000 / speed, 0, 1000, 220, 500}
+            meta.__pos_rect = {7, 250000 / speed, 0, 1000, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
@@ -231,7 +241,7 @@ function entity_player.update(self)
     elseif lsfml.keyboard.keyPressed(keys.S) and meta.__health > 0 then
         if (meta.__status ~= "down") then
             meta.__status = "down"
-            meta.__pos_rect = {7, 350000 / speed, 0, 1500, 220, 500}
+            meta.__pos_rect = {7, 250000 / speed, 0, 1500, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
@@ -241,7 +251,7 @@ function entity_player.update(self)
     elseif lsfml.keyboard.keyPressed(keys.D) and meta.__health > 0 then
         if (meta.__status ~= "right") then
             meta.__status = "right"
-            meta.__pos_rect = {15, 350000 / speed, 0, 0, 220, 500}
+            meta.__pos_rect = {15, 250000 / speed, 0, 0, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
@@ -251,7 +261,7 @@ function entity_player.update(self)
     elseif lsfml.keyboard.keyPressed(keys.Q) and meta.__health > 0 then
         if (meta.__status ~= "left") then
             meta.__status = "left"
-            meta.__pos_rect = {15, 350000 / speed, 0, 500, 220, 500}
+            meta.__pos_rect = {15, 250000 / speed, 0, 500, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
@@ -261,7 +271,7 @@ function entity_player.update(self)
     elseif  meta.__health <= 0 then
         if (meta.__status ~= "death") then
             meta.__status = "death"
-            meta.__pos_rect = {12, 70000, 0, 2500, 220, 500}
+            meta.__pos_rect = {12, 30000, 0, 2500, 220, 500}
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
