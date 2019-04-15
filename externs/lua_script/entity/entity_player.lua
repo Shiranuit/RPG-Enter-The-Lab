@@ -21,6 +21,8 @@ function entity_player.create(info)
         __stamina = info.stamina or 100,
         __speed = info.speed or 20,
         __level = info.level or 0,
+        __mana = info.mana or 100,
+        __max_mana = info.mana or 100,
         __experience = info.experience or 0,
         __max_health = info.max_health or 100,
         __max_stamina = info.max_stamina or 100,
@@ -33,6 +35,43 @@ function entity_player.create(info)
         __position_y = info.pos_y,
         __is_sprinting = false
     })
+end
+
+function entity_player.getMana(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    return meta.__mana
+end
+
+function entity_player.setMana(self, mana)
+    check(self ,"entity_player", 1)
+    check(mana, "number", 2)
+
+    meta = getmetatable(self)
+    cassert(mana > 0, "The mana must be positive", 3)
+    cassert(mana < meta.__max_mana, "The mana cant exceed the max mana", 3)
+    meta.__mana = mana
+end
+
+function entity_player.addMana(self, mana)
+    check(self ,"entity_player", 1)
+    check(mana, "number", 2)
+
+    meta = getmetatable(self)
+    cassert(mana > 0, "The added mana must be positive", 3)
+    meta.__mana = meta.__mana + mana
+    if meta.__mana > meta.__max_mana then meta.__mana = meta.__max_mana end
+end
+
+function entity_player.hit(self, mana)
+    check(self ,"entity_player", 1)
+    check(mana, "number", 2)
+
+    meta = getmetatable(self)
+    cassert(mana > 0, "The removed mana must be positive", 3)
+    meta.__mana = meta.__mana - mana
+    if meta.__mana < 0 then meta.__mana = 0 end
 end
 
 function entity_player.getHealth(self)
