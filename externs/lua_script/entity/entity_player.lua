@@ -249,6 +249,17 @@ function entity_player.respawn(self)
     meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
 end
 
+function entity_player.isDead(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    if meta.__status == "death" then 
+        return true 
+    else
+        return false
+    end
+end
+
 function entity_player.event(self)
 
 end

@@ -33,7 +33,6 @@ function sort.create(info)
         __sort = sort_function,
         __sort_sprite = {},
         __all_spell = spell,
-
     })
 end
 
@@ -51,6 +50,7 @@ end
 function sort.event(self)
     check(self, "sort")
 
+    if player:isDead() then return end
     meta = getmetatable(self)
     if lsfml.keyboard.keyPressed(controls.spell_1) and meta.__sort[1] ~= nill then
         _G[meta.__sort[1]]()
