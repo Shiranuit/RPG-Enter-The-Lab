@@ -64,6 +64,7 @@ end
 local owindow = window
 dofile("lib/lsfml.lua")
 dofile("tools/button.lua")
+dofile("tools/sort.lua")
 dofile("tools/hud.lua")
 dofile("entity/entity_player.lua")
 
