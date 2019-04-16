@@ -46,7 +46,6 @@ function event(self, ...)
             self:open()
         end
     end
-    meta = getmetatable(self)
     local mouse_x, mouse_y  = lsfml.mouse.getPosition(window)
     if self:isOpen() then
         if lsfml.mouse.isButtonPressed(mouse.LEFT) then

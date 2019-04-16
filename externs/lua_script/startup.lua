@@ -95,7 +95,7 @@ dofile("items.lua")
 
 player_hud = hud.createFromFile("hud/player_hud.lua", nil, false)
 all_sort = hud.createFromFile("hud/sort.lua", nil, false)
-menu_spell = hud.createFromFile("hud/spell_menu.lua")
+menu_spell = hud.createFromFile("hud/spell_menu.lua", nil, true)
 
 -- =========================================
 -- =                 SCENES                =
@@ -180,9 +180,9 @@ function event(...)
                 found = true
                 break
             end
-            if found == false then
-                setScene("main_menu")
-            end
+        end
+        if found == false then
+            setScene("main_menu")
         end
     end
     if scenes[scene_name] then
