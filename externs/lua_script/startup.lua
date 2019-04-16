@@ -118,7 +118,8 @@ all_sort = sort.create ({
 })
 
 spell_menu = menu_sort.create ({
-    spell = spells
+    spell = spells,
+    spell_hub = assets["spell_hub"]
 })
 
 -- Called at the beginning of the program

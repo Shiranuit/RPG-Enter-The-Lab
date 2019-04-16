@@ -7,11 +7,13 @@ menu_sort = {}
 function initMenuSpellSprite(spell)
     local tab = {}
     local j = 0
+    local y = 0
     for i, v in pairs(spell) do
         tab[i] = lsfml.sprite.create()
         tab[i]:setTexture(v, false) 
-        tab[i]:setScale(0.5, 0.5) 
-        tab[i]:setPosition(71 * j, 400)
+        tab[i]:setScale(0.5, 0.5)
+        y = math.modf(j / 4)
+        tab[i]:setPosition(625 + 64.5 + 156 * j - y * 156 * 4, 305 + 54 + y * 125)
         j = j + 1
     end
     return (tab)
@@ -21,14 +23,21 @@ function  menu_sort.create(info)
     check(info, "table", 1)
 
     local spell = initMenuSpellSprite(info.spell)
+    local spell_menu = lsfml.sprite.create()
+    spell_menu:setTexture(info.spell_hub, false) 
+    spell_menu:setScale(0.5, 0.5)
+    spell_menu:setPosition(625, 305)
     return setmetatable({}, {
         __type = "menu_sort",
         __index = menu_sort,
         __all_spell = spell,
         __display = true,
-        __old_pos_x = -1;
-        __old_pos_y = -1;
+        __old_pos_x = -1,
+        __old_pos_y = -1,
+        __origin_pos_x = -1,
+        __origin_pos_y = -1,
         __selected_spell = nil,
+        __spell_hub = spell_menu,
     })
 end
 
@@ -58,13 +67,16 @@ function menu_sort.update(self)
                 local sprite_pos_x, sprite_pos_y = v:getPosition()
                 if mouse_x > sprite_pos_x and mouse_x < sprite_pos_x + 71 and mouse_y > sprite_pos_y and mouse_y < sprite_pos_y + 71 then
                     if meta.__old_pos_x == -1  or meta.__old_pos_y == -1 then
+                        meta.__origin_pos_y = sprite_pos_y
+                        meta.__origin_pos_x = sprite_pos_x
                         meta.__old_pos_x = mouse_x
                         meta.__old_pos_y = mouse_y
                         meta.__selected_spell = v
                     end
                 end
             end
-        else
+        elseif meta.__selected_spell ~= nill then
+            meta.__selected_spell:setPosition(meta.__origin_pos_x, meta.__origin_pos_y)
             meta.__old_pos_x = -1
             meta.__old_pos_y = -1
             meta.__selected_spell = nil
@@ -73,6 +85,8 @@ function menu_sort.update(self)
             meta.__selected_spell:move(mouse_x - meta.__old_pos_x, mouse_y - meta.__old_pos_y)
             meta.__old_pos_x = mouse_x
             meta.__old_pos_y = mouse_y
+            if then
+            end
         end
     end
 end
@@ -82,6 +96,7 @@ function menu_sort.draw(self)
 
     meta = getmetatable(self)
     if meta.__display then
+        window:draw(meta.__spell_hub)
         for i, v in pairs(meta.__all_spell) do
             window:draw(v)
         end
