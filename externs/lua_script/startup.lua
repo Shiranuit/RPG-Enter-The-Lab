@@ -70,8 +70,6 @@ dofile("lib/lsfml.lua")
 dofile("tools/uuid.lua")
 dofile("options.lua")
 dofile("tools/button.lua")
-dofile("tools/sort.lua")
-dofile("tools/spell_menu.lua")
 dofile("tools/hud.lua")
 dofile("entity/entity_player.lua")
 dofile("tools/inventory_slot.lua")
@@ -96,6 +94,8 @@ dofile("items.lua")
 -- =========================================
 
 player_hud = hud.createFromFile("hud/player_hud.lua", nil, false)
+all_sort = hud.createFromFile("hud/sort.lua", nil, false)
+menu_spell = hud.createFromFile("hud/spell_menu.lua")
 
 -- =========================================
 -- =                 SCENES                =
@@ -115,13 +115,6 @@ player = entity_player.create ({
     speed = 5
 })
 
-all_sort = sort.create ({
-    spell = spells
-})
-
-spell_menu = menu_sort.create ({
-    spell = spells
-})
 world.spawnEntity(player)
 world.spawnEntity(entity_item.create(itemstack.create(items["core"], 2))):setPosition(500, 500)
 
