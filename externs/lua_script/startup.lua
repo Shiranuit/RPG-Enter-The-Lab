@@ -3,6 +3,7 @@
 -- =========================================
 
 assets = {}
+spells = {}
 local scenes = {}
 local scene_name = "main_menu"
 
@@ -67,6 +68,8 @@ local owindow = window
 dofile("lib/lsfml.lua")
 dofile("options.lua")
 dofile("tools/button.lua")
+dofile("tools/sort.lua")
+dofile("tools/spell_menu.lua")
 dofile("tools/hud.lua")
 dofile("entity/entity_player.lua")
 dofile("tools/inventory_slot.lua")
@@ -108,6 +111,14 @@ player = entity_player.create ({
     pos_y = 100,
     texture = assets["player"],
     speed = 5
+})
+
+all_sort = sort.create ({
+    spell = spells
+})
+
+spell_menu = menu_sort.create ({
+    spell = spells
 })
 
 -- Called at the beginning of the program

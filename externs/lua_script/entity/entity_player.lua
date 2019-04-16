@@ -249,6 +249,17 @@ function entity_player.respawn(self)
     meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
 end
 
+function entity_player.isDead(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    if meta.__status == "death" then 
+        return true 
+    else
+        return false
+    end
+end
+
 function entity_player.event(self)
 
 end
@@ -286,6 +297,26 @@ function entity_player.update(self)
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
             meta.__sprite:move(0, speed)
+        end
+    elseif lsfml.keyboard.keyPressed(keys.D) and meta.__health > 0 and meta.__is_sprinting then
+        if (meta.__status ~= "run_right") then
+            meta.__status = "run_right"
+            meta.__pos_rect = {5, 250000 / speed, 0, 3000, 219, 500}
+            meta.__clock:restart()
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+        end
+        if meta.__status ~= "death" and meta.__status ~= "respawn" then
+            meta.__sprite:move(speed, 0)
+        end
+    elseif lsfml.keyboard.keyPressed(keys.Q) and meta.__health > 0 and meta.__is_sprinting then
+        if (meta.__status ~= "run_left") then
+            meta.__status = "run_left"
+            meta.__pos_rect = {5, 250000 / speed, 0, 3500, 219, 500}
+            meta.__clock:restart()
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+        end
+        if meta.__status ~= "death" and meta.__status ~= "respawn" then
+            meta.__sprite:move(-speed, 0)
         end
     elseif lsfml.keyboard.keyPressed(controls.move_right) and meta.__health > 0 then
         if (meta.__status ~= "right") then
