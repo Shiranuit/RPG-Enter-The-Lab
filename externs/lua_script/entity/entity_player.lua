@@ -11,6 +11,7 @@ function entity_player.create(info)
     sprite:setTexture(info.texture, false)
     sprite:setPosition(info.pos_x, info.pos_y)
     sprite:setScale(0.25, 0.25)
+    sprite:setOrigin(220 / 2, 500)
     return setmetatable({}, {
         __type = "entity_player",
         __index = entity_player,
@@ -31,6 +32,7 @@ function entity_player.create(info)
         __attack = info.attack or 1,
         __parade = info.parade or 1,
         __status = "idle",
+        __uuid = uuid.randomUUID,
         __position_x = info.pos_x,
         __position_y = info.pos_y,
         __is_sprinting = false
@@ -249,6 +251,34 @@ function entity_player.respawn(self)
     meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
 end
 
+function entity_player.setPosition(self, x, y)
+    check(self ,"entity_player", 1)
+    check(x ,"number", 2)
+    check(y ,"number", 3)
+
+    meta = getmetatable(self)
+    meta.__position_x, meta.__position_y = x, y
+    meta.__sprite:setPosition(x, y)
+end
+
+function entity_player.getPosition(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    return meta.__position_x, meta.__position_y
+end
+
+function entity_player.move(self, x, y)
+    check(self ,"entity_player", 1)
+    check(x ,"number", 2)
+    check(y ,"number", 3)
+
+    meta = getmetatable(self)
+    meta.__sprite:move(x, y)
+    meta.__position_x = meta.__position_x + x
+    meta.__position_y = meta.__position_y + y
+end
+
 function entity_player.event(self)
 
 end
@@ -275,7 +305,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(0, -speed)
+            self:move(0, -speed)
         end
     elseif lsfml.keyboard.keyPressed(controls.move_down) and meta.__health > 0 then
         if (meta.__status ~= "down") then
@@ -285,7 +315,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(0, speed)
+            self:move(0, speed)
         end
     elseif lsfml.keyboard.keyPressed(controls.move_right) and meta.__health > 0 then
         if (meta.__status ~= "right") then
@@ -295,7 +325,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(speed, 0)
+            self:move(speed, 0)
         end
     elseif lsfml.keyboard.keyPressed(controls.move_left) and meta.__health > 0 then
         if (meta.__status ~= "left") then
@@ -305,7 +335,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(-speed, 0)
+            self:move(-speed, 0)
         end
     elseif  meta.__health <= 0 then
         if (meta.__status ~= "death") then
@@ -351,4 +381,11 @@ function entity_player.draw(self)
         meta.__clock:restart()
     end
     window:draw(meta.__sprite)
+end
+
+function entity_player.getUUID()
+    check(self, "entity_item", 1)
+
+    local meta = getmetatable(self)
+    return meta.__uuid
 end

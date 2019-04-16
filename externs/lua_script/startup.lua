@@ -63,8 +63,10 @@ function getScene()
     return scene_name
 end
 
+math.randomseed(os.time())
 local owindow = window
 dofile("lib/lsfml.lua")
+dofile("tools/uuid.lua")
 dofile("options.lua")
 dofile("tools/button.lua")
 dofile("tools/hud.lua")
@@ -72,7 +74,8 @@ dofile("entity/entity_player.lua")
 dofile("tools/inventory_slot.lua")
 dofile("tools/item.lua")
 dofile("tools/itemstack.lua")
-
+dofile("entity/entity_item.lua")
+dofile("world/world.lua")
 -- =========================================
 -- =             LOADING ASSETS            =
 -- =========================================
@@ -110,6 +113,9 @@ player = entity_player.create ({
     speed = 5
 })
 
+world.spawnEntity(player)
+world.spawnEntity(entity_item.create(itemstack.create(items["core"], 2))):setPosition(500, 500)
+
 -- Called at the beginning of the program
 function init()
     window = setmetatable({}, {
@@ -126,6 +132,7 @@ function draw()
     if scenes[scene_name] then
         scenes[scene_name].draw()
         if scene_name ~= "main_menu" then
+            world.draw()
             for i=1, #hudorder do
                 if hudorder[i]:isOpen() then
                     hudorder[i]:draw()
@@ -142,6 +149,7 @@ function update()
     if scenes[scene_name] then
         scenes[scene_name].update()
         if scene_name ~= "main_menu" then
+            world.update()
             for i=1, #hudorder do
                 if hudorder[i]:isOpen() then
                     hudorder[i]:update()
@@ -155,6 +163,7 @@ end
 
 -- Called when an event is produced
 function event(...)
+
     local evt = {...}
     if evt[1] == "close" then
         window:close()
@@ -162,6 +171,7 @@ function event(...)
     end
     if evt[1] == "key_pressed" and evt[2] == keys.Escape then
         local found = false
+        world.event(...)
         for i=#hudorder, 1, -1 do
             local meta = getmetatable(hudorder[i])
             if hudorder[i]:isOpen() and hudorder[i]:canBeClosed() then

@@ -669,7 +669,7 @@ function lsfml.sprite.scale(sprite, x, y)
     olsfml.sprite_scale(meta.__ptr, {x=x, y=y})
 end
 
-function lsfml.sprite.set_origin(sprite, x, y)
+function lsfml.sprite.setOrigin(sprite, x, y)
     check(sprite, "sprite", 1)
     check(x, "number", 2)
     check(y, "number", 3)

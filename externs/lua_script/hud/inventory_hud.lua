@@ -12,7 +12,6 @@ inventory:scale(0.75, 0.75)
 inventory:setPosition(px, py)
 inventory:setTexture(assets["inventory_hud"], false)
 
-
 function load(self)
     for y = 0, 3 do
         for x = 1, 7 do
@@ -32,7 +31,7 @@ function load(self)
     for k, v in pairs(items) do
         dt[#dt + 1] = k
     end
-    for i=1, #slots do
+    for i=1, #slots - 6 do
         if math.random(1, 2) == 1 then
             local item = items[dt[math.random(1, #dt)]]
             slots[i]:setItemStack(itemstack.create(item, math.random(1, item:getMaxStackSize())))
@@ -46,6 +45,10 @@ end
 
 function close(self)
 
+end
+
+function isIn(self, x, y)
+    return x > px and x < px + 1337 * 0.75 and y > py and y < py + 940 * 0.75
 end
 
 function getSlotAt(self, x, y)

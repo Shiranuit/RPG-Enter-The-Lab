@@ -132,19 +132,26 @@ function inv_slot.event(self, inventory, ...)
         meta.__status = "released"
         meta.__sprite:setPosition(meta.__x, meta.__y)
         meta.__text:setPosition(meta.__x + 78 * 0.75, meta.__y + 88 * 0.75)
-        local slot = inventory:getSlotAt(event[2], event[3])
-        if slot and self:getItemStack() and self:getItemStack():getStackSize() > 0 then
-            local meta_s = getmetatable(slot)
-            if meta_s.__x ~= meta.__x or meta_s.__y ~= meta.__y then
-                local item1 = self:getItemStack()
-                local item2 = slot:getItemStack()
-                if slot:itemMeetRequirement(item1) and self:itemMeetRequirement(item2) then
-                    if item1 and item2 and item1 == item2 then
-                        item1:pack(item2)
+        if inventory:isIn(event[2], event[3]) then
+            local slot = inventory:getSlotAt(event[2], event[3])
+            if slot and self:getItemStack() and self:getItemStack():getStackSize() > 0 then
+                local meta_s = getmetatable(slot)
+                if meta_s.__x ~= meta.__x or meta_s.__y ~= meta.__y then
+                    local item1 = self:getItemStack()
+                    local item2 = slot:getItemStack()
+                    if slot:itemMeetRequirement(item1) and self:itemMeetRequirement(item2) then
+                        if item1 and item2 and item1 == item2 then
+                            item1:pack(item2)
+                        end
+                        slot:setItemStack(item1)
+                        self:setItemStack(item2)
                     end
-                    slot:setItemStack(item1)
-                    self:setItemStack(item2)
                 end
+            end
+        else
+            if self:getItemStack() and self:getItemStack():getStackSize() > 0 then
+                world.spawnEntity(entity_item.create(self:getItemStack())):setPosition(player:getPosition())
+                self:setItemStack(nil)
             end
         end
     end

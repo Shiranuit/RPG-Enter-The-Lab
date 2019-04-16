@@ -11,11 +11,9 @@ end
 
 function draw()
     window:clear(0, 0, 0)
-    player:draw()
 end
 
 function update()
-    player:update()
     if lsfml.keyboard.keyPressed(keys.A) then
         player:hit(DeltaTime)
         print(player:getHealth())
@@ -27,5 +25,5 @@ function update()
 end
 
 function event(...)
-    player:event()
+
 end
