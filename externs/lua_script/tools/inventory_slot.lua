@@ -4,7 +4,7 @@
 
 inv_slot = {}
 
-function inv_slot.create(x, y, w, h, tx, ty)
+function inv_slot.create(x, y, w, h, tx, ty, type)
     check(x, "number", 1)
     check(y, "number", 2)
     check(w, "number", 3)
@@ -28,6 +28,7 @@ function inv_slot.create(x, y, w, h, tx, ty)
         __tx = tx,
         __ty = ty,
         __item = nil,
+        __require = type,
         __sprite = sprite,
         __text = text,
         __status = "released",
@@ -80,6 +81,31 @@ function inv_slot.draw(self)
     end
 end
 
+function inv_slot.itemMeetRequirement(self, itemstack)
+    check(self, "inv_slot", 1)
+    cassert(type(itemstack) == "nil" or type(itemstack) == "itemstack", "itemstack must be an itemstack", 3)
+
+    local meta = getmetatable(self)
+    if itemstack and itemstack:getStackSize() > 0 then
+        local item = itemstack:getItem()
+        if item then
+            local userdata = item:getUserdata()
+            if meta.__require then
+                if userdata then
+                    for k, v in pairs(meta.__require) do
+                        if userdata[k] ~= v then
+                            return false
+                        end
+                    end
+                    return true
+                end
+                return false
+            end
+        end
+    end
+    return true
+end
+
 local px = 0
 local py = 0
 local vx = 0
@@ -107,16 +133,15 @@ function inv_slot.event(self, inventory, ...)
         meta.__sprite:setPosition(meta.__x, meta.__y)
         meta.__text:setPosition(meta.__x + 78 * 0.75, meta.__y + 88 * 0.75)
         local slot = inventory:getSlotAt(event[2], event[3])
-        if slot then
+        if slot and self:getItemStack() and self:getItemStack():getStackSize() > 0 then
             local meta_s = getmetatable(slot)
             if meta_s.__x ~= meta.__x or meta_s.__y ~= meta.__y then
                 local item1 = self:getItemStack()
                 local item2 = slot:getItemStack()
-                if item1 and item2 and item1 == item2 then
-                    item1:pack(item2)
-                    slot:setItemStack(item1)
-                    self:setItemStack(item2)
-                else
+                if slot:itemMeetRequirement(item1) and self:itemMeetRequirement(item2) then
+                    if item1 and item2 and item1 == item2 then
+                        item1:pack(item2)
+                    end
                     slot:setItemStack(item1)
                     self:setItemStack(item2)
                 end

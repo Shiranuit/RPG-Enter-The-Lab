@@ -42,6 +42,12 @@ function itemstack.setStackSize(self, size)
     end
 end
 
+function itemstack.getUserdata(self)
+    check(self, "itemstack", 1)
+
+    return self:getItem():getUserdata()
+end
+
 function itemstack.getStackSize(self)
     check(self, "itemstack", 1)
 
