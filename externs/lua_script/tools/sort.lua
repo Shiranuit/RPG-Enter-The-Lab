@@ -5,7 +5,7 @@
 sort = {}
 
 function initSpellSprite(spell)
-    tab = {}
+    local tab = {}
     for i, v in pairs(spell) do
         tab[i] = lsfml.sprite.create()
         tab[i]:setTexture(v, false) 

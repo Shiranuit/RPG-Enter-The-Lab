@@ -69,6 +69,7 @@ dofile("lib/lsfml.lua")
 dofile("options.lua")
 dofile("tools/button.lua")
 dofile("tools/sort.lua")
+dofile("tools/spell_menu.lua")
 dofile("tools/hud.lua")
 dofile("entity/entity_player.lua")
 dofile("tools/inventory_slot.lua")
@@ -113,6 +114,10 @@ player = entity_player.create ({
 })
 
 all_sort = sort.create ({
+    spell = spells
+})
+
+spell_menu = menu_sort.create ({
     spell = spells
 })
 
