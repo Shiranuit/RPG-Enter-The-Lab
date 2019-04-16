@@ -38,7 +38,7 @@ static const luaL_Reg lsfmllib[] = {
     {"sprite_getRotation", sprite_get_rotation},
     {"sprite_getOrigin", sprite_get_origin},
     {"sprite_scale", sprite_scale},
-    {"sprite_set_origin", sprite_set_origin},
+    {"sprite_setOrigin", sprite_set_origin},
     {"sprite_setTextureRect", sprite_set_texture_rect},
 
     {"text_create", text_create},

@@ -15,4 +15,5 @@ controls = {
     spell_4 = keys.Num4,
     spell_5 = keys.Num5,
     menu_spell = keys.M,
+    pickup = keys.F,
 }

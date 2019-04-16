@@ -64,8 +64,10 @@ function getScene()
     return scene_name
 end
 
+math.randomseed(os.time())
 local owindow = window
 dofile("lib/lsfml.lua")
+dofile("tools/uuid.lua")
 dofile("options.lua")
 dofile("tools/button.lua")
 dofile("tools/sort.lua")
@@ -75,7 +77,8 @@ dofile("entity/entity_player.lua")
 dofile("tools/inventory_slot.lua")
 dofile("tools/item.lua")
 dofile("tools/itemstack.lua")
-
+dofile("entity/entity_item.lua")
+dofile("world/world.lua")
 -- =========================================
 -- =             LOADING ASSETS            =
 -- =========================================
@@ -93,7 +96,6 @@ dofile("items.lua")
 -- =========================================
 
 player_hud = hud.createFromFile("hud/player_hud.lua", nil, false)
-inventory = hud.createFromFile("hud/inventory_hud.lua")
 
 -- =========================================
 -- =                 SCENES                =
@@ -120,6 +122,8 @@ all_sort = sort.create ({
 spell_menu = menu_sort.create ({
     spell = spells
 })
+world.spawnEntity(player)
+world.spawnEntity(entity_item.create(itemstack.create(items["core"], 2))):setPosition(500, 500)
 
 -- Called at the beginning of the program
 function init()
@@ -137,6 +141,7 @@ function draw()
     if scenes[scene_name] then
         scenes[scene_name].draw()
         if scene_name ~= "main_menu" then
+            world.draw()
             for i=1, #hudorder do
                 if hudorder[i]:isOpen() then
                     hudorder[i]:draw()
@@ -153,6 +158,7 @@ function update()
     if scenes[scene_name] then
         scenes[scene_name].update()
         if scene_name ~= "main_menu" then
+            world.update()
             for i=1, #hudorder do
                 if hudorder[i]:isOpen() then
                     hudorder[i]:update()
@@ -166,6 +172,7 @@ end
 
 -- Called when an event is produced
 function event(...)
+
     local evt = {...}
     if evt[1] == "close" then
         window:close()
@@ -188,6 +195,7 @@ function event(...)
     if scenes[scene_name] then
         scenes[scene_name].event(...)
         if scene_name ~= "main_menu" then
+            world.event(...)
             for i=1, #hudorder do
                 hudorder[i]:event(...)
             end
