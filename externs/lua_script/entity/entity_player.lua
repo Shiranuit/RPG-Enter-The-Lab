@@ -356,7 +356,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(speed, 0)
+            self:move(speed, 0)
         end
     elseif lsfml.keyboard.keyPressed(keys.Q) and meta.__health > 0 and meta.__is_sprinting then
         if (meta.__status ~= "run_left") then
@@ -366,7 +366,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
-            meta.__sprite:move(-speed, 0)
+            self:move(-speed, 0)
         end
     elseif lsfml.keyboard.keyPressed(controls.move_right) and meta.__health > 0 then
         if (meta.__status ~= "right") then
