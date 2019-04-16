@@ -9,4 +9,5 @@ controls = {
     move_down = keys.S,
     move_right = keys.D,
     sprint = keys.LShift,
+    pickup = keys.F,
 }

@@ -62,6 +62,13 @@ function inv_slot.getItemStack(self)
     return meta.__item
 end
 
+function inv_slot.isEmpty(self)
+    check(self, "inv_slot", 1)
+
+    local meta = getmetatable(self)
+    return not self:getItemStack() or self:getItemStack():getStackSize() == 0
+end
+
 function inv_slot.isIn(self, x, y)
     check(self, "inv_slot", 1)
     check(x, "number", 2)

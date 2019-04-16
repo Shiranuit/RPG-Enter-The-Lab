@@ -19,7 +19,7 @@ function entity_item.create(itemstack)
         __itemstack = itemstack,
         __x = 0,
         __y = 0,
-        __uuid = uuid.randomUUID,
+        __uuid = uuid.randomUUID(),
         __anim = 0,
         __status = "up",
     })
@@ -84,7 +84,7 @@ function entity_item.update(self)
     meta.__sprite:setPosition(meta.__x, meta.__y - meta.__anim)
 end
 
-function entity_item.getUUID()
+function entity_item.getUUID(self)
     check(self, "entity_item", 1)
 
     local meta = getmetatable(self)

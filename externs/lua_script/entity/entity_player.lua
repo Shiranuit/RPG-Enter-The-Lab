@@ -32,7 +32,8 @@ function entity_player.create(info)
         __attack = info.attack or 1,
         __parade = info.parade or 1,
         __status = "idle",
-        __uuid = uuid.randomUUID,
+        __inventory = hud.createFromFile("hud/inventory_hud.lua"),
+        __uuid = uuid.randomUUID(),
         __position_x = info.pos_x,
         __position_y = info.pos_y,
         __is_sprinting = false
@@ -45,6 +46,7 @@ function entity_player.getMana(self)
     meta = getmetatable(self)
     return meta.__mana
 end
+
 
 function entity_player.setMana(self, mana)
     check(self ,"entity_player", 1)
@@ -204,6 +206,9 @@ end
 
 function entity_player.getInventory(self)
     check(self ,"entity_player", 1)
+
+    local meta = getmetatable(self)
+    return meta.__inventory
 end
 
 function entity_player.getEquipement(self)
@@ -279,8 +284,23 @@ function entity_player.move(self, x, y)
     meta.__position_y = meta.__position_y + y
 end
 
-function entity_player.event(self)
-
+function entity_player.event(self, ...)
+    local event = {...}
+    if event[1] == "key_pressed" then
+        if event[2] == controls.pickup then
+            local x, y = self:getPosition()
+            local w, h = 50, 50
+            local entities = world.getEntitiesInRect(x - w, y - h, w * 2,h * 2)
+            for i=1, #entities do
+                if type(entities[i]) == "entity_item" then
+                    if self:getInventory():insertItemStack(entities[i]:getItemStack()) then
+                        world.removeEntityByUUID(entities[i]:getUUID())
+                        break
+                    end
+                end
+            end
+        end
+    end
 end
 
 function entity_player.update(self)
@@ -383,8 +403,8 @@ function entity_player.draw(self)
     window:draw(meta.__sprite)
 end
 
-function entity_player.getUUID()
-    check(self, "entity_item", 1)
+function entity_player.getUUID(self)
+    check(self, "entity_player", 1)
 
     local meta = getmetatable(self)
     return meta.__uuid

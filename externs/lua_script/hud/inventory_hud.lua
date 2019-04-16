@@ -47,6 +47,49 @@ function close(self)
 
 end
 
+function setItemInSlot(self, slot, itemstack)
+    check(slot, "number", 2)
+    cassert(type(itemstack) == "nil" and type(itemstack) == "itemstack", "itemstack must be an itemstack", 3)
+
+    if slot > 0 and slot <= #slots then
+        slots[slot]:setItemStack(itemstack)
+    else
+        error("slot must be between 1 and "..#slots, 2)
+    end
+end
+
+function getItemInSlot(self, slot)
+    check(self, "hud", 1)
+    check(slot, "number", 2)
+
+    if slot > 0 and slot <= #slots then
+        return slots[slot]:getItemStack()
+    else
+        error("slot must be between 1 and "..#slots, 2)
+    end
+end
+
+function insertItemStack(self, itemstack)
+    if itemstack then
+        local found = false
+        for i=1, #slots do
+            if (slots[i]:getItemStack() and slots[i]:getItemStack() == itemstack) and slots[i]:itemMeetRequirement(itemstack) then
+                slots[i]:getItemStack():pack(itemstack)
+                slots[i]:setItemStack(slots[i]:getItemStack())
+                found = true
+            end
+        end
+        for i=1, #slots do
+            if slots[i]:isEmpty() and slots[i]:itemMeetRequirement(itemstack) then
+                slots[i]:setItemStack(itemstack)
+                return true
+            end
+        end
+        return found
+    end
+    return false
+end
+
 function isIn(self, x, y)
     return x > px and x < px + 1337 * 0.75 and y > py and y < py + 940 * 0.75
 end

@@ -93,7 +93,6 @@ dofile("items.lua")
 -- =========================================
 
 player_hud = hud.createFromFile("hud/player_hud.lua", nil, false)
-inventory = hud.createFromFile("hud/inventory_hud.lua")
 
 -- =========================================
 -- =                 SCENES                =
@@ -171,7 +170,6 @@ function event(...)
     end
     if evt[1] == "key_pressed" and evt[2] == keys.Escape then
         local found = false
-        world.event(...)
         for i=#hudorder, 1, -1 do
             local meta = getmetatable(hudorder[i])
             if hudorder[i]:isOpen() and hudorder[i]:canBeClosed() then
@@ -187,6 +185,7 @@ function event(...)
     if scenes[scene_name] then
         scenes[scene_name].event(...)
         if scene_name ~= "main_menu" then
+            world.event(...)
             for i=1, #hudorder do
                 hudorder[i]:event(...)
             end
