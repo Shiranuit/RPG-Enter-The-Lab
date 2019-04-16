@@ -82,10 +82,6 @@ end
 -- =             SORT EFFECT               =
 -- =========================================
 
-function healSpell()
-    player:heal(1);
-end
-
 function douleurSpell()
 
 end
@@ -94,10 +90,34 @@ function elecSpell()
 
 end
 
+function healSpell()
+    player:heal(1);
+end
+
 function picSpell()
 
 end
 
 function rayonSpell()
+
+end
+
+function bouleelecSpell()
+
+end
+
+function dashSpell()
+
+end
+
+function repulsionSpell()
+
+end
+
+function shieldSpell()
+
+end
+
+function tempSpell()
 
 end

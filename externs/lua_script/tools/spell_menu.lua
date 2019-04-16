@@ -31,7 +31,7 @@ function  menu_sort.create(info)
         __type = "menu_sort",
         __index = menu_sort,
         __all_spell = spell,
-        __display = true,
+        __display = false,
         __old_pos_x = -1,
         __old_pos_y = -1,
         __origin_pos_x = -1,
