@@ -26,6 +26,11 @@ spells["healSpell"] = lsfml.texture.createFromFile("./assets/hud/spell/heal.png"
 spells["picSpell"] = lsfml.texture.createFromFile("./assets/hud/spell/pic.png", {0, 0, 142, 142})
 spells["rayonSpell"] = lsfml.texture.createFromFile("./assets/hud/spell/rayon.png", {0, 0, 142, 142})
 
+assets["item1"] = lsfml.texture.createFromFile("./assets/hud/spell/pic.png", {0, 0, 142, 142})
+assets["item2"] = lsfml.texture.createFromFile("./assets/hud/spell/heal.png", {0, 0, 142, 142})
+assets["item3"] = lsfml.texture.createFromFile("./assets/hud/spell/rayon.png", {0, 0, 142, 142})
+assets["item4"] = lsfml.texture.createFromFile("./assets/hud/spell/elec.png", {0, 0, 142, 142})
+
 -- =======================
 -- =        FONTS        =
 -- =======================

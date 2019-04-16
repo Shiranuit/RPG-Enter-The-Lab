@@ -48,7 +48,9 @@ local function loadScene(name)
 end
 
 function setScene(name)
-    player_hud:open()
+    if name ~= "main_menu" then
+        player_hud:open()
+    end
     if scenes[scene_name] and scenes[scene_name].unload then
         scenes[scene_name].unload()
     end
@@ -69,6 +71,9 @@ dofile("tools/button.lua")
 dofile("tools/sort.lua")
 dofile("tools/hud.lua")
 dofile("entity/entity_player.lua")
+dofile("tools/inventory_slot.lua")
+dofile("tools/item.lua")
+dofile("tools/itemstack.lua")
 
 -- =========================================
 -- =             LOADING ASSETS            =
@@ -77,10 +82,16 @@ dofile("entity/entity_player.lua")
 dofile("assets.lua")
 
 -- =========================================
+-- =              LOADING ITEMS            =
+-- =========================================
+
+dofile("items.lua")
+
+-- =========================================
 -- =               LOAD HUD                =
 -- =========================================
 
-player_hud = hud.createFromFile("hud/player_hud.lua")
+player_hud = hud.createFromFile("hud/player_hud.lua", nil, false)
 inventory = hud.createFromFile("hud/inventory_hud.lua")
 
 -- =========================================
@@ -120,9 +131,11 @@ end
 function draw()
     if scenes[scene_name] then
         scenes[scene_name].draw()
-        for i=1, #hudorder do
-            if hudorder[i]:isOpen() then
-                hudorder[i]:draw()
+        if scene_name ~= "main_menu" then
+            for i=1, #hudorder do
+                if hudorder[i]:isOpen() then
+                    hudorder[i]:draw()
+                end
             end
         end
     else
@@ -134,9 +147,11 @@ end
 function update()
     if scenes[scene_name] then
         scenes[scene_name].update()
-        for i=1, #hudorder do
-            if hudorder[i]:isOpen() then
-                hudorder[i]:update()
+        if scene_name ~= "main_menu" then
+            for i=1, #hudorder do
+                if hudorder[i]:isOpen() then
+                    hudorder[i]:update()
+                end
             end
         end
     else
@@ -151,10 +166,26 @@ function event(...)
         window:close()
         return
     end
+    if evt[1] == "key_pressed" and evt[2] == keys.Escape then
+        local found = false
+        for i=#hudorder, 1, -1 do
+            local meta = getmetatable(hudorder[i])
+            if hudorder[i]:isOpen() and hudorder[i]:canBeClosed() then
+                hudorder[i]:close()
+                found = true
+                break
+            end
+            if found == false then
+                setScene("main_menu")
+            end
+        end
+    end
     if scenes[scene_name] then
         scenes[scene_name].event(...)
-        for i=1, #hudorder do
-            hudorder[i]:event(...)
+        if scene_name ~= "main_menu" then
+            for i=1, #hudorder do
+                hudorder[i]:event(...)
+            end
         end
     else
         error("Scene not found '"..scene_name.."'", 2)
