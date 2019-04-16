@@ -16,7 +16,6 @@ end
 
 function update()
     player:update()
-    spell_menu:update()
     if lsfml.keyboard.keyPressed(keys.A) then
         player:hit(DeltaTime)
         print(player:getHealth())
@@ -29,6 +28,7 @@ end
 
 function event(...)
     local event = {...}
+    spell_menu:event()
     if event[1] == "key_pressed" and event[2] == keys.Escape then
         setScene("main_menu")
     end

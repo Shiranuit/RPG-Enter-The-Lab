@@ -37,6 +37,8 @@ function  menu_sort.create(info)
         __origin_pos_x = -1,
         __origin_pos_y = -1,
         __selected_spell = nil,
+        __selected_spell_name = "",
+        __selected_spell_index = 0,
         __spell_hub = spell_menu,
     })
 end
@@ -54,10 +56,6 @@ end
 
 function menu_sort.event(self)
     check(self, "menu_sort")
-end
-
-function menu_sort.update(self)
-    check(self, "menu_sort")
 
     meta = getmetatable(self)
     local mouse_x, mouse_y  = lsfml.mouse.getPosition(window)
@@ -72,6 +70,7 @@ function menu_sort.update(self)
                         meta.__old_pos_x = mouse_x
                         meta.__old_pos_y = mouse_y
                         meta.__selected_spell = v
+                        meta.__selected_spell_name = i
                     end
                 end
             end
@@ -85,10 +84,23 @@ function menu_sort.update(self)
             meta.__selected_spell:move(mouse_x - meta.__old_pos_x, mouse_y - meta.__old_pos_y)
             meta.__old_pos_x = mouse_x
             meta.__old_pos_y = mouse_y
-            if then
+            local sprite_pos_x, sprite_pos_y = meta.__selected_spell:getPosition()
+            for i = 1, 5 do
+                if mouse_x > 705 + 30.5 + (i - 1) * 93.5 and mouse_x < 705 + 101.5 + (i - 1) * 93.5 and mouse_y > 900 + 9.5 and mouse_y < 900 + 80.5 then 
+                    meta.__selected_spell_index = i
+                end
             end
         end
     end
+    if meta.__selected_spell_index ~= 0 and not lsfml.mouse.isButtonPressed(mouse.LEFT) then
+        all_sort:changeSort(meta.__selected_spell_index, meta.__selected_spell_name) 
+        meta.__selected_spell_index = 0
+    end
+end
+
+function menu_sort.update(self)
+    check(self, "menu_sort")
+
 end
 
 function menu_sort.draw(self)

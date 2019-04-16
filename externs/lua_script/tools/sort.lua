@@ -36,7 +36,7 @@ function sort.create(info)
     })
 end
 
-function sort.change_sort(self, index, sort)
+function sort.changeSort(self, index, sort)
     check(self, "sort")
     check(index, "number")
     check(sort, "string")
