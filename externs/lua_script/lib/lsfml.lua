@@ -580,6 +580,17 @@ function lsfml.sprite.destroy(sprite)
     olsfml.sprite_destroy(meta.__ptr)
 end
 
+function lsfml.sprite.setColor(sprite, r, g, b, a)
+    check(sprite, "sprite", 1)
+    check(r, "number", 2)
+    check(g, "number", 3)
+    check(b, "number", 4)
+    check(a, "number", 5)
+
+    local meta = getmetatable(sprite)
+    olsfml.sprite_setColor(meta.__ptr, r, g, b, a)
+end
+
 function lsfml.sprite.setTexture(sprite, texture, boolean)
     check(sprite, "sprite", 1)
     check(texture, "texture", 2)

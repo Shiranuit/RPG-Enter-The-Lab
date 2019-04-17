@@ -39,6 +39,7 @@ int sprite_get_origin(lua_State *L);
 int sprite_scale(lua_State *L);
 int sprite_set_origin(lua_State *L);
 int sprite_set_texture_rect(lua_State *L);
+int sprite_set_color(lua_State *L);
 
 int text_create(lua_State *L);
 int text_destroy(lua_State *L);
