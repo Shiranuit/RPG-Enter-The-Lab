@@ -135,7 +135,11 @@ function douleurSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(10)
+    if (status_sort["douleurSpell"] == "up") then
+        player:removeMana(10)
+        status_sort["douleurSpell"] = "down"
+        cooldown_sort["douleurSpell"] = 20000000
+    end
     --donne un status de degats renvoyé au joueurs so l'ennemi en prend aussi
 end
 
@@ -144,7 +148,11 @@ function elecSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(5)
+    if (status_sort["elecSpell"] == "up") then
+        player:removeMana(5)
+        status_sort["elecSpell"] = "down"
+        cooldown_sort["elecSpell"] = 5000000
+    end
     --lance un éclair droit devant le joueur et si touche l'ennemi il prend des damages
 end
 
@@ -158,7 +166,7 @@ function healSpell()
         player:heal(30)
         assets["heal"]:play()
         status_sort["healSpell"] = "down"
-        cooldown_sort["healSpell"] = 5000000
+        cooldown_sort["healSpell"] = 10000000
     end
 end
 
@@ -167,7 +175,11 @@ function picSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(3)
+    if (status_sort["picSpell"] == "up") then
+        player:removeMana(3)
+        status_sort["picSpell"] = "down"
+        cooldown_sort["picSpell"] = 3000000
+    end
     --Une lance energétique sort de la main du joueur a courte portée infligant des damages 
 end
 
@@ -176,7 +188,11 @@ function rayonSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(10)
+    if (status_sort["rayonSpell"] == "up") then
+        player:removeMana(10)
+        status_sort["rayonSpell"] = "down"
+        cooldown_sort["rayonSpell"] = 15000000
+    end
     -- un rayon de feu voir une boule de feu sort du joueur
 end
 
@@ -185,7 +201,11 @@ function bouleelecSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(7)
+    if (status_sort["bouleelecSpell"] == "up") then
+        player:removeMana(7)
+        status_sort["bouleelecSpell"] = "down"
+        cooldown_sort["bouleelecSpell"] = 10000000
+    end
     -- un boule d'electricity spawn a quelque case du joueur et attaque les ennemis proche
 end
 
@@ -195,36 +215,40 @@ function dashSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(1)
-    assets["dash"]:play()
-    x, y = player:getPosition()
-    if (hor == "right") then
-        player:setPosition(x + 100, y)
-    end
-    if (hor == "left") then
-        player:setPosition(x - 100, y)
-    end
-    if (ver == "down") then
-        if (hor == "left") then
-            player:setPosition(x - 70, y + 70)
-            return
-        end
+    if (status_sort["dashSpell"] == "up") then
+        player:removeMana(1)
+        assets["dash"]:play()
+        x, y = player:getPosition()
         if (hor == "right") then
-            player:setPosition(x + 70, y + 70)
-            return
+            player:setPosition(x + 100, y)
         end
-        player:setPosition(x, y + 100)
-    end
-    if (ver == "up") then
         if (hor == "left") then
-            player:setPosition(x - 70, y - 70)
-            return
+            player:setPosition(x - 100, y)
         end
-        if (hor == "right") then
-            player:setPosition(x + 70, y - 70)
-            return
+        if (ver == "down") then
+            if (hor == "left") then
+                player:setPosition(x - 70, y + 70)
+                return
+            end
+            if (hor == "right") then
+                player:setPosition(x + 70, y + 70)
+                return
+            end
+            player:setPosition(x, y + 100)
         end
-        player:setPosition(x, y - 100)
+        if (ver == "up") then
+            if (hor == "left") then
+                player:setPosition(x - 70, y - 70)
+                return
+            end
+            if (hor == "right") then
+                player:setPosition(x + 70, y - 70)
+                return
+            end
+            player:setPosition(x, y - 100)
+        end
+        status_sort["dashSpell"] = "down"
+        cooldown_sort["dashSpell"] = 500000
     end
 end
 
@@ -233,7 +257,11 @@ function repulsionSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(4)
+    if (status_sort["repulsionSpell"] == "up") then
+        player:removeMana(4)
+        status_sort["repulsionSpell"] = "down"
+        cooldown_sort["repulsionSpell"] = 5000000
+    end
     -- repousse de quelque case les ennemis autour
 end
 
@@ -242,10 +270,14 @@ function shieldSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(10)
-    assets["shield"]:setVolume(200)
-    assets["shield"]:play()
-    player:addDefense(10)
+    if (status_sort["shieldSpell"] == "up") then
+        player:removeMana(10)
+        assets["shield"]:setVolume(200)
+        assets["shield"]:play()
+        player:addDefense(10)
+        status_sort["shieldSpell"] = "down"
+        cooldown_sort["shieldSpell"] = 13000000
+    end
     -- donne un shield au joueur pour 10 seconde
 end
 
@@ -254,6 +286,12 @@ function tempSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(15)
+    if (status_sort["tempSpell"] == "up") then
+        player:removeMana(15)
+        assets["time"]:setVolume(100)
+        assets["time"]:play()
+        status_sort["tempSpell"] = "down"
+        cooldown_sort["tempSpell"] = 20000000
+    end
     -- ralenti tout les ennemis dans la salle pour 5 seconde
 end

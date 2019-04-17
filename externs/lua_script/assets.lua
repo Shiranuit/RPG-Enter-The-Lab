@@ -59,6 +59,7 @@ assets["dash"] = lsfml.sound.createFromFile("./assets/sound/dash.wav")
 assets["heal"] = lsfml.sound.createFromFile("./assets/sound/heal.ogg")
 assets["shield"] = lsfml.sound.createFromFile("./assets/sound/shield.wav")
 assets["deny"] = lsfml.sound.createFromFile("./assets/sound/denied.wav")
+assets["time"] = lsfml.sound.createFromFile("./assets/sound/time.ogg")
 
 -- =======================
 -- =        MUSICS       =
