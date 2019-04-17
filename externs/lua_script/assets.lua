@@ -57,6 +57,7 @@ assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
 assets["button_hover_sfx"] = lsfml.sound.createFromFile("./assets/sound/button_hover.wav")
 assets["dash"] = lsfml.sound.createFromFile("./assets/sound/dash.wav")
 assets["heal"] = lsfml.sound.createFromFile("./assets/sound/heal.ogg")
+assets["deny"] = lsfml.sound.createFromFile("./assets/sound/denied.wav")
 
 -- =======================
 -- =        MUSICS       =
