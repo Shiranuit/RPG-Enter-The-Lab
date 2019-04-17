@@ -41,7 +41,6 @@ function changeSort(self, index, sort)
 
     sorts[index] = sort
     sort_sprite[index] = all_spell[sort]
-    print(type(sort_sprite[index]))
     if sort_sprite[index] then
         sort_sprite[index]:setPosition(705 + 30.5 + 93.5 * (index - 1), 900 + 9.5)
     end
@@ -49,9 +48,7 @@ end
 
 function event(self, e)
     check(self, "hud", 1)
-
     if player:isDead() then return end
-
     if menu_spell:isClose() then
         if lsfml.keyboard.keyPressed(controls.spell_1) and sorts[1] ~= nil and self[sorts[1]] then
             self[sorts[1]]()
@@ -93,8 +90,8 @@ end
 
 function healSpell()
     if (status_sort["healSpell"] == "up") then
-        player:heal(1);
-        
+        player:heal(33);
+        sort_sprite["healSpell"]:setColor(100, 100, 255, 255) 
         status_sort["healSpell"] = "down"
     end
 end
