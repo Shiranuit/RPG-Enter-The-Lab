@@ -97,7 +97,7 @@ function healSpell()
         return
     end
     player:removeMana(2)
-    player:heal(1);
+    player:heal(25);
     assets["heal"]:play()
     print(player:getMana())
 end
@@ -183,6 +183,8 @@ function shieldSpell()
         return
     end
     player:removeMana(10)
+    assets["shield"]:setVolume(200)
+    assets["shield"]:play()
     player:addDefense(10)
     -- donne un shield au joueur pour 10 seconde
 end
