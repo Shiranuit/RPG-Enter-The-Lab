@@ -131,7 +131,7 @@ end
 -- =========================================
 
 function douleurSpell()
-    if (player:getMana() < 10) then
+    if (player:getMana() < 10 or status_sort["douleurSpell"] == "down") then
         assets["deny"]:play()
         return
     end
@@ -144,7 +144,7 @@ function douleurSpell()
 end
 
 function elecSpell()
-    if (player:getMana() < 5) then
+    if (player:getMana() < 5 or status_sort["elecSpell"] == "down") then
         assets["deny"]:play()
         return
     end
@@ -157,7 +157,7 @@ function elecSpell()
 end
 
 function healSpell()
-    if (player:getMana() < 2) then
+    if (player:getMana() < 2 or status_sort["healSpell"] == "down") then
         assets["deny"]:play()
         return
     end
@@ -171,7 +171,7 @@ function healSpell()
 end
 
 function picSpell()
-    if (player:getMana() < 3) then
+    if (player:getMana() < 3 or status_sort["picSpell"] == "down") then
         assets["deny"]:play()
         return
     end
@@ -197,7 +197,7 @@ function rayonSpell()
 end
 
 function bouleelecSpell()
-    if (player:getMana() < 7) then
+    if (player:getMana() < 7 or status_sort["bouleelecSpell"] == "down") then
         assets["deny"]:play()
         return
     end
@@ -211,7 +211,7 @@ end
 
 function dashSpell()
     status, hor, ver = player:getStatus()
-    if (status == "idle" or player:getMana() < 1) then
+    if (status == "idle" or player:getMana() < 1 or status_sort["dashSpell"] == "down") then
         assets["deny"]:play()
         return
     end
@@ -253,7 +253,7 @@ function dashSpell()
 end
 
 function repulsionSpell()
-    if (player:getMana() < 4) then
+    if (player:getMana() < 4 or status_sort["repulsionSpell"] == "down") then
         assets["deny"]:play()
         return
     end
@@ -270,7 +270,7 @@ function shieldSpell()
         assets["deny"]:play()
         return
     end
-    if (status_sort["shieldSpell"] == "up") then
+    if (status_sort["shieldSpell"] == "up" or status_sort["shieldSpell"] == "down") then
         player:removeMana(10)
         assets["shield"]:setVolume(200)
         assets["shield"]:play()
@@ -282,7 +282,7 @@ function shieldSpell()
 end
 
 function tempSpell()
-    if (player:getMana() < 15) then
+    if (player:getMana() < 15 or status_sort["tempSpell"] == "down") then
         assets["deny"]:play()
         return
     end
