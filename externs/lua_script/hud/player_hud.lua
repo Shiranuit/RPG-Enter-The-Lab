@@ -56,6 +56,6 @@ function update(self)
     stamina_bar:setTextureRect(0, 0, math.floor(player:getStamina() / player:getMaximumStamina() * 980), 328)
 end
 
-function event(self, ...)
+function event(self, e)
 
 end

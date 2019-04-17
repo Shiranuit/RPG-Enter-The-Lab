@@ -4,6 +4,7 @@
 
 hud = {}
 hudorder = {}
+huds = {}
 
 function hud.createFromFile(filename, zindex, canBeClosed)
     check(filename, "string", 1)
@@ -14,7 +15,7 @@ function hud.createFromFile(filename, zindex, canBeClosed)
         local code = handle:read("*all")
         handle:close()
         local env = setmetatable({}, {__index = _G})
-        local func, err = load(code, "loadHUD", "t", env)
+        local func, err = load(code, filename, "t", env)
         if func then
             local s, e = pcall(func)
             if s then
@@ -34,19 +35,20 @@ function hud.createFromFile(filename, zindex, canBeClosed)
                     __env = data,
                     __type = "hud",
                     __name = name,
+                    __uuid = uuid.randomUUID(),
                     __status = "close",
                     __canBeClosed = type(canBeClosed) == "nil" or canBeClosed
                 })
                 if data.load then
                     data.load(meta)
                 end
-                table.insert(hudorder, zindex or #hudorder + 1, meta)
+                huds[#huds + 1] = meta
                 return meta
             else
                 print(filename..({e:match(":.+")})[1])
             end
         else
-            error("[SCENE LOADER ERROR] "..err, 2)
+            error("[HUD LOADER ERROR] "..err, 2)
         end
     end
 end
@@ -54,23 +56,41 @@ end
 function hud.open(self)
     check(self, "hud", 1)
 
-    local meta = getmetatable(self)
-    meta.__status = "open"
-    if meta.__env.open then
-        meta.__env.open(self)
+    if self:isClose() then
+        hudorder[#hudorder + 1] = self
+        local meta = getmetatable(self)
+        meta.__status = "open"
+        if meta.__env.open then
+            meta.__env.open(self)
+        end
     end
 end
 
 function hud.close(self)
     check(self, "hud", 1)
 
-    local meta = getmetatable(self)
-    if meta.__canBeClosed then
-        meta.__status = "close"
-        if meta.__env.close then
-            meta.__env.close(self)
+    if self:isOpen() then
+        local meta = getmetatable(self)
+        for i = 1, #hudorder do
+            if hudorder[i]:getUUID() == meta.__uuid then
+                table.remove(hudorder, i)
+                break
+            end
+        end
+        if meta.__canBeClosed then
+            meta.__status = "close"
+            if meta.__env.close then
+                meta.__env.close(self)
+            end
         end
     end
+end
+
+function hud.getUUID(self)
+    check(self, "hud", 1)
+
+    local meta = getmetatable(self)
+    return meta.__uuid
 end
 
 function hud.draw(self)
@@ -82,12 +102,12 @@ function hud.draw(self)
     end
 end
 
-function hud.event(self, ...)
+function hud.event(self, e)
     check(self, "hud", 1)
 
     local meta = getmetatable(self)
     if meta.__env.event then
-        meta.__env.event(self, ...)
+        meta.__env.event(self, e)
     end
 end
 

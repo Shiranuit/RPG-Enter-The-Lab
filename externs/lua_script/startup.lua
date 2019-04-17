@@ -26,7 +26,7 @@ local function loadScene(name)
     if handle then
         local code = handle:read("*all")
         local env = setmetatable({}, {__index = _G})
-        local func, err = load(code, "loadScene", "t", env)
+        local func, err = load(code, name, "t", env)
         if func then
             local s, e = pcall(func)
             if s then
@@ -67,6 +67,7 @@ end
 math.randomseed(os.time())
 local owindow = window
 dofile("lib/lsfml.lua")
+dofile("tools/event.lua")
 dofile("tools/uuid.lua")
 dofile("options.lua")
 dofile("tools/button.lua")
@@ -167,6 +168,7 @@ end
 function event(...)
 
     local evt = {...}
+    local e = event_helper.create(...)
     if evt[1] == "close" then
         window:close()
         return
@@ -186,11 +188,14 @@ function event(...)
         end
     end
     if scenes[scene_name] then
-        scenes[scene_name].event(...)
+        scenes[scene_name].event(e)
         if scene_name ~= "main_menu" then
-            world.event(...)
-            for i=1, #hudorder do
-                hudorder[i]:event(...)
+            world.event(e)
+            for i=1, #huds do
+                huds[i]:event(e)
+                if e:isCanceled() then
+                    break
+                end
             end
         end
     else

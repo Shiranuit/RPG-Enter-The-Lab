@@ -37,21 +37,23 @@ function changeSort(self, index, sort)
     end
 end
 
-function event(self, ...)
+function event(self, e)
     check(self, "hud", 1)
 
     if player:isDead() then return end
-    
-    if lsfml.keyboard.keyPressed(controls.spell_1) and sorts[1] ~= nil and self[sorts[1]] then
-        self[sorts[1]]()
-    elseif lsfml.keyboard.keyPressed(controls.spell_2) and sorts[2] ~= nil and self[sorts[2]] then
-        self[sorts[2]]()
-    elseif lsfml.keyboard.keyPressed(controls.spell_3) and sorts[3] ~= nil and self[sorts[3]] then
-        self[sorts[3]]()
-    elseif lsfml.keyboard.keyPressed(controls.spell_4) and sorts[4] ~= nil and self[sorts[4]] then
-        self[sorts[4]]()
-    elseif lsfml.keyboard.keyPressed(controls.spell_5) and sorts[5] ~= nil and self[sorts[5]] then
-        self[sorts[5]]()
+
+    if menu_spell:isClose() then
+        if lsfml.keyboard.keyPressed(controls.spell_1) and sorts[1] ~= nil and self[sorts[1]] then
+            self[sorts[1]]()
+        elseif lsfml.keyboard.keyPressed(controls.spell_2) and sorts[2] ~= nil and self[sorts[2]] then
+            self[sorts[2]]()
+        elseif lsfml.keyboard.keyPressed(controls.spell_3) and sorts[3] ~= nil and self[sorts[3]] then
+            self[sorts[3]]()
+        elseif lsfml.keyboard.keyPressed(controls.spell_4) and sorts[4] ~= nil and self[sorts[4]] then
+            self[sorts[4]]()
+        elseif lsfml.keyboard.keyPressed(controls.spell_5) and sorts[5] ~= nil and self[sorts[5]] then
+            self[sorts[5]]()
+        end
     end
 end
 
@@ -62,7 +64,6 @@ end
 function draw(self)
     check(self, "hud", 1)
 
-    
     for i, v in pairs(sort_sprite) do
         window:draw(v)
     end

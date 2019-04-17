@@ -117,8 +117,8 @@ local px = 0
 local py = 0
 local vx = 0
 local vy = 0
-function inv_slot.event(self, inventory, ...)
-    local event = {...}
+function inv_slot.event(self, inventory, e)
+    local event = e:getEvent()
     local meta = getmetatable(self)
     if event[1] == "mouse_pressed" and meta.__status ~= "pressed" and self:isIn(event[2], event[3]) then
         meta.__status = "pressed"
@@ -126,6 +126,7 @@ function inv_slot.event(self, inventory, ...)
         py = event[3]
         vx = meta.__x
         vy = meta.__y
+        return true
     elseif event[1] == "mouse_move" and meta.__status == "pressed" then
         local nx = event[2] - px
         local ny = event[3] - py
@@ -135,6 +136,7 @@ function inv_slot.event(self, inventory, ...)
         meta.__text:setPosition(vx + 78 * 0.75, vy + 88 * 0.75)
         px = event[2]
         py = event[3]
+        return true
     elseif event[1] == "mouse_released" and meta.__status ~= "released" then
         meta.__status = "released"
         meta.__sprite:setPosition(meta.__x, meta.__y)
@@ -161,5 +163,7 @@ function inv_slot.event(self, inventory, ...)
                 self:setItemStack(nil)
             end
         end
+        return true
     end
+    return false
 end
