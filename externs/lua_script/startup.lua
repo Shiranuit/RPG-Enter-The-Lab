@@ -203,7 +203,7 @@ function event(...)
                 if not eHUD:isCanceled() then
                     local found = false
                     for j=1, #hzindex do
-                        if huds[i]:getUUID() == hzindex[j]:getUUID() then
+                        if huds[i]:getUUID() == hzindex[j]:getUUID() and huds[i]:canBeClosed() then
                             found = true
                             break
                         end

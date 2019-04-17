@@ -59,7 +59,6 @@ function event(self, e)
                         old_pos_y = mouse_y
                         selected_spell = v
                         selected_spell_name = i
-                        e:setCanceled(true)
                         break
                     end
                 end
@@ -69,7 +68,6 @@ function event(self, e)
             old_pos_x = -1
             old_pos_y = -1
             selected_spell = nil
-            e:setCanceled(true)
         end
         if selected_spell ~= nil then
             selected_spell:move(mouse_x - old_pos_x, mouse_y - old_pos_y)
@@ -79,7 +77,6 @@ function event(self, e)
             for i = 1, 5 do
                 if mouse_x > 705 + 30.5 + (i - 1) * 93.5 and mouse_x < 705 + 101.5 + (i - 1) * 93.5 and mouse_y > 900 + 9.5 and mouse_y < 900 + 80.5 then 
                     selected_spell_index = i
-                    e:setCanceled(true)
                     break
                 end
             end
@@ -88,7 +85,6 @@ function event(self, e)
     if selected_spell_index ~= 0 and not lsfml.mouse.isButtonPressed(mouse.LEFT) then
         all_sort:changeSort(selected_spell_index, selected_spell_name)
         selected_spell_index = 0
-        e:setCanceled(true)
     end
 end
 
