@@ -6,7 +6,6 @@
 item.create("key", assets["key"], 64, {type="item"})
 item.create("core", assets["core"], 64, {type="item"})
 item.create("seringue", assets["seringue"], 64, {type="item"})
-item.create("metal_scrap", assets["metal_scrap"], 64, {type="item"})
 item.create("companion_cube", assets["companion_cube"], 64, {type="item"})
 
 -- =========================================

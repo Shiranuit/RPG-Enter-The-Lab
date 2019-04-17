@@ -36,7 +36,6 @@ spells["tempSpell"] = lsfml.texture.createFromFile("./assets/spell/temp.png", {0
 assets["companion_cube"] = lsfml.texture.createFromFile("./assets/items/companion_cube.png", {0, 0, 64, 64})
 assets["core"] = lsfml.texture.createFromFile("./assets/items/core.png", {0, 0, 64, 64})
 assets["key"] = lsfml.texture.createFromFile("./assets/items/key.png", {0, 0, 64, 64})
-assets["metal_scrap"] = lsfml.texture.createFromFile("./assets/items/metal_scrap.png", {0, 0, 64, 64})
 assets["seringue"] = lsfml.texture.createFromFile("./assets/items/seringue.png", {0, 0, 64, 64})
 
 assets["botte1"] = lsfml.texture.createFromFile("./assets/items/armure/botte1.png", {0, 0, 64, 64})
