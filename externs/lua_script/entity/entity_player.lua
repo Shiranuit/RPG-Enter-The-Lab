@@ -296,8 +296,8 @@ function entity_player.isDead(self)
     check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
-    if meta.__status == "death" then 
-        return true 
+    if meta.__status == "death" then
+        return true
     else
         return false
     end
@@ -334,7 +334,7 @@ end
 function entity_player.event(self, e)
     local event = e:getEvent()
     if event[1] == "key_pressed" then
-        if event[2] == controls.pickup then
+        if event[2] == controls.getControl("pickup") then
             local x, y = self:getPosition()
             local w, h = 50, 50
             local entities = world.getEntitiesInRect(x - w, y - h, w * 2,h * 2)
@@ -361,10 +361,10 @@ function entity_player.update(self)
     if meta.__is_sprinting == true and meta.__status ~= "idle" then
         meta.__stamina = meta.__stamina - 1 * DeltaTime
         speed = speed * 2
-    elseif meta.__max_stamina > meta.__stamina and (not lsfml.keyboard.keyPressed(controls.sprint) or meta.__status == "idle") then
+    elseif meta.__max_stamina > meta.__stamina and (not lsfml.keyboard.keyPressed(controls.getControl("sprint")) or meta.__status == "idle") then
         meta.__stamina = meta.__stamina + 1 * DeltaTime
     end
-    if lsfml.keyboard.keyPressed(controls.move_up) and meta.__health > 0 then
+    if lsfml.keyboard.keyPressed(controls.getControl("move_up")) and meta.__health > 0 then
         if (meta.__status ~= "up" and meta.__status ~= "left" and meta.__status ~= "right" and meta.__status ~= "run_right" and meta.__status ~= "run_left") then
             meta.__status = "up"
             meta.__pos_rect = {7, 250000 / speed, 0, 1000, 220, 500}
@@ -375,7 +375,7 @@ function entity_player.update(self)
             self:move(0, -speed)
             meta.__status_vertical = "up"
         end
-    elseif lsfml.keyboard.keyPressed(controls.move_down) and meta.__health > 0 then
+    elseif lsfml.keyboard.keyPressed(controls.getControl("move_down")) and meta.__health > 0 then
         if (meta.__status ~= "down" and meta.__status ~= "left" and meta.__status ~= "right" and meta.__status ~= "run_right" and meta.__status ~= "run_left") then
             meta.__status = "down"
             meta.__pos_rect = {7, 250000 / speed, 0, 1500, 220, 500}
@@ -389,7 +389,7 @@ function entity_player.update(self)
     else
         meta.__status_vertical = "none"
     end
-    if lsfml.keyboard.keyPressed(keys.D) and meta.__health > 0 and meta.__is_sprinting then
+    if lsfml.keyboard.keyPressed(controls.getControl("move_right")) and meta.__health > 0 and meta.__is_sprinting then
         if (meta.__status ~= "run_right") then
             meta.__status = "run_right"
             meta.__pos_rect = {5, 250000 / speed, 0, 3000, 219, 500}
@@ -400,7 +400,7 @@ function entity_player.update(self)
             self:move(speed, 0)
             meta.__status_horizontal = "right"
         end
-    elseif lsfml.keyboard.keyPressed(keys.Q) and meta.__health > 0 and meta.__is_sprinting then
+    elseif lsfml.keyboard.keyPressed(controls.getControl("move_left")) and meta.__health > 0 and meta.__is_sprinting then
         if (meta.__status ~= "run_left") then
             meta.__status = "run_left"
             meta.__pos_rect = {5, 250000 / speed, 0, 3500, 219, 500}
@@ -411,7 +411,7 @@ function entity_player.update(self)
             self:move(-speed, 0)
             meta.__status_horizontal = "left"
         end
-    elseif lsfml.keyboard.keyPressed(controls.move_right) and meta.__health > 0 then
+    elseif lsfml.keyboard.keyPressed(controls.getControl("move_right")) and meta.__health > 0 then
         if (meta.__status ~= "right") then
             meta.__status = "right"
             meta.__pos_rect = {15, 250000 / speed, 0, 0, 220, 500}
@@ -422,7 +422,7 @@ function entity_player.update(self)
             meta.__status_horizontal = "right"
             self:move(speed, 0)
         end
-    elseif lsfml.keyboard.keyPressed(controls.move_left) and meta.__health > 0 then
+    elseif lsfml.keyboard.keyPressed(controls.getControl("move_left")) and meta.__health > 0 then
         if (meta.__status ~= "left") then
             meta.__status = "left"
             meta.__pos_rect = {15, 250000 / speed, 0, 500, 220, 500}
@@ -451,7 +451,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
     end
-    meta.__is_sprinting = lsfml.keyboard.keyPressed(controls.sprint) and meta.__health > 0 and meta.__stamina > 0
+    meta.__is_sprinting = lsfml.keyboard.keyPressed(controls.getControl("sprint")) and meta.__health > 0 and meta.__stamina > 0
 end
 
 function entity_player.draw(self)

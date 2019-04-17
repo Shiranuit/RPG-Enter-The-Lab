@@ -115,7 +115,7 @@ end
 
 function event(self, e)
     local event = e:getEvent()
-    if event[1] == "key_pressed" and event[2] == controls.inventory then
+    if event[1] == "key_pressed" and event[2] == controls.getControl("inventory") then
         if self:isOpen() then
             self:close()
         else
