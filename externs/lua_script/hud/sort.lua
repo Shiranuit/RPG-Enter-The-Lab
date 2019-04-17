@@ -13,9 +13,18 @@ function initSpellSprite(spell)
 end
 
 function initSpellFunction(spell)
-    tab = {}
+    local tab = {}
     for i, v in pairs(spell) do
         tab[i] = v
+    end
+    return (tab)
+end
+
+function initStatusSort(spell)
+    local tab = {}
+
+    for i, v in pairs(spell) do
+        tab[i] = "up"
     end
     return (tab)
 end
@@ -23,6 +32,7 @@ end
 local sorts = initSpellFunction(spells)
 local sort_sprite = {}
 local all_spell = initSpellSprite(spells)
+local status_sort = initStatusSort(spells)
 
 function changeSort(self, index, sort)
     check(self, "hud", 1)
@@ -31,7 +41,6 @@ function changeSort(self, index, sort)
 
     sorts[index] = sort
     sort_sprite[index] = all_spell[sort]
-    print(type(sort_sprite[index]))
     if sort_sprite[index] then
         sort_sprite[index]:setPosition(705 + 30.5 + 93.5 * (index - 1), 900 + 9.5)
     end
@@ -39,9 +48,7 @@ end
 
 function event(self, e)
     check(self, "hud", 1)
-
     if player:isDead() then return end
-
     if menu_spell:isClose() then
         if lsfml.keyboard.keyPressed(controls.spell_1) and sorts[1] ~= nil and self[sorts[1]] then
             self[sorts[1]]()
@@ -96,10 +103,13 @@ function healSpell()
         assets["deny"]:play()
         return
     end
-    player:removeMana(2)
-    player:heal(25);
-    assets["heal"]:play()
-    print(player:getMana())
+    if (status_sort["healSpell"] == "up") then
+        player:removeMana(2)
+        player:heal(30)
+        assets["heal"]:play()
+        all_spell["healSpell"]:setColor(100, 100, 255, 255)
+        status_sort["healSpell"] = "down"
+    end
 end
 
 function picSpell()
