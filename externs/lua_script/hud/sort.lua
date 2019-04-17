@@ -49,12 +49,17 @@ local all_spell = initSpellSprite(spells)
 local status_sort = initStatusSort(spells)
 local cooldown_sort = {}
 local clock_sort, clock_status, text_clock = initClockSort(spells)
+local sort_index = {}
 
 function changeSort(self, index, sort)
     check(self, "hud", 1)
     check(index, "number", 2)
     check(sort, "string", 3)
 
+    if sort_index[sort] ~= nil then
+        sort_index[sort] = nil
+    end
+    sort_index[sort] = index
     sorts[index] = sort
     sort_sprite[index] = all_spell[sort]
     if sort_sprite[index] then
@@ -68,15 +73,15 @@ function event(self, e)
     check(self, "hud", 1)
     if player:isDead() then return end
     if menu_spell:isClose() then
-        if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) and sorts[1] ~= nil and self[sorts[1]] then
+        if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) and sorts[1] ~= nil and self[sorts[1]] and sort_index[sorts[1]] == 1 then
             self[sorts[1]]()
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_2")) and sorts[2] ~= nil and self[sorts[2]] then
+        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_2")) and sorts[2] ~= nil and self[sorts[2]] and sort_index[sorts[2]] == 2 then
             self[sorts[2]]()
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_3")) and sorts[3] ~= nil and self[sorts[3]] then
+        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_3")) and sorts[3] ~= nil and self[sorts[3]] and sort_index[sorts[3]] == 3 then
             self[sorts[3]]()
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_4")) and sorts[4] ~= nil and self[sorts[4]] then
+        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_4")) and sorts[4] ~= nil and self[sorts[4]] and sort_index[sorts[4]] == 4 then
             self[sorts[4]]()
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_5")) and sorts[5] ~= nil and self[sorts[5]] then
+        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_5")) and sorts[5] ~= nil and self[sorts[5]] and sort_index[sorts[5]] == 5 then
             self[sorts[5]]()
         end
     end
