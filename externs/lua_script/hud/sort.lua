@@ -184,14 +184,14 @@ function picSpell()
 end
 
 function rayonSpell()
-    if (player:getMana() < 10) then
+    if (player:getMana() < 1) then
         assets["deny"]:play()
         return
     end
-    if (status_sort["rayonSpell"] == "up") then
-        player:removeMana(10)
-        status_sort["rayonSpell"] = "down"
-        cooldown_sort["rayonSpell"] = 15000000
+
+    if clock_sort["rayonSpell"]:getEllapsedTime() > 1000 then
+        clock_sort["rayonSpell"]:restart()
+        player:removeMana(1)
     end
     -- un rayon de feu voir une boule de feu sort du joueur
 end
