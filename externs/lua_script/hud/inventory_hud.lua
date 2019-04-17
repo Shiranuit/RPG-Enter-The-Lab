@@ -113,8 +113,8 @@ function update(self)
 
 end
 
-function event(self, ...)
-    local event = {...}
+function event(self, e)
+    local event = e:getEvent()
     if event[1] == "key_pressed" and event[2] == controls.inventory then
         if self:isOpen() then
             self:close()
@@ -124,7 +124,10 @@ function event(self, ...)
     end
     if self:isOpen() then
         for i=1, #slots do
-            slots[i]:event(self, ...)
+            slots[i]:event(self, e)
+            if e:isCanceled() then
+                break
+            end
         end
     end
 end

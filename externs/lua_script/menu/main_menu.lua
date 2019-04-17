@@ -89,9 +89,8 @@ function update()
 
 end
 
-function event(...)
-    local event = {...}
-    play_button:event(...)
-    option_button:event(...)
-    exit_button:event(...)
+function event(e)
+    play_button:event(e)
+    option_button:event(e)
+    exit_button:event(e)
 end

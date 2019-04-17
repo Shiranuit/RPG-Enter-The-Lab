@@ -35,10 +35,10 @@ local selected_spell = nil
 local spell_hub = spell_menu
 local selected_spell_index = 0
 
-function event(self, ...)
+function event(self, e)
     check(self, "hud", 1)
 
-    local event = {...}
+    local event = e:getEvent()
     if event[1] == "key_pressed" and event[2] == controls.menu_spell then
         if self:isOpen() then
             self:close()

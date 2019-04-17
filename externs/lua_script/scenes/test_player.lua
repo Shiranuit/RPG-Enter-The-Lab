@@ -22,6 +22,6 @@ function update()
     end
 end
 
-function event(...)
+function event(e)
     
 end

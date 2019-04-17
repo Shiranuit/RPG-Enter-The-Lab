@@ -209,10 +209,10 @@ function button.getCharacterSize(self)
 end
 
 
-function button.event(self, ...)
+function button.event(self, e)
     check(self, "button", 1)
 
-    local event = {...}
+    local event = e:getEvent()
     local meta = getmetatable(self)
     if meta.__visible then
         if event[1] == "mouse_pressed" then

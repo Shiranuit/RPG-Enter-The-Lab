@@ -37,7 +37,7 @@ function changeSort(self, index, sort)
     end
 end
 
-function event(self, ...)
+function event(self, e)
     check(self, "hud", 1)
 
     if player:isDead() then return end
@@ -64,7 +64,6 @@ end
 function draw(self)
     check(self, "hud", 1)
 
-    
     for i, v in pairs(sort_sprite) do
         window:draw(v)
     end

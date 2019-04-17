@@ -76,10 +76,13 @@ function world.update()
     end
 end
 
-function world.event(...)
+function world.event(e)
     for i=1, #entities do
         if entities[i] and entities[i].event then
-            entities[i]:event(...)
+            entities[i]:event(e)
+            if e:isCanceled() then
+                break
+            end
         end
     end
 end

@@ -295,8 +295,8 @@ function entity_player.move(self, x, y)
     meta.__position_y = meta.__position_y + y
 end
 
-function entity_player.event(self, ...)
-    local event = {...}
+function entity_player.event(self, e)
+    local event = e:getEvent()
     if event[1] == "key_pressed" then
         if event[2] == controls.pickup then
             local x, y = self:getPosition()
