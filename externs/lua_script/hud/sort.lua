@@ -29,10 +29,26 @@ function initStatusSort(spell)
     return (tab)
 end
 
+function initClockSort(spell)
+    local tab = {}
+    local tab_2 = {}
+    local tab_3 = {}
+
+    for i, v in pairs(spell) do
+        tab[i] = lsfml.clock.create()
+        tab_2[i] = false
+        tab_3[i] = lsfml.text.create()
+        tab_3[i]:setFont(assets["fsys"])
+    end
+    return tab, tab_2 ,tab_3
+end
+
 local sorts = initSpellFunction(spells)
 local sort_sprite = {}
 local all_spell = initSpellSprite(spells)
 local status_sort = initStatusSort(spells)
+local cooldown_sort = {}
+local clock_sort, clock_status, text_clock = initClockSort(spells)
 
 function changeSort(self, index, sort)
     check(self, "hud", 1)
@@ -44,6 +60,8 @@ function changeSort(self, index, sort)
     if sort_sprite[index] then
         sort_sprite[index]:setPosition(705 + 30.5 + 93.5 * (index - 1), 900 + 9.5)
     end
+    local pos_x, pos_y = all_spell[sort]:getPosition()
+    text_clock[sort]:setPosition(pos_x + 6, pos_y + 10)
 end
 
 function event(self, e)
@@ -66,6 +84,26 @@ end
 
 function update(self)
     check(self, "hud", 1)
+
+    for i, v in pairs(all_spell) do 
+        if status_sort[i] == "down" then
+            if not clock_status[i] then
+                clock_sort[i]:restart()
+                clock_status[i] = true
+                all_spell[i]:setColor(0, 0, 0, 255)
+            end
+            if clock_sort[i]:getEllapsedTime() > cooldown_sort[i] then
+                clock_status[i] = false
+                status_sort[i] = "up"
+                v:setColor(255, 255, 255, 255) 
+            else
+                local color = math.floor((clock_sort[i]:getEllapsedTime() / cooldown_sort[i]) * 175) + 80
+                v:setColor(color, color, color, 255)
+                local full_number = tostring((cooldown_sort[i] - clock_sort[i]:getEllapsedTime()) / 1000000)
+                text_clock[i]:setString(string.sub(full_number, 0, 4))
+            end
+        end 
+    end
 end
 
 function draw(self)
@@ -73,6 +111,11 @@ function draw(self)
 
     for i, v in pairs(sort_sprite) do
         window:draw(v)
+    end
+    for i, v in pairs(all_spell) do 
+        if  clock_status[i] == true then
+            window:draw(text_clock[i])
+        end
     end
 end
 
@@ -91,8 +134,8 @@ end
 function healSpell()
     if (status_sort["healSpell"] == "up") then
         player:heal(33);
-        sort_sprite["healSpell"]:setColor(100, 100, 255, 255) 
         status_sort["healSpell"] = "down"
+        cooldown_sort["healSpell"] = 5000000
     end
 end
 
