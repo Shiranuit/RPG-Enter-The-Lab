@@ -32,6 +32,8 @@ function entity_player.create(info)
         __attack = info.attack or 1,
         __parade = info.parade or 1,
         __status = "idle",
+        __status_vertical = "none",
+        __status_horizontal = "none",
         __inventory = hud.createFromFile("hud/inventory_hud.lua"),
         __uuid = uuid.randomUUID(),
         __position_x = info.pos_x,
@@ -47,6 +49,15 @@ function entity_player.getMana(self)
     return meta.__mana
 end
 
+function entity_player.getStatus(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    -- meta.__status -> the actual animation   (idle, run_right, run_left, left, right, up, down, death)
+    -- meta.__status_horizontal -> the horizontal direction   (right, left, none)
+    -- meta.__status_vertical -> the vertical direction   (up, down, none)
+    return meta.__status, meta.__status_horizontal, meta.__status_vertical
+end
 
 function entity_player.setMana(self, mana)
     check(self ,"entity_player", 1)
@@ -329,7 +340,7 @@ function entity_player.update(self)
         meta.__stamina = meta.__stamina + 1 * DeltaTime
     end
     if lsfml.keyboard.keyPressed(controls.move_up) and meta.__health > 0 then
-        if (meta.__status ~= "up") then
+        if (meta.__status ~= "up" and meta.__status ~= "left" and meta.__status ~= "right" and meta.__status ~= "run_right" and meta.__status ~= "run_left") then
             meta.__status = "up"
             meta.__pos_rect = {7, 250000 / speed, 0, 1000, 220, 500}
             meta.__clock:restart()
@@ -337,9 +348,10 @@ function entity_player.update(self)
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
             self:move(0, -speed)
+            meta.__status_vertical = "up"
         end
     elseif lsfml.keyboard.keyPressed(controls.move_down) and meta.__health > 0 then
-        if (meta.__status ~= "down") then
+        if (meta.__status ~= "down" and meta.__status ~= "left" and meta.__status ~= "right" and meta.__status ~= "run_right" and meta.__status ~= "run_left") then
             meta.__status = "down"
             meta.__pos_rect = {7, 250000 / speed, 0, 1500, 220, 500}
             meta.__clock:restart()
@@ -347,8 +359,12 @@ function entity_player.update(self)
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
             self:move(0, speed)
+            meta.__status_vertical = "down"
         end
-    elseif lsfml.keyboard.keyPressed(keys.D) and meta.__health > 0 and meta.__is_sprinting then
+    else
+        meta.__status_vertical = "none"
+    end
+    if lsfml.keyboard.keyPressed(keys.D) and meta.__health > 0 and meta.__is_sprinting then
         if (meta.__status ~= "run_right") then
             meta.__status = "run_right"
             meta.__pos_rect = {5, 250000 / speed, 0, 3000, 219, 500}
@@ -357,6 +373,7 @@ function entity_player.update(self)
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
             self:move(speed, 0)
+            meta.__status_horizontal = "right"
         end
     elseif lsfml.keyboard.keyPressed(keys.Q) and meta.__health > 0 and meta.__is_sprinting then
         if (meta.__status ~= "run_left") then
@@ -367,6 +384,7 @@ function entity_player.update(self)
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
             self:move(-speed, 0)
+            meta.__status_horizontal = "left"
         end
     elseif lsfml.keyboard.keyPressed(controls.move_right) and meta.__health > 0 then
         if (meta.__status ~= "right") then
@@ -376,6 +394,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
+            meta.__status_horizontal = "right"
             self:move(speed, 0)
         end
     elseif lsfml.keyboard.keyPressed(controls.move_left) and meta.__health > 0 then
@@ -386,6 +405,7 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
         if meta.__status ~= "death" and meta.__status ~= "respawn" then
+            meta.__status_horizontal = "left"
             self:move(-speed, 0)
         end
     elseif  meta.__health <= 0 then
@@ -396,6 +416,9 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
     else
+        meta.__status_horizontal = "none"
+    end
+    if meta.__status_horizontal == "none" and meta.__status_vertical == "none" then
         if meta.__status ~= "idle" then
             meta.__status = "idle"
             meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
