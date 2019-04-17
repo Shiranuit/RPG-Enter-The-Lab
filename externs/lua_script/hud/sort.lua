@@ -50,6 +50,7 @@ local status_sort = initStatusSort(spells)
 local cooldown_sort = {}
 local clock_sort, clock_status, text_clock = initClockSort(spells)
 local sort_index = {}
+local index_sort = {}
 
 function changeSort(self, index, sort)
     check(self, "hud", 1)
@@ -59,6 +60,7 @@ function changeSort(self, index, sort)
     if sort_index[sort] ~= nil then
         sort_index[sort] = nil
     end
+    index_sort[index] = sort
     sort_index[sort] = index
     sorts[index] = sort
     sort_sprite[index] = all_spell[sort]
@@ -118,7 +120,7 @@ function draw(self)
         window:draw(v)
     end
     for i, v in pairs(all_spell) do 
-        if  clock_status[i] == true then
+        if clock_status[i] == true and index_sort[sort_index[i]] == i then
             window:draw(text_clock[i])
         end
     end
@@ -155,7 +157,6 @@ function healSpell()
         player:removeMana(2)
         player:heal(30)
         assets["heal"]:play()
-        all_spell["healSpell"]:setColor(100, 100, 255, 255)
         status_sort["healSpell"] = "down"
         cooldown_sort["healSpell"] = 5000000
     end
