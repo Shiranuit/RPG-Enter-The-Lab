@@ -443,13 +443,13 @@ function entity_player.update(self)
     else
         meta.__status_horizontal = "none"
     end
-    if meta.__status == "left" and not lsfml.keyboard.keyPressed(controls.move_left) then
+    if meta.__status == "left" and not lsfml.keyboard.keyPressed(controls.getControl("move_left")) then
         meta.__status = "idle"
         meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
         meta.__clock:restart()
         meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
     end
-    if meta.__status == "right" and not lsfml.keyboard.keyPressed(controls.move_right) then
+    if meta.__status == "right" and not lsfml.keyboard.keyPressed(controls.getControl("move_right")) then
         meta.__status = "idle"
         meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
         meta.__clock:restart()
