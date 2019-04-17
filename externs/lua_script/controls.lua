@@ -14,7 +14,7 @@ function controls.addControl(name, key, text, desc)
 end
 
 function controls.getControls()
-    return key_controls
+    return controls_data
 end
 
 function controls.getControl(name)
