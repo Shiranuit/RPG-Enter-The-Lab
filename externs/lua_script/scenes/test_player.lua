@@ -1,5 +1,6 @@
 function load()
     assets["ambiance_music"]:setLoop(true)
+    assets["ambiance_music"]:setVolume(30)
     assets["ambiance_music"]:play()
 end
 
