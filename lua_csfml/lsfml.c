@@ -40,6 +40,7 @@ static const luaL_Reg lsfmllib[] = {
     {"sprite_scale", sprite_scale},
     {"sprite_setOrigin", sprite_set_origin},
     {"sprite_setTextureRect", sprite_set_texture_rect},
+    {"sprite_setColor", sprite_set_color},
 
     {"text_create", text_create},
     {"text_destroy", text_destroy},
