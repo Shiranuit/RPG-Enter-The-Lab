@@ -42,6 +42,31 @@ function entity_player.create(info)
     })
 end
 
+function entity_player.addDefense(self, def)
+    check(self ,"entity_player", 1)
+    check(def, "number", 2)
+
+    meta = getmetatable(self)
+    cassert(def >= 0, "The defense must be positive", 3)
+    meta.__defense = meta.__defense + def
+end
+
+function entity_player.setDefense(self, def)
+    check(self ,"entity_player", 1)
+    check(def, "number", 2)
+
+    meta = getmetatable(self)
+    cassert(def >= 0, "The defense must be positive", 3)
+    meta.__defense = def
+end
+
+function entity_player.getDefense(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    return meta.__defense
+end
+
 function entity_player.getMana(self)
     check(self ,"entity_player", 1)
 
@@ -64,7 +89,7 @@ function entity_player.setMana(self, mana)
     check(mana, "number", 2)
 
     meta = getmetatable(self)
-    cassert(mana > 0, "The mana must be positive", 3)
+    cassert(mana >= 0, "The mana must be positive", 3)
     cassert(mana < meta.__max_mana, "The mana cant exceed the max mana", 3)
     meta.__mana = mana
 end

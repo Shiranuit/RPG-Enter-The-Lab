@@ -184,7 +184,7 @@ function shieldSpell()
         return
     end
     player:removeMana(10)
-
+    player:addDefense(10)
     -- donne un shield au joueur pour 10 seconde
 end
 
