@@ -84,6 +84,7 @@ end
 
 function healSpell()
     player:heal(1);
+    assets["heal"]:play()
 end
 
 function picSpell()
@@ -99,7 +100,20 @@ function bouleelecSpell()
 end
 
 function dashSpell()
-
+    x, y = player:getPosition()
+    --if () then
+        player:setPosition(x + 100, y)
+    --end
+    --if () then
+        player:setPosition(x - 100, y)
+    --end
+    --if () then
+        player:setPosition(x, y + 100)
+    --end
+    --if () then
+        player:setPosition(x, y - 100)
+    --end
+    assets["dash"]:play()
 end
 
 function repulsionSpell()
