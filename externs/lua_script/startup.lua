@@ -135,7 +135,7 @@ end
 function draw()
     if scenes[scene_name] then
         scenes[scene_name].draw()
-        if scene_name ~= "main_menu" then
+        if world.isRenderEnabled() then
             world.draw()
             for i=1, #hudorder do
                 if hudorder[i]:isOpen() then
@@ -152,7 +152,7 @@ end
 function update()
     if scenes[scene_name] then
         scenes[scene_name].update()
-        if scene_name ~= "main_menu" then
+        if world.isUpdateEnabled() then
             world.update()
             for i=1, #hudorder do
                 if hudorder[i]:isOpen() then
@@ -190,7 +190,7 @@ function event(...)
     end
     if scenes[scene_name] then
         scenes[scene_name].event(e)
-        if scene_name ~= "main_menu" then
+        if world.isEventEnabled() then
             world.event(e)
             local hzindex = {}
             for i=1, #hudorder do

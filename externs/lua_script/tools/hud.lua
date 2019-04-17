@@ -5,6 +5,7 @@
 hud = {}
 hudorder = {}
 huds = {}
+local shouldRender = true
 
 function hud.createFromFile(filename, zindex, canBeClosed)
     check(filename, "string", 1)
@@ -96,9 +97,11 @@ end
 function hud.draw(self)
     check(self, "hud", 1)
 
-    local meta = getmetatable(self)
-    if meta.__env.draw then
-        meta.__env.draw(self)
+    if shouldRender then
+        local meta = getmetatable(self)
+        if meta.__env.draw then
+            meta.__env.draw(self)
+        end
     end
 end
 
@@ -191,4 +194,16 @@ function hud.setZIndex(self, zindex)
             return
         end
     end
+end
+
+function hud.renderEnable()
+    shouldRender = true
+end
+
+function hud.renderDisable()
+    shouldRender = false
+end
+
+function hud.isRenderEnabled()
+    return shouldRender
 end
