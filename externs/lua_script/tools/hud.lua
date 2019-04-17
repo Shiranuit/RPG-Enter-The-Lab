@@ -71,13 +71,13 @@ function hud.close(self)
 
     if self:isOpen() then
         local meta = getmetatable(self)
-        for i = 1, #hudorder do
-            if hudorder[i]:getUUID() == meta.__uuid then
-                table.remove(hudorder, i)
-                break
-            end
-        end
         if meta.__canBeClosed then
+            for i = 1, #hudorder do
+                if hudorder[i]:getUUID() == meta.__uuid then
+                    table.remove(hudorder, i)
+                    break
+                end
+            end
             meta.__status = "close"
             if meta.__env.close then
                 meta.__env.close(self)
