@@ -39,7 +39,7 @@ function event(self, e)
     check(self, "hud", 1)
 
     local event = e:getEvent()
-    if event[1] == "key_pressed" and event[2] == controls.menu_spell then
+    if event[1] == "key_pressed" and event[2] == controls.getControl("menu_spell") then
         if self:isOpen() then
             self:close()
         else

@@ -33,7 +33,7 @@ local option_button = button.create{
     callback = function(...)
         local event = {...}
         if event[2] == "click" then
-            setScene("options")
+            setScene("options_menu")
         elseif event[2] == "enter" then
             assets["button_hover_sfx"]:play()
         end

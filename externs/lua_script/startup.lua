@@ -69,7 +69,7 @@ local owindow = window
 dofile("lib/lsfml.lua")
 dofile("tools/event.lua")
 dofile("tools/uuid.lua")
-dofile("options.lua")
+dofile("controls.lua")
 dofile("tools/button.lua")
 dofile("tools/hud.lua")
 dofile("entity/entity_player.lua")
@@ -103,6 +103,7 @@ menu_spell = hud.createFromFile("hud/spell_menu.lua", nil, true)
 -- =========================================
 
 loadScene("menu/main_menu.lua")
+loadScene("menu/options_menu.lua")
 loadScene("scenes/test_player.lua")
 
 -- =========================================
@@ -113,7 +114,7 @@ player = entity_player.create ({
     pos_x = 100,
     pos_y = 100,
     texture = assets["player"],
-    speed = 5
+    speed = 5,
 })
 
 world.spawnEntity(player)
