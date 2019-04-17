@@ -121,6 +121,7 @@ function event(self, e)
         else
             self:open()
         end
+        e:setCanceled(true)
     end
     if self:isOpen() then
         for i=1, #slots do

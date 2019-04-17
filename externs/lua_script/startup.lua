@@ -191,10 +191,29 @@ function event(...)
         scenes[scene_name].event(e)
         if scene_name ~= "main_menu" then
             world.event(e)
+            local hzindex = {}
+            for i=1, #hudorder do
+                hzindex[i] = hudorder[i]
+            end
+            local eHUD = event_helper.create(...)
+            if #hudorder > 0 and hudorder[#hudorder]:canBeClosed() then
+                hudorder[#hudorder]:event(eHUD)
+            end
             for i=1, #huds do
-                huds[i]:event(e)
-                if e:isCanceled() then
-                    break
+                if not eHUD:isCanceled() then
+                    local found = false
+                    for j=1, #hzindex do
+                        if huds[i]:getUUID() == hzindex[j]:getUUID() then
+                            found = true
+                            break
+                        end
+                    end
+                    if found == false then
+                        huds[i]:event(eHUD)
+                        if eHUD:isCanceled() then
+                            break
+                        end
+                    end
                 end
             end
         end
