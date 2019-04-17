@@ -263,6 +263,7 @@ function button.event(self, e)
             end
         end
     end
+    meta.__callback(self, table.unpack(event))
 end
 
 function button.draw(self)

@@ -10,11 +10,11 @@ local play_button = button.create{
     y = 1080 / 2 - 170 - 170 / 2,
     width = 420,
     height = 170,
-    callback = function(...)
+    callback = function(self, ...)
         local event = {...}
-        if event[2] == "click" then
+        if event[1] == "click" then
             setScene("test_player")
-        elseif event[2] == "enter" then
+        elseif event[1] == "enter" then
             assets["button_hover_sfx"]:play()
         end
     end,
@@ -30,11 +30,11 @@ local option_button = button.create{
     y = 1080 / 2 - 170 / 2,
     width = 420,
     height = 170,
-    callback = function(...)
+    callback = function(self, ...)
         local event = {...}
-        if event[2] == "click" then
+        if event[1] == "click" then
             setScene("options_menu")
-        elseif event[2] == "enter" then
+        elseif event[1] == "enter" then
             assets["button_hover_sfx"]:play()
         end
     end,
@@ -50,11 +50,11 @@ local exit_button = button.create{
     y = 1080 / 2 + 170 / 2,
     width = 420,
     height = 170,
-    callback = function(...)
+    callback = function(self, ...)
         local event = {...}
-        if event[2] == "click" then
+        if event[1] == "click" then
             window:close()
-        elseif event[2] == "enter" then
+        elseif event[1] == "enter" then
             assets["button_hover_sfx"]:play()
         end
     end,
