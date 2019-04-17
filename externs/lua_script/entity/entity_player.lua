@@ -53,6 +53,9 @@ function entity_player.getStatus(self)
     check(self ,"entity_player", 1)
 
     meta = getmetatable(self)
+    -- meta.__status -> the actual animation   (idle, run_right, run_left, left, right, up, down, death)
+    -- meta.__status_horizontal -> the horizontal direction   (right, left, none)
+    -- meta.__status_vertical -> the vertical direction   (up, down, none)
     return meta.__status, meta.__status_horizontal, meta.__status_vertical
 end
 
