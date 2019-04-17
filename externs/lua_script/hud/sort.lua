@@ -100,7 +100,7 @@ function update(self)
                 local color = math.floor((clock_sort[i]:getEllapsedTime() / cooldown_sort[i]) * 175) + 80
                 v:setColor(color, color, color, 255)
                 local full_number = tostring((cooldown_sort[i] - clock_sort[i]:getEllapsedTime()) / 1000000)
-                text_clock[i]:setString(string.sub(full_number, 0, 4))
+                text_clock[i]:setString(string.sub(full_number, 1, 4))
             end
         end 
     end

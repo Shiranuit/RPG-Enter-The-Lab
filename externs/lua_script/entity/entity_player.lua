@@ -364,6 +364,14 @@ function entity_player.update(self)
     elseif meta.__max_stamina > meta.__stamina and (not lsfml.keyboard.keyPressed(controls.getControl("sprint")) or meta.__status == "idle") then
         meta.__stamina = meta.__stamina + 1 * DeltaTime
     end
+    if  meta.__health <= 0 then
+        if (meta.__status ~= "death") then
+            meta.__status = "death"
+            meta.__pos_rect = {12, 30000, 0, 2500, 220, 500}
+            meta.__clock:restart()
+            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+        end
+    end
     if lsfml.keyboard.keyPressed(controls.getControl("move_up")) and meta.__health > 0 then
         if (meta.__status ~= "up" and meta.__status ~= "left" and meta.__status ~= "right" and meta.__status ~= "run_right" and meta.__status ~= "run_left") then
             meta.__status = "up"
@@ -433,29 +441,22 @@ function entity_player.update(self)
             meta.__status_horizontal = "left"
             self:move(-speed, 0)
         end
-    elseif  meta.__health <= 0 then
-        if (meta.__status ~= "death") then
-            meta.__status = "death"
-            meta.__pos_rect = {12, 30000, 0, 2500, 220, 500}
-            meta.__clock:restart()
-            meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
-        end
     else
         meta.__status_horizontal = "none"
     end
-    if meta.__status == "left" and not lsfml.keyboard.keyPressed(controls.getControl("move_left")) then
+    if meta.__status == "left" and not lsfml.keyboard.keyPressed(controls.getControl("move_left")) and meta.__health > 0 then
         meta.__status = "idle"
         meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
         meta.__clock:restart()
         meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
     end
-    if meta.__status == "right" and not lsfml.keyboard.keyPressed(controls.getControl("move_right")) then
+    if meta.__status == "right" and not lsfml.keyboard.keyPressed(controls.getControl("move_right")) and meta.__health > 0 then
         meta.__status = "idle"
         meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
         meta.__clock:restart()
         meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
     end
-    if meta.__status_horizontal == "none" and meta.__status_vertical == "none" then
+    if meta.__status_horizontal == "none" and meta.__status_vertical == "none" and meta.__health > 0 then
         if meta.__status ~= "idle" then
             meta.__status = "idle"
             meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
