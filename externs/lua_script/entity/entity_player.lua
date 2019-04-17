@@ -22,8 +22,8 @@ function entity_player.create(info)
         __stamina = info.stamina or 100,
         __speed = info.speed or 20,
         __level = info.level or 0,
-        __mana = info.mana or 500,
-        __max_mana = info.max_mana or 500,
+        __mana = info.mana or 250,
+        __max_mana = info.max_mana or 250,
         __experience = info.experience or 0,
         __max_health = info.max_health or 100,
         __max_stamina = info.max_stamina or 100,
@@ -72,6 +72,13 @@ function entity_player.getMana(self)
 
     meta = getmetatable(self)
     return meta.__mana
+end
+
+function entity_player.getMaximumMana(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    return meta.__max_mana
 end
 
 function entity_player.getStatus(self)
