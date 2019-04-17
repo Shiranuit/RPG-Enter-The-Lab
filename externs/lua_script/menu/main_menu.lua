@@ -72,10 +72,18 @@ function load()
     exit_button:setStatus("released")
     play_button:setStatus("released")
     option_button:setStatus("released")
+    world.renderDisable()
+    world.updateDisable()
+    world.eventDisable()
+    hud.renderDisable()
 end
 
 function unload()
     assets["menu_music"]:stop()
+    world.eventEnable()
+    world.updateEnable()
+    world.renderEnable()
+    hud.renderEnable()
 end
 
 function draw()

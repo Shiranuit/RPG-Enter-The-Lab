@@ -4,10 +4,49 @@
 
 world = {}
 local entities = {}
+local shouldRender = true
+local shouldUpdate = true
+local shouldGetEvent = true
 
 function world.spawnEntity(entity)
     entities[#entities + 1] = entity
     return entity
+end
+
+function world.eventDisable()
+    shouldGetEvent = false
+end
+
+function world.eventEnable()
+    shouldGetEvent = true
+end
+
+function world.isEventEnabled()
+    return shouldGetEvent
+end
+
+function world.isRenderEnabled()
+    return shouldRender
+end
+
+function world.isUpdateEnabled()
+    return shouldUpdate
+end
+
+function world.renderEnable()
+    shouldRender = true
+end
+
+function world.renderDisable()
+    shouldRender = false
+end
+
+function world.updateEnable()
+    shouldUpdate = true
+end
+
+function world.updateDisable()
+    shouldUpdate = false
 end
 
 function world.removeEntityByUUID(uuid)
@@ -60,28 +99,34 @@ function world.getEntitiesInRect(x, y, w, h)
 end
 
 function world.draw()
-    depth_sort()
-    for i=1, #entities do
-        if entities[i] and entities[i].draw then
-            entities[i]:draw()
+    if shouldRender then
+        depth_sort()
+        for i=1, #entities do
+            if entities[i] and entities[i].draw then
+                entities[i]:draw()
+            end
         end
     end
 end
 
 function world.update()
-    for i=1, #entities do
-        if entities[i] and entities[i].update then
-            entities[i]:update()
+    if shouldUpdate then
+        for i=1, #entities do
+            if entities[i] and entities[i].update then
+                entities[i]:update()
+            end
         end
     end
 end
 
 function world.event(e)
-    for i=1, #entities do
-        if entities[i] and entities[i].event then
-            entities[i]:event(e)
-            if e:isCanceled() then
-                break
+    if shouldGetEvent then
+        for i=1, #entities do
+            if entities[i] and entities[i].event then
+                entities[i]:event(e)
+                if e:isCanceled() then
+                    break
+                end
             end
         end
     end
