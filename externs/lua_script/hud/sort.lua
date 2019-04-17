@@ -13,9 +13,18 @@ function initSpellSprite(spell)
 end
 
 function initSpellFunction(spell)
-    tab = {}
+    local tab = {}
     for i, v in pairs(spell) do
         tab[i] = v
+    end
+    return (tab)
+end
+
+function initStatusSort(spell)
+    local tab = {}
+
+    for i, v in pairs(spell) do
+        tab[i] = "up"
     end
     return (tab)
 end
@@ -23,6 +32,7 @@ end
 local sorts = initSpellFunction(spells)
 local sort_sprite = {}
 local all_spell = initSpellSprite(spells)
+local status_sort = initStatusSort(spells)
 
 function changeSort(self, index, sort)
     check(self, "hud", 1)
@@ -82,7 +92,11 @@ function elecSpell()
 end
 
 function healSpell()
-    player:heal(1);
+    if (status_sort["healSpell"] == "up") then
+        player:heal(1);
+        
+        status_sort["healSpell"] = "down"
+    end
 end
 
 function picSpell()
