@@ -67,6 +67,7 @@ end
 math.randomseed(os.time())
 local owindow = window
 dofile("lib/lsfml.lua")
+dofile("tools/animation.lua")
 dofile("tools/event.lua")
 dofile("tools/uuid.lua")
 dofile("world/world.lua")
