@@ -34,10 +34,23 @@ spells["repulsionSpell"] = lsfml.texture.createFromFile("./assets/spell/repulsio
 spells["shieldSpell"] = lsfml.texture.createFromFile("./assets/spell/shield.png", {0, 0, 142, 142})
 spells["tempSpell"] = lsfml.texture.createFromFile("./assets/spell/temp.png", {0, 0, 142, 142})
 
+-- =======================
+-- =        ITEMS        =
+-- =======================
+
 assets["companion_cube"] = lsfml.texture.createFromFile("./assets/items/companion_cube.png", {0, 0, 64, 64})
 assets["core"] = lsfml.texture.createFromFile("./assets/items/core.png", {0, 0, 64, 64})
 assets["key"] = lsfml.texture.createFromFile("./assets/items/key.png", {0, 0, 64, 64})
 assets["seringue"] = lsfml.texture.createFromFile("./assets/items/seringue.png", {0, 0, 64, 64})
+assets["seringue_mana"] = lsfml.texture.createFromFile("./assets/items/seringue_mana.png", {0, 0, 64, 64})
+assets["parchemin_1"] = lsfml.texture.createFromFile("./assets/items/parchemin_1.png", {0, 0, 64, 64})
+assets["parchemin_2"] = lsfml.texture.createFromFile("./assets/items/parchemin_2.png", {0, 0, 64, 64})
+assets["parchemin_3"] = lsfml.texture.createFromFile("./assets/items/parchemin_3.png", {0, 0, 64, 64})
+assets["parchemin_4"] = lsfml.texture.createFromFile("./assets/items/parchemin_4.png", {0, 0, 64, 64})
+assets["parchemin_5"] = lsfml.texture.createFromFile("./assets/items/parchemin_5.png", {0, 0, 64, 64})
+assets["parchemin_6"] = lsfml.texture.createFromFile("./assets/items/parchemin_6.png", {0, 0, 64, 64})
+assets["parchemin"] = lsfml.texture.createFromFile("./assets/items/parchemin.png", {0, 0, 64, 64})
+assets["metal_scrap"] = lsfml.texture.createFromFile("./assets/items/metal_scrap.png", {0, 0, 64, 64})
 
 assets["botte1"] = lsfml.texture.createFromFile("./assets/items/armure/botte1.png", {0, 0, 64, 64})
 assets["casque1"] = lsfml.texture.createFromFile("./assets/items/armure/casque1.png", {0, 0, 64, 64})
