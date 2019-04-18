@@ -23,6 +23,9 @@ assets["inventory_hud"] = lsfml.texture.createFromFile("./assets/menu/inventory.
 assets["spell_hub"] = lsfml.texture.createFromFile("./assets/menu/spell_menu.png", {0, 0, 1337, 940})
 assets["other_item"] = lsfml.texture.createFromFile("./assets/hud/other_item.png", {0, 0, 442, 208})
 
+-- =======================
+-- =    SPELL TEXTURE    =
+-- =======================
 spells["douleurSpell"] = lsfml.texture.createFromFile("./assets/spell/chaine_de_douleur.png", {0, 0, 142, 142})
 spells["elecSpell"] = lsfml.texture.createFromFile("./assets/spell/elec.png", {0, 0, 142, 142})
 spells["healSpell"] = lsfml.texture.createFromFile("./assets/spell/heal.png", {0, 0, 142, 142})
@@ -56,6 +59,12 @@ assets["botte1"] = lsfml.texture.createFromFile("./assets/items/armure/botte1.pn
 assets["casque1"] = lsfml.texture.createFromFile("./assets/items/armure/casque1.png", {0, 0, 64, 64})
 assets["jambiere1"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere1.png", {0, 0, 64, 64})
 assets["plastron1"] = lsfml.texture.createFromFile("./assets/items/armure/plastron1.png", {0, 0, 64, 64})
+
+-- =======================
+-- =     MAP TEXTURE     =
+-- =======================
+
+assets["labo_pop"] = lsfml.texture.createFromFile("./assets/map/labo/pop.png", {0, 0, 1920, 1080})
 
 -- =======================
 -- =        FONTS        =
