@@ -32,6 +32,7 @@ function entity_player.create(info)
         __attack = info.attack or 1,
         __parade = info.parade or 1,
         __status = "idle",
+        __status_idle = "down",
         __status_vertical = "none",
         __status_horizontal = "none",
         __inventory = hud.createFromFile("hud/inventory_hud.lua"),
@@ -40,6 +41,47 @@ function entity_player.create(info)
         __position_y = info.pos_y,
         __is_sprinting = false
     })
+end
+
+function entity_player.activateSpell(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    if meta.__status == "spell" then
+        return
+    end
+    meta.__is_sprinting = false
+    if meta.__status_horizontal == "left" then
+        meta.__pos_rect = {4, 150000, 0, 4992, 300, 500}
+        meta.__clock:restart()
+        meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+    elseif meta.__status_horizontal == "right" then
+        meta.__pos_rect = {4, 150000, 0, 4492, 300, 500}
+        meta.__clock:restart()
+        meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+    elseif meta.__status_vertical == "up" or (meta.__status == "idle" and meta.__status_idle == "up") then
+        meta.__pos_rect = {4, 150000, 0, 5992, 199, 500}
+        meta.__clock:restart()
+        meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+    elseif meta.__status_vertical == "down" or (meta.__status == "idle" and meta.__status_idle == "down") then
+        meta.__pos_rect = {4, 150000, 0, 5492, 199, 500}
+        meta.__clock:restart()
+        meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+    end
+    meta.__status = "spell"
+end
+
+function entity_player.desactivateSpell(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    if meta.__status == "spell" then
+        meta.__status = "idle"
+        meta.__status_idle = "down"
+        meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+        meta.__clock:restart()
+        meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+    end
 end
 
 function entity_player.addDefense(self, def)
@@ -379,6 +421,9 @@ function entity_player.update(self)
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
     end
+    if meta.__status == "spell" then
+        return
+    end
     if lsfml.keyboard.keyPressed(controls.getControl("move_up")) and meta.__health > 0 then
         if (meta.__status ~= "up" and meta.__status ~= "left" and meta.__status ~= "right" and meta.__status ~= "run_right" and meta.__status ~= "run_left") then
             meta.__status = "up"
@@ -451,22 +496,41 @@ function entity_player.update(self)
     else
         meta.__status_horizontal = "none"
     end
-    if meta.__status == "left" and not lsfml.keyboard.keyPressed(controls.getControl("move_left")) and meta.__health > 0 then
+    if (meta.__status == "left" or meta.__status == "run_left") and not lsfml.keyboard.keyPressed(controls.getControl("move_left")) and meta.__health > 0 then
         meta.__status = "idle"
-        meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+        meta.__status_idle = "down"
+        if meta.__status_idle == "down" then
+            meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+        else
+            meta.__pos_rect = {4, 150000, 0, 3992, 220, 500}
+        end
         meta.__clock:restart()
         meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
     end
-    if meta.__status == "right" and not lsfml.keyboard.keyPressed(controls.getControl("move_right")) and meta.__health > 0 then
+    if (meta.__status == "right" or meta.__status == "run_right") and not lsfml.keyboard.keyPressed(controls.getControl("move_right")) and meta.__health > 0 then
         meta.__status = "idle"
-        meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+        meta.__status_idle = "down"
+        if meta.__status_idle == "down" then
+            meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+        else
+            meta.__pos_rect = {4, 150000, 0, 3992, 220, 500}
+        end
         meta.__clock:restart()
         meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
     end
     if meta.__status_horizontal == "none" and meta.__status_vertical == "none" and meta.__health > 0 then
         if meta.__status ~= "idle" then
+            if (meta.__status == "up") then
+                meta.__status_idle = "up"
+            else
+                meta.__status_idle = "down"    
+            end
             meta.__status = "idle"
-            meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+            if meta.__status_idle == "down" then
+                meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+            else
+                meta.__pos_rect = {4, 150000, 0, 3992, 220, 500}
+            end
             meta.__clock:restart()
             meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
         end
@@ -493,6 +557,7 @@ function entity_player.draw(self)
             meta.__pos_rect[3] = meta.__pos_rect[3] - meta.__pos_rect[5]
             if meta.__pos_rect[3] < 0 then
                 meta.__status = "idle"
+                meta.__status_idle = "down"
                 meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
             end
         end
