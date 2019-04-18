@@ -72,9 +72,17 @@ function changeSort(self, index, sort)
     text_clock[sort]:setPosition(pos_x + 6, pos_y + 10)
 end
 
+function full_pressedSpell(self)
+    check(self, "hud", 1)
+
+    if (rayon_spell == false) then
+        player:desactivateSpell()
+    end
+    rayon_spell = false
+end
+
 function event(self, e)
     check(self, "hud", 1)
-    rayon_spell = false
     if player:isDead() then return end
     if menu_spell:isClose() then
         if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) and sorts[1] ~= nil and self[sorts[1]] and sort_index[sorts[1]] == 1 then
@@ -202,6 +210,7 @@ end
 
 function rayonSpell()
     rayon_spell = true
+    player:activateSpell()
     -- un rayon de feu voir une boule de feu sort du joueur
 end
 
