@@ -333,9 +333,12 @@ function entity_player.move(self, x, y)
     check(y ,"number", 3)
 
     meta = getmetatable(self)
-    meta.__sprite:move(x, y)
-    meta.__position_x = meta.__position_x + x
-    meta.__position_y = meta.__position_y + y
+    local nx, ny = self:getPosition()
+    if not hitbox.collide(nx + x, ny + y) then
+        meta.__sprite:move(x, y)
+        meta.__position_x = meta.__position_x + x
+        meta.__position_y = meta.__position_y + y
+    end
 end
 
 function entity_player.event(self, e)

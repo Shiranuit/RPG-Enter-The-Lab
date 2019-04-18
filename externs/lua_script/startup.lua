@@ -69,15 +69,16 @@ local owindow = window
 dofile("lib/lsfml.lua")
 dofile("tools/event.lua")
 dofile("tools/uuid.lua")
+dofile("world/world.lua")
+dofile("hitboxs/hitboxs.lua")
 dofile("controls.lua")
 dofile("tools/button.lua")
 dofile("tools/hud.lua")
-dofile("entity/entity_player.lua")
-dofile("tools/inventory_slot.lua")
 dofile("tools/item.lua")
 dofile("tools/itemstack.lua")
+dofile("tools/inventory_slot.lua")
 dofile("entity/entity_item.lua")
-dofile("world/world.lua")
+dofile("entity/entity_player.lua")
 -- =========================================
 -- =             LOADING ASSETS            =
 -- =========================================
