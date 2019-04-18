@@ -52,6 +52,10 @@ local clock_sort, clock_status, text_clock = initClockSort(spells)
 local sort_index = {}
 local index_sort = {}
 local rayon_spell = false
+local clock_used_spell = lsfml.clock.create()
+local status_clock_used_spell = false
+local cooldown_used_spell = 0
+local status_cooldown_used_spell = false
 
 function changeSort(self, index, sort)
     check(self, "hud", 1)
@@ -73,9 +77,7 @@ function changeSort(self, index, sort)
 end
 
 function full_pressedSpell(self)
-    check(self, "hud", 1)
-
-    if (rayon_spell == false) then
+    if (rayon_spell == false and status_cooldown_used_spell == false) then
         player:desactivateSpell()
     end
     rayon_spell = false
@@ -83,6 +85,8 @@ end
 
 function event(self, e)
     check(self, "hud", 1)
+
+    full_pressedSpell()
     if player:isDead() then return end
     if menu_spell:isClose() then
         if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) and sorts[1] ~= nil and self[sorts[1]] and sort_index[sorts[1]] == 1 then
@@ -122,7 +126,18 @@ function update(self)
                 local full_number = tostring((cooldown_sort[i] - clock_sort[i]:getEllapsedTime()) / 1000000)
                 text_clock[i]:setString(string.sub(full_number, 1, 4))
             end
-        end 
+        end
+        if status_cooldown_used_spell == true then
+            if status_clock_used_spell == false then
+                clock_used_spell:restart()
+                status_clock_used_spell = true
+            end
+            if clock_used_spell:getEllapsedTime() > cooldown_used_spell then
+                status_cooldown_used_spell = false
+                status_clock_used_spell = false
+                player:desactivateSpell()
+            end
+        end
     end
 end
 
@@ -165,6 +180,10 @@ function elecSpell()
         player:removeMana(5)
         status_sort["elecSpell"] = "down"
         cooldown_sort["elecSpell"] = 5000000
+        
+        player:activateSpell()
+        cooldown_used_spell = 2000000
+        status_cooldown_used_spell = true
     end
     --lance un éclair droit devant le joueur et si touche l'ennemi il prend des damages
 end
