@@ -35,10 +35,10 @@ local press = false
 local px, py = 0, 0
 function event(e)
     local event = e:getEvent()
-    if event[1] == "mouse_pressed" and press == false then
+    if event[1] == "mouse_pressed" and press == false and event[4] == mouse.RIGHT then
         px, py = event[2], event[3]
         press = true
-    elseif event[1] == "mouse_released" and press then
+    elseif event[1] == "mouse_released" and press and event[4] == mouse.RIGHT then
         local box = {x=math.min(px, event[2]), y=math.min(py, event[3]), w=math.max(event[2], px), h=math.max(event[3], py)}
         hitbox.add(box)
         press = false
