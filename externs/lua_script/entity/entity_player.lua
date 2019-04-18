@@ -42,6 +42,24 @@ function entity_player.create(info)
     })
 end
 
+function entity_player.activateSpell(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    meta.__status = "spell"
+    
+end
+
+function entity_player.desactivateSpell(self)
+    check(self ,"entity_player", 1)
+
+    meta = getmetatable(self)
+    meta.__status = "idle"
+    meta.__pos_rect = {4, 150000, 0, 2000, 220, 500}
+    meta.__clock:restart()
+    meta.__sprite:setTextureRect(table.unpack(meta.__pos_rect, 3))
+end
+
 function entity_player.addDefense(self, def)
     check(self ,"entity_player", 1)
     check(def, "number", 2)

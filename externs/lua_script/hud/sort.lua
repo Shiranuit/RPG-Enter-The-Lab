@@ -51,6 +51,7 @@ local cooldown_sort = {}
 local clock_sort, clock_status, text_clock = initClockSort(spells)
 local sort_index = {}
 local index_sort = {}
+local rayon_spell = false
 
 function changeSort(self, index, sort)
     check(self, "hud", 1)
@@ -73,6 +74,7 @@ end
 
 function event(self, e)
     check(self, "hud", 1)
+    rayon_spell = false
     if player:isDead() then return end
     if menu_spell:isClose() then
         if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) and sorts[1] ~= nil and self[sorts[1]] and sort_index[sorts[1]] == 1 then
@@ -92,6 +94,9 @@ end
 function update(self)
     check(self, "hud", 1)
 
+    if rayon_spell then
+        rayonSpellEffect()
+    end
     for i, v in pairs(all_spell) do 
         if status_sort[i] == "down" then
             if not clock_status[i] then
@@ -183,7 +188,7 @@ function picSpell()
     --Une lance energétique sort de la main du joueur a courte portée infligant des damages 
 end
 
-function rayonSpell()
+function rayonSpellEffect()
     if (player:getMana() < 1) then
         assets["deny"]:play()
         return
@@ -193,6 +198,10 @@ function rayonSpell()
         clock_sort["rayonSpell"]:restart()
         player:removeMana(1)
     end
+end
+
+function rayonSpell()
+    rayon_spell = true
     -- un rayon de feu voir une boule de feu sort du joueur
 end
 
