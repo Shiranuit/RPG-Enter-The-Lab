@@ -132,7 +132,9 @@ end
 
 function douleurSpell()
     if (player:getMana() < 10 or status_sort["douleurSpell"] == "down") then
-        assets["deny"]:play()
+        if clock_sort["douleurSpell"]:getEllapsedTime() < cooldown_sort["douleurSpell"] then
+            assets["deny"]:play()
+        end
         return
     end
     if (status_sort["douleurSpell"] == "up") then
@@ -145,7 +147,9 @@ end
 
 function elecSpell()
     if (player:getMana() < 5 or status_sort["elecSpell"] == "down") then
-        assets["deny"]:play()
+        if clock_sort["elecSpell"]:getEllapsedTime() < cooldown_sort["elecSpell"] then
+            assets["deny"]:play()
+        end
         return
     end
     if (status_sort["elecSpell"] == "up") then
@@ -158,7 +162,9 @@ end
 
 function healSpell()
     if (player:getMana() < 2 or status_sort["healSpell"] == "down") then
-        assets["deny"]:play()
+        if clock_sort["healSpell"]:getEllapsedTime() < cooldown_sort["healSpell"] then
+            assets["deny"]:play()
+        end
         return
     end
     if (status_sort["healSpell"] == "up") then
@@ -172,7 +178,9 @@ end
 
 function picSpell()
     if (player:getMana() < 3 or status_sort["picSpell"] == "down") then
-        assets["deny"]:play()
+        if clock_sort["picSpell"]:getEllapsedTime() < cooldown_sort["picSpell"] then
+            assets["deny"]:play()
+        end
         return
     end
     if (status_sort["picSpell"] == "up") then
@@ -198,7 +206,9 @@ end
 
 function bouleelecSpell()
     if (player:getMana() < 7 or status_sort["bouleelecSpell"] == "down") then
-        assets["deny"]:play()
+        if clock_sort["bouleelecSpell"]:getEllapsedTime() < cooldown_sort["bouleelecSpell"] then
+            assets["deny"]:play()
+        end
         return
     end
     if (status_sort["bouleelecSpell"] == "up") then
@@ -212,7 +222,9 @@ end
 function dashSpell()
     status, hor, ver = player:getStatus()
     if (status == "idle" or player:getMana() < 1 or status_sort["dashSpell"] == "down") then
+        if clock_sort["dashSpell"]:getEllapsedTime() < cooldown_sort["dashSpell"] then
         assets["deny"]:play()
+    end
         return
     end
     if (status_sort["dashSpell"] == "up") then
@@ -254,7 +266,9 @@ end
 
 function repulsionSpell()
     if (player:getMana() < 4 or status_sort["repulsionSpell"] == "down") then
-        assets["deny"]:play()
+        if clock_sort["repulsionSpell"]:getEllapsedTime() < cooldown_sort["repulsionSpell"] then
+            assets["deny"]:play()
+        end
         return
     end
     if (status_sort["repulsionSpell"] == "up") then
@@ -267,7 +281,9 @@ end
 
 function shieldSpell()
     if (player:getMana() < 10) then
-        assets["deny"]:play()
+        if clock_sort["shieldSpell"]:getEllapsedTime() < cooldown_sort["shieldSpell"] then
+            assets["deny"]:play()
+        end
         return
     end
     if (status_sort["shieldSpell"] == "up" or status_sort["shieldSpell"] == "down") then
@@ -283,7 +299,9 @@ end
 
 function tempSpell()
     if (player:getMana() < 15 or status_sort["tempSpell"] == "down") then
-        assets["deny"]:play()
+        if clock_sort["tempSpell"]:getEllapsedTime() < cooldown_sort["tempSpell"] then
+            assets["deny"]:play()
+        end
         return
     end
     if (status_sort["tempSpell"] == "up") then
