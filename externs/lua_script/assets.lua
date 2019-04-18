@@ -60,6 +60,14 @@ assets["botte1"] = lsfml.texture.createFromFile("./assets/items/armure/botte1.pn
 assets["casque1"] = lsfml.texture.createFromFile("./assets/items/armure/casque1.png", {0, 0, 64, 64})
 assets["jambiere1"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere1.png", {0, 0, 64, 64})
 assets["plastron1"] = lsfml.texture.createFromFile("./assets/items/armure/plastron1.png", {0, 0, 64, 64})
+assets["botte2"] = lsfml.texture.createFromFile("./assets/items/armure/botte2.png", {0, 0, 64, 64})
+assets["casque2"] = lsfml.texture.createFromFile("./assets/items/armure/casque2.png", {0, 0, 64, 64})
+assets["jambiere2"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere2.png", {0, 0, 64, 64})
+assets["plastron2"] = lsfml.texture.createFromFile("./assets/items/armure/plastron2.png", {0, 0, 64, 64})
+assets["botte3"] = lsfml.texture.createFromFile("./assets/items/armure/botte3.png", {0, 0, 64, 64})
+assets["casque3"] = lsfml.texture.createFromFile("./assets/items/armure/casque3.png", {0, 0, 64, 64})
+assets["jambiere3"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere3.png", {0, 0, 64, 64})
+assets["plastron3"] = lsfml.texture.createFromFile("./assets/items/armure/plastron3.png", {0, 0, 64, 64})
 
 -- =======================
 -- =     MAP TEXTURE     =
