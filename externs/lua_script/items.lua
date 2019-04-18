@@ -16,6 +16,7 @@ item.create("parchemin_5", assets["parchemin_5"], 1, {type="item"})
 item.create("parchemin_6", assets["parchemin_6"], 1, {type="item"})
 item.create("parchemin", assets["parchemin"], 1, {type="item"})
 item.create("metal_scrap", assets["metal_scrap"], 64, {type="item"})
+item.create("tablette", assets["tablette"], 1, {type="item"})
 
 -- =========================================
 -- =                  ARMORS               =

@@ -51,6 +51,7 @@ assets["parchemin_5"] = lsfml.texture.createFromFile("./assets/items/parchemin_5
 assets["parchemin_6"] = lsfml.texture.createFromFile("./assets/items/parchemin_6.png", {0, 0, 64, 64})
 assets["parchemin"] = lsfml.texture.createFromFile("./assets/items/parchemin.png", {0, 0, 64, 64})
 assets["metal_scrap"] = lsfml.texture.createFromFile("./assets/items/metal_scrap.png", {0, 0, 64, 64})
+assets["tablette"] = lsfml.texture.createFromFile("./assets/items/tablette.png", {0, 0, 64, 64})
 
 assets["botte1"] = lsfml.texture.createFromFile("./assets/items/armure/botte1.png", {0, 0, 64, 64})
 assets["casque1"] = lsfml.texture.createFromFile("./assets/items/armure/casque1.png", {0, 0, 64, 64})
