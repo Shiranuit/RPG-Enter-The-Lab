@@ -1,8 +1,9 @@
 spell = {}
+spells = {}
 
 function spell.createFromFile(filename)
     check(filename, "string", 1)
-    local handle = io.open(filename, "r")
+    local handle = io.open("./externs/lua_script/"..filename, "r")
     if handle then
         local code = handle:read("*all")
         handle:close()
@@ -11,15 +12,18 @@ function spell.createFromFile(filename)
         if func then
             local success, ret = pcall(func)
             if success then
-                return setmetatable({}, {
+                local data = {}
+                for k, v in pairs(env) do
+                    data[k] = v
+                end
+                local sp = setmetatable({}, {
                     __type = "spell",
-                    __env = env,
+                    __env = data,
                     __cd = lsfml.clock.create(),
                     __isInCD = false,
-                    __active = false,
+                    __status = "idle",
                     __index = function(self, key)
                         local meta = getmetatable(self)
-
                         if spell[key] then
                             return spell[key]
                         else
@@ -27,6 +31,8 @@ function spell.createFromFile(filename)
                         end
                     end,
                 })
+                spells[#spells + 1] = sp
+                return sp
             else
                 error(err, 2)
             end
@@ -43,7 +49,7 @@ function spell.getName(self)
 
     local meta = getmetatable(self)
     if meta.__env["getName"] then
-        return meta.__env.getName()
+        return meta.__env.getName(self)
     end
 end
 
@@ -52,7 +58,7 @@ function spell.getCost(self)
 
     local meta = getmetatable(self)
     if meta.__env["getCost"] then
-        return meta.__env.getCost()
+        return meta.__env.getCost(self)
     else
         return 0
     end
@@ -76,8 +82,18 @@ function spell.cast(self)
     check(self, "spell", 1)
 
     local meta = getmetatable(self)
-    if meta.__env["cast"] then
-        return meta.__env.cast()
+    if not meta.__isInCD then
+        if not self:cooldownStartAtEnd()then
+            meta.__cd:restart()
+            meta.__isInCD = true
+        end
+        if meta.__env["cast"] then
+            meta.__env.cast(self)
+        end
+        if self:cooldownStartAtEnd() then
+            meta.__cd:restart()
+            meta.__isInCD = true
+        end
     end
 end
 
@@ -86,20 +102,20 @@ function spell.getMaxCooldown(self)
 
     local meta = getmetatable(self)
     if meta.__env["getMaxCooldown"] then
-        return meta.__env.getMaxCooldown()
+        return meta.__env.getMaxCooldown(self)
     else
         return 0
     end
 end
 
-function spell.cooldownStartAt(self)
+function spell.cooldownStartAtEnd(self)
     check(self, "spell", 1)
 
     local meta = getmetatable(self)
-    if meta.__env["cooldownStartAt"] then
-        return meta.__env.cooldownStartAt()
+    if meta.__env["cooldownStartAtEnd"] then
+        return meta.__env.cooldownStartAtEnd(self)
     else
-        return "end"
+        return true
     end
 end
 
@@ -107,28 +123,73 @@ function spell.update(self)
     check(self, "spell", 1)
 
     local meta = getmetatable(self)
-    if meta.__active and not meta.__isInCD then
+    if meta.__status == "idle" and not meta.__isInCD then
         meta.__cd:restart()
         meta.__isInCD = false
-        self:cast()
-    elseif not meta.__active then
-        meta.__isInCD = true
+    end
+    if meta.__status == "enable" then
+        if self:cooldownStartAtEnd() then
+            meta.__cd:restart()
+            meta.__isInCD = false
+        else
+            if not meta.__isInCD then
+                meta.__cd:restart()
+                meta.__isInCD = true
+            end
+        end
+        if meta.__env["cast"] then
+            return meta.__env.cast(self)
+        end
+    elseif meta.__status == "disable" and not meta.__isInCD then
+        if self:cooldownStartAtEnd() then
+            meta.__isInCD = true
+            meta.__cd:restart()
+        end
     end
     if meta.__isInCD and self:getCooldown() < 0 then
         meta.__isInCD = false
+        meta.__status = "idle"
+    end
+    if meta.__env["update"] then
+        return meta.__env.update(self)
     end
 end
 
-function spell.activate(self)
+function spell.getStatus(self)
     check(self, "spell", 1)
 
     local meta = getmetatable(self)
-    meta.__active = true
+    return meta.__status
 end
 
-function spell.deactivate(self)
+function spell.enable(self)
     check(self, "spell", 1)
 
     local meta = getmetatable(self)
-    meta.__active = false
+    if meta.__status == "idle" then
+        meta.__status = "enable"
+        if meta.__env["enable"] then
+            return meta.__env.enable(self)
+        end
+    end
+end
+
+function spell.disable(self)
+    check(self, "spell", 1)
+
+    local meta = getmetatable(self)
+    if meta.__status == "enable" then
+        meta.__status = "disable"
+        if meta.__env["disable"] then
+            return meta.__env.disable(self)
+        end
+    end
+end
+
+function spell.getByName(name)
+    for i=1, #spells do
+        if spells[i]:getName() == name then
+            return spells[i]
+        end
+    end
 end
