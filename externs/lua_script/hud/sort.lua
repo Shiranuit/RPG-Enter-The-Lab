@@ -184,6 +184,7 @@ function elecSpell()
         player:removeMana(5)
         status_sort["elecSpell"] = "down"
         cooldown_sort["elecSpell"] = 5000000
+        assets["elec"]:play()
         
         player:activateSpell()
         cooldown_used_spell = 2000000
@@ -310,6 +311,7 @@ function repulsionSpell()
     end
     if (status_sort["repulsionSpell"] == "up") then
         player:removeMana(4)
+        assets["repulsion"]:play()
         status_sort["repulsionSpell"] = "down"
         cooldown_sort["repulsionSpell"] = 5000000
     end
