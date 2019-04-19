@@ -3,7 +3,6 @@
 -- =========================================
 
 assets = {}
-spells = {}
 local scenes = {}
 local scene_name = "main_menu"
 
@@ -67,12 +66,14 @@ end
 math.randomseed(os.time())
 local owindow = window
 dofile("lib/lsfml.lua")
+dofile("tools/animation.lua")
 dofile("tools/event.lua")
 dofile("tools/uuid.lua")
 dofile("world/world.lua")
 dofile("hitboxs/hitboxs.lua")
 dofile("controls.lua")
 dofile("tools/button.lua")
+dofile("spells/spell.lua")
 dofile("tools/hud.lua")
 dofile("tools/item.lua")
 dofile("tools/itemstack.lua")
@@ -153,6 +154,9 @@ end
 function update()
     if scenes[scene_name] then
         scenes[scene_name].update()
+        for i=1, #spells do
+            spells[i]:update()
+        end
         if world.isUpdateEnabled() then
             world.update()
             for i=1, #hudorder do
