@@ -33,3 +33,23 @@ int sprite_set_color(lua_State *L)
     }
     return (0);
 }
+
+int sprite_copy(lua_State *L)
+{
+    sfSprite *sprite = 0;
+    sfSprite **new = 0;
+
+    if (lua_gettop(L) < 1) {
+        luaL_error(L, "Expected (Sprite)");
+        return (0);
+    }
+    if (lua_isuserdata(L, 1)) {
+        sprite = userdata_pointer(L, 1, sfSprite);
+        new = (sfSprite **)lua_newuserdata(L, sizeof(sfSprite **));
+        *new = sfSprite_copy(sprite);
+    } else {
+        luaL_error(L, "Expected (Sprite)");
+        return (0);
+    }
+    return (1);
+}

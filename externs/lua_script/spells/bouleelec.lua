@@ -1,9 +1,9 @@
 function getName(self)
-    return "ok"
+    return "bouleelecSpell"
 end
 
 function getMaxCooldown(self)
-    return 2
+    return 5
 end
 
 function cooldownStartAtEnd()
@@ -11,5 +11,5 @@ function cooldownStartAtEnd()
 end
 
 function cast(self)
-    print("ok")
+
 end

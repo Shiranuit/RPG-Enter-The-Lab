@@ -81,6 +81,23 @@ dofile("tools/inventory_slot.lua")
 dofile("entity/entity_item.lua")
 dofile("entity/entity_player.lua")
 -- =========================================
+-- =             LOADING SPELLS            =
+-- =========================================
+
+spells_tab = {
+    healSpell = spell.createFromFile("spells/heal.lua"),
+    bouleelecSpell = spell.createFromFile("spells/bouleelec.lua"),
+    douleurSpell = spell.createFromFile("spells/douleur.lua"),
+    dashSpell = spell.createFromFile("spells/dash.lua"),
+    elecSpell = spell.createFromFile("spells/elec.lua"),
+    picSpell = spell.createFromFile("spells/pic.lua"),
+    rayonSpell = spell.createFromFile("spells/rayon.lua"),
+    repulsionSpell = spell.createFromFile("spells/repulsion.lua"),
+    shieldSpell = spell.createFromFile("spells/shield.lua"),
+    tempSpell = spell.createFromFile("spells/temp.lua"),
+}
+
+-- =========================================
 -- =             LOADING ASSETS            =
 -- =========================================
 

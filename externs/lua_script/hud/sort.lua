@@ -2,103 +2,47 @@
 -- =                SORT                   =
 -- =========================================
 
-function initSpellSprite(spell)
-    local tab = {}
-    for i, v in pairs(spell) do
-        tab[i] = lsfml.sprite.create()
-        tab[i]:setTexture(v, false) 
-        tab[i]:setScale(0.5, 0.5) 
-    end
-    return (tab)
-end
-
-function initSpellFunction(spell)
-    local tab = {}
-    for i, v in pairs(spell) do
-        tab[i] = v
-    end
-    return (tab)
-end
-
-function initStatusSort(spell)
+function initCd()
     local tab = {}
 
-    for i, v in pairs(spell) do
-        tab[i] = "up"
+    for i = 1, 5 do
+        tab[i] = lsfml.text.create()
+        tab[i]:setFont(assets["fsys"])
+        tab[i]:setPosition(710 + 30.5 + 93.5 * (i - 1), 900 + 16.5)
+        tab[i]:setString("")
     end
-    return (tab)
+    return tab
 end
 
-function initClockSort(spell)
-    local tab = {}
-    local tab_2 = {}
-    local tab_3 = {}
+local selected_spell_sprite = {}
+local selected_spell_name = {}
+local cd = initCd()
 
-    for i, v in pairs(spell) do
-        tab[i] = lsfml.clock.create()
-        tab_2[i] = false
-        tab_3[i] = lsfml.text.create()
-        tab_3[i]:setFont(assets["fsys"])
-    end
-    return tab, tab_2 ,tab_3
-end
-
-local sorts = initSpellFunction(spells)
-local sort_sprite = {}
-local all_spell = initSpellSprite(spells)
-local status_sort = initStatusSort(spells)
-local cooldown_sort = {}
-local clock_sort, clock_status, text_clock = initClockSort(spells)
-local sort_index = {}
-local index_sort = {}
-local rayon_spell = false
-local clock_used_spell = lsfml.clock.create()
-local status_clock_used_spell = false
-local cooldown_used_spell = 0
-local status_cooldown_used_spell = false
-
-function changeSort(self, index, sort)
+function changeSort(self, index, sort, sprite)
     check(self, "hud", 1)
     check(index, "number", 2)
     check(sort, "string", 3)
+    check(sprite, "sprite")
 
-    if sort_index[sort] ~= nil then
-        sort_index[sort] = nil
-    end
-    index_sort[index] = sort
-    sort_index[sort] = index
-    sorts[index] = sort
-    sort_sprite[index] = all_spell[sort]
-    if sort_sprite[index] then
-        sort_sprite[index]:setPosition(705 + 30.5 + 93.5 * (index - 1), 900 + 9.5)
-    end
-    local pos_x, pos_y = all_spell[sort]:getPosition()
-    text_clock[sort]:setPosition(pos_x + 6, pos_y + 10)
-end
-
-function full_pressedSpell(self)
-    if (rayon_spell == false and status_cooldown_used_spell == false) then
-        player:desactivateSpell()
-    end
-    rayon_spell = false
+    selected_spell_sprite[index] = sprite:copy()
+    selected_spell_sprite[index]:setPosition(705 + 30.5 + 93.5 * (index - 1), 900 + 9.5)
+    selected_spell_name[index] = sort
 end
 
 function event(self, e)
     check(self, "hud", 1)
 
-    full_pressedSpell()
-    if player:isDead() then return end
     if menu_spell:isClose() then
-        if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) and sorts[1] ~= nil and self[sorts[1]] and sort_index[sorts[1]] == 1 then
-            self[sorts[1]]()
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_2")) and sorts[2] ~= nil and self[sorts[2]] and sort_index[sorts[2]] == 2 then
-            self[sorts[2]]()
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_3")) and sorts[3] ~= nil and self[sorts[3]] and sort_index[sorts[3]] == 3 then
-            self[sorts[3]]()
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_4")) and sorts[4] ~= nil and self[sorts[4]] and sort_index[sorts[4]] == 4 then
-            self[sorts[4]]()
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_5")) and sorts[5] ~= nil and self[sorts[5]] and sort_index[sorts[5]] == 5 then
-            self[sorts[5]]()
+        if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) then
+            spells_tab[selected_spell_name[1]]:cast()
+        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_2")) then
+            spells_tab[selected_spell_name[2]]:cast()
+        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_3")) then
+            spells_tab[selected_spell_name[3]]:cast()
+        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_4")) then
+            spells_tab[selected_spell_name[4]]:cast()
+        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_5")) then
+            spells_tab[selected_spell_name[5]]:cast()
         end
     end
 end
@@ -106,37 +50,15 @@ end
 function update(self)
     check(self, "hud", 1)
 
-    if rayon_spell then
-        rayonSpellEffect()
-    end
-    for i, v in pairs(all_spell) do 
-        if status_sort[i] == "down" then
-            if not clock_status[i] then
-                clock_sort[i]:restart()
-                clock_status[i] = true
-                all_spell[i]:setColor(0, 0, 0, 255)
+    for i = 1, 5 do
+        if selected_spell_name[1] and spells_tab[selected_spell_name[i]] and spells_tab[selected_spell_name[i]]:isInCooldown() then
+            local full_number = tostring(spells_tab[selected_spell_name[i]]:getCooldown())
+            cd[i]:setString(string.sub(full_number, 1, 4))
+            local color = math.ceil(255 / spells_tab[selected_spell_name[i]]:getCooldown())
+            if color > 255 then
+                color = 255
             end
-            if clock_sort[i]:getEllapsedTime() > cooldown_sort[i] then
-                clock_status[i] = false
-                status_sort[i] = "up"
-                v:setColor(255, 255, 255, 255) 
-            else
-                local color = math.floor((clock_sort[i]:getEllapsedTime() / cooldown_sort[i]) * 175) + 80
-                v:setColor(color, color, color, 255)
-                local full_number = tostring((cooldown_sort[i] - clock_sort[i]:getEllapsedTime()) / 1000000)
-                text_clock[i]:setString(string.sub(full_number, 1, 4))
-            end
-        end
-        if status_cooldown_used_spell == true then
-            if status_clock_used_spell == false then
-                clock_used_spell:restart()
-                status_clock_used_spell = true
-            end
-            if clock_used_spell:getEllapsedTime() > cooldown_used_spell then
-                status_cooldown_used_spell = false
-                status_clock_used_spell = false
-                player:desactivateSpell()
-            end
+            selected_spell_sprite[i]:setColor(color, color, color, 255)
         end
     end
 end
@@ -144,209 +66,209 @@ end
 function draw(self)
     check(self, "hud", 1)
 
-    for i, v in pairs(sort_sprite) do
-        window:draw(v)
-    end
-    for i, v in pairs(all_spell) do 
-        if clock_status[i] == true and index_sort[sort_index[i]] == i then
-            window:draw(text_clock[i])
+    for i = 1, 5 do
+        if selected_spell_sprite[i] and spells_tab[selected_spell_name[i]] then
+            window:draw(selected_spell_sprite[i])
+            if spells_tab[selected_spell_name[i]]:isInCooldown() then
+            window:draw(cd[i])
+            end
         end
-    end
+    end   
 end
 
 -- =========================================
 -- =             SORT EFFECT               =
 -- =========================================
 
-function douleurSpell()
-    if (player:getMana() < 10 or status_sort["douleurSpell"] == "down") then
-        if clock_sort["douleurSpell"]:getEllapsedTime() < cooldown_sort["douleurSpell"] then
-            assets["deny"]:play()
-        end
-        return
-    end
-    if (status_sort["douleurSpell"] == "up") then
-        player:removeMana(10)
-        status_sort["douleurSpell"] = "down"
-        cooldown_sort["douleurSpell"] = 20000000
-    end
-    --donne un status de degats renvoyé au joueurs so l'ennemi en prend aussi
-end
+-- function douleurSpell()
+--     if (player:getMana() < 10 or status_sort["douleurSpell"] == "down") then
+--         if clock_sort["douleurSpell"]:getEllapsedTime() < cooldown_sort["douleurSpell"] then
+--             assets["deny"]:play()
+--         end
+--         return
+--     end
+--     if (status_sort["douleurSpell"] == "up") then
+--         player:removeMana(10)
+--         status_sort["douleurSpell"] = "down"
+--         cooldown_sort["douleurSpell"] = 20000000
+--     end
+--     --donne un status de degats renvoyé au joueurs so l'ennemi en prend aussi
+-- end
 
-function elecSpell()
-    if (player:getMana() < 5 or status_sort["elecSpell"] == "down") then
-        if clock_sort["elecSpell"]:getEllapsedTime() < cooldown_sort["elecSpell"] then
-            assets["deny"]:play()
-        end
-        return
-    end
-    if (status_sort["elecSpell"] == "up") then
-        player:removeMana(5)
-        status_sort["elecSpell"] = "down"
-        cooldown_sort["elecSpell"] = 5000000
+-- function elecSpell()
+--     if (player:getMana() < 5 or status_sort["elecSpell"] == "down") then
+--         if clock_sort["elecSpell"]:getEllapsedTime() < cooldown_sort["elecSpell"] then
+--             assets["deny"]:play()
+--         end
+--         return
+--     end
+--     if (status_sort["elecSpell"] == "up") then
+--         player:removeMana(5)
+--         status_sort["elecSpell"] = "down"
+--         cooldown_sort["elecSpell"] = 5000000
         
-        player:activateSpell()
-        cooldown_used_spell = 2000000
-        status_cooldown_used_spell = true
-    end
-    --lance un éclair droit devant le joueur et si touche l'ennemi il prend des damages
-end
+--         player:activateSpell()
+--         cooldown_used_spell = 2000000
+--         status_cooldown_used_spell = true
+--     end
+--     --lance un éclair droit devant le joueur et si touche l'ennemi il prend des damages
+-- end
 
-function healSpell()
-    if (player:getMana() < 2 or status_sort["healSpell"] == "down") then
-        if clock_sort["healSpell"]:getEllapsedTime() < cooldown_sort["healSpell"] then
-            assets["deny"]:play()
-        end
-        return
-    end
-    if (status_sort["healSpell"] == "up") then
-        player:removeMana(2)
-        player:heal(30)
-        assets["heal"]:play()
-        status_sort["healSpell"] = "down"
-        cooldown_sort["healSpell"] = 10000000
-    end
-end
+-- function healSpell()
+--     if (player:getMana() < 2 or status_sort["healSpell"] == "down") then
+--         if clock_sort["healSpell"]:getEllapsedTime() < cooldown_sort["healSpell"] then
+--             assets["deny"]:play()
+--         end
+--         return
+--     end
+--     if (status_sort["healSpell"] == "up") then
+--         player:removeMana(2)
+--         player:heal(30)
+--         assets["heal"]:play()
+--         status_sort["healSpell"] = "down"
+--         cooldown_sort["healSpell"] = 10000000
+--     end
+-- end
 
-function picSpell()
-    if (player:getMana() < 3 or status_sort["picSpell"] == "down") then
-        if clock_sort["picSpell"]:getEllapsedTime() < cooldown_sort["picSpell"] then
-            assets["deny"]:play()
-        end
-        return
-    end
-    if (status_sort["picSpell"] == "up") then
-        player:removeMana(3)
-        status_sort["picSpell"] = "down"
-        cooldown_sort["picSpell"] = 3000000
-    end
-    --Une lance energétique sort de la main du joueur a courte portée infligant des damages 
-end
+-- function picSpell()
+--     if (player:getMana() < 3 or status_sort["picSpell"] == "down") then
+--         if clock_sort["picSpell"]:getEllapsedTime() < cooldown_sort["picSpell"] then
+--             assets["deny"]:play()
+--         end
+--         return
+--     end
+--     if (status_sort["picSpell"] == "up") then
+--         player:removeMana(3)
+--         status_sort["picSpell"] = "down"
+--         cooldown_sort["picSpell"] = 3000000
+--     end
+--     --Une lance energétique sort de la main du joueur a courte portée infligant des damages 
+-- end
 
-function rayonSpellEffect()
-    if (player:getMana() < 1) then
-        assets["deny"]:play()
-        return
-    end
+-- function rayonSpellEffect()
+--     if (player:getMana() < 1) then
+--         assets["deny"]:play()
+--         return
+--     end
 
-    if clock_sort["rayonSpell"]:getEllapsedTime() > 1000 then
-        clock_sort["rayonSpell"]:restart()
-        player:removeMana(1)
-    end
-end
+--     if clock_sort["rayonSpell"]:getEllapsedTime() > 1000 then
+--         clock_sort["rayonSpell"]:restart()
+--         player:removeMana(1)
+--     end
+-- end
 
-function rayonSpell()
-    rayon_spell = true
-    player:activateSpell()
-    -- un rayon de feu voir une boule de feu sort du joueur
-end
+-- function rayonSpell()
+--     rayon_spell = true
+--     player:activateSpell()
+--     -- un rayon de feu voir une boule de feu sort du joueur
+-- end
 
-function bouleelecSpell()
-    if (player:getMana() < 7 or status_sort["bouleelecSpell"] == "down") then
-        if clock_sort["bouleelecSpell"]:getEllapsedTime() < cooldown_sort["bouleelecSpell"] then
-            assets["deny"]:play()
-        end
-        return
-    end
-    if (status_sort["bouleelecSpell"] == "up") then
-        player:removeMana(7)
-        status_sort["bouleelecSpell"] = "down"
-        cooldown_sort["bouleelecSpell"] = 10000000
-    end
-    -- un boule d'electricity spawn a quelque case du joueur et attaque les ennemis proche
-end
+-- function bouleelecSpell()
+--     if (player:getMana() < 7 or status_sort["bouleelecSpell"] == "down") then
+--         if clock_sort["bouleelecSpell"]:getEllapsedTime() < cooldown_sort["bouleelecSpell"] then
+--             assets["deny"]:play()
+--         end
+--         return
+--     end
+--     if (status_sort["bouleelecSpell"] == "up") then
+--         player:removeMana(7)
+--         status_sort["bouleelecSpell"] = "down"
+--         cooldown_sort["bouleelecSpell"] = 10000000
+--     end
+--     -- un boule d'electricity spawn a quelque case du joueur et attaque les ennemis proche
+-- end
 
-function dashSpell()
-    status, hor, ver = player:getStatus()
-    if (status == "idle" or player:getMana() < 1 or status_sort["dashSpell"] == "down") then
-        if clock_sort["dashSpell"]:getEllapsedTime() < cooldown_sort["dashSpell"] then
-        assets["deny"]:play()
-    end
-        return
-    end
-    if (status_sort["dashSpell"] == "up") then
-        player:removeMana(1)
-        assets["dash"]:play()
-        x, y = player:getPosition()
-        if (hor == "right") then
-            player:setPosition(x + 100, y)
-        end
-        if (hor == "left") then
-            player:setPosition(x - 100, y)
-        end
-        if (ver == "down") then
-            if (hor == "left") then
-                player:setPosition(x - 70, y + 70)
-                return
-            end
-            if (hor == "right") then
-                player:setPosition(x + 70, y + 70)
-                return
-            end
-            player:setPosition(x, y + 100)
-        end
-        if (ver == "up") then
-            if (hor == "left") then
-                player:setPosition(x - 70, y - 70)
-                return
-            end
-            if (hor == "right") then
-                player:setPosition(x + 70, y - 70)
-                return
-            end
-            player:setPosition(x, y - 100)
-        end
-        status_sort["dashSpell"] = "down"
-        cooldown_sort["dashSpell"] = 500000
-    end
-end
+-- function dashSpell()
+--     status, hor, ver = player:getStatus()
+--     if (status == "idle" or player:getMana() < 1 or status_sort["dashSpell"] == "down") then
+--         if clock_sort["dashSpell"]:getEllapsedTime() < cooldown_sort["dashSpell"] then
+--         assets["deny"]:play()
+--     end
+--         return
+--     end
+--     if (status_sort["dashSpell"] == "up") then
+--         player:removeMana(1)
+--         assets["dash"]:play()
+--         x, y = player:getPosition()
+--         if (hor == "right") then
+--             player:setPosition(x + 100, y)
+--         end
+--         if (hor == "left") then
+--             player:setPosition(x - 100, y)
+--         end
+--         if (ver == "down") then
+--             if (hor == "left") then
+--                 player:setPosition(x - 70, y + 70)
+--                 return
+--             end
+--             if (hor == "right") then
+--                 player:setPosition(x + 70, y + 70)
+--                 return
+--             end
+--             player:setPosition(x, y + 100)
+--         end
+--         if (ver == "up") then
+--             if (hor == "left") then
+--                 player:setPosition(x - 70, y - 70)
+--                 return
+--             end
+--             if (hor == "right") then
+--                 player:setPosition(x + 70, y - 70)
+--                 return
+--             end
+--             player:setPosition(x, y - 100)
+--         end
+--         status_sort["dashSpell"] = "down"
+--         cooldown_sort["dashSpell"] = 500000
+--     end
+-- end
 
-function repulsionSpell()
-    if (player:getMana() < 4 or status_sort["repulsionSpell"] == "down") then
-        if clock_sort["repulsionSpell"]:getEllapsedTime() < cooldown_sort["repulsionSpell"] then
-            assets["deny"]:play()
-        end
-        return
-    end
-    if (status_sort["repulsionSpell"] == "up") then
-        player:removeMana(4)
-        status_sort["repulsionSpell"] = "down"
-        cooldown_sort["repulsionSpell"] = 5000000
-    end
-    -- repousse de quelque case les ennemis autour
-end
+-- function repulsionSpell()
+--     if (player:getMana() < 4 or status_sort["repulsionSpell"] == "down") then
+--         if clock_sort["repulsionSpell"]:getEllapsedTime() < cooldown_sort["repulsionSpell"] then
+--             assets["deny"]:play()
+--         end
+--         return
+--     end
+--     if (status_sort["repulsionSpell"] == "up") then
+--         player:removeMana(4)
+--         status_sort["repulsionSpell"] = "down"
+--         cooldown_sort["repulsionSpell"] = 5000000
+--     end
+--     -- repousse de quelque case les ennemis autour
+-- end
 
-function shieldSpell()
-    if (player:getMana() < 10) then
-        if clock_sort["shieldSpell"]:getEllapsedTime() < cooldown_sort["shieldSpell"] then
-            assets["deny"]:play()
-        end
-        return
-    end
-    if (status_sort["shieldSpell"] == "up" or status_sort["shieldSpell"] == "down") then
-        player:removeMana(10)
-        assets["shield"]:setVolume(200)
-        assets["shield"]:play()
-        player:addDefense(10)
-        status_sort["shieldSpell"] = "down"
-        cooldown_sort["shieldSpell"] = 13000000
-    end
-    -- donne un shield au joueur pour 10 seconde
-end
+-- function shieldSpell()
+--     if (player:getMana() < 10) then
+--         if clock_sort["shieldSpell"]:getEllapsedTime() < cooldown_sort["shieldSpell"] then
+--             assets["deny"]:play()
+--         end
+--         return
+--     end
+--     if (status_sort["shieldSpell"] == "up" or status_sort["shieldSpell"] == "down") then
+--         player:removeMana(10)
+--         assets["shield"]:setVolume(200)
+--         assets["shield"]:play()
+--         player:addDefense(10)
+--         status_sort["shieldSpell"] = "down"
+--         cooldown_sort["shieldSpell"] = 13000000
+--     end
+--     -- donne un shield au joueur pour 10 seconde
+-- end
 
-function tempSpell()
-    if (player:getMana() < 15 or status_sort["tempSpell"] == "down") then
-        if clock_sort["tempSpell"]:getEllapsedTime() < cooldown_sort["tempSpell"] then
-            assets["deny"]:play()
-        end
-        return
-    end
-    if (status_sort["tempSpell"] == "up") then
-        player:removeMana(15)
-        assets["time"]:setVolume(100)
-        assets["time"]:play()
-        status_sort["tempSpell"] = "down"
-        cooldown_sort["tempSpell"] = 20000000
-    end
-    -- ralenti tout les ennemis dans la salle pour 5 seconde
-end
+-- function tempSpell()
+--     if (player:getMana() < 15 or status_sort["tempSpell"] == "down") then
+--         if clock_sort["tempSpell"]:getEllapsedTime() < cooldown_sort["tempSpell"] then
+--             assets["deny"]:play()
+--         end
+--         return
+--     end
+--     if (status_sort["tempSpell"] == "up") then
+--         player:removeMana(15)
+--         assets["time"]:setVolume(100)
+--         assets["time"]:play()
+--         status_sort["tempSpell"] = "down"
+--         cooldown_sort["tempSpell"] = 20000000
+--     end
+--     -- ralenti tout les ennemis dans la salle pour 5 seconde
+-- end

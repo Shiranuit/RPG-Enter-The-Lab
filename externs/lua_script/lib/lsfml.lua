@@ -700,6 +700,21 @@ function lsfml.sprite.setTextureRect(sprite, x, y, width, height)
     olsfml.sprite_setTextureRect(meta.__ptr, {x=x, y=y, width=width, height=height})
 end
 
+function lsfml.sprite.copy(sprite)
+    check(sprite, "sprite", 1)
+
+    local meta = getmetatable(sprite)
+    return setmetatable({}, {
+        __index = lsfml.sprite,
+        __type = "sprite",
+        __ptr = olsfml.sprite_copy(meta.__ptr),
+        __gc = function(self)
+            local meta = getmetatable(self)
+            olsfml.sprite_destroy(meta.__ptr)
+        end,
+    })
+end
+
 -- =======================
 -- =       VERTEX        =
 -- =======================

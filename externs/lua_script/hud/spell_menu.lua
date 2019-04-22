@@ -18,7 +18,19 @@ function initMenuSpellSprite(spell)
 end
 
 
-local spell = initMenuSpellSprite(spells)
+local spell = initMenuSpellSprite({
+    douleurSpell = assets["douleurSpell"],
+    healSpell = assets["healSpell"],
+    elecSpell = assets["elecSpell"],
+    picSpell = assets["picSpell"],
+    rayonSpell = assets["rayonSpell"],
+    bouleelecSpell = assets["bouleelecSpell"],
+    dashSpell = assets["dashSpell"],
+    repulsionSpell = assets["repulsionSpell"],
+    shieldSpell = assets["shieldSpell"],
+    tempSpell = assets["tempSpell"],
+})
+
 local spell_menu = lsfml.sprite.create()
 spell_menu:setTexture(assets["spell_hub"], false) 
 spell_menu:setScale(0.5, 0.5)
@@ -83,7 +95,7 @@ function event(self, e)
         end
     end
     if selected_spell_index ~= 0 and not lsfml.mouse.isButtonPressed(mouse.LEFT) then
-        all_sort:changeSort(selected_spell_index, selected_spell_name)
+        all_sort:changeSort(selected_spell_index, selected_spell_name, spell[selected_spell_name])
         selected_spell_index = 0
     end
 end
