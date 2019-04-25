@@ -65,6 +65,7 @@ end
 
 math.randomseed(os.time())
 local owindow = window
+dofile("lib/class.lua")
 dofile("lib/lsfml.lua")
 dofile("tools/animation.lua")
 dofile("tools/event.lua")
@@ -78,8 +79,14 @@ dofile("tools/hud.lua")
 dofile("tools/item.lua")
 dofile("tools/itemstack.lua")
 dofile("tools/inventory_slot.lua")
-dofile("entity/entity_item.lua")
-dofile("entity/entity_player.lua")
+-- =========================================
+-- =             LOADING CLASSES           =
+-- =========================================
+
+class.createFromFile("entity/entity.lua")
+class.createFromFile("entity/entity_item.lua")
+class.createFromFile("entity/entity_player.lua")
+
 -- =========================================
 -- =             LOADING ASSETS            =
 -- =========================================
@@ -112,15 +119,15 @@ loadScene("scenes/test_player.lua")
 -- =           MYRPG GAME-LOGIC            =
 -- =========================================
 
-player = entity_player.create ({
+player = new(EntityPlayer({
     pos_x = 100,
     pos_y = 100,
     texture = assets["player"],
     speed = 5,
-})
+}))
 
 world.spawnEntity(player)
-world.spawnEntity(entity_item.create(itemstack.create(items["core"], 2))):setPosition(500, 500)
+world.spawnEntity(new(EntityItem(itemstack.create(items["core"], 2)))).setPosition(500, 500)
 
 -- Called at the beginning of the program
 function init()
