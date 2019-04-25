@@ -13,6 +13,7 @@ Class "EntityPlayer" extends "Entity" [{
         this.sprite:setPosition(info.pos_x, info.pos_y)
         this.sprite:setScale(0.25, 0.25)
         this.sprite:setOrigin(220 / 2, 500)
+        this.sprite:setTextureRect(0, 2000, 220, 500)
         this.clock = lsfml.clock.create()
         this.pos_rect = {4, 150000, 0, 2000, 220, 500}
         this.health = info.health or 100
