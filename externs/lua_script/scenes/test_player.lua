@@ -6,7 +6,7 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 
 function load()
-    player:setPosition(1045, 616)
+    player.setPosition(1045, 616)
     assets["ambiance_music"]:setLoop(true)
     assets["ambiance_music"]:setVolume(30)
     assets["ambiance_music"]:play()
@@ -22,12 +22,12 @@ end
 
 function update()
     if lsfml.keyboard.keyPressed(keys.A) then
-        player:hit(DeltaTime)
-        print(player:getHealth())
+        player.hit(DeltaTime)
+        print(player.getHealth())
     end
     if lsfml.keyboard.keyPressed(keys.E) then
-        player:respawn()
-        print(player:getHealth())
+        player.respawn()
+        print(player.getHealth())
     end
 end
 

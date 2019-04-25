@@ -160,7 +160,7 @@ function inv_slot.event(self, inventory, e)
             end
         else
             if self:getItemStack() and self:getItemStack():getStackSize() > 0 then
-                world.spawnEntity(entity_item.create(self:getItemStack())):setPosition(player:getPosition())
+                world.spawnEntity(new(EntityItem(self:getItemStack()))).setPosition(player:getPosition())
                 self:setItemStack(nil)
                 e:setCanceled(true)
             end
