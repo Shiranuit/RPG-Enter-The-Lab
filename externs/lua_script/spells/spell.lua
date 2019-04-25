@@ -83,14 +83,14 @@ function spell.cast(self)
 
     local meta = getmetatable(self)
     if not meta.__isInCD then
-        if not self:cooldownStartAtEnd()then
+        if not self:cooldownStartAtEnd() and self:getMaxCooldown() > 0 then
             meta.__cd:restart()
             meta.__isInCD = true
         end
         if meta.__env["cast"] then
             meta.__env.cast(self)
         end
-        if self:cooldownStartAtEnd() then
+        if self:cooldownStartAtEnd() and self:getMaxCooldown() > 0 then
             meta.__cd:restart()
             meta.__isInCD = true
         end
@@ -128,11 +128,11 @@ function spell.update(self)
         meta.__isInCD = false
     end
     if meta.__status == "enable" then
-        if self:cooldownStartAtEnd() then
+        if self:cooldownStartAtEnd() or self:getMaxCooldown() == 0 then
             meta.__cd:restart()
             meta.__isInCD = false
         else
-            if not meta.__isInCD then
+            if not meta.__isInCD and self:getMaxCooldown() > 0 then
                 meta.__cd:restart()
                 meta.__isInCD = true
             end
@@ -141,12 +141,12 @@ function spell.update(self)
             return meta.__env.cast(self)
         end
     elseif meta.__status == "disable" and not meta.__isInCD then
-        if self:cooldownStartAtEnd() then
+        if self:cooldownStartAtEnd() and self:getMaxCooldown() > 0 then
             meta.__isInCD = true
             meta.__cd:restart()
         end
     end
-    if meta.__isInCD and self:getCooldown() < 0 then
+    if meta.__isInCD and self:getCooldown() <= 0 then
         meta.__isInCD = false
         meta.__status = "idle"
     end
