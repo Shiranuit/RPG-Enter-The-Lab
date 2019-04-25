@@ -526,7 +526,7 @@ function entity_player.update(self)
             if (meta.__status == "up") then
                 meta.__status_idle = "up"
             else
-                meta.__status_idle = "down"    
+                meta.__status_idle = "down"
             end
             meta.__status = "idle"
             if meta.__status_idle == "down" then

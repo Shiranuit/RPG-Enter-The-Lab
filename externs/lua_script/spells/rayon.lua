@@ -12,4 +12,5 @@ end
 
 function cast(self)
     player:removeMana(1)
-end 
+    player:activateSpell()
+end

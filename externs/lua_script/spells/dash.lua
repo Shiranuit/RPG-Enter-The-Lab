@@ -3,7 +3,7 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 5
+    return 2
 end
 
 function cooldownStartAtEnd()
@@ -11,5 +11,37 @@ function cooldownStartAtEnd()
 end
 
 function cast(self)
-
+    status, hor, ver = player:getStatus()
+    player:removeMana(5)
+    assets["dash"]:play()
+    x, y = player:getPosition()
+    if (hor == "right") then
+        player:setPosition(x + 100, y)
+    end
+    if (hor == "left") then
+        player:setPosition(x - 100, y)
+    end
+    if (ver == "down") then
+        if (hor == "left") then
+            player:setPosition(x - 70, y + 70)
+            return
+        end
+        if (hor == "right") then
+            player:setPosition(x + 70, y + 70)
+            return
+        end
+        player:setPosition(x, y + 100)
+    end
+    if (ver == "up") then
+        if (hor == "left") then
+            player:setPosition(x - 70, y - 70)
+            return
+        end
+        if (hor == "right") then
+            player:setPosition(x + 70, y - 70)
+            return
+        end
+        player:setPosition(x, y - 100)
+    end
 end
+
