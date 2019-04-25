@@ -4,6 +4,10 @@
 
 entity_player = {}
 
+local animation_spell = {
+    shield = animation.create(assets["shieldAnimation"], {0, 0, 686, 655})
+}
+
 function entity_player.create(info)
     check(info, "table", 1)
 

@@ -17,6 +17,7 @@ end
 local selected_spell_sprite = {}
 local selected_spell_name = {}
 local cd = initCd()
+local status_sort = {"down", "down", "down", "down", "down"}
 
 function changeSort(self, index, sort, sprite)
     check(self, "hud", 1)
@@ -33,26 +34,29 @@ function event(self, e)
     check(self, "hud", 1)
 
     if menu_spell:isClose() then
+        status_sort = {"down", "down", "down", "down", "down"}
         if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) and spells_tab[selected_spell_name[1]] then
             if player:getMana() >= spells_tab[selected_spell_name[1]]:getCost() then
-                spells_tab[selected_spell_name[1]]:cast()
+                status_sort[1] = "up"
             end
         elseif lsfml.keyboard.keyPressed(controls.getControl("spell_2")) and spells_tab[selected_spell_name[2]] then
             if player:getMana() >= spells_tab[selected_spell_name[2]]:getCost() then
-                spells_tab[selected_spell_name[2]]:cast()
+                status_sort[2] = "up"
             end
         elseif lsfml.keyboard.keyPressed(controls.getControl("spell_3")) and spells_tab[selected_spell_name[3]] then
             if player:getMana() >= spells_tab[selected_spell_name[3]]:getCost() then
-                spells_tab[selected_spell_name[3]]:cast()
+                status_sort[3] = "up"
             end
         elseif lsfml.keyboard.keyPressed(controls.getControl("spell_4")) and spells_tab[selected_spell_name[4]] then
             if player:getMana() >= spells_tab[selected_spell_name[4]]:getCost() then
-                spells_tab[selected_spell_name[4]]:cast()
+                status_sort[4] = "up"
             end
         elseif lsfml.keyboard.keyPressed(controls.getControl("spell_5")) and spells_tab[selected_spell_name[5]] then
             if player:getMana() >= spells_tab[selected_spell_name[5]]:getCost() then
-                spells_tab[selected_spell_name[5]]:cast()
+                status_sort[5] = "up"
             end
+        else
+            player:desactivateSpell()
         end
     end
 end
@@ -61,7 +65,12 @@ function update(self)
     check(self, "hud", 1)
 
     for i = 1, 5 do
-        if selected_spell_name[1] and spells_tab[selected_spell_name[i]] and spells_tab[selected_spell_name[i]]:isInCooldown() then
+        if status_sort[i] == "up" and spells_tab[selected_spell_name[i]] then
+            spells_tab[selected_spell_name[i]]:cast()
+        end
+    end
+    for i = 1, 5 do
+        if selected_spell_name[1] and spells_tab[selected_spell_name[i]] and spells_tab[selected_spell_name[i]]:isInCooldown() and spells_tab[selected_spell_name[i]]:getMaxCooldown() ~= 0 then
             local full_number = tostring(spells_tab[selected_spell_name[i]]:getCooldown())
             cd[i]:setString(string.sub(full_number, 1, 4))
             local color = math.ceil(255 / spells_tab[selected_spell_name[i]]:getCooldown())

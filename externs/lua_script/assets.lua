@@ -38,6 +38,12 @@ assets["shieldSpell"] = lsfml.texture.createFromFile("./assets/spell/shield.png"
 assets["tempSpell"] = lsfml.texture.createFromFile("./assets/spell/temp.png", {0, 0, 142, 142})
 
 -- =======================
+-- =   SPELL ANIMATION   =
+-- =======================
+
+assets["shieldAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/shield686x655.png", {0, 0, 5488, 655})
+
+-- =======================
 -- =        ITEMS        =
 -- =======================
 
