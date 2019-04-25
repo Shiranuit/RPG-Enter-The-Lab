@@ -2,7 +2,7 @@
 -- =             ENTITY PLAYER             =
 -- =========================================
 
-Class "EntityPlayer" extends "Entity" [[
+Class "EntityPlayer" extends "Entity" [{
     function EntityPlayer(info)
         check(info, "table", 1)
 
@@ -465,4 +465,4 @@ Class "EntityPlayer" extends "Entity" [[
         end
         window:draw(this.sprite)
     end
-]]
+}]

@@ -1,4 +1,4 @@
-Class "Entity" [[
+Class "Entity" [{
     function Entity(x, y)
         this.x = x
         this.y = y
@@ -32,4 +32,4 @@ Class "Entity" [[
     function event()
 
     end
-]]
+}]

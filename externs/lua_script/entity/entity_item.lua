@@ -2,7 +2,7 @@
 -- =              ENTITY ITEM              =
 -- =========================================
 
-Class "EntityItem" extends "Entity" [[
+Class "EntityItem" extends "Entity" [{
     function EntityItem(itemstack)
         check(itemstack, "itemstack", 1)
         super(0, 0)
@@ -53,4 +53,4 @@ Class "EntityItem" extends "Entity" [[
         local x, y = super.getPosition()
         this.sprite:setPosition(x, y - this.anim)
     end
-]]
+}]

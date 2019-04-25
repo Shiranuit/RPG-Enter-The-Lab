@@ -3,7 +3,7 @@ class = {}
 function class.createFromFile(filename)
     local handle = io.open("./externs/lua_script/"..filename, "r")
     if handle then
-        local code = handle:read("*all")
+        local code = handle:read("*all"):gsub("%[{", "[["):gsub("}%]", "]]")
         handle:close()
         local env = setmetatable({}, {__index = _G})
         local func, err = load(code, filename, "t", env)
