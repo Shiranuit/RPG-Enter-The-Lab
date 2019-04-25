@@ -60,6 +60,14 @@ assets["botte1"] = lsfml.texture.createFromFile("./assets/items/armure/botte1.pn
 assets["casque1"] = lsfml.texture.createFromFile("./assets/items/armure/casque1.png", {0, 0, 64, 64})
 assets["jambiere1"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere1.png", {0, 0, 64, 64})
 assets["plastron1"] = lsfml.texture.createFromFile("./assets/items/armure/plastron1.png", {0, 0, 64, 64})
+assets["botte2"] = lsfml.texture.createFromFile("./assets/items/armure/botte2.png", {0, 0, 64, 64})
+assets["casque2"] = lsfml.texture.createFromFile("./assets/items/armure/casque2.png", {0, 0, 64, 64})
+assets["jambiere2"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere2.png", {0, 0, 64, 64})
+assets["plastron2"] = lsfml.texture.createFromFile("./assets/items/armure/plastron2.png", {0, 0, 64, 64})
+assets["botte3"] = lsfml.texture.createFromFile("./assets/items/armure/botte3.png", {0, 0, 64, 64})
+assets["casque3"] = lsfml.texture.createFromFile("./assets/items/armure/casque3.png", {0, 0, 64, 64})
+assets["jambiere3"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere3.png", {0, 0, 64, 64})
+assets["plastron3"] = lsfml.texture.createFromFile("./assets/items/armure/plastron3.png", {0, 0, 64, 64})
 
 -- =======================
 -- =     MAP TEXTURE     =
@@ -80,9 +88,11 @@ assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
 assets["button_hover_sfx"] = lsfml.sound.createFromFile("./assets/sound/button_hover.wav")
 assets["dash"] = lsfml.sound.createFromFile("./assets/sound/dash.wav")
 assets["heal"] = lsfml.sound.createFromFile("./assets/sound/heal.ogg")
-assets["shield"] = lsfml.sound.createFromFile("./assets/sound/shield.wav")
+assets["shield"] = lsfml.sound.createFromFile("./assets/sound/shield.ogg")
 assets["deny"] = lsfml.sound.createFromFile("./assets/sound/denied.wav")
 assets["time"] = lsfml.sound.createFromFile("./assets/sound/time.ogg")
+assets["elec"] = lsfml.sound.createFromFile("./assets/sound/elec.ogg")
+assets["repulsion"] = lsfml.sound.createFromFile("./assets/sound/shockwave.ogg")
 
 -- =======================
 -- =        MUSICS       =
