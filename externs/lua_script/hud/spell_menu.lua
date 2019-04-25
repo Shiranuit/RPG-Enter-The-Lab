@@ -8,7 +8,7 @@ function initMenuSpellSprite(spell)
     local y = 0
     for i, v in pairs(spell) do
         tab[i] = lsfml.sprite.create()
-        tab[i]:setTexture(v, false) 
+        tab[i]:setTexture(v, false)
         tab[i]:setScale(0.5, 0.5)
         y = math.modf(j / 4)
         tab[i]:setPosition(625 + 64.5 + 156 * j - y * 156 * 4, 305 + 54 + y * 125)
@@ -32,7 +32,7 @@ local spell = initMenuSpellSprite({
 })
 
 local spell_menu = lsfml.sprite.create()
-spell_menu:setTexture(assets["spell_hub"], false) 
+spell_menu:setTexture(assets["spell_hub"], false)
 spell_menu:setScale(0.5, 0.5)
 spell_menu:setPosition(625, 305)
 local type = "menu_sort"
