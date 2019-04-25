@@ -92,7 +92,7 @@ function draw(self)
             window:draw(cd[i])
             end
         end
-    end   
+    end
 end
 
 -- =========================================

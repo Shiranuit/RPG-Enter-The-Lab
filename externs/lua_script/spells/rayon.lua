@@ -11,6 +11,6 @@ function cooldownStartAtEnd()
 end
 
 function cast(self)
-    player:removeMana(1)
-    player:activateSpell()
+    player.removeMana(1)
+    player.activateSpell()
 end

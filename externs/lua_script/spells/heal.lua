@@ -11,8 +11,8 @@ function cooldownStartAtEnd()
 end
 
 function cast(self)
-    player:heal(50)
-    player:removeMana(10)
+    player.heal(50)
+    player.removeMana(10)
 end
 
 function getCost(self)
