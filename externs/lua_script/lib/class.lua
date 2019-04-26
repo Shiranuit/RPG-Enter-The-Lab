@@ -12,7 +12,7 @@ function class.createFromFile(filename)
             if success then
 
             else
-                error(errmsg, 2)
+                error(errmsg, 3)
             end
         else
             error("[ERROR LOADING CLASS] "..err, 2)
@@ -160,15 +160,26 @@ function new(clazz)
 
                 if meta.__super then
                     return meta.__super[key]
-                else
-                    error("Unable to find '"..key.."' from Superclass, Superclass '"..clazz.superclass.."' may not have been initialized", 3)
                 end
             end})
             local env = setmetatable({}, {__index = function(self, key)
+                local meta = getmetatable(self)
+                if not meta.__this then
+                    meta.__this = setmetatable({}, {__index = function(subself, key)
+                        if rawget(self, key) then
+                            return rawget(self, key)
+                        else
+                            return super[key]
+                        end
+                    end,
+                    __newindex = function(subself, key, value)
+                        self[key] = value
+                    end})
+                end
                 if key == "super" then
                     return super
                 elseif key == "this" then
-                    return self
+                    return meta.__this
                 else
                     return _G[key]
                 end
