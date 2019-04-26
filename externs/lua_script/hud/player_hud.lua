@@ -62,9 +62,9 @@ function draw(self)
 end
 
 function update(self)
-    health_bar:setTextureRect(0, 0, math.floor(player:getHealth() / player:getMaximumHealth() * 980), 328)
-    stamina_bar:setTextureRect(0, 0, math.floor(player:getStamina() / player:getMaximumStamina() * 980), 328)
-    mana_bar:setTextureRect(0, 0, math.floor(player:getMana() / player:getMaximumMana() * 980), 328)
+    health_bar:setTextureRect(0, 0, math.floor(player.getHealth() / player.getMaximumHealth() * 980), 328)
+    stamina_bar:setTextureRect(0, 0, math.floor(player.getStamina() / player.getMaximumStamina() * 980), 328)
+    mana_bar:setTextureRect(0, 0, math.floor(player.getMana() / player.getMaximumMana() * 980), 328)
 end
 
 function event(self, e)

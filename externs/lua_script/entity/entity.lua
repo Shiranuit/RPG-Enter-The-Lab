@@ -17,6 +17,14 @@ Class "Entity" [{
         this.y = y
     end
 
+    function move(x, y)
+        check(x, "number", 1)
+        check(y, "number", 2)
+
+        this.x = this.x + x
+        this.y = this.y + y
+    end
+
     function getUUID()
         return this.uuid
     end

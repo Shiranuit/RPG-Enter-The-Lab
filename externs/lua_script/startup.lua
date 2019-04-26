@@ -84,6 +84,8 @@ dofile("tools/inventory_slot.lua")
 -- =========================================
 
 class.createFromFile("entity/entity.lua")
+class.createFromFile("stats/stats.lua")
+class.createFromFile("entity/entity_living.lua")
 class.createFromFile("entity/entity_item.lua")
 class.createFromFile("entity/entity_player.lua")
 
