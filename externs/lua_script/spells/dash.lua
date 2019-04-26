@@ -10,9 +10,13 @@ function cooldownStartAtEnd()
     return true
 end
 
+function getCost()
+    return 5
+end
+
 function cast(self)
     status, hor, ver = player.getStatus()
-    player.removeMana(5)
+    player.removeMana(getCost())
     assets["dash"]:play()
     x, y = player.getPosition()
     if (hor == "right") then

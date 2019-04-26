@@ -14,3 +14,7 @@ function cast(self)
     player.removeMana(1)
     player.activateSpell()
 end
+
+function getCost(self)
+    return 1
+end

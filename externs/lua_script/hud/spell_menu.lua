@@ -87,7 +87,7 @@ function event(self, e)
             old_pos_y = mouse_y
             local sprite_pos_x, sprite_pos_y = selected_spell:getPosition()
             for i = 1, 5 do
-                if mouse_x > 705 + 30.5 + (i - 1) * 93.5 and mouse_x < 705 + 101.5 + (i - 1) * 93.5 and mouse_y > 900 + 9.5 and mouse_y < 900 + 80.5 then 
+                if mouse_x > 705 + 30.5 + (i - 1) * 93.5 and mouse_x < 705 + 101.5 + (i - 1) * 93.5 and mouse_y > 920 + 9.5 and mouse_y < 920 + 80.5 then 
                     selected_spell_index = i
                     break
                 end

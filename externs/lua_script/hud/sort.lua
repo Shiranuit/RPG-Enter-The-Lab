@@ -8,7 +8,7 @@ function initCd()
     for i = 1, 5 do
         tab[i] = lsfml.text.create()
         tab[i]:setFont(assets["fsys"])
-        tab[i]:setPosition(710 + 30.5 + 93.5 * (i - 1), 900 + 16.5)
+        tab[i]:setPosition(710 + 30.5 + 93.5 * (i - 1), 920 + 16.5)
         tab[i]:setString("")
     end
     return tab
@@ -25,8 +25,14 @@ function changeSort(self, index, sort, sprite)
     check(sort, "string", 3)
     check(sprite, "sprite")
 
+    for i = 1, 5 do
+        if selected_spell_name[i] and selected_spell_name[i] == sort then
+            selected_spell_name[i] = nil
+            selected_spell_sprite[i] = nil
+        end
+    end
     selected_spell_sprite[index] = sprite:copy()
-    selected_spell_sprite[index]:setPosition(705 + 30.5 + 93.5 * (index - 1), 900 + 9.5)
+    selected_spell_sprite[index]:setPosition(705 + 30.5 + 93.5 * (index - 1), 920 + 9.5)
     selected_spell_name[index] = sort
 end
 
@@ -70,7 +76,7 @@ function update(self)
         end
     end
     for i = 1, 5 do
-        if selected_spell_name[1] and spells_tab[selected_spell_name[i]] and spells_tab[selected_spell_name[i]]:isInCooldown() and spells_tab[selected_spell_name[i]]:getMaxCooldown() ~= 0 then
+        if selected_spell_name[i] and spells_tab[selected_spell_name[i]] and spells_tab[selected_spell_name[i]]:isInCooldown() and spells_tab[selected_spell_name[i]]:getMaxCooldown() ~= 0 then
             local full_number = tostring(spells_tab[selected_spell_name[i]]:getCooldown())
             cd[i]:setString(string.sub(full_number, 1, 4))
             local color = math.ceil(255 / spells_tab[selected_spell_name[i]]:getCooldown())
