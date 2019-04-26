@@ -79,10 +79,12 @@ dofile("tools/hud.lua")
 dofile("tools/item.lua")
 dofile("tools/itemstack.lua")
 dofile("tools/inventory_slot.lua")
+
 -- =========================================
 -- =             LOADING CLASSES           =
 -- =========================================
 
+class.createFromFile("helpers/ray_caster.lua")
 class.createFromFile("entity/entity.lua")
 class.createFromFile("stats/stats.lua")
 class.createFromFile("entity/entity_living.lua")
