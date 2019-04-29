@@ -32,7 +32,7 @@ Class "EntityLiving" extends "Entity" [{
         end
         local dir = new(Vector2D(-x, -y))
         dir = dir.normalize()
-        local px, py = (point[1] - dir.x * 10), (point[2] - dir.y * 10)
+        local px, py = (point[1] - dir.x * 1), (point[2] - dir.y * 1)
         super.setPosition(px, py)
         return true, px, py
     end

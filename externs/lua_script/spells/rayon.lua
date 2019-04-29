@@ -14,3 +14,19 @@ function cast(self)
     player.removeMana(1)
     player.activateSpell()
 end
+
+function isInstant(self)
+    return false
+end
+
+function enable(self)
+    world.spawnEntity(animationSpell["rayonSpell"])
+end
+
+function disable(self)
+    world.removeEntityByUUID(animationSpell["rayonSpell"].getUUID())
+end
+
+function getCost(self)
+    return 1
+end

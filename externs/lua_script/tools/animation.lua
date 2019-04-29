@@ -35,20 +35,6 @@ function animation.create(texture, where)
     })
 end
 
-function animation.setPosition(self, x, y)
-    check(self, "animation", 1)
-
-    local meta = getmetatable(self)
-    meta.__sprite:setPosition(x, y)
-end
-
-function animation.move(self, x, y)
-    check(self, "animation", 1)
-
-    local meta = getmetatable(self)
-    meta.__sprite:move(x, y)
-end
-
 function animation.getAnimationFrame(self)
     check(self, "animation", 1)
 

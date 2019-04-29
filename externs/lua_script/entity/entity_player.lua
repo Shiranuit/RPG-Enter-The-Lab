@@ -187,7 +187,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         check(x ,"number", 1)
         check(y ,"number", 2)
 
-        local success, nx, n = super.move(x, y)
+        local success, nx, ny = super.move(x, y)
         if success then
             this.sprite:move(nx, ny)
         end

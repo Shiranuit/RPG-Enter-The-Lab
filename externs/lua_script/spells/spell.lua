@@ -146,7 +146,7 @@ function spell.update(self)
             meta.__cd:restart()
         end
     end
-    if meta.__isInCD and self:getCooldown() <= 0 then
+    if (meta.__isInCD and self:getCooldown() <= 0) or self:getMaxCooldown() <= 0 then
         meta.__isInCD = false
         meta.__status = "idle"
     end
@@ -191,5 +191,16 @@ function spell.getByName(name)
         if spells[i]:getName() == name then
             return spells[i]
         end
+    end
+end
+
+function spell.isInstant(self)
+    check(self, "spell", 1)
+
+    local meta = getmetatable(self)
+    if meta.__env["isInstant"] then
+        return meta.__env.isInstant(self)
+    else
+        return true
     end
 end
