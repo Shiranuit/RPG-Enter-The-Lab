@@ -1,6 +1,6 @@
 Class "EntityLiving" extends "Entity" [{
 
-    function EntityLiving(x, y)
+    function __EntityLiving(x, y)
         super(x, y)
         this.max_health = 100
         this.health = 100
@@ -25,11 +25,16 @@ Class "EntityLiving" extends "Entity" [{
         check(y ,"number", 2)
 
         local nx, ny = super.getPosition()
-        if not hitbox.collide(nx + x, ny + y) then
+        local success, point = hitbox.rayhit(nx, ny, x, y)
+        if not success then
             super.move(x, y)
-            return true
+            return true, x, y
         end
-        return false
+        local dir = new(Vector2D(-x, -y))
+        dir = dir.normalize()
+        local px, py = (point[1] - dir.x * 10), (point[2] - dir.y * 10)
+        super.setPosition(px, py)
+        return true, px, py
     end
 
     function getLevel()

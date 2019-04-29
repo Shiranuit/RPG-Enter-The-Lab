@@ -45,3 +45,19 @@ function hitbox.collide(x, y)
     end
     return false
 end
+
+function hitbox.rayhit(x, y, dx, dy)
+    check(x, "number", 1)
+    check(y, "number", 2)
+    check(dx, "number", 3)
+    check(dy, "number", 4)
+
+    local ray = {{x, y}, {x + dx, y + dy}}
+    for i=1, #hitboxes do
+        local success, point = RayCast.intersectRect(ray, hitboxes[i])
+        if success then
+            return true, point
+        end
+    end
+    return false
+end

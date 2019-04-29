@@ -201,18 +201,47 @@ function new(clazz)
                             return class[key]
                         elseif rawget(self, key) then
                             return rawget(self, key)
-                        else
+                        elseif meta.__super[key] then
                             return meta.__super[key]
+                        else
+                            if cpenv and rawget(cpenv, "__index") then
+                                return rawget(cpenv, "__index")(self, key)
+                            elseif super and rawget(super, "__index") then
+                                return rawget(super, "__index")(self, key)
+                            end
                         end
                     end,
                     __type = clazz.className,
                     __superclass = clazz.superclass,
                     __super = super,
+                    __newindex = (cpenv and cpenv["__newindex"]) or (super and super["__newindex"]),
+                    __add = (cpenv and cpenv["__add"]) or (super and super["__add"]),   
+                    __sub = (cpenv and cpenv["__sub"]) or (super and super["__sub"]),
+                    __mul = (cpenv and cpenv["__mul"]) or (super and super["__mul"]),
+                    __div = (cpenv and cpenv["__div"]) or (super and super["__div"]),
+                    __mod = (cpenv and cpenv["__mod"]) or (super and super["__mod"]),
+                    __pow = (cpenv and cpenv["__pow"]) or (super and super["__pow"]),
+                    __unm = (cpenv and cpenv["__unm"]) or (super and super["__unm"]),
+                    __idiv = (cpenv and cpenv["__idiv"]) or (super and super["__idiv"]),
+                    __band = (cpenv and cpenv["__band"]) or (super and super["__band"]),
+                    __bor = (cpenv and cpenv["__bor"]) or (super and super["__bor"]),
+                    __bxor = (cpenv and cpenv["__bxor"]) or (super and super["__bxor"]),
+                    __bnot = (cpenv and cpenv["__bnot"]) or (super and super["__bnot"]),
+                    __shl = (cpenv and cpenv["__shl"]) or (super and super["__shl"]),
+                    __shr = (cpenv and cpenv["__shr"]) or (super and super["__shr"]),
+                    __concat = (cpenv and cpenv["__concat"]) or (super and super["__concat"]),
+                    __len = (cpenv and cpenv["__len"]) or (super and super["__len"]),
+                    __eq = (cpenv and cpenv["__eq"]) or (super and super["__eq"]),
+                    __lt = (cpenv and cpenv["__lt"]) or (super and super["__lt"]),
+                    __le = (cpenv and cpenv["__le"]) or (super and super["__le"]),
+                    __call = (cpenv and cpenv["__call"]) or (super and super["__call"]),
+                    __tostring = (cpenv and cpenv["__tostring"]) or (super and super["__tostring"]),
+                    __gc = (cpenv and cpenv["__gc"]) or (super and super["__gc"]),
                     })
-                    if cl[clazz.className] then
-                        cl[clazz.className](table.unpack(clazz.params))
+                    if cl["__"..clazz.className] then
+                        cl["__"..clazz.className](table.unpack(clazz.params))
                     else
-                        error("Failed to Initialized Superclass '"..clazz.superclass.."', Missing Constructor for '"..clazz.superclass.."'", 3)
+                        error("Failed to Initialized Superclass '"..clazz.superclass.."', Missing Constructor for '"..clazz.superclass.."' in '"..clazz.className.."'", 3)
                     end
                     return cl
                 else
@@ -231,7 +260,7 @@ function new(clazz)
                 for k, v in pairs(env) do
                     cpenv[k] = v
                 end
-                local cl = setmetatable(cpenv, {
+                local cl = setmetatable(cpenv,add {
                     __code = clazz.code,
                     __type = clazz.className,
                     __superclass = "Class",
@@ -243,8 +272,8 @@ function new(clazz)
                         end
                     end,
                     })
-                if cl[clazz.className] then
-                    cl[clazz.className](table.unpack(clazz.params))
+                if cl["__"..clazz.className] then
+                    cl["__"..clazz.className](table.unpack(clazz.params))
                 end
                 return cl
             else

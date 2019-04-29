@@ -3,7 +3,7 @@
 -- =========================================
 
 Class "EntityPlayer" extends "EntityLiving" [{
-    function EntityPlayer(info)
+    function __EntityPlayer(info)
         check(info, "table", 1)
 
         super(info.pos_x or 0, info.pos_y or 0)
@@ -187,8 +187,9 @@ Class "EntityPlayer" extends "EntityLiving" [{
         check(x ,"number", 1)
         check(y ,"number", 2)
 
-        if super.move(x, y) then
-            this.sprite:move(x, y)
+        local success, nx, n = super.move(x, y)
+        if success then
+            this.sprite:move(nx, ny)
         end
     end
 

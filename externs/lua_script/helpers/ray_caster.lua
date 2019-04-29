@@ -1,5 +1,5 @@
 Class "Vector2D" [{
-    function Vector2D(x, y)
+    function __Vector2D(x, y)
         this.x = x
         this.y = y
     end
@@ -23,10 +23,104 @@ Class "Vector2D" [{
 
         this.y = y
     end
+
+    function normalize()
+        local len = this.mag()
+        if len > 0 then
+            return new(Vector2D(this.x / len, this.y / len))
+        end
+    end
+
+    function __unm()
+        return new(Vector2D(-this.x, -this.y))
+    end
+
+    function __len(self)
+        return math.sqrt(this.x^2 + this.y^2)
+    end
+
+    function __eq(self, other)
+        if class.isInstanceOf(other, "Vector2D") then
+            return this.getX() == other.getX() and this.getY() == other.getY()
+        end
+        return false
+    end
+
+    function __tostring(self)
+        return "{"..this.getX()..", "..this.getY().."}"
+    end
+
+    function __index(self, key)
+        if key == 1 or key == "x" then
+            return this.getX()
+        elseif key == 2 or key == "y" then
+            return this.getY()
+        end
+    end
+
+    function __newindex(self, key, value)
+        if key == 1 or key == "x" then
+            this.setX(value)
+        elseif key == 2 or key == "y" then
+            this.setY(value)
+        else
+            rawset(self, key, value)
+        end
+    end
+
+    function __add(self, other)
+        if class.isInstanceOf(other, "Vector2D") then
+            return new(Vector2D(this.x + other.getX(), this.y + other.setY()))
+        elseif type(other) == "number" then
+            return new(Vector2D(this.x + other, this.y + other))
+        end
+    end
+
+    function __add(self, other)
+        if class.isInstanceOf(other, "Vector2D") then
+            return new(Vector2D(this.x - other.getX(), this.y - other.setY()))
+        elseif type(other) == "number" then
+            return new(Vector2D(this.x - other, this.y - other))
+        end
+    end
+
+    function __mul(self, other)
+        if type(other) == "number" then
+            return new(Vector2D(this.x * other, this.y * other))
+        end
+    end
+
+    function dot(other)
+        if class.isInstanceOf(other, "Vector2D") then
+            return this.x * other.getX() + this.y * other.getY()
+        end
+    end
+
+    function cross(other)
+        if class.isInstanceOf(other, "Vector2D") then
+            return this.x * other.gety() - this.y * other.getX()
+        end
+    end
+
+    function add(value)
+        return this.__add(this, value)
+    end
+
+    function sub(value)
+        return this.__sub(this, value)
+    end
+
+    function mul(value)
+        return this.__mul(this, value)
+    end
+
+    function mag(value)
+        return this.__len(this)
+    end
 }]
 
 Class "Line" [{
-    function Line(_start, _End)
+    function __Line(_start, _End)
         check(_start, "Vector2D", 1)
         check(_End, "Vector2D", 2)
 
@@ -53,6 +147,14 @@ Class "Line" [{
 
         this._End = _End
     end
+
+    function __index(self, key)
+        if key == 1 then
+            return this._start
+        elseif key == 2 then
+            return this._End()
+        end
+    end
 }]
 
 Class "RayCast" [{
@@ -78,5 +180,39 @@ Class "RayCast" [{
         local intersection = {line1[1][1] + t * b[1], line1[1][2] + t * b[2]}
 
         return true, intersection
+    end
+
+    local function addIntersectPoint(list, ray, rect)
+        local success, pt = intersectLine(ray, rect)
+        if success then
+            list[#list + 1] = pt
+        end
+    end
+
+    function intersectRect(ray, rect)
+        local points = {}
+
+        addIntersectPoint(points, ray, {{rect.x, rect.y}, {rect.w, rect.y}})
+        addIntersectPoint(points, ray, {{rect.w, rect.y}, {rect.w, rect.h}})
+        addIntersectPoint(points, ray, {{rect.x, rect.h}, {rect.w, rect.h}})
+        addIntersectPoint(points, ray, {{rect.x, rect.y}, {rect.x, rect.h}})
+        if #points > 0 then
+            local init = true
+            local min = 0
+            local index = 1
+            for i=1, #points do
+                dist = math.abs(ray[1][1] - points[i][1]) + math.abs(ray[1][2] - points[i][2])
+                if init then
+                    init = false
+                    min = dist
+                    index = i
+                elseif dist < min then
+                    min = dist
+                    index = i
+                end
+            end
+            return true, points[index]
+        end
+        return false
     end
 }]

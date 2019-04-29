@@ -1,5 +1,5 @@
 Class "Entity" [{
-    function Entity(x, y)
+    function __Entity(x, y)
         this.x = x
         this.y = y
         this.uuid = uuid.randomUUID()

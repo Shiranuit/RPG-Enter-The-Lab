@@ -1,5 +1,5 @@
 Class "Stats" [{
-    function Stats()
+    function __Stats()
         this.defense = 1
         this.attack = 1
         this.parade = 1

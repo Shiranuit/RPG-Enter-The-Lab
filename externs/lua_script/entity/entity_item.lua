@@ -3,7 +3,7 @@
 -- =========================================
 
 Class "EntityItem" extends "Entity" [{
-    function EntityItem(itemstack)
+    function __EntityItem(itemstack)
         check(itemstack, "itemstack", 1)
         super(0, 0)
 
