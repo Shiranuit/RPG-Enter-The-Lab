@@ -72,7 +72,14 @@ function update(self)
 
     for i = 1, 5 do
         if status_sort[i] == "up" and spells_tab[selected_spell_name[i]] then
-            spells_tab[selected_spell_name[i]]:cast()
+            if (spells_tab[selected_spell_name[i]]:isInstant()) then
+                spells_tab[selected_spell_name[i]]:cast()
+                status_sort[i] = "down"
+            else
+                spells_tab[selected_spell_name[i]]:enable()
+            end
+        elseif spells_tab[selected_spell_name[i]] and not spells_tab[selected_spell_name[i]]:isInstant() then
+            spells_tab[selected_spell_name[i]]:disable()
         end
     end
     for i = 1, 5 do

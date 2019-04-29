@@ -88,6 +88,8 @@ class.createFromFile("stats/stats.lua")
 class.createFromFile("entity/entity_living.lua")
 class.createFromFile("entity/entity_item.lua")
 class.createFromFile("entity/entity_player.lua")
+class.createFromFile("entity/spell/entity_spell.lua")
+class.createFromFile("entity/spell/rayon_spell.lua")
 
 -- =========================================
 -- =             LOADING SPELLS            =
@@ -111,6 +113,30 @@ spells_tab = {
 -- =========================================
 
 dofile("assets.lua")
+
+-- =========================================
+-- =        LOADING SPELL ANIMATION        =
+-- =========================================
+
+animationSpell = {
+    rayonSpell = new(EntitySpell({
+        spell = assets["rayonAnimation"],
+        rect = {0, 0, 13, 112},
+        time = 100000,
+        pos_y = 500,
+        pos_x = 1000,
+    })),
+    shieldSpell = new(EntitySpell({
+        spell = assets["shieldAnimation"],
+        rect = {0, 0, 686, 655},
+        ox = 343,
+        oy = 555,
+        time = 200000,
+        pos_y = 500,
+        pos_x = 1000,
+        scale = 0.25,
+    }))
+}
 
 -- =========================================
 -- =              LOADING ITEMS            =

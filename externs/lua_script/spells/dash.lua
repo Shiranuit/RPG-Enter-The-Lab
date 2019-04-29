@@ -18,7 +18,7 @@ function cast(self)
     status, hor, ver = player.getStatus()
     player.removeMana(getCost())
     assets["dash"]:play()
-    x, y = player.getPosition()
+    local x, y = player.getPosition()
     if (hor == "right") then
         player.setPosition(x + 100, y)
     end
