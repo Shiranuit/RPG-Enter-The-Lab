@@ -158,9 +158,22 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function getEquipement()
-
+        return {this.inventory:getItemInSlot(29), this.inventory:getItemInSlot(30),
+                this.inventory:getItemInSlot(31), this.inventory:getItemInSlot(32)}
     end
     ---------------------------------
+
+    function hit(damage)
+        local equipment = this.getEquipement()
+        local defense = 0
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                defense = defense + (equipment[i]:getItem():getUserdata() and equipment[i]:getItem():getUserdata().defense or 0)
+            end
+        end
+        print(damage * (1 - defense / 100))
+        super.hit(damage * (1 - defense / 100))
+    end
 
     function getExperience()
         return this.experience

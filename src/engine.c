@@ -69,13 +69,12 @@ int engine(lua_State *L, sfRenderWindow *window)
     while (sfRenderWindow_isOpen(window)) {
         deltatime = sfClock_getElapsedTime(update_clock);
         lua_pushnumber(L, deltatime.microseconds / (1000000.0 / 60.0));
-        lua_setglobal(L, "DeltaTime");
         sfClock_restart(update_clock);
+        lua_setglobal(L, "DeltaTime");
         if (event(L, window) == 84) return (84);
         if (update(L) == 84) return (84);
         if (draw(L) == 84) return (84);
         sfRenderWindow_display(window);
-        sfSleep((sfTime){1000000/30});
     }
     return (0);
 }

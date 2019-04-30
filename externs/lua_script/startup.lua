@@ -91,6 +91,7 @@ class.createFromFile("stats/stats.lua")
 class.createFromFile("entity/entity_living.lua")
 class.createFromFile("entity/entity_item.lua")
 class.createFromFile("entity/entity_player.lua")
+class.createFromFile("entity/ennemy/boss/entity_scythe.lua")
 class.createFromFile("entity/spell/entity_spell.lua")
 class.createFromFile("entity/spell/rayon_spell.lua")
 
@@ -217,6 +218,8 @@ player = new(EntityPlayer({
     speed = 5,
 }))
 
+world.spawnEntity(new(EntityScytheBoss(500, 510)))
+
 world.spawnEntity(player)
 world.spawnEntity(new(EntityItem(itemstack.create(items["core"], 2)))).setPosition(500, 500)
 
@@ -271,7 +274,6 @@ end
 
 -- Called when an event is produced
 function event(...)
-
     local evt = {...}
     local e = event_helper.create(...)
     if evt[1] == "close" then
