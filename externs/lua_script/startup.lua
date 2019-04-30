@@ -206,6 +206,7 @@ function draw()
     if scenes[scene_name] then
         scenes[scene_name].draw()
         if world.isRenderEnabled() then
+            hitbox.draw()
             world.draw()
             for i=1, #hudorder do
                 if hudorder[i]:isOpen() then

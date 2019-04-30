@@ -25,15 +25,15 @@ Class "EntityLiving" extends "Entity" [{
         check(y ,"number", 2)
 
         local nx, ny = super.getPosition()
-        local success, point = hitbox.rayhit(nx, ny, x, y)
-        if not success then
+        local success1, point1 = hitbox.rayhit(nx, ny, x * 2, y * 2)
+        if not success1 then
             super.move(x, y)
             return true, x, y
         end
-        local dir = new(Vector2D(-x, -y))
+        local dir = new(Vector2D(x, y))
         dir = dir.normalize()
-        local px, py = (point[1] - dir.x * 1), (point[2] - dir.y * 1)
-        super.setPosition(px, py)
+        local px, py = (point1[1] - dir.x) - nx, (point1[2] - dir.y) - ny
+        super.move(px, py)
         return true, px, py
     end
 

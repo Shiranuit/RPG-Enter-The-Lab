@@ -31,6 +31,8 @@ function update()
     end
 end
 
+
+local hitbx = {}
 local press = false
 local px, py = 0, 0
 function event(e)
@@ -38,9 +40,14 @@ function event(e)
     if event[1] == "mouse_pressed" and press == false and event[4] == mouse.RIGHT then
         px, py = event[2], event[3]
         press = true
+        hitbx[#hitbx + 1] = {px, py}
     elseif event[1] == "mouse_released" and press and event[4] == mouse.RIGHT then
-        local box = {x=math.min(px, event[2]), y=math.min(py, event[3]), w=math.max(event[2], px), h=math.max(event[3], py)}
-        hitbox.add(box)
         press = false
+    end
+    if event[1] == "mouse_pressed" and event[4] == mouse.LEFT then
+        if hitbx and #hitbx > 0 then
+            hitbox.add(hitbx)
+            hitbx = {}
+        end
     end
 end
