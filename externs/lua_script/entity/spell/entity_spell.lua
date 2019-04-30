@@ -45,6 +45,10 @@ Class "EntitySpell" extends "Entity" [{
         this.sprite:setPosition(x, y)
     end
 
+    function setRotation(angle)
+        this.sprite:setRotation(angle)
+    end
+
     function restart()
         this.clock:restart()
         this.sprite:restart()

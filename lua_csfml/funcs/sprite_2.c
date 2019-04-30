@@ -99,13 +99,13 @@ int sprite_set_rotation(lua_State *L)
     sfSprite *sprite = 0;
     double nb = 0.0;
 
-    if (lua_gettop(L) < 3) {
+    if (lua_gettop(L) < 2) {
         luaL_error(L, "Expected (Sprite, Rotation)");
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
         sprite = userdata_pointer(L, 1, sfSprite);
-        nb = lua_tonumber(L, 3);
+        nb = lua_tonumber(L, 2);
         sfSprite_setRotation(sprite, nb);
     } else {
         luaL_error(L, "Expected (Sprite, Float)");
