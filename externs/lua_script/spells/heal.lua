@@ -3,18 +3,30 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 5
+    return 2
 end
 
 function cooldownStartAtEnd()
-    return true
+    return false
+end
+
+function getCost()
+    return 25
 end
 
 function cast(self)
-    player.heal(50)
-    player.removeMana(10)
+    world.spawnEntity(animationSpell["healSpell"])
+    animationSpell["healSpell"].restart()
 end
 
-function getCost(self)
-    return 10
+function isInstant(self)
+    return true
+end
+
+function enable(self)
+
+end
+
+function disable(self)
+
 end
