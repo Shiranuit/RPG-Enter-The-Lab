@@ -52,7 +52,7 @@ function cast(self)
     local siz_up_left, siz_down_right = 0
 
     if (hor == "right") then
-        animationSpell["bouleelecSpell"].setPosition(x + 50, y)
+        animationSpell["bouleelecSpell"].setPosition(x, y)
         siz_up_left = y_player - big
         siz_down_right = y_player + big
     end

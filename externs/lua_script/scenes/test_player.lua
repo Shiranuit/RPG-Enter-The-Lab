@@ -4,8 +4,6 @@
 
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
-local dial = lsfml.sprite.create()
-dial:setTexture(assets["case_dial"], false)
 
 function load()
     player.setPosition(1045, 616)
