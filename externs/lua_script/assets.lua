@@ -22,6 +22,8 @@ assets["hud_mana"] = lsfml.texture.createFromFile("./assets/hud/mana.png", {0, 0
 assets["inventory_hud"] = lsfml.texture.createFromFile("./assets/menu/inventory.png", {0, 0, 1337, 940})
 assets["spell_hub"] = lsfml.texture.createFromFile("./assets/menu/spell_menu.png", {0, 0, 1337, 940})
 assets["other_item"] = lsfml.texture.createFromFile("./assets/hud/other_item.png", {0, 0, 442, 208})
+assets["case_dial"] = lsfml.texture.createFromFile("./assets/hud/case_dial.png", {0, 0, 384, 139})
+
 
 -- =======================
 -- =    SPELL TEXTURE    =
@@ -80,7 +82,14 @@ assets["botte3"] = lsfml.texture.createFromFile("./assets/items/armure/botte3.pn
 assets["casque3"] = lsfml.texture.createFromFile("./assets/items/armure/casque3.png", {0, 0, 64, 64})
 assets["jambiere3"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere3.png", {0, 0, 64, 64})
 assets["plastron3"] = lsfml.texture.createFromFile("./assets/items/armure/plastron3.png", {0, 0, 64, 64})
-
+assets["botte4"] = lsfml.texture.createFromFile("./assets/items/armure/botte4.png", {0, 0, 64, 64})
+assets["casque4"] = lsfml.texture.createFromFile("./assets/items/armure/casque4.png", {0, 0, 64, 64})
+assets["jambiere4"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere4.png", {0, 0, 64, 64})
+assets["plastron4"] = lsfml.texture.createFromFile("./assets/items/armure/plastron4.png", {0, 0, 64, 64})
+assets["botte5"] = lsfml.texture.createFromFile("./assets/items/armure/botte5.png", {0, 0, 64, 64})
+assets["casque5"] = lsfml.texture.createFromFile("./assets/items/armure/casque5.png", {0, 0, 64, 64})
+assets["jambiere5"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere5.png", {0, 0, 64, 64})
+assets["plastron5"] = lsfml.texture.createFromFile("./assets/items/armure/plastron5.png", {0, 0, 64, 64})
 -- =======================
 -- =     MAP TEXTURE     =
 -- =======================
