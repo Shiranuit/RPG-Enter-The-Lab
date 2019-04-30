@@ -26,12 +26,17 @@ function disable(self)
 
 end
 
-function cast(self)
+function isNotValid()
     status, hor, ver = player.getStatus()
     if (status == "idle") then
         assets["deny"]:play()
-        return
+        return true
     end
+    return false
+end
+
+function cast(self)
+    status, hor, ver = player.getStatus()
     player.activateSpell()
     world.spawnEntity(animationSpell["picSpell"])
     animationSpell["picSpell"].restart()
