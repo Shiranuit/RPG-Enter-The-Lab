@@ -124,9 +124,12 @@ animationSpell = {
     rayonSpell = new(EntitySpell({
         spell = assets["rayonAnimation"],
         rect = {0, 0, 13, 112},
+        ox = 6.5,
+        oy = 10,
+        follow_player = true,
+        one_animation = true,
+        scale = 3,
         time = 100000,
-        pos_y = 500,
-        pos_x = 1000,
     })),
     shieldSpell = new(EntitySpell({
         spell = assets["shieldAnimation"],
@@ -144,8 +147,6 @@ animationSpell = {
         ox = 96,
         oy = 0,
         time = 100000,
-        pos_y = 500,
-        pos_x = 1000,
         scale = 1.5,
         follow_player = true,
         one_animation = true,
@@ -158,14 +159,24 @@ animationSpell = {
         ox = 420,
         oy = 112,
         time = 80000,
-        pos_y = 500,
-        pos_x = 1000,
         scale = 1,
         follow_player = true,
         one_animation = true,
         pos_x_tp = 0,
         pos_y_tp = -60,
-    }))
+    })),
+    elec = new(EntitySpell({
+        spell = assets["elecAnimation"],
+        rect = {0, 0, 457, 224},
+        ox = 420,
+        oy = 112,
+        time = 80000,
+        scale = 1,
+        follow_player = true,
+        one_animation = true,
+        pos_x_tp = 0,
+        pos_y_tp = -60,
+    })),
 
 }
 
