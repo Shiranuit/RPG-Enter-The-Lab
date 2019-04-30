@@ -16,14 +16,17 @@ end
 
 function cast(self)
     status, hor, ver = player.getStatus()
+    if (status == "idle") then
+        assets["deny"]:play()
+        return
+    end
     player.removeMana(getCost())
     assets["dash"]:play()
-    local x, y = player.getPosition()
     if (hor == "right") then
         player.move(100, 0)
     end
     if (hor == "left") then
-        player.move(100, 0)
+        player.move(-100, 0)
     end
     if (ver == "down") then
         if (hor == "left") then
