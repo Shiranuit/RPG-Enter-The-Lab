@@ -3,7 +3,7 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 0
+    return 1
 end
 
 function getCost()

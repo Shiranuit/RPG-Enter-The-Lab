@@ -43,6 +43,8 @@ assets["tempSpell"] = lsfml.texture.createFromFile("./assets/spell/temp.png", {0
 
 assets["rayonAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/rayon19x114.png", {0, 0, 342, 342})
 assets["rayonIdleAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/rayon19x114.png", {0, 0, 76, 342})
+assets["rayonEndAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/rayon19x114.png", {0, 0, 209, 342})
+
 assets["shieldAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/shield686x655.png", {0, 0, 5488, 655})
 assets["healAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/heal192x192.png", {0, 0, 2304, 192})
 assets["picAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/pic457x224.png", {0, 0, 3656, 224})
