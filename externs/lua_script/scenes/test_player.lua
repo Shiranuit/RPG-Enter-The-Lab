@@ -22,7 +22,7 @@ end
 
 function update()
     if keyboard.keyPressed(keys.A) then
-        player.hit(DeltaTime)
+        player.hit(10 * DeltaTime)
         print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then

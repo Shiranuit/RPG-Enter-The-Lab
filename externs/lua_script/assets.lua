@@ -81,6 +81,8 @@ assets["casque3"] = lsfml.texture.createFromFile("./assets/items/armure/casque3.
 assets["jambiere3"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere3.png", {0, 0, 64, 64})
 assets["plastron3"] = lsfml.texture.createFromFile("./assets/items/armure/plastron3.png", {0, 0, 64, 64})
 
+assets["scythe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/scythe/scythe.png", {0, 0, 673, 610})
+
 -- =======================
 -- =     MAP TEXTURE     =
 -- =======================
