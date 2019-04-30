@@ -3,7 +3,7 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 2
+    return 20
 end
 
 function cooldownStartAtEnd()
@@ -16,6 +16,8 @@ end
 
 function cast(self)
     world.spawnEntity(animationSpell["healSpell"])
+    player.removeMana(getCost())
+    player.heal(50)
     animationSpell["healSpell"].restart()
 end
 

@@ -44,6 +44,7 @@ assets["tempSpell"] = lsfml.texture.createFromFile("./assets/spell/temp.png", {0
 assets["rayonAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/rayon.png", {0, 0, 285, 339})
 assets["shieldAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/shield686x655.png", {0, 0, 5488, 655})
 assets["healAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/heal192x192.png", {0, 0, 2304, 192})
+assets["picAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/pic457x224.png", {0, 0, 3656, 224})
 
 -- =======================
 -- =        ITEMS        =

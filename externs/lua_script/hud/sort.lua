@@ -62,7 +62,6 @@ function event(self, e)
                 status_sort[5] = "up"
             end
         else
-            player.desactivateSpell()
         end
     end
 end

@@ -15,7 +15,6 @@ function getCost()
 end
 
 function cast(self)
-    player.activateSpell()
     if animationSpell["shieldSpell"].hasEnded() then
         self:disable()
     end
@@ -28,6 +27,7 @@ end
 function enable(self)
     local x, y = player.getPosition()
     player.removeMana(getCost())
+    player.activateSpell()
     animationSpell["shieldSpell"].restart()
     animationSpell["shieldSpell"].setPosition(x, y)
     world.spawnEntity(animationSpell["shieldSpell"])
@@ -35,4 +35,5 @@ end
 
 function disable(self)
     world.removeEntityByUUID(animationSpell["shieldSpell"].getUUID())
+    player.desactivateSpell()
 end
