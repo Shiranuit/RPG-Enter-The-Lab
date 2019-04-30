@@ -182,20 +182,19 @@ Class "RayCast" [{
         return true, intersection
     end
 
-    local function addIntersectPoint(list, ray, rect)
-        local success, pt = intersectLine(ray, rect)
+    local function addIntersectPoint(list, ray, segment)
+        local success, pt = intersectLine(ray, segment)
         if success then
             list[#list + 1] = pt
         end
     end
 
-    function intersectRect(ray, rect)
+    function intersectPolygon(ray, polygon)
         local points = {}
 
-        addIntersectPoint(points, ray, {{rect.x, rect.y}, {rect.w, rect.y}})
-        addIntersectPoint(points, ray, {{rect.w, rect.y}, {rect.w, rect.h}})
-        addIntersectPoint(points, ray, {{rect.x, rect.h}, {rect.w, rect.h}})
-        addIntersectPoint(points, ray, {{rect.x, rect.y}, {rect.x, rect.h}})
+        for i=1, #polygon do
+            addIntersectPoint(points, ray, {polygon[i], polygon[(i + 1 > #polygon) and 1 or i + 1]})
+        end
         if #points > 0 then
             local init = true
             local min = 0

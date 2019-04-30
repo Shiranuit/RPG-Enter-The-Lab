@@ -143,7 +143,7 @@ function lsfml.window.draw(window, shape, renderstate)
     elseif type(shape) == "convexShape" then
         local shape_meta = getmetatable(shape)
         olsfml.window_drawConvexShape(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
-    elseif type(shape) == "vertexArray" then
+    elseif type(shape) == "vertexarray" then
         local shape_meta = getmetatable(shape)
         olsfml.window_drawVertexArray(meta.__ptr, shape_meta.__ptr, renderstate and render_meta.__ptr or nil)
     elseif type(shape) == "shape" then
@@ -791,11 +791,15 @@ end
 
 function lsfml.vertexarray.append(vertexarray, vertex)
     check(vertexarray, "vertexarray", 1)
-    check(vertex, "vertex", 2)
-
     local meta = getmetatable(vertexarray)
-    local meta_v = getmetatable(vertex)
-    olsfml.vertexarray_append(meta.__ptr, meta_v.__ptr)
+    if type(vertex) == "vertex" then
+        local meta_v = getmetatable(vertex)
+        olsfml.vertexarray_append(meta.__ptr, meta_v.__ptr)
+    elseif type(vertex) == "table" then
+        olsfml.vertexarray_append(meta.__ptr, vertex)
+    else
+        error("Vertex must be a vertex or a table", 2)
+    end
 end
 
 function lsfml.vertexarray.clear(vertexarray)
@@ -857,12 +861,12 @@ function lsfml.vertexarray.resize(vertexarray, number)
     olsfml.vertexarray_resize(meta.__ptr, number)
 end
 
-function lsfml.vertexarray.setPrimitiveType(vertexarray, string)
+function lsfml.vertexarray.setPrimitiveType(vertexarray, primitive)
     check(vertexarray, "vertexarray", 1)
-    check(string, "string", 2)
+    check(primitive, "number", 2)
 
     local meta = getmetatable(vertexarray)
-    olsfml.vertexarray_setPrimitiveType(meta.__ptr, string)
+    olsfml.vertexarray_setPrimitiveType(meta.__ptr, primitive)
 end
 
 -- =======================
@@ -1449,4 +1453,17 @@ keys = {
 	BackSlash = 104,
 	SemiColon = 105,
 	Return = 106,
+}
+
+primitiveType = {
+    Points = 0,
+    Lines = 1,
+    LineStrip = 2,
+    Triangles = 3,
+    TriangleStrip = 4,
+    TriangleFan = 5,
+    Quads = 6,
+    LinesStrip = 7,
+    TrianglesStrip = 8,
+    TrianglesFan = 9,
 }

@@ -23,7 +23,7 @@ function cast(self)
         player.move(100, 0)
     end
     if (hor == "left") then
-        player.move(100, 0)
+        player.move(-100, 0)
     end
     if (ver == "down") then
         if (hor == "left") then
