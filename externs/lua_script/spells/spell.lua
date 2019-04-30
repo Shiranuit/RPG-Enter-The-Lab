@@ -68,7 +68,7 @@ function spell.getCooldown(self)
     check(self, "spell", 1)
 
     local meta = getmetatable(self)
-    return self:getMaxCooldown() - meta.__cd:getEllapsedTime() / 1000000
+    return math.max(self:getMaxCooldown() - meta.__cd:getEllapsedTime() / 1000000, 0)
 end
 
 function spell.isInCooldown(self)

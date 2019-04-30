@@ -41,23 +41,23 @@ function event(self, e)
 
     if menu_spell:isClose() then
         status_sort = {"down", "down", "down", "down", "down"}
-        if lsfml.keyboard.keyPressed(controls.getControl("spell_1")) and spells_tab[selected_spell_name[1]] then
+        if keyboard.keyPressed(controls.getControl("spell_1")) and spells_tab[selected_spell_name[1]] then
             if player.getMana() >= spells_tab[selected_spell_name[1]]:getCost() then
                 status_sort[1] = "up"
             end
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_2")) and spells_tab[selected_spell_name[2]] then
+        elseif keyboard.keyPressed(controls.getControl("spell_2")) and spells_tab[selected_spell_name[2]] then
             if player.getMana() >= spells_tab[selected_spell_name[2]]:getCost() then
                 status_sort[2] = "up"
             end
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_3")) and spells_tab[selected_spell_name[3]] then
+        elseif keyboard.keyPressed(controls.getControl("spell_3")) and spells_tab[selected_spell_name[3]] then
             if player.getMana() >= spells_tab[selected_spell_name[3]]:getCost() then
                 status_sort[3] = "up"
             end
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_4")) and spells_tab[selected_spell_name[4]] then
+        elseif keyboard.keyPressed(controls.getControl("spell_4")) and spells_tab[selected_spell_name[4]] then
             if player.getMana() >= spells_tab[selected_spell_name[4]]:getCost() then
                 status_sort[4] = "up"
             end
-        elseif lsfml.keyboard.keyPressed(controls.getControl("spell_5")) and spells_tab[selected_spell_name[5]] then
+        elseif keyboard.keyPressed(controls.getControl("spell_5")) and spells_tab[selected_spell_name[5]] then
             if player.getMana() >= spells_tab[selected_spell_name[5]]:getCost() then
                 status_sort[5] = "up"
             end

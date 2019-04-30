@@ -21,11 +21,11 @@ function draw()
 end
 
 function update()
-    if lsfml.keyboard.keyPressed(keys.A) then
+    if keyboard.keyPressed(keys.A) then
         player.hit(DeltaTime)
         print(player.getHealth())
     end
-    if lsfml.keyboard.keyPressed(keys.E) then
+    if keyboard.keyPressed(keys.E) then
         player.respawn()
         print(player.getHealth())
     end

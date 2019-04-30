@@ -224,7 +224,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         if this.is_sprinting == true and this.status ~= "idle" then
             this.stamina = this.stamina - 1 * DeltaTime
             speed = speed * 2
-        elseif this.max_stamina > this.stamina and (not lsfml.keyboard.keyPressed(controls.getControl("sprint")) or this.status == "idle") then
+        elseif this.max_stamina > this.stamina and (not keyboard.keyPressed(controls.getControl("sprint")) or this.status == "idle") then
             this.stamina = this.stamina + 1 * DeltaTime
         end
         if super.isDead() then
@@ -238,7 +238,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         if this.status == "spell" then
             return
         end
-        if lsfml.keyboard.keyPressed(controls.getControl("move_up")) and this.getHealth() > 0 then
+        if keyboard.keyPressed(controls.getControl("move_up")) and this.getHealth() > 0 then
             if (this.status ~= "up" and this.status ~= "left" and this.status ~= "right" and this.status ~= "run_right" and this.status ~= "run_left") then
                 this.status = "up"
                 this.pos_rect = {7, 250000 / speed, 0, 1000, 220, 500}
@@ -249,7 +249,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 this.move(0, -speed)
                 this.status_vertical = "up"
             end
-        elseif lsfml.keyboard.keyPressed(controls.getControl("move_down")) and this.getHealth() > 0 then
+        elseif keyboard.keyPressed(controls.getControl("move_down")) and this.getHealth() > 0 then
             if (this.status ~= "down" and this.status ~= "left" and this.status ~= "right" and this.status ~= "run_right" and this.status ~= "run_left") then
                 this.status = "down"
                 this.pos_rect = {7, 250000 / speed, 0, 1500, 220, 500}
@@ -263,7 +263,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         else
             this.status_vertical = "none"
         end
-        if lsfml.keyboard.keyPressed(controls.getControl("move_right")) and this.getHealth() > 0 and this.is_sprinting then
+        if keyboard.keyPressed(controls.getControl("move_right")) and this.getHealth() > 0 and this.is_sprinting then
             if (this.status ~= "run_right") then
                 this.status = "run_right"
                 this.pos_rect = {5, 250000 / speed, 0, 3000, 219, 500}
@@ -274,7 +274,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 this.move(speed, 0)
                 this.status_horizontal = "right"
             end
-        elseif lsfml.keyboard.keyPressed(controls.getControl("move_left")) and this.getHealth() > 0 and this.is_sprinting then
+        elseif keyboard.keyPressed(controls.getControl("move_left")) and this.getHealth() > 0 and this.is_sprinting then
             if (this.status ~= "run_left") then
                 this.status = "run_left"
                 this.pos_rect = {5, 250000 / speed, 0, 3500, 219, 500}
@@ -285,7 +285,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 this.move(-speed, 0)
                 this.status_horizontal = "left"
             end
-        elseif lsfml.keyboard.keyPressed(controls.getControl("move_right")) and this.getHealth() > 0 then
+        elseif keyboard.keyPressed(controls.getControl("move_right")) and this.getHealth() > 0 then
             if (this.status ~= "right") then
                 this.status = "right"
                 this.pos_rect = {15, 250000 / speed, 0, 0, 220, 500}
@@ -296,7 +296,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 this.status_horizontal = "right"
                 this.move(speed, 0)
             end
-        elseif lsfml.keyboard.keyPressed(controls.getControl("move_left")) and this.getHealth() > 0 then
+        elseif keyboard.keyPressed(controls.getControl("move_left")) and this.getHealth() > 0 then
             if (this.status ~= "left") then
                 this.status = "left"
                 this.pos_rect = {15, 250000 / speed, 0, 500, 220, 500}
@@ -310,7 +310,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         else
             this.status_horizontal = "none"
         end
-        if (this.status == "left" or this.status == "run_left") and not lsfml.keyboard.keyPressed(controls.getControl("move_left")) and this.getHealth() > 0 then
+        if (this.status == "left" or this.status == "run_left") and not keyboard.keyPressed(controls.getControl("move_left")) and this.getHealth() > 0 then
             this.status = "idle"
             this.status_idle = "down"
             if this.status_idle == "down" then
@@ -321,7 +321,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
             this.clock:restart()
             this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
         end
-        if (this.status == "right" or this.status == "run_right") and not lsfml.keyboard.keyPressed(controls.getControl("move_right")) and this.getHealth() > 0 then
+        if (this.status == "right" or this.status == "run_right") and not keyboard.keyPressed(controls.getControl("move_right")) and this.getHealth() > 0 then
             this.status = "idle"
             this.status_idle = "down"
             if this.status_idle == "down" then
@@ -349,7 +349,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
             end
         end
-        this.is_sprinting = lsfml.keyboard.keyPressed(controls.getControl("sprint")) and this.getHealth() > 0 and this.stamina > 0
+        this.is_sprinting = keyboard.keyPressed(controls.getControl("sprint")) and this.getHealth() > 0 and this.stamina > 0
     end
 
     function draw()

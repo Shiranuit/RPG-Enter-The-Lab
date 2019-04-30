@@ -51,6 +51,7 @@ int main(void)
     sfRenderWindow *window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32}, "Lua", sfClose, 0);
     sfRenderWindow **win = (sfRenderWindow **)lua_newuserdata(L, sizeof(sfRenderWindow *));
 
+    sfRenderWindow_setKeyRepeatEnabled(window, sfFalse);
     *win = window;
     lua_setglobal(L, "window");
     run_file(L, "./externs/lua_script/startup.lua");

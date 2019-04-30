@@ -65,6 +65,7 @@ end
 
 math.randomseed(os.time())
 local owindow = window
+dofile("tools/keyboard.lua")
 dofile("lib/class.lua")
 dofile("lib/lsfml.lua")
 dofile("tools/animation.lua")
@@ -262,6 +263,11 @@ function event(...)
     if evt[1] == "close" then
         window:close()
         return
+    end
+    if evt[1] == "key_pressed" then
+        keyboard.setKeyPressed(evt[2], true)
+    elseif evt[1] == "key_released" then
+        keyboard.setKeyPressed(evt[2], false)
     end
     if evt[1] == "key_pressed" and evt[2] == keys.Escape then
         local found = false
