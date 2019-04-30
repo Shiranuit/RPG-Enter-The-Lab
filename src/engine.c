@@ -75,7 +75,6 @@ int engine(lua_State *L, sfRenderWindow *window)
         if (update(L) == 84) return (84);
         if (draw(L) == 84) return (84);
         sfRenderWindow_display(window);
-        sfSleep((sfTime){1000000/30});
     }
     return (0);
 }

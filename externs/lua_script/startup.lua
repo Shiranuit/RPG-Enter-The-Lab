@@ -124,13 +124,13 @@ dofile("assets.lua")
 animationSpell = {
     rayonSpell = new(EntitySpell({
         spell = assets["rayonAnimation"],
-        rect = {0, 0, 13, 112},
+        rect = {0, 0, 19, 114},
         ox = 6.5,
         oy = 10,
         follow_player = true,
-        one_animation = true,
+        one_animation = false,
         scale = 3,
-        time = 100000,
+        time = 10000,
     })),
     shieldSpell = new(EntitySpell({
         spell = assets["shieldAnimation"],
@@ -157,14 +157,14 @@ animationSpell = {
     picSpell = new(EntitySpell({
         spell = assets["picAnimation"],
         rect = {0, 0, 457, 224},
-        ox = 420,
+        ox = 457,
         oy = 112,
-        time = 80000,
+        time = 100000,
         scale = 1,
         follow_player = true,
         one_animation = true,
         pos_x_tp = 0,
-        pos_y_tp = -60,
+        pos_y_tp = -50,
     })),
     elecSpell = new(EntitySpell({
         spell = assets["elecAnimation"],

@@ -20,6 +20,10 @@ Class "EntitySpell" extends "Entity" [{
         this.one_animation = info.one_animation or true
     end
 
+    function setTextureRect(rect)
+        this.sprite:setTextureRect(table.unpack(rect))
+    end
+
     function draw()
         if this.follow_player then
             local x, y = player.getPosition()
