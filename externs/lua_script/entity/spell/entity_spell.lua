@@ -27,7 +27,7 @@ Class "EntitySpell" extends "Entity" [{
         end
         if this.clock:getEllapsedTime() > this.timeAnimation then
             if this.one_animation and this.sprite:hasEnded() then
-                world.removeEntityByUUID(animationSpell["healSpell"].getUUID())
+                world.removeEntityByUUID(super.getUUID())
                 player.desactivateSpell()
                 return
             end

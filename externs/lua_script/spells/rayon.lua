@@ -12,7 +12,6 @@ end
 
 function cast(self)
     player.removeMana(1)
-    player.activateSpell()
 end
 
 function isInstant(self)
@@ -21,10 +20,13 @@ end
 
 function enable(self)
     world.spawnEntity(animationSpell["rayonSpell"])
+    player.activateSpell()
+    animationSpell["healSpell"].restart()
 end
 
 function disable(self)
     world.removeEntityByUUID(animationSpell["rayonSpell"].getUUID())
+    player.desactivateSpell()
 end
 
 function getCost(self)
