@@ -16,13 +16,13 @@ end
 
 function isNotValid()
     status, hor, ver = player.getStatus()
+    print(hor, ver)
     if (status == "idle") then
         assets["deny"]:play()
         return true
     end
     return false
 end
-
 
 function cast(self)
     status, hor, ver = player.getStatus()

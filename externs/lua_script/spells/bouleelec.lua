@@ -51,27 +51,19 @@ function cast(self)
     local siz_up_left, siz_down_right = 0
 
     if (hor == "right") then
-        x_boule = x_player + size
         siz_up_left = y_player - big
         siz_down_right = y_player + big
-        animationSpell["bouleelecSpell"].setRotation(180)
     end
     if (hor == "left") then
-        x_boule = x_player - size
         siz_up_left = y_player - big
         siz_down_right = y_player + big
-        animationSpell["bouleelecSpell"].setRotation(0)
     end
     if (ver == "down") then
-        y_boule = y_player + size
         siz_up_left = x_player - big
         siz_down_right = x_player + big
-        animationSpell["bouleelecSpell"].setRotation(-90)
     end
     if (ver == "up") then
-        y_boule = y_player - size
         siz_up_left = x_player - big
         siz_down_right = x_player + big
-        animationSpell["bouleelecSpell"].setRotation(90)
     end
 end
