@@ -13,11 +13,23 @@ Class "EntitySpell" extends "Entity" [{
         this.sprite:setScale(info.scale or 1, info.scale or 1)
         this.sprite:setOrigin(info.ox or 0, info.oy or 0)
         this.timeAnimation = info.time
+        this.pos_x_tp = info.pos_x_tp or 0
+        this.pos_y_tp = info.pos_y_tp or 0
         this.clock = lsfml.clock.create()
+        this.follow_player = info.follow_player or false
+        this.one_animation = info.one_animation or true
     end
 
     function draw()
+        if this.follow_player then
+            local x, y = player.getPosition()
+            this.sprite:setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
+        end
         if this.clock:getEllapsedTime() > this.timeAnimation then
+            if this.one_animation and this.sprite:hasEnded() then
+                world.removeEntityByUUID(animationSpell["healSpell"].getUUID())
+                return
+            end
             if (this.sprite:hasEnded()) then
                 this.sprite:restart()
             end
@@ -39,6 +51,14 @@ Class "EntitySpell" extends "Entity" [{
 
     function hasEnded()
         return this.sprite:hasEnded()
+    end
+
+    function followPlayer(bool)
+        this.follow_player = bool
+    end
+
+    function one_animation(bool)
+        this.one_animation = bool
     end
 }]
 

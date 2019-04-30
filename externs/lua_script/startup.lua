@@ -134,9 +134,23 @@ animationSpell = {
         ox = 343,
         oy = 555,
         time = 200000,
+        scale = 0.25,
+        follow_player = false,
+        one_animation = true,
+    })),
+    healSpell = new(EntitySpell({
+        spell = assets["healAnimation"],
+        rect = {0, 0, 192, 192},
+        ox = 96,
+        oy = 0,
+        time = 100000,
         pos_y = 500,
         pos_x = 1000,
-        scale = 0.25,
+        scale = 1.5,
+        follow_player = true,
+        one_animation = true,
+        pos_x_tp = 0,
+        pos_y_tp = -240,
     }))
 }
 
