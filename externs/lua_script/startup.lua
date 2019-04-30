@@ -165,16 +165,16 @@ animationSpell = {
         pos_x_tp = 0,
         pos_y_tp = -60,
     })),
-    elec = new(EntitySpell({
+    elecSpell = new(EntitySpell({
         spell = assets["elecAnimation"],
-        rect = {0, 0, 457, 224},
-        ox = 420,
-        oy = 112,
+        rect = {0, 0, 83, 249},
+        ox = 41.5,
+        oy = 0,
         time = 80000,
-        scale = 1,
+        scale = 1.25,
         follow_player = true,
         one_animation = true,
-        pos_x_tp = 0,
+        pos_x_tp = 15,
         pos_y_tp = -60,
     })),
 
