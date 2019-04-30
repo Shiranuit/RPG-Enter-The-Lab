@@ -3,11 +3,11 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 5
+    return 0
 end
 
 function getCost()
-    return 10
+    return 0
 end
 
 function cooldownStartAtEnd()
@@ -71,12 +71,4 @@ function cast(self)
         siz_down_right = x_player + big
         animationSpell["picSpell"].setRotation(90)
     end
-    print("BOUT X = ")
-    print(x_touch)
-    print(" BOUT Y = ")
-    print(y_touch)
-    print(" SIZ UP LEFT = " )
-    print(siz_up_left)
-    print(" SIZ DOWN RITGH = ")
-    print(siz_down_right)
 end

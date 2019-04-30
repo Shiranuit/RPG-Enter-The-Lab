@@ -7,15 +7,11 @@ function getMaxCooldown(self)
 end
 
 function cooldownStartAtEnd()
-    return true
+    return false
 end
 
 function cast(self)
     player.removeMana(1)
-    if animationSpell["rayonSpell"].hasEnded() then
-        animationSpell["rayonSpell"].restart()
-        animationSpell["rayonSpell"].setTextureRect({0, 114, 19, 114})
-    end
 end
 
 function isInstant(self)
@@ -25,7 +21,6 @@ end
 function enable(self)
     world.spawnEntity(animationSpell["rayonSpell"])
     player.activateSpell()
-    animationSpell["rayonSpell"].setTextureRect({0, 0, 19, 114})
     animationSpell["rayonSpell"].restart()
 end
 

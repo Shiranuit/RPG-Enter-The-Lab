@@ -98,7 +98,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     function addMana(mana)
         check(mana, "number", 1)
 
-        cassert(mana > 0, "The added mana must be positive", 3)
+        cassert(mana >= 0, "The added mana must be positive", 3)
         this.mana = this.mana + mana
         if this.mana > this.max_mana then this.mana = this.max_mana end
     end
@@ -106,7 +106,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     function removeMana(mana)
         check(mana, "number", 1)
 
-        cassert(mana > 0, "The removed mana must be positive", "")
+        cassert(mana >= 0, "The removed mana must be positive", 3)
         this.mana = this.mana - mana
         if this.mana < 0 then this.mana = 0 end
     end
@@ -158,9 +158,22 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function getEquipement()
-
+        return {this.inventory:getItemInSlot(29), this.inventory:getItemInSlot(30),
+                this.inventory:getItemInSlot(31), this.inventory:getItemInSlot(32)}
     end
     ---------------------------------
+
+    function hit(damage)
+        local equipment = this.getEquipement()
+        local defense = 0
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                defense = defense + (equipment[i]:getItem():getUserdata() and equipment[i]:getItem():getUserdata().defense or 0)
+            end
+        end
+        print(damage * (1 - defense / 100))
+        super.hit(damage * (1 - defense / 100))
+    end
 
     function getExperience()
         return this.experience

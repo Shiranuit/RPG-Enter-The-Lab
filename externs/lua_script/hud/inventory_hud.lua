@@ -31,12 +31,16 @@ function load(self)
     for k, v in pairs(items) do
         dt[#dt + 1] = k
     end
-    for i=1, #slots - 6 do
-        if math.random(1, 2) == 1 then
-            local item = items[dt[math.random(1, #dt)]]
-            slots[i]:setItemStack(itemstack.create(item, math.random(1, item:getMaxStackSize())))
-        end
-    end
+    -- for i=1, #slots - 6 do
+        -- if math.random(1, 2) == 1 then
+            -- local item = items[dt[math.random(#dt - 4, #dt)]]
+            -- slots[1]:setItemStack(itemstack.create(items["boots3"], math.random(1, item:getMaxStackSize())))
+    --     end
+    -- end
+    slots[1]:setItemStack(itemstack.create(items["botte3"], 1))
+    slots[2]:setItemStack(itemstack.create(items["casque3"], 1))
+    slots[3]:setItemStack(itemstack.create(items["jambiere3"], 1))
+    slots[4]:setItemStack(itemstack.create(items["plastron3"], 1))
 end
 
 function open(self)

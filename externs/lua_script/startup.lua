@@ -91,6 +91,7 @@ class.createFromFile("stats/stats.lua")
 class.createFromFile("entity/entity_living.lua")
 class.createFromFile("entity/entity_item.lua")
 class.createFromFile("entity/entity_player.lua")
+class.createFromFile("entity/ennemy/boss/entity_scythe.lua")
 class.createFromFile("entity/spell/entity_spell.lua")
 class.createFromFile("entity/spell/rayon_spell.lua")
 
@@ -125,6 +126,16 @@ animationSpell = {
     rayonSpell = new(EntitySpell({
         spell = assets["rayonAnimation"],
         rect = {0, 0, 19, 114},
+        ox = 6.5,
+        oy = 10,
+        follow_player = true,
+        one_animation = false,
+        scale = 3,
+        time = 10000,
+    })),
+    rayonIdleAnimation = new(EntitySpell({
+        spell = assets["rayonIdleAnimation"],
+        rect = {0, 114, 19, 114},
         ox = 6.5,
         oy = 10,
         follow_player = true,
@@ -187,7 +198,7 @@ animationSpell = {
         pos_y = 600,
         pos_x = 600,
         scale = 1,
-        follow_player = true,
+        follow_player = false,
         one_animation = false,
         pos_x_tp = 0,
         pos_y_tp = 0,
@@ -202,6 +213,20 @@ animationSpell = {
         follow_player = false,
         one_animation = true,
     })),
+    repulsionSpell = new(EntitySpell({
+        spell = assets["repulsionAnimation"],
+        rect = {0, 0, 900, 900},
+        ox = 450,
+        oy = 900,
+        time = 80000,
+        pos_y = 0,
+        pos_x = 0,
+        scale = 0.5,
+        follow_player = true,
+        one_animation = true,
+        pos_x_tp = 0,
+        pos_y_tp = 200,
+    }))
 
 }
 
@@ -237,6 +262,8 @@ player = new(EntityPlayer({
     texture = assets["player"],
     speed = 5,
 }))
+
+world.spawnEntity(new(EntityScytheBoss(500, 510)))
 
 world.spawnEntity(player)
 world.spawnEntity(new(EntityItem(itemstack.create(items["core"], 2)))).setPosition(500, 500)
@@ -292,7 +319,6 @@ end
 
 -- Called when an event is produced
 function event(...)
-
     local evt = {...}
     local e = event_helper.create(...)
     if evt[1] == "close" then

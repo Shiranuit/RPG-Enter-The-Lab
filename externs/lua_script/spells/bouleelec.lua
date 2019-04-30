@@ -45,12 +45,14 @@ function cast(self)
     world.spawnEntity(animationSpell["bouleelecSpell"])
     animationSpell["bouleelecSpell"].restart()
     player.removeMana(getCost())
+    local x, y = animationSpell["bouleelecSpell"].getPosition()
     local x_player, y_player = player.getPosition()
     local x_boule, y_boule = x_player, y_player
     local big = 30
     local siz_up_left, siz_down_right = 0
 
     if (hor == "right") then
+        animationSpell["bouleelecSpell"].setPosition(x + 50, y)
         siz_up_left = y_player - big
         siz_down_right = y_player + big
     end
