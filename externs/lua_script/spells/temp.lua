@@ -3,7 +3,7 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 1
+    return 10
 end
 
 function cooldownStartAtEnd()
@@ -15,7 +15,10 @@ function getCost()
 end
 
 function cast(self)
-
+    world.spawnEntity(animationSpell["tempSpell"])
+    player.removeMana(getCost())
+    assets["time"]:play()
+    animationSpell["tempSpell"].restart()
 end
 
 function isInstant(self)

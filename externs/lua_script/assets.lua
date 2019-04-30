@@ -47,6 +47,7 @@ assets["healAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation
 assets["picAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/pic457x224.png", {0, 0, 3656, 224})
 assets["elecAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/elec83x249.png", {0, 0, 415, 248})
 assets["bouleelecAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/bouleelec71x71.png", {0, 0, 281, 71})
+assets["tempAnimation"] = lsfml.texture.createFromFile("./assets/spell/animation/sablier573x573.png", {0, 0, 5157, 572})
 
 -- =======================
 -- =        ITEMS        =

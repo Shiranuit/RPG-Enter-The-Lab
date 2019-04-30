@@ -191,7 +191,17 @@ animationSpell = {
         one_animation = false,
         pos_x_tp = 0,
         pos_y_tp = 0,
-    }))
+    })),
+    tempSpell = new(EntitySpell({
+        spell = assets["tempAnimation"],
+        rect = {0, 0, 573, 573},
+        time = 100000,
+        pos_y = 100,
+        pos_x = 600,
+        scale = 1.5,
+        follow_player = false,
+        one_animation = true,
+    })),
 
 }
 
