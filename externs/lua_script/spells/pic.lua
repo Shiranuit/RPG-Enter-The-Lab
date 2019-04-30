@@ -14,8 +14,24 @@ function cooldownStartAtEnd()
     return true
 end
 
+function isInstant(self)
+    return true
+end
+
+function enable(self)
+
+end
+
+function disable(self)
+
+end
+
 function cast(self)
     status, hor, ver = player.getStatus()
+    
+    player.activateSpell()
+    world.spawnEntity(animationSpell["picSpell"])
+    animationSpell["picSpell"].restart()
     if (status == "idle") then
         assets["deny"]:play()
         return
