@@ -105,4 +105,20 @@ Class "EntityLiving" extends "Entity" [{
         end
     end
 
+    function compute_push()
+        super.update()
+        local nx, ny = super.getPosition()
+        for i=1, #push_rays do
+            local success, point = hitbox.rayhit(nx, ny, push_rays[i][1] * 20, push_rays[i][2] * 20)
+            if success then
+                return true, -push_rays[i][1] * 20, -push_rays[i][2] * 20
+            end
+        end
+        return false
+    end
+
+    function getHitbox()
+        return {}
+    end
+
 }]

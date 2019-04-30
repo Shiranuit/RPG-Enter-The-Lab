@@ -30,12 +30,25 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         end
     end
 
+    function move(x, y)
+        check(x ,"number", 1)
+        check(y ,"number", 2)
+
+        local success, nx, ny = super.move(x, y)
+        if success then
+            this.sprite:move(nx, ny)
+        end
+    end
+
     function draw()
         window:draw(this.sprite)
     end
 
     function update()
-
+        local success, mvx, mvy = super.compute_push()
+        if success then
+            this.move(mvx, mvy)
+        end
     end
 
     function event(e)

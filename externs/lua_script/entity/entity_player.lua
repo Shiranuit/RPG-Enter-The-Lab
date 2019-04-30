@@ -230,6 +230,10 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function update()
+        local success, mvx, mvy = super.compute_push()
+        if success then
+            move(mvx, mvy)
+        end
         if this.status == "respawn" then
             return
         end
