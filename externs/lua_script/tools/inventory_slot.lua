@@ -37,7 +37,7 @@ end
 
 function inv_slot.setItemStack(self, item)
     check(self, "inv_slot", 1)
-    cassert(type(item) == "nil" or type(item) == "itemstack", "item must be a itemstack")
+    cassert(type(item) == "nil" or type(item) == "itemstack", "item must be a itemstack", 3)
 
     local meta = getmetatable(self)
     if item and item:getStackSize() > 0 then

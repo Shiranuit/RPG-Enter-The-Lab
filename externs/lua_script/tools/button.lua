@@ -42,8 +42,11 @@
 button = {}
 
 function cassert(cond, msg, lvl)
-    if not cond then
+    if not cond and type(lvl) == "number" then
         error(msg, lvl)
+    end
+    if type(lvl) ~= "number" then
+        error(msg, 2)
     end
 end
 

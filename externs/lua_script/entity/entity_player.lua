@@ -98,7 +98,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     function addMana(mana)
         check(mana, "number", 1)
 
-        cassert(mana > 0, "The added mana must be positive", 3)
+        cassert(mana >= 0, "The added mana must be positive", 3)
         this.mana = this.mana + mana
         if this.mana > this.max_mana then this.mana = this.max_mana end
     end
@@ -106,7 +106,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     function removeMana(mana)
         check(mana, "number", 1)
 
-        cassert(mana > 0, "The removed mana must be positive", "")
+        cassert(mana >= 0, "The removed mana must be positive", 3)
         this.mana = this.mana - mana
         if this.mana < 0 then this.mana = 0 end
     end

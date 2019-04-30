@@ -10,8 +10,8 @@ Class "EntitySpell" extends "Entity" [{
 
         this.sprite = animation.create(info.spell, info.rect)
         this.sprite:setPosition(info.pos_x or 0, info.pos_y or 0)
-        this.sprite:setScale(info.scale or 1, info.scale or 1)
         this.sprite:setOrigin(info.ox or 0, info.oy or 0)
+        this.sprite:setScale(info.scale or 1, info.scale or 1)
         this.timeAnimation = info.time or 10000
         this.pos_x_tp = info.pos_x_tp or 0
         this.pos_y_tp = info.pos_y_tp or 0
@@ -23,7 +23,7 @@ Class "EntitySpell" extends "Entity" [{
     function draw()
         if this.follow_player then
             local x, y = player.getPosition()
-            this.sprite:setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
+            this.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
         end
         if this.clock:getEllapsedTime() > this.timeAnimation then
             if this.one_animation and this.sprite:hasEnded() then
