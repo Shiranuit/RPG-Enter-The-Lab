@@ -178,6 +178,20 @@ animationSpell = {
         pos_x_tp = 15,
         pos_y_tp = -60,
     })),
+    bouleelecSpell = new(EntitySpell({
+        spell = assets["bouleelecAnimation"],
+        rect = {0, 0, 71, 281},
+        ox = 0,
+        oy = 0,
+        time = 80000,
+        pos_y = 600,
+        pos_x = 600,
+        scale = 1,
+        follow_player = true,
+        one_animation = false,
+        pos_x_tp = 0,
+        pos_y_tp = 0,
+    }))
 
 }
 
