@@ -82,8 +82,10 @@ function spell.cast(self)
     check(self, "spell", 1)
 
     local meta = getmetatable(self)
-    if meta.__env.isNotValid(self) then
-        return
+    if meta.__env["isNotValid"] then
+        if meta.__env.isNotValid(self) then
+            return
+        end
     end
     if not meta.__isInCD then
         if not self:cooldownStartAtEnd() and self:getMaxCooldown() > 0 then
