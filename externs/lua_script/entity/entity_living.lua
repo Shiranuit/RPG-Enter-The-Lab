@@ -115,9 +115,9 @@ Class "EntityLiving" extends "Entity" [{
             local mvx, mvy = 0, 0
             local nx, ny = super.getPosition()
             for i=1, #push_rays do
-                local success, point = hitbox.rayhit(nx, ny, push_rays[i][1] * 20, push_rays[i][2] * 20)
+                local success = hitbox.rayhitSimple(nx, ny, push_rays[i][1] * 10, push_rays[i][2] * 10)
                 if success then
-                    mvx, mvy = mvx - push_rays[i][1] * 20, mvy - push_rays[i][2] * 20
+                    mvx, mvy = mvx - push_rays[i][1] * 10, mvy - push_rays[i][2] * 10
                 end
             end
             final.move(mvx, mvy)

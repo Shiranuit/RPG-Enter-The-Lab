@@ -101,6 +101,19 @@ function world.getEntitiesInRect(x, y, w, h)
     return ent
 end
 
+function world.rayhit(x, y, dx, dy)
+    local ray = {{x, y}, {x + dx, y + dy}}
+    local ent = {}
+    for i = 1, #entities do
+        local nx, ny = entities[i].getPosition()
+        local success, point = RayCast.intersectPolygon(ray, entities[i].getHitbox().getPoints())
+        if success then
+            ent[#ent + 1] = entities[i]
+        end
+    end
+    return ent
+end
+
 function world.draw()
     if shouldRender then
         depth_sort()

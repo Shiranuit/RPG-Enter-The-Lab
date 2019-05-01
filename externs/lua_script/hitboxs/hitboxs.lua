@@ -37,13 +37,38 @@ function hitbox.rayhit(x, y, dx, dy)
     return false
 end
 
+function hitbox.rayhitSimple(x, y, dx, dy)
+    check(x, "number", 1)
+    check(y, "number", 2)
+    check(dx, "number", 3)
+    check(dy, "number", 4)
+
+    local ray = {{x, y}, {x + dx, y + dy}}
+    for i=1, #hitboxes do
+        local success, point = RayCast.simpleIntersectPolygon(ray, hitboxes[i].getPoints())
+        if success then
+            return true
+        end
+    end
+    return false
+end
+
+function hitbox.rayhitCount(x, y, dx, dy)
+    check(x, "number", 1)
+    check(y, "number", 2)
+    check(dx, "number", 3)
+    check(dy, "number", 4)
+
+    local count = 0
+    local ray = {{x, y}, {x + dx, y + dy}}
+    for i=1, #hitboxes do
+        count = count + RayCast.intersectPolygonCount(ray, hitboxes[i].getPoints())
+    end
+    return count
+end
+
 function hitbox.draw()
     for i=1, #hitboxes do
-        -- hitboxes[i].setRotation(hitboxes[i].getRotation() + 1)
-        local nx, ny = hitboxes[i].getPosition()
-        local w, h = hitboxes[i].getScale()
-        -- hitboxes[i].setPosition(nx + 1, ny)
-        hitboxes[i].setScale(w + 0.001, h + 0.001)
         hitboxes[i].draw()
     end
 end
