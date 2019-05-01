@@ -3,7 +3,7 @@
 -- =========================================
 
 Class "Hitbox" [{
-    function __Hitbox(type)
+    function __Hitbox(type, userdata)
         this.points = points or {}
         this.compute_points = {}
         this.angle = 0
@@ -19,10 +19,15 @@ Class "Hitbox" [{
         this.modify_mesh = true
         this.uuid = uuid.randomUUID()
         this.type = type or "hard"
+        this.userdata = userdata or {}
     end
 
     function getType()
         return this.type
+    end
+
+    function getUserdata()
+        return this.userdata
     end
 
     function setType(type)

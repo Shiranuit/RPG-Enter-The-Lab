@@ -293,11 +293,6 @@ player = new(EntityPlayer({
     speed = 5,
 }))
 
-world.spawnEntity(new(EntityScytheBoss(500, 510)))
-
-world.spawnEntity(player)
-world.spawnEntity(new(EntityItem(itemstack.create(items["core"], 2)))).setPosition(500, 500)
-
 -- Called at the beginning of the program
 function init()
     window = setmetatable({}, {
