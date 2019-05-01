@@ -3,7 +3,7 @@ Class "Entity" [{
         this.x = x
         this.y = y
         this.uuid = uuid.randomUUID()
-        this.hitbox = new(Hitbox())
+        this.hitbox = new(Hitbox("soft"))
     end
 
     function getPosition()
