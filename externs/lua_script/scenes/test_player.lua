@@ -48,6 +48,7 @@ function event(e)
         if hitbx and #hitbx.getPoints() > 0 then
             local pts = hitbx.getPoints()
             hitbx.setOrigin(hitbx.getMiddlePoint())
+            hitbx.setPosition(pts[1][1], pts[1][2])
             hitbox.add(hitbx)
             hitbx = new(Hitbox())
         end
