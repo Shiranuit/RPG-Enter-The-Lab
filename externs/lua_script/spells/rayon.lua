@@ -23,7 +23,7 @@ function cast(self)
         animationSpell["rayonIdleAnimation"].restart()
         is_idle = true
     end
-    local status, hor, ver = player.getStatus()
+    local status, hor, ver, idle = player.getStatus()
     local x_player, y_player = player.getPosition()
     local size = 250
     local big = 70
@@ -50,11 +50,13 @@ function cast(self)
 
 
     player.removeMana(getCost())
-    local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
-    for i = 1, #entities_in_spell do
-        if (class.isInstanceOf(entities_in_spell[i], "EntityLiving")) then
-            entities_in_spell[i].hit(2 * DeltaTime)
-            print("HEAL : "..entities_in_spell[i].getHealth())
+    if ((w ~= nil) and (h ~= nil) and (x_player ~= nil) and (y_player ~= nil)) then
+            local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
+        for i = 1, #entities_in_spell do
+            if (class.isInstanceOf(entities_in_spell[i], "EntityLiving")) then
+                entities_in_spell[i].hit(1 * DeltaTime)
+                print("HEAL : "..entities_in_spell[i].getHealth())
+            end
         end
     end
 end

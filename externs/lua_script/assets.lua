@@ -102,6 +102,20 @@ assets["scythe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/scythe/scy
 -- =======================
 
 assets["labo_pop"] = lsfml.texture.createFromFile("./assets/map/labo/pop.png", {0, 0, 1920, 1080})
+assets["labo_angle_gauche"] = lsfml.texture.createFromFile("./assets/map/labo/angle_gauche.png", {0, 0, 1920, 1080})
+assets["labo_intersection_bas"] = lsfml.texture.createFromFile("./assets/map/labo/intersection_bas.png", {0, 0, 1920, 1080})
+assets["labo_angle_haut_gauche"] = lsfml.texture.createFromFile("./assets/map/labo/angle_haut_gauche.png", {0, 0, 1920, 1080})
+assets["labo_angle_droit"] = lsfml.texture.createFromFile("./assets/map/labo/angle_droit.png", {0, 0, 1920, 1080})
+assets["labo_vertical"] = lsfml.texture.createFromFile("./assets/map/labo/vertical.png", {0, 0, 1920, 1080})
+assets["labo_angle_haut_droit"] = lsfml.texture.createFromFile("./assets/map/labo/angle_haut_droit.png", {0, 0, 1920, 1080})
+assets["labo_escalier"] = lsfml.texture.createFromFile("./assets/map/labo/escalier.png", {0, 0, 1920, 1080})
+assets["labo_horizontal"] = lsfml.texture.createFromFile("./assets/map/labo/horizontal.png", {0, 0, 1920, 1080})
+assets["labo_intersection_haut"] = lsfml.texture.createFromFile("./assets/map/labo/intersection_haut.png", {0, 0, 1920, 1080})
+
+assets["start_cave"] = lsfml.texture.createFromFile("./assets/map/cave/arriver.png", {0, 0, 1920, 1080})
+assets["left_start"] = lsfml.texture.createFromFile("./assets/map/cave/grotte_gauche.png", {0, 0, 1920, 1080})
+assets["right_start"] = lsfml.texture.createFromFile("./assets/map/cave/avant_boss.png", {0, 0, 1920, 1080})
+assets["boss"] = lsfml.texture.createFromFile("./assets/map/cave/boss.png", {0, 0, 1920, 1080})
 
 -- =======================
 -- =        FONTS        =
