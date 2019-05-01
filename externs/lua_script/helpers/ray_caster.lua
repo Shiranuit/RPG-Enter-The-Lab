@@ -1,131 +1,131 @@
-Class "Vector2D" [{
-    function __Vector2D(x, y)
-        this.x = x
-        this.y = y
-    end
+-- Class "Vector2D" [{
+--     function __Vector2D(x, y)
+--         this.x = x
+--         this.y = y
+--     end
 
-    function getX()
-        return this.x
-    end
+--     function getX()
+--         return this.x
+--     end
 
-    function getY()
-        return this.y
-    end
+--     function getY()
+--         return this.y
+--     end
 
-    function setX(x)
-        check(x, "number", 1)
+--     function setX(x)
+--         check(x, "number", 1)
 
-        this.x = x
-    end
+--         this.x = x
+--     end
 
-    function setY(y)
-        check(y, "number", 1)
+--     function setY(y)
+--         check(y, "number", 1)
 
-        this.y = y
-    end
+--         this.y = y
+--     end
 
-    function normalize()
-        local len = this.mag()
-        if len > 0 then
-            return new(Vector2D(this.x / len, this.y / len))
-        end
-    end
+--     function normalize()
+--         local len = this.mag()
+--         if len > 0 then
+--             return new(Vector2D(this.x / len, this.y / len))
+--         end
+--     end
 
-    function __unm()
-        return new(Vector2D(-this.x, -this.y))
-    end
+--     function __unm()
+--         return new(Vector2D(-this.x, -this.y))
+--     end
 
-    function __len(self)
-        return math.sqrt(this.x^2 + this.y^2)
-    end
+--     function __len(self)
+--         return math.sqrt(this.x^2 + this.y^2)
+--     end
 
-    function __eq(self, other)
-        if class.isInstanceOf(other, "Vector2D") then
-            return this.getX() == other.getX() and this.getY() == other.getY()
-        end
-        return false
-    end
+--     function __eq(self, other)
+--         if class.isInstanceOf(other, "Vector2D") then
+--             return this.getX() == other.getX() and this.getY() == other.getY()
+--         end
+--         return false
+--     end
 
-    function __tostring(self)
-        return "{"..this.getX()..", "..this.getY().."}"
-    end
+--     function __tostring(self)
+--         return "{"..this.getX()..", "..this.getY().."}"
+--     end
 
-    function __concat(self, other)
-        return tostring(self)..tostring(other)
-    end
+--     function __concat(self, other)
+--         return tostring(self)..tostring(other)
+--     end
 
-    function __index(self, key)
-        if key == 1 or key == "x" then
-            return this.getX()
-        elseif key == 2 or key == "y" then
-            return this.getY()
-        end
-    end
+--     function __index(self, key)
+--         if key == 1 or key == "x" then
+--             return this.getX()
+--         elseif key == 2 or key == "y" then
+--             return this.getY()
+--         end
+--     end
 
-    function __newindex(self, key, value)
-        if key == 1 or key == "x" then
-            this.setX(value)
-        elseif key == 2 or key == "y" then
-            this.setY(value)
-        else
-            rawset(self, key, value)
-        end
-    end
+--     function __newindex(self, key, value)
+--         if key == 1 or key == "x" then
+--             this.setX(value)
+--         elseif key == 2 or key == "y" then
+--             this.setY(value)
+--         else
+--             rawset(self, key, value)
+--         end
+--     end
 
-    function __add(self, other)
-        if class.isInstanceOf(other, "Vector2D") then
-            return new(Vector2D(this.x + other.getX(), this.y + other.getY()))
-        elseif type(other) == "number" then
-            return new(Vector2D(this.x + other, this.y + other))
-        end
-    end
+--     function __add(self, other)
+--         if class.isInstanceOf(other, "Vector2D") then
+--             return new(Vector2D(this.x + other.getX(), this.y + other.getY()))
+--         elseif type(other) == "number" then
+--             return new(Vector2D(this.x + other, this.y + other))
+--         end
+--     end
 
-    function __sub(self, other)
-        if class.isInstanceOf(other, "Vector2D") then
-            return new(Vector2D(this.x - other.getX(), this.y - other.getY()))
-        elseif type(other) == "number" then
-            return new(Vector2D(this.x - other, this.y - other))
-        end
-    end
+--     function __sub(self, other)
+--         if class.isInstanceOf(other, "Vector2D") then
+--             return new(Vector2D(this.x - other.getX(), this.y - other.getY()))
+--         elseif type(other) == "number" then
+--             return new(Vector2D(this.x - other, this.y - other))
+--         end
+--     end
 
-    function __mul(self, other)
-        if type(other) == "number" then
-            return new(Vector2D(this.x * other, this.y * other))
-        end
-    end
+--     function __mul(self, other)
+--         if type(other) == "number" then
+--             return new(Vector2D(this.x * other, this.y * other))
+--         end
+--     end
 
-    function dot(other)
-        if class.isInstanceOf(other, "Vector2D") then
-            return this.x * other.getX() + this.y * other.getY()
-        end
-    end
+--     function dot(other)
+--         if class.isInstanceOf(other, "Vector2D") then
+--             return this.x * other.getX() + this.y * other.getY()
+--         end
+--     end
 
-    function cross(other)
-        if class.isInstanceOf(other, "Vector2D") then
-            return this.x * other.gety() - this.y * other.getX()
-        end
-    end
+--     function cross(other)
+--         if class.isInstanceOf(other, "Vector2D") then
+--             return this.x * other.gety() - this.y * other.getX()
+--         end
+--     end
 
-    function add(value)
-        return this.__add(this, value)
-    end
+--     function add(value)
+--         return this.__add(this, value)
+--     end
 
-    function sub(value)
-        return this.__sub(this, value)
-    end
+--     function sub(value)
+--         return this.__sub(this, value)
+--     end
 
-    function mul(value)
-        return this.__mul(this, value)
-    end
+--     function mul(value)
+--         return this.__mul(this, value)
+--     end
 
-    function mag(value)
-        return this.__len(this)
-    end
+--     function mag(value)
+--         return this.__len(this)
+--     end
 
-    function perp()
-        return new(Vector2D(this.y, -this.x))
-    end
-}]
+--     function perp()
+--         return new(Vector2D(this.y, -this.x))
+--     end
+-- }]
 
 Class "Line" [{
     function __Line(_start, _End)

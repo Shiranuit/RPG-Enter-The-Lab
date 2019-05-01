@@ -26,8 +26,15 @@ assets["case_dial"] = lsfml.texture.createFromFile("./assets/hud/case_dial.png",
 
 
 -- =======================
+-- =    ENTITY TEXTURE   =
+-- =======================
+
+assets["slash"] = lsfml.texture.createFromFile("./assets/entity/slash.png", {0, 0, 67, 147})
+
+-- =======================
 -- =    SPELL TEXTURE    =
 -- =======================
+
 assets["douleurSpell"] = lsfml.texture.createFromFile("./assets/spell/chaine_de_douleur.png", {0, 0, 142, 142})
 assets["elecSpell"] = lsfml.texture.createFromFile("./assets/spell/elec.png", {0, 0, 142, 142})
 assets["healSpell"] = lsfml.texture.createFromFile("./assets/spell/heal.png", {0, 0, 142, 142})

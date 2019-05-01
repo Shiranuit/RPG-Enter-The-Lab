@@ -119,7 +119,7 @@ function world.getEntitiesRayhit(x, y, dx, dy)
     local ent = {}
     for i = 1, #entities do
         local nx, ny = entities[i].getPosition()
-        local boxes = entities.getHitboxs()
+        local boxes = entities[i].getHitboxs()
         for j=1, #boxes do
             local success = RayCast.simpleIntersectPolygon(ray, boxes[i].getPoints())
             if success then
@@ -131,14 +131,17 @@ function world.getEntitiesRayhit(x, y, dx, dy)
     return ent
 end
 
-function world.getEntitiesInHitbox(hitbx)
+function world.getEntitiesInHitbox(hitbx, _type)
+    _type = _type or "all"
     local ent = {}
     for i = 1, #entities do
-        local boxes = entities.getHitboxs()
+        local boxes = entities[i].getHitboxs()
         for j=1, #boxes do
-            if hitbox.SAT(hitbx, boxes[j]) then
-                ent[#ent + 1] = entities
-                break
+            if boxes[j].getType() == _type or _type == "all" then
+                if hitbox.SAT(hitbx, boxes[j]) then
+                    ent[#ent + 1] = entities[i]
+                    break
+                end
             end
         end
     end

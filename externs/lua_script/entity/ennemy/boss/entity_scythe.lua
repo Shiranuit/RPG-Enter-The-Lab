@@ -24,6 +24,10 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.sprite:setTexture(assets["scythe"], false)
         this.sprite:setOrigin(264, 565)
         this.sprite:scale(0.5, 0.5)
+        this.attack = "idle"
+        this.hit_entity = false
+        this.revert = false
+        this.dir = 0
         initHitboxes()
     end
 
@@ -70,23 +74,127 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         super.drawHitbox()
     end
 
-    function update()
-        super.update()
+    function slash()
+        if this.dir == 0 then
+            local nx, ny = player.getPosition()
+            local px, py = super.getPosition()
+            this.dir = nx - px > 0 and 1 or -1
+        end
+        if this.dir == -1 then
+            this.sprite:setScale(-0.5, 0.5)
+            super.setScale(-0.5, 0.5)
+        else
+            this.sprite:setScale(0.5, 0.5)
+            super.setScale(0.5, 0.5)
+        end
         local angle = super.getRotation()
-        super.setRotation(angle + 1)
-        this.sprite:setRotation(angle + 1)
+        if angle % 360 == 180 then
+            this.revert = true
+        elseif angle % 360 == 0 then
+            if this.revert == true then
+                this.attack = "idle"
+                super.setRotation(0)
+                this.sprite:setRotation(0)
+                this.revert = false
+                this.hit_entity = false
+                this.dir = 0
+                return
+            end
+        end
+        local step = this.dir == 1 and 10 or -10
+        if this.revert then
+            step = -step
+        end
+        super.setRotation(angle + step)
+        this.sprite:setRotation(angle + step)
         local hit = super.getHitboxs()
         for i=1, #hit do
             local success, dist, axis = hitbox.SAT(hit[i], player.getHitboxs()[1])
             if success then
                 local pos = axis * dist
                 player.move(pos.x, pos.y)
+                if not this.hit_entity then
+                    player.hit(20 * DeltaTime)
+                    this.hit_entity = true
+                end
+                return
+            end
+        end
+    end
+
+
+    function slash_entity()
+        if this.dir == 0 then
+            local nx, ny = player.getPosition()
+            local px, py = super.getPosition()
+            this.dir = nx - px > 0 and 1 or -1
+        end
+        if this.dir == -1 then
+            this.sprite:setScale(-0.5, 0.5)
+            super.setScale(-0.5, 0.5)
+        else
+            this.sprite:setScale(0.5, 0.5)
+            super.setScale(0.5, 0.5)
+        end
+        local angle = super.getRotation()
+        if angle % 360 == 180 then
+            this.revert = true
+        elseif angle % 360 == 0 then
+            if this.revert == true then
+                this.attack = "idle"
+                super.setRotation(0)
+                this.sprite:setRotation(0)
+                this.revert = false
+                this.hit_entity = false
+                this.dir = 0
+                return
+            end
+        elseif angle % 360 == 90 or angle % 360 == 270 then
+            if not this.revert then
+                local matrix = super.getHitboxs()[1].getTransform()
+                local px, py = matrix(392, 0)
+                local pos1 = vector.new(px, py)
+                local pos2 = vector.new(player.getPosition())
+                local dir = pos2 - pos1
+                world.spawnEntity(new(EntitySlash(px, py, dir, 20, 20)))
+            end
+        end
+        local step = this.dir == 1 and 10 or -10
+        if this.revert then
+            step = -step
+        end
+        super.setRotation(angle + step)
+        this.sprite:setRotation(angle + step)
+        local hit = super.getHitboxs()
+        for i=1, #hit do
+            local success, dist, axis = hitbox.SAT(hit[i], player.getHitboxs()[1])
+            if success then
+                local pos = axis * dist
+                player.move(pos.x, pos.y)
+                if not this.hit_entity then
+                    player.hit(20 * DeltaTime)
+                    this.hit_entity = true
+                end
+                return
+            end
+        end
+    end
+    function update()
+        super.update()
+        if super.isAlive() then
+            if this.attack == "slash" then
+                slash()
+            elseif this.attack == "slash_entity" then
+                slash_entity()
             end
         end
     end
 
     function event(e)
-
+        local event = e:getEvent()
+        if event[1] == "key_pressed" and event[2] == keys.L then
+            this.attack = "slash_entity"
+        end
     end
 
 }]

@@ -81,17 +81,35 @@ function hitbox.draw()
         hitboxes[i].draw()
     end
 end
+local c = false
+function hitbox.rectIntersect(a, b)
+    local l1 = {x=a[1], y=a[2]}
+    local r1 = {x=a[1] + a[3], y=a[2] + a[4]}
 
-local function project(hitbox, axis)
-    check(hitbox, "Hitbox", 1)
-    check(axis, "Vector2D", axis)
+    local l2 = {x=b[1], y=b[2]}
+    local r2 = {x=b[1] + b[3], y=b[2] + b[4]}
 
-    local vertices = hitbox.getPoints()
-    axis = axis.normalize()
-    local min = vertices[1].dot(axis)
+    if (l1.x > r2.x or l2.x > r1.x)  then
+        return false
+    end
+
+    if (l1.y > r2.y or l2.y > r1.y)  then
+        return false
+    end
+
+    return true
+end
+
+local function project(hitbx, axis)
+    check(hitbx, "Hitbox", 1)
+    check(axis, "Vector2D", 2)
+
+    local vertices = hitbx.getPoints()
+    axis = axis:normalize()
+    local min = vertices[1]:dot(axis)
     local max = min
     for i=1, #vertices do
-        local proj = vertices[i].dot(axis)
+        local proj = vertices[i]:dot(axis)
         if proj < min then min = proj end
         if proj > max then max = proj end
     end
@@ -124,42 +142,45 @@ local function getOverlapDepth(a_, b_)
 end
 
 function hitbox.SAT(a, b)
-    local poly_a = a.getPoints()
-    local poly_b = b.getPoints()
-    local mx = math.huge
-    local axe = new(Vector2D(0, 0))
-    for i=1, #poly_a do
-        local edge = poly_a[(i + 1 > #poly_a) and 1 or i + 1] - poly_a[i]
-        local axis = edge.perp()
-        local a__, b__ = project(a, axis), project(b, axis)
-        local success = overlap(a__, b__)
-        if not success then
-            return false
-        else
-            local distance = getOverlapDepth(a__, b__)
-            if distance < mx then
-                mx = distance
-                axe = axis
+    if hitbox.rectIntersect(a.getBoundingBox(), b.getBoundingBox()) then
+        local poly_a = a.getPoints()
+        local poly_b = b.getPoints()
+        local mx = math.huge
+        local axe = vector.new(0, 0)
+        for i=1, #poly_a do
+            local edge = poly_a[(i + 1 > #poly_a) and 1 or i + 1] - poly_a[i]
+            local axis = edge:perp()
+            local a__, b__ = project(a, axis), project(b, axis)
+            local success = overlap(a__, b__)
+            if not success then
+                return false
+            else
+                local distance = getOverlapDepth(a__, b__)
+                if distance < mx then
+                    mx = distance
+                    axe = axis
+                end
             end
         end
-    end
 
-    for i=1, #poly_b do
-        local edge = poly_b[(i + 1 > #poly_b) and 1 or i + 1] - poly_b[i]
-        local axis = edge.perp()
-        local a__, b__ = project(a, axis), project(b, axis)
-        local success = overlap(a__, b__)
-        if not success then
-            return false
-        else
-            local distance = getOverlapDepth(a__, b__)
-            if distance < mx then
-                mx = distance
-                axe = axis
+        for i=1, #poly_b do
+            local edge = poly_b[(i + 1 > #poly_b) and 1 or i + 1] - poly_b[i]
+            local axis = edge:perp()
+            local a__, b__ = project(a, axis), project(b, axis)
+            local success = overlap(a__, b__)
+            if not success then
+                return false
+            else
+                local distance = getOverlapDepth(a__, b__)
+                if distance < mx then
+                    mx = distance
+                    axe = axis
+                end
             end
         end
+        return true, mx, axe:normalize()
     end
-    return true, mx, axe.normalize()
+    return false
 end
 
 function hitbox.collide(hitbx, _type)
