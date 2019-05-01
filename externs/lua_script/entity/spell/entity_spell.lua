@@ -24,12 +24,21 @@ Class "EntitySpell" extends "Entity" [{
         this.sprite:setTextureRect(table.unpack(rect))
     end
 
+    function setTranslation(x, y)
+        this.pos_x_tp = x
+        this.pos_y_tp = y
+    end
+
+    function setOrigin(x, y)
+        this.sprite:setOrigin(x, y)
+    end
+
     function draw()
         if this.follow_player then
             local x, y = player.getPosition()
             this.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
         end
-        
+
         if this.clock:getEllapsedTime() > this.timeAnimation then
             if this.one_animation and this.sprite:hasEnded() then
                 world.removeEntityByUUID(super.getUUID())
