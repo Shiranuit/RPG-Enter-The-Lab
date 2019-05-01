@@ -3,7 +3,7 @@
 -- =========================================
 
 Class "Hitbox" [{
-    function __Hitbox(points)
+    function __Hitbox(type)
         this.points = points or {}
         this.compute_points = {}
         this.rotation = transform.rotate(0)
@@ -21,14 +21,24 @@ Class "Hitbox" [{
         varray:setPrimitiveType(primitiveType.LineStrip)
         this.modify = true
         this.modify_mesh = true
+        this.uuid = uuid.randomUUID()
+        this.type = type or "hard"
+    end
+
+    function getType()
+        return this.type
+    end
+
+    function setType(type)
+        this.type = type
     end
 
     function setPoints(points)
         check(points, "table", 1)
 
         local pts = {}
-        for i=1, #pts do
-            pts[i] = new(vector2D(points[i][1], points[i][2]))
+        for i=1, #points do
+            pts[i] = new(Vector2D(points[i][1], points[i][2]))
         end
         this.points = pts
         this.modify = true
@@ -77,6 +87,29 @@ Class "Hitbox" [{
         this.position = transform.trans(x, y)
         this.x = x
         this.y = y
+        this.modify = true
+        this.modify_mesh = true
+    end
+
+    function move(x, y)
+        this.position = transform.trans(this.x + x, this.y + y)
+        this.x = this.x + x
+        this.y = this.y + y
+        this.modify = true
+        this.modify_mesh = true
+    end
+
+    function rotate(angle)
+        this.rotation = transform.rotate(this.angle + angle)
+        this.angle = this.angle + angle
+        this.modify = true
+        this.modify_mesh = true
+    end
+
+    function scale(x, y)
+        this.scale = transform.scale(this.scale_x + x, this.scale_y + y)
+        this.scale_x = this.scale_x + x
+        this.scale_y = this.scale_y + y
         this.modify = true
         this.modify_mesh = true
     end
@@ -142,5 +175,13 @@ Class "Hitbox" [{
     function draw()
         recompute_mesh()
         window:draw(this.varray)
+    end
+
+    function getUUID()
+        return this.uuid
+    end
+
+    function __eq(self, other)
+        return class.isInstanceOf(other, "Hitbox") and this.getUUID() == other.getUUID()
     end
 }]

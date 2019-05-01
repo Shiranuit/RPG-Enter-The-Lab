@@ -106,7 +106,7 @@ function world.getEntitiesInRect(x, y, w, h)
     return ent
 end
 
-function world.rayhit(x, y, dx, dy)
+function world.getEntitiesRayhit(x, y, dx, dy)
     check(x, "number", 1)
     check(y, "number", 2)
     check(dx, "number", 3)
@@ -116,9 +116,19 @@ function world.rayhit(x, y, dx, dy)
     local ent = {}
     for i = 1, #entities do
         local nx, ny = entities[i].getPosition()
-        local success, point = RayCast.intersectPolygon(ray, entities[i].getHitbox().getPoints())
+        local success = RayCast.simpleIntersectPolygon(ray, entities[i].getHitbox().getPoints())
         if success then
             ent[#ent + 1] = entities[i]
+        end
+    end
+    return ent
+end
+
+function world.getEntitiesInHitbox(hitbx)
+    local ent = {}
+    for i = 1, #entities do
+        if hitbox.SAT(hitbx, entities.getHitbox()) then
+            ent[#ent + 1] = entities
         end
     end
     return ent
