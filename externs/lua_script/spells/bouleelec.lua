@@ -43,22 +43,22 @@ function cast(self)
     local status, hor, ver , idle = player.getStatus()
 
     if (hor == "left") then
-        animationSpell["bouleelecSpell"].setPosition(x_player, y_player)
+        animationSpell["bouleelecSpell"].setPosition(x_player, y_player + 60)
         animationSpell["bouleelecSpell"].moving(-15, 0)
         siz_up_left = y_player - big
         siz_down_right = y_player + big
     elseif (hor == "right") then
-        animationSpell["bouleelecSpell"].setPosition(x_player, y_player)
+        animationSpell["bouleelecSpell"].setPosition(x_player, y_player + 60)
         animationSpell["bouleelecSpell"].moving(15, 0)
         siz_up_left = y_player - big
         siz_down_right = y_player + big
     elseif (ver == "up" or (status == "idle" and idle == "up")) then
-        animationSpell["bouleelecSpell"].setPosition(x_player, y_player)
+        animationSpell["bouleelecSpell"].setPosition(x_player, y_player + 60)
         animationSpell["bouleelecSpell"].moving(0, -15)
         siz_up_left = x_player - big
         siz_down_right = x_player + big
     elseif (ver == "down" or (status == "idle" and idle == "down")) then
-        animationSpell["bouleelecSpell"].setPosition(x_player, y_player)
+        animationSpell["bouleelecSpell"].setPosition(x_player, y_player + 60)
         animationSpell["bouleelecSpell"].moving(0, 15)
         siz_up_left = x_player - big
         siz_down_right = x_player + big
