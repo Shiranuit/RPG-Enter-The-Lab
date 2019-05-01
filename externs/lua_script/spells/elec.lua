@@ -34,7 +34,7 @@ function cast(self)
     local x_player, y_player = player.getPosition()
     local size = 200
     local big = 80
-    local w, h = 0
+    local w, h = 0, 0
 
     if (hor == "left") then
         w = -size * 1.5
