@@ -36,7 +36,6 @@ function isNotValid()
 end
 
 function cast(self)
-    status, hor, ver = player.getStatus()
     player.activateSpell()
     world.spawnEntity(animationSpell["elecSpell"])
     animationSpell["elecSpell"].restart()
@@ -46,30 +45,28 @@ function cast(self)
     local size = 100
     local big = 30
     local siz_up_left, siz_down_right = 0
+    local status, hor, ver , idle = player.getStatus()
 
-    if (hor == "right") then
-        x_touch = x_player + size
-        siz_up_left = y_player - big
-        siz_down_right = y_player + big
-        animationSpell["elecSpell"].setRotation(-90)
-    end
     if (hor == "left") then
         x_touch = x_player - size
         siz_up_left = y_player - big
         siz_down_right = y_player + big
         animationSpell["elecSpell"].setRotation(90)
-    end
-    if (ver == "down") then
-        y_touch = y_player + size
-        siz_up_left = x_player - big
-        siz_down_right = x_player + big
-        animationSpell["elecSpell"].setRotation(0)
-    end
-    if (ver == "up") then
+    elseif (hor == "right") then
+        x_touch = x_player + size
+        siz_up_left = y_player - big
+        siz_down_right = y_player + big
+        animationSpell["elecSpell"].setRotation(-90)
+    elseif (ver == "up" or (status == "idle" and idle == "up")) then
         y_touch = y_player - size
         siz_up_left = x_player - big
         siz_down_right = x_player + big
         animationSpell["elecSpell"].setRotation(-180)
+    elseif (ver == "down" or (status == "idle" and idle == "down")) then
+        y_touch = y_player + size
+        siz_up_left = x_player - big
+        siz_down_right = x_player + big
+        animationSpell["elecSpell"].setRotation(0)
     end
     print("BOUT X = ")
     print(x_touch)
