@@ -40,7 +40,6 @@ function isNotValid()
 end
 
 function cast(self)
-    status, hor, ver = player.getStatus()
     -- player.activateSpell()
     world.spawnEntity(animationSpell["bouleelecSpell"])
     animationSpell["bouleelecSpell"].restart()
@@ -50,21 +49,25 @@ function cast(self)
     local x_boule, y_boule = x_player, y_player
     local big = 30
     local siz_up_left, siz_down_right = 0
+<<<<<<< HEAD
 
     if (hor == "right") then
         animationSpell["bouleelecSpell"].setPosition(x, y)
-        siz_up_left = y_player - big
-        siz_down_right = y_player + big
-    end
+=======
+    local status, hor, ver , idle = player.getStatus()
+    
     if (hor == "left") then
+>>>>>>> cyril
         siz_up_left = y_player - big
         siz_down_right = y_player + big
-    end
-    if (ver == "down") then
+    elseif (hor == "right") then
+        animationSpell["bouleelecSpell"].setPosition(x + 50, y)
+        siz_up_left = y_player - big
+        siz_down_right = y_player + big
+    elseif (ver == "up" or (status == "idle" and idle == "up")) then
         siz_up_left = x_player - big
         siz_down_right = x_player + big
-    end
-    if (ver == "up") then
+    elseif (ver == "down" or (status == "idle" and idle == "down")) then
         siz_up_left = x_player - big
         siz_down_right = x_player + big
     end
