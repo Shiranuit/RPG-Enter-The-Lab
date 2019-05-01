@@ -3,11 +3,11 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 5
+    return 0
 end
 
 function getCost()
-    return 10
+    return 0
 end
 
 function cooldownStartAtEnd()

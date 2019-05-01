@@ -1,0 +1,45 @@
+Class "EntityScytheBoss" extends "EntityLiving" [{
+    function __EntityScytheBoss(x, y)
+        super(x, y)
+        super.setMaximumHealth(1000)
+        super.setHealth(1000)
+        this.sprite = lsfml.sprite.create()
+        this.sprite:setPosition(x, y)
+        this.sprite:setTexture(assets["scythe"], false)
+        this.sprite:setOrigin(264, 565)
+        this.sprite:scale(0.5, 0.5)
+    end
+
+    function hit(damage)
+        if super.isAlive() then
+            super.hit(damage)
+            if super.isDead() then
+                local equipmentItems = {}
+                for k, v in pairs(items) do
+                    if v:getUserdate().type == "equipment" then
+                        equipmentItems[#equipmentItems + 1] = v
+                    end
+                end
+                for i=1, math.random(1, 4) do
+                    local item = equipmentItems[math.random(1, #equipmentItems)]
+                    item:getUserdata().defense = math.random(1, 20)
+                    item:getUserdata().rarity = rarity[math.floor(item:getUserdata().defense / 5)]
+                    world.spawnEntity(new(EntityItem(itemstack.create(item, 1))))
+                end
+            end
+        end
+    end
+
+    function draw()
+        window:draw(this.sprite)
+    end
+
+    function update()
+
+    end
+
+    function event(e)
+
+    end
+
+}]

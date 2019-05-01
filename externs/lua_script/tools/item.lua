@@ -4,6 +4,7 @@
 
 item = {}
 items = {}
+rarity = {"Common", "Uncommon", "Rare", "Epic"}
 
 function item.create(name, texture, max_stack, userdata)
     check(name, "string", 1)
