@@ -20,6 +20,10 @@ Class "Hitbox" [{
         this.uuid = uuid.randomUUID()
         this.type = type or "hard"
         this.userdata = userdata or {}
+        this.bx = math.huge
+        this.by = math.huge
+        this.bw = -math.huge
+        this.bh = -math.huge
     end
 
     function getType()
@@ -37,33 +41,58 @@ Class "Hitbox" [{
     function setPoints(points)
         check(points, "table", 1)
 
+        this.bx = math.huge
+        this.by = math.huge
+        this.bw = -math.huge
+        this.bh = -math.huge
         local pts = {}
         for i=1, #points do
-            pts[i] = new(Vector2D(points[i][1], points[i][2]))
+            this.bx = math.min(points[i][1], this.bx)
+            this.by = math.min(points[i][2], this.by)
+            this.bw = math.max(points[i][1], this.bw)
+            this.bh = math.max(points[i][2], this.bh)
+            pts[i] = vector.new(points[i][1], points[i][2])
         end
         this.points = pts
         this.modify = true
         this.modify_mesh = true
     end
 
+    function getBoundingBox()
+        return {this.bx, this.by, this.bw - this.bx, this.bh - this.by}
+    end
+
+    function getTransform()
+        local angle  = -this.angle * math.pi / 180.0
+        local cosine = math.cos(angle)
+        local sine = math.sin(angle)
+        local sxc = this.scale_x * cosine
+        local syc = this.scale_y * cosine
+        local sxs = this.scale_x * sine
+        local sys = this.scale_y * sine
+        local tx = -this.offset_x * sxc - this.offset_y * sys + this.x
+        local ty = this.offset_x * sxs - this.offset_y * syc + this.y;
+        local matrix = transform.make({{sxc, sys, tx},
+                                       {-sxs, syc, ty},
+                                       {0.0, 0.0, 1.0}})
+        return matrix
+    end
+
     function recompute()
         if this.modify then
+            this.bx = math.huge
+            this.by = math.huge
+            this.bw = -math.huge
+            this.bh = -math.huge
             this.compute_points = nil
             this.compute_points = {}
-            local angle  = -this.angle * math.pi / 180.0
-            local cosine = math.cos(angle)
-            local sine = math.sin(angle)
-            local sxc = this.scale_x * cosine
-            local syc = this.scale_y * cosine
-            local sxs = this.scale_x * sine
-            local sys = this.scale_y * sine
-            local tx = -this.offset_x * sxc - this.offset_y * sys + this.x;
-            local ty = this.offset_x * sxs - this.offset_y * syc + this.y;
-            local matrix = transform.make({{sxc, sys, tx},
-                                           {-sxs, syc, ty},
-                                           {0.0, 0.0, 1.0}});
+            local matrix = this.getTransform()
             for i=1, #this.points do
-                this.compute_points[i] = new(Vector2D(matrix(this.points[i][1], this.points[i][2])))
+                this.compute_points[i] = vector.new(matrix(this.points[i][1], this.points[i][2]))
+                this.bx = math.min(this.compute_points[i][1], this.bx)
+                this.by = math.min(this.compute_points[i][2], this.by)
+                this.bw = math.max(this.compute_points[i][1], this.bw)
+                this.bh = math.max(this.compute_points[i][2], this.bh)
             end
             this.modify = false
         end
@@ -73,16 +102,26 @@ Class "Hitbox" [{
         recompute()
         if this.modify_mesh and #this.compute_points > 0 then
             varray:clear()
-            for i=1, #this.compute_points do
-                varray:append({x=this.compute_points[i][1], y=this.compute_points[i][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
-            end
-            varray:append({x=this.compute_points[1][1], y=this.compute_points[1][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            -- for i=1, #this.compute_points do
+            --     varray:append({x=this.compute_points[i][1], y=this.compute_points[i][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            -- end
+            -- varray:append({x=this.compute_points[1][1], y=this.compute_points[1][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            local pos = this.getBoundingBox()
+            varray:append({x=pos[1], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            varray:append({x=pos[1] + pos[3], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            varray:append({x=pos[1] + pos[3], y=pos[2] + pos[4], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            varray:append({x=pos[1], y=pos[2] + pos[4], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            varray:append({x=pos[1], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
             this.modify_mesh = false
         end
     end
 
     function addPoint(x, y)
-        this.points[#this.points + 1] = new(Vector2D(x, y))
+        this.bx = math.min(x, this.bx)
+        this.by = math.min(y, this.by)
+        this.bw = math.max(x, this.bh)
+        this.bh = math.max(y, this.bw)
+        this.points[#this.points + 1] = vector.new(x, y)
         this.modify = true
         this.modify_mesh = true
     end
@@ -138,6 +177,10 @@ Class "Hitbox" [{
         this.points = {}
         this.modify = true
         this.modify_mesh = true
+        this.bx = math.huge
+        this.by = math.huge
+        this.bw = -math.huge
+        this.bh = -math.huge
     end
 
     function getOrigin()

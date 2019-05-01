@@ -35,7 +35,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.status_horizontal = "none"
         this.inventory = hud.createFromFile("hud/inventory_hud.lua")
         this.is_sprinting = false
-        local box = new(Hitbox("soft"))
+        local box = new(Hitbox("player"))
         box.setPoints({{0, 0}, {220, 0}, {220, 500}, {0, 500}})
         box.setOrigin(220 / 2, 500)
         box.setScale(0.25, 0.25)

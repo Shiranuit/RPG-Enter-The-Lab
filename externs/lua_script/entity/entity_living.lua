@@ -30,8 +30,8 @@ Class "EntityLiving" extends "Entity" [{
             super.move(x, y)
             return true, x, y
         end
-        local dir = new(Vector2D(x, y))
-        dir = dir.normalize()
+        local dir = vector.new(x, y)
+        dir = dir:normalize()
         local px, py = (point1[1] - dir.x) - nx, (point1[2] - dir.y) - ny
         super.move(px, py)
         return true, px, py

@@ -3,20 +3,24 @@
 -- =========================================
 
 local olsfml = lsfml
-local otype = type
+local otype = _G.type
 function _G.type(var)
     local meta = getmetatable(var)
     if meta then
-        if meta["__type"] then
-            return meta["__type"]
+        if rawget(meta, "__type") then
+            return rawget(meta, "__type")
         end
     end
     return otype(var)
 end
 
 function check(var, Type, index)
-    if type(var) ~= Type then
-        error("Argument #"..index.." Expected "..Type..", Got "..type(var), 3)
+    if var ~= nil and Type ~= nil and index ~= nil then
+        if type(var) ~= Type then
+            error("Argument #"..index.." Expected "..Type..", Got "..type(var), 3)
+        end
+    else
+        error("Missing Parameter for check(var, Type, index)", 1)
     end
 end
 
