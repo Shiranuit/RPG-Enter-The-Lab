@@ -49,15 +49,9 @@ function cast(self)
     local x_boule, y_boule = x_player, y_player
     local big = 30
     local siz_up_left, siz_down_right = 0
-<<<<<<< HEAD
-
-    if (hor == "right") then
-        animationSpell["bouleelecSpell"].setPosition(x, y)
-=======
     local status, hor, ver , idle = player.getStatus()
     
     if (hor == "left") then
->>>>>>> cyril
         siz_up_left = y_player - big
         siz_down_right = y_player + big
     elseif (hor == "right") then
