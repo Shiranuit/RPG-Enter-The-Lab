@@ -117,6 +117,10 @@ Class "Vector2D" [{
     function mag(value)
         return this.__len(this)
     end
+
+    function perp()
+        return new(Vector2D(this.y, -this.x))
+    end
 }]
 
 Class "Line" [{

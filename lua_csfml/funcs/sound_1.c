@@ -86,7 +86,8 @@ int sound_get_buffer(lua_State *L)
     }
     if (lua_isuserdata(L, 1)) {
         sound = userdata_pointer(L, 1, sfSound);
-        new = (const sfSoundBuffer **)lua_newuserdata(L, sizeof(sfSoundBuffer *));
+        new = (const sfSoundBuffer **)
+        lua_newuserdata(L, sizeof(sfSoundBuffer *));
         *new = sfSound_getBuffer(sound);
     } else {
         luaL_error(L, "Expected (Sound)");

@@ -10,6 +10,7 @@
 #include "../externs/lua/src/lauxlib.h"
 #include "../externs/lua/src/lualib.h"
 #include "engine.h"
+#include <unistd.h>
 #include <SFML/Graphics.h>
 #include <SFML/Window.h>
 #include <SFML/Audio.h>
@@ -32,10 +33,15 @@ void delete_lua(lua_State *L)
 
 void run_file(lua_State *L, char const *filename)
 {
+    int len = -1;
     char const *error = 0;
+
     if (luaL_dofile(L, filename) != LUA_OK) {
         error = lua_tostring(L, -1);
-        printf("[ERROR] %s\n", error);
+        while (error[++len]);
+        write(1, "[ERROR] ", 9);
+        write(1,  error, len);
+        write(1, "\n", 1);
     }
 }
 
@@ -48,8 +54,10 @@ int main(void)
 {
     int code = 0;
     lua_State *L = init_lua();
-    sfRenderWindow *window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32}, "Lua", sfClose, 0);
-    sfRenderWindow **win = (sfRenderWindow **)lua_newuserdata(L, sizeof(sfRenderWindow *));
+    sfRenderWindow *window = sfRenderWindow_create(
+    (sfVideoMode){1920, 1080, 32}, "Lua", sfClose, 0);
+    sfRenderWindow **win = (sfRenderWindow **)
+    lua_newuserdata(L, sizeof(sfRenderWindow *));
 
     sfRenderWindow_setKeyRepeatEnabled(window, sfFalse);
     *win = window;

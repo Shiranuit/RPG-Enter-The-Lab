@@ -24,7 +24,13 @@ Class "Hitbox" [{
     end
 
     function setPoints(points)
-        this.points = points
+        check(points, "table", 1)
+
+        local pts = {}
+        for i=1, #pts do
+            pts[i] = new(vector2D(points[i][1], points[i][2]))
+        end
+        this.points = pts
         this.modify = true
         this.modify_mesh = true
     end
@@ -36,7 +42,7 @@ Class "Hitbox" [{
             local matrix = transform.trans(this.offset_x, this.offset_y) * this.position * this.rotation * this.scale *
                            transform.trans(-this.offset_x, -this.offset_y)
             for i=1, #this.points do
-                this.compute_points[i] = {matrix(this.points[i][1], this.points[i][2])}
+                this.compute_points[i] = new(Vector2D(matrix(this.points[i][1], this.points[i][2])))
             end
             this.modify = false
         end
@@ -44,7 +50,7 @@ Class "Hitbox" [{
 
     function recompute_mesh()
         recompute()
-        if this.modify_mesh then
+        if this.modify_mesh and #this.compute_points > 0 then
             varray:clear()
             for i=1, #this.compute_points do
                 varray:append({x=this.compute_points[i][1], y=this.compute_points[i][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
@@ -55,7 +61,7 @@ Class "Hitbox" [{
     end
 
     function addPoint(x, y)
-        this.points[#this.points + 1] = {x, y}
+        this.points[#this.points + 1] = new(Vector2D(x, y))
         this.modify = true
         this.modify_mesh = true
     end
