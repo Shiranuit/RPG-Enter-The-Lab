@@ -38,7 +38,7 @@ Class "EntitySpell" extends "Entity" [{
             local x, y = player.getPosition()
             this.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
         end
-        
+
         if this.clock:getEllapsedTime() > this.timeAnimation then
             if this.one_animation and this.sprite:hasEnded() then
                 world.removeEntityByUUID(super.getUUID())
