@@ -41,7 +41,7 @@ end
 
 function cast(self)
     status, hor, ver = player.getStatus()
-    player.activateSpell()
+    -- player.activateSpell()
     world.spawnEntity(animationSpell["bouleelecSpell"])
     animationSpell["bouleelecSpell"].restart()
     player.removeMana(getCost())

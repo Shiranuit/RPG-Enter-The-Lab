@@ -17,7 +17,11 @@ Class "EntitySpell" extends "Entity" [{
         this.pos_y_tp = info.pos_y_tp or 0
         this.clock = lsfml.clock.create()
         this.follow_player = info.follow_player or false
-        this.one_animation = info.one_animation or true
+        this.one_animation = info.one_animation or false
+    end
+
+    function setTextureRect(rect)
+        this.sprite:setTextureRect(table.unpack(rect))
     end
 
     function draw()
@@ -25,6 +29,7 @@ Class "EntitySpell" extends "Entity" [{
             local x, y = player.getPosition()
             this.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
         end
+        
         if this.clock:getEllapsedTime() > this.timeAnimation then
             if this.one_animation and this.sprite:hasEnded() then
                 world.removeEntityByUUID(super.getUUID())
