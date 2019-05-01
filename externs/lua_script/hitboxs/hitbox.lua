@@ -6,10 +6,6 @@ Class "Hitbox" [{
     function __Hitbox(type)
         this.points = points or {}
         this.compute_points = {}
-        this.rotation = transform.rotate(0)
-        this.position = transform.trans(0, 0)
-        this.scale = transform.scale(1, 1)
-        this.offset = transform.trans(0, 0)
         this.angle = 0
         this.x = 0
         this.y = 0
@@ -49,8 +45,18 @@ Class "Hitbox" [{
         if this.modify then
             this.compute_points = nil
             this.compute_points = {}
-            local matrix = transform.trans(this.offset_x, this.offset_y) * this.position * this.rotation * this.scale *
-                           transform.trans(-this.offset_x, -this.offset_y)
+            local angle  = -this.angle * math.pi / 180.0
+            local cosine = math.cos(angle)
+            local sine = math.sin(angle)
+            local sxc = this.scale_x * cosine
+            local syc = this.scale_y * cosine
+            local sxs = this.scale_x * sine
+            local sys = this.scale_y * sine
+            local tx = -this.offset_x * sxc - this.offset_y * sys + this.x;
+            local ty = this.offset_x * sxs - this.offset_y * syc + this.y;
+            local matrix = transform.make({{sxc, sys, tx},
+                                           {-sxs, syc, ty},
+                                           {0.0, 0.0, 1.0}});
             for i=1, #this.points do
                 this.compute_points[i] = new(Vector2D(matrix(this.points[i][1], this.points[i][2])))
             end
@@ -77,14 +83,12 @@ Class "Hitbox" [{
     end
 
     function setRotation(angle)
-        this.rotation = transform.rotate(math.rad(angle))
         this.angle = angle
         this.modify = true
         this.modify_mesh = true
     end
 
     function setPosition(x, y)
-        this.position = transform.trans(x, y)
         this.x = x
         this.y = y
         this.modify = true
@@ -92,7 +96,6 @@ Class "Hitbox" [{
     end
 
     function move(x, y)
-        this.position = transform.trans(this.x + x, this.y + y)
         this.x = this.x + x
         this.y = this.y + y
         this.modify = true
@@ -100,14 +103,12 @@ Class "Hitbox" [{
     end
 
     function rotate(angle)
-        this.rotation = transform.rotate(this.angle + angle)
         this.angle = this.angle + angle
         this.modify = true
         this.modify_mesh = true
     end
 
     function scale(x, y)
-        this.scale = transform.scale(this.scale_x + x, this.scale_y + y)
         this.scale_x = this.scale_x + x
         this.scale_y = this.scale_y + y
         this.modify = true
@@ -115,7 +116,6 @@ Class "Hitbox" [{
     end
 
     function setScale(x, y)
-        this.scale = transform.scale(x, y)
         this.scale_x = x
         this.scale_y = y
         this.modify = true
@@ -123,7 +123,6 @@ Class "Hitbox" [{
     end
 
     function setOrigin(x, y)
-        this.offset = transform.trans(-x, -y)
         this.offset_x = x
         this.offset_y = y
         this.modify = true

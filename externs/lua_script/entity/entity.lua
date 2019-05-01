@@ -4,6 +4,7 @@ Class "Entity" [{
         this.y = y
         this.uuid = uuid.randomUUID()
         this.hitbox = new(Hitbox("soft"))
+        this.hitbox.setPosition(x, y)
     end
 
     function getPosition()

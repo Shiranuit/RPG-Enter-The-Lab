@@ -99,4 +99,9 @@ affine.cart = function (r,theta)
 	return r*math.cos(theta),r*math.sin(theta)
 end
 
+function affine.make(matrix)
+    local t = setmetatable(matrix, mt)
+    return t
+end
+
 return affine

@@ -3,13 +3,17 @@
 -- =========================================
 
 local background = lsfml.sprite.create()
-background:setTexture(assets["labo_pop"], false)
+background:setTexture(assets["start_cave"], false)
 
 function load(scene)
-    if (scene ~= nil) and (scene == "scene2_angle_g") then
-        player.setPosition(1050, 210)
-    else
-        player.setPosition(1045, 616)
+    if (scene == "scene14_escalier") then
+        player.setPosition(1030, 200)
+    end
+    if (scene == "scene16_left_start") then
+        player.setPosition(30, 630)
+    end
+    if (scene == "scene17_right_start") then
+        player.setPosition(1900, 630)
     end
     assets["ambiance_music"]:setLoop(true)
     assets["ambiance_music"]:setVolume(30)
@@ -26,8 +30,14 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 930 and x < 1100 and y < 200 then
-        setScene("scene2_angle_g")
+    if x < 0 and y > 600 and y < 800 then
+        setScene("scene16_left_start")
+    end
+    if x > 950 and x < 1100 and y < 200 then
+        setScene("scene14_escalier")
+    end
+    if x > 1910 and y > 600 and y < 660 then
+        setScene("scene17_right_start")
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime)
@@ -56,7 +66,6 @@ function event(e)
         if hitbx and #hitbx.getPoints() > 0 then
             local pts = hitbx.getPoints()
             hitbx.setOrigin(hitbx.getMiddlePoint())
-            hitbx.setPosition(pts[1][1], pts[1][2])
             hitbox.add(hitbx)
             hitbx = new(Hitbox())
         end

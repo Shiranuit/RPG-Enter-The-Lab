@@ -53,10 +53,10 @@ function setScene(name)
     if scenes[scene_name] and scenes[scene_name].unload then
         scenes[scene_name].unload()
     end
-    scene_name = name
     if scenes[name] and scenes[name].load then
-        scenes[name].load()
+        scenes[name].load(scene_name)
     end
+    scene_name = name
 end
 
 function getScene()
@@ -128,38 +128,32 @@ animationSpell = {
     rayonSpell = new(EntitySpell({
         spell = assets["rayonAnimation"],
         rect = {0, 0, 19, 114},
-        ox = 9.5,
-        oy = -10,
+        ox = 0,
+        oy = 0,
         follow_player = true,
         one_animation = false,
         scale = 3,
         time = 10000,
-        pos_x_tp = 0,
-        pos_y_tp = -60,
     })),
     rayonIdleAnimation = new(EntitySpell({
         spell = assets["rayonIdleAnimation"],
         rect = {0, 114, 19, 114},
-        ox = 9.5,
-        oy = -10,
+        ox = 0,
+        oy = 0,
         follow_player = true,
         one_animation = false,
         scale = 3,
         time = 10000,
-        pos_x_tp = 0,
-        pos_y_tp = -60,
     })),
     rayonEndAnimation = new(EntitySpell({
         spell = assets["rayonEndAnimation"],
         rect = {0, 228, 19, 114},
-        ox = 9.5,
-        oy = -10,
+        ox = 0,
+        oy = 0,
         follow_player = true,
         one_animation = true,
         scale = 3,
         time = 10000,
-        pos_x_tp = 0,
-        pos_y_tp = -60,
     })),
     shieldSpell = new(EntitySpell({
         spell = assets["shieldAnimation"],
@@ -210,11 +204,11 @@ animationSpell = {
     bouleelecSpell = new(EntitySpell({
         spell = assets["bouleelecAnimation"],
         rect = {0, 0, 71, 281},
-        ox = 0,
-        oy = 0,
+        ox = 35.5,
+        oy = 140.5,
         time = 80000,
-        pos_y = 600,
-        pos_x = 600,
+        pos_y = 0,
+        pos_x = 0,
         scale = 1,
         follow_player = false,
         one_animation = false,
@@ -224,7 +218,7 @@ animationSpell = {
     tempSpell = new(EntitySpell({
         spell = assets["tempAnimation"],
         rect = {0, 0, 573, 573},
-        time = 100000,
+        time = 400000,
         pos_y = 100,
         pos_x = 600,
         scale = 1.5,
@@ -269,6 +263,24 @@ menu_spell = hud.createFromFile("hud/spell_menu.lua", nil, true)
 loadScene("menu/main_menu.lua")
 loadScene("menu/options_menu.lua")
 loadScene("scenes/test_player.lua")
+loadScene("scenes/scene2_angle_g.lua")
+loadScene("scenes/scene3_intersection_bas.lua")
+loadScene("scenes/scene4_angle_haut_gauche.lua")
+loadScene("scenes/scene5_intersection_bas.lua")
+loadScene("scenes/scene6_salle.lua")
+loadScene("scenes/scene7_angle_droit.lua")
+loadScene("scenes/scene8_salle.lua")
+loadScene("scenes/scene9_horizontal.lua")
+loadScene("scenes/scene10_intersection_haut.lua")
+loadScene("scenes/scene11_angle_droit.lua")
+loadScene("scenes/scene12_salle.lua")
+loadScene("scenes/scene13_vertical.lua")
+loadScene("scenes/scene14_escalier.lua")
+
+loadScene("scenes/scene15_start.lua")
+loadScene("scenes/scene16_left_start.lua")
+loadScene("scenes/scene17_right_start.lua")
+loadScene("scenes/scene18_boss.lua")
 
 -- =========================================
 -- =           MYRPG GAME-LOGIC            =
