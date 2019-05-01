@@ -15,6 +15,10 @@ function world.spawnEntity(entity)
     end
 end
 
+function world.setEntities(ent)
+    entities = ent
+end
+
 function world.eventDisable()
     shouldGetEvent = false
 end
