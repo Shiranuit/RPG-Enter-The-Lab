@@ -18,6 +18,8 @@ Class "EntitySpell" extends "Entity" [{
         this.clock = lsfml.clock.create()
         this.follow_player = info.follow_player or false
         this.one_animation = info.one_animation or false
+        this.moving_x = 0
+        this.moving_y = 0
     end
 
     function setTextureRect(rect)
@@ -33,10 +35,17 @@ Class "EntitySpell" extends "Entity" [{
         this.sprite:setOrigin(x, y)
     end
 
+    function moving(x, y)
+        this.moving_x = x
+        this.moving_y = y
+    end
+
     function draw()
         if this.follow_player then
             local x, y = player.getPosition()
             this.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
+        else
+            this.move(this.moving_x, this.moving_y)
         end
 
         if this.clock:getEllapsedTime() > this.timeAnimation then
@@ -52,6 +61,11 @@ Class "EntitySpell" extends "Entity" [{
             this.sprite:next()
         end
         this.sprite:draw()
+    end
+
+    function move(x, y)
+        super.move(x, y)
+        this.sprite:move(x, y)
     end
 
     function setPosition(x, y)

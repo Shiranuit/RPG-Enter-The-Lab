@@ -26,17 +26,7 @@ function disable(self)
 
 end
 
-function isNotValid()
-    status, hor, ver = player.getStatus()
-    if (status == "idle") then
-        assets["deny"]:play()
-        return true
-    end
-    return false
-end
-
 function cast(self)
-    player.activateSpell()
     world.spawnEntity(animationSpell["elecSpell"])
     animationSpell["elecSpell"].restart()
     player.removeMana(getCost())
@@ -68,12 +58,5 @@ function cast(self)
         siz_down_right = x_player + big
         animationSpell["elecSpell"].setRotation(0)
     end
-    print("BOUT X = ")
-    print(x_touch)
-    print(" BOUT Y = ")
-    print(y_touch)
-    print(" SIZ UP LEFT = " )
-    print(siz_up_left)
-    print(" SIZ DOWN RITGH = ")
-    print(siz_down_right)
+    player.activateSpell()
 end

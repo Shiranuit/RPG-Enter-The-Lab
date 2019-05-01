@@ -26,17 +26,7 @@ function disable(self)
 
 end
 
-function isNotValid()
-    status, hor, ver = player.getStatus()
-    if (status == "idle") then
-        assets["deny"]:play()
-        return true
-    end
-    return false
-end
-
 function cast(self)
-    player.activateSpell()
     world.spawnEntity(animationSpell["picSpell"])
     animationSpell["picSpell"].restart()
     player.removeMana(getCost())
@@ -46,7 +36,7 @@ function cast(self)
     local big = 30
     local siz_up_left, siz_down_right = 0
     local status, hor, ver , idle = player.getStatus()
-
+    
     if (hor == "left") then
         x_touch = x_player - size
         siz_up_left = y_player - big
@@ -68,4 +58,5 @@ function cast(self)
         siz_down_right = x_player + big
         animationSpell["picSpell"].setRotation(-90)
     end
+    player.activateSpell()
 end
