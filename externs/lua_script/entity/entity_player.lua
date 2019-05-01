@@ -255,6 +255,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
         end
         if this.status == "spell" then
             return
+        elseif this.max_mana > this.mana then
+            this.mana = this.mana + 0.1 * DeltaTime
         end
         if keyboard.keyPressed(controls.getControl("move_up")) and this.getHealth() > 0 then
             if (this.status ~= "up" and this.status ~= "left" and this.status ~= "right" and this.status ~= "run_right" and this.status ~= "run_left") then

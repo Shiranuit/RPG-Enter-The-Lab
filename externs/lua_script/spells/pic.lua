@@ -7,7 +7,7 @@ function getMaxCooldown(self)
 end
 
 function getCost()
-    return 0
+    return 1
 end
 
 function cooldownStartAtEnd()
@@ -36,7 +36,7 @@ function cast(self)
     local big = 30
     local siz_up_left, siz_down_right = 0
     local status, hor, ver , idle = player.getStatus()
-    
+
     if (hor == "left") then
         x_touch = x_player - size
         siz_up_left = y_player - big
