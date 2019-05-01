@@ -50,6 +50,10 @@ Class "Vector2D" [{
         return "{"..this.getX()..", "..this.getY().."}"
     end
 
+    function __concat(self, other)
+        return tostring(self)..tostring(other)
+    end
+
     function __index(self, key)
         if key == 1 or key == "x" then
             return this.getX()

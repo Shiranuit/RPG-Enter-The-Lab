@@ -25,7 +25,7 @@ Class "EntityLiving" extends "Entity" [{
         check(y ,"number", 2)
 
         local nx, ny = super.getPosition()
-        local success1, point1 = hitbox.rayhit(nx, ny, x * 2, y * 2)
+        local success1, point1 = hitbox.rayhit(nx, ny, x * 2, y * 2, "hard")
         if not success1 then
             super.move(x, y)
             return true, x, y
@@ -111,17 +111,17 @@ Class "EntityLiving" extends "Entity" [{
 
     function update()
         super.update()
-        if this.isAlive() and final.canBePushed() then
-            local mvx, mvy = 0, 0
-            local nx, ny = super.getPosition()
-            for i=1, #push_rays do
-                local success = hitbox.rayhitSimple(nx, ny, push_rays[i][1] * 10, push_rays[i][2] * 10)
-                if success then
-                    mvx, mvy = mvx - push_rays[i][1] * 10, mvy - push_rays[i][2] * 10
-                end
-            end
-            final.move(mvx, mvy)
-        end
+        -- if this.isAlive() and final.canBePushed() then
+        --     local mvx, mvy = 0, 0
+        --     local nx, ny = super.getPosition()
+        --     for i=1, #push_rays do
+        --         local success = hitbox.rayhitSimple(nx, ny, push_rays[i][1] * 10, push_rays[i][2] * 10, "push")
+        --         if success then
+        --             mvx, mvy = mvx - push_rays[i][1] * 10, mvy - push_rays[i][2] * 10
+        --         end
+        --     end
+        --     final.move(mvx, mvy)
+        -- end
     end
 
 }]
