@@ -58,7 +58,6 @@ function cast(self)
         h = size
         animationSpell["elecSpell"].setRotation(0)
     end
-    player.activateSpell()
     --print("\nRECT EST DE: "..x_player, y_player, size, big)
     local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
     for i = 1, #entities_in_spell do
@@ -67,4 +66,5 @@ function cast(self)
             print("HEAL : "..entities_in_spell[i].getHealth())
         end
     end
+    player.activateSpell()
 end

@@ -30,12 +30,12 @@ function cast(self)
     world.spawnEntity(animationSpell["picSpell"])
     animationSpell["picSpell"].restart()
     player.removeMana(getCost())
-    local status, hor, ver = player.getStatus()
     local x_player, y_player = player.getPosition()
     local size = 300
     local big = 100
     local w, h = 0, 0
-
+    local status, hor, ver , idle = player.getStatus()
+    
     if (hor == "left") then
         w = -size * 1.5
         h = -big
@@ -58,7 +58,6 @@ function cast(self)
         h = size
         animationSpell["picSpell"].setRotation(-90)
     end
-    player.activateSpell()
     --print("\nRECT EST DE: "..x_player, y_player, size, big)
     local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
     for i = 1, #entities_in_spell do
@@ -67,4 +66,5 @@ function cast(self)
             print("HEAL : "..entities_in_spell[i].getHealth())
         end
     end
+    player.activateSpell()
 end
