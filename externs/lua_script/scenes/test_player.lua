@@ -29,7 +29,6 @@ function load(scene)
 end
 
 function unload()
-    assets["ambiance_music"]:stop()
     entities = world.getEntities()
     world.clearEntities()
 end

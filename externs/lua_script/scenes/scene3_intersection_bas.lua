@@ -15,14 +15,10 @@ function load(scene)
     if (scene == "scene4_angle_haut_gauche") then
         player.setPosition(1030, 1050)
     end
-    assets["ambiance_music"]:setLoop(true)
-    assets["ambiance_music"]:setVolume(30)
-    assets["ambiance_music"]:play()
     world.spawnEntity(player)
 end
 
 function unload()
-    assets["ambiance_music"]:stop()
     world.clearEntities()
 end
 

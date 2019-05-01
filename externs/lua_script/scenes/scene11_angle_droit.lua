@@ -12,14 +12,10 @@ function load(scene)
     if (scene == "scene10_intersection_haut") then
         player.setPosition(1900, 630)
     end
-    assets["ambiance_music"]:setLoop(true)
-    assets["ambiance_music"]:setVolume(30)
-    assets["ambiance_music"]:play()
     world.spawnEntity(player)
 end
 
 function unload()
-    assets["ambiance_music"]:stop()
     world.clearEntities()
 end
 
@@ -29,10 +25,10 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 850 and x < 1050 and y > 1100 then
+    if x > 700 and x < 1050 and y > 1100 then
         setScene("scene12_salle")
     end
-    if x > 1910 and y > 600 and y < 660 then
+    if x > 1910 and y > 550 and y < 700 then
         setScene("scene10_intersection_haut")
     end
     if keyboard.keyPressed(keys.A) then

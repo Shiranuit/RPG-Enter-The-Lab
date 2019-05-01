@@ -12,14 +12,10 @@ function load(scene)
     if (scene == "scene3_intersection_bas") then
         player.setPosition(950, 200)
     end
-    assets["ambiance_music"]:setLoop(true)
-    assets["ambiance_music"]:setVolume(30)
-    assets["ambiance_music"]:play()
     world.spawnEntity(player)
 end
 
 function unload()
-    assets["ambiance_music"]:stop()
     world.clearEntities()
 end
 
@@ -32,7 +28,7 @@ function update()
     if x > 900 and x < 1000 and y < 200 then
         setScene("scene3_intersection_bas")
     end
-    if x < 0 and y > 600 and y < 660 then
+    if x < 0 and y > 550 and y < 700 then
         setScene("scene5_intersection_bas")
     end
     if keyboard.keyPressed(keys.A) then
