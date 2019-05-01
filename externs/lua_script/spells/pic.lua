@@ -70,8 +70,10 @@ function cast(self)
         siz_up_left = x_player - big
         siz_down_right = x_player + big
         animationSpell["picSpell"].setRotation(90)
+
     end
-    local entities_in_spell = world.getEntitiesInRect(x_player, y_player, size, big)
+    --print("RECT EST DE: "..x_player, y_player, size, big)
+    local entities_in_spell = world.getEntitiesInRect(x_player, y_player, big, size)
     for i = 1, #entities_in_spell do
         entities_in_spell[i].hit(20)
         print(entities_in_spell[i].getHealth())

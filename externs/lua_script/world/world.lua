@@ -93,6 +93,7 @@ function world.getEntitiesInRect(x, y, w, h)
     local ent = {}
     for i = 1, #entities do
         local nx, ny = entities[i].getPosition()
+        --print("Entities pos are"..nx, ny)
         if nx > x and nx < x + w and ny > y and ny < y + h then
             ent[#ent + 1] = entities[i]
         end
