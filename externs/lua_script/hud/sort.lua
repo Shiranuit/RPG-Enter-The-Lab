@@ -61,7 +61,6 @@ function event(self, e)
             if player.getMana() >= spells_tab[selected_spell_name[5]]:getCost() then
                 status_sort[5] = "up"
             end
-        else
         end
     end
 end
@@ -74,7 +73,7 @@ function update(self)
             if (spells_tab[selected_spell_name[i]]:isInstant()) then
                 spells_tab[selected_spell_name[i]]:cast()
                 status_sort[i] = "down"
-            else
+            elseif player.getMana() >= spells_tab[selected_spell_name[i]]:getCost() then
                 spells_tab[selected_spell_name[i]]:enable()
             end
         elseif spells_tab[selected_spell_name[i]] and not spells_tab[selected_spell_name[i]]:isInstant() then
