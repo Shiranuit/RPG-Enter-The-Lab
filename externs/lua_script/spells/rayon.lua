@@ -69,5 +69,5 @@ function disable(self)
 end
 
 function getCost(self)
-    return 2
+    return 0.2
 end
