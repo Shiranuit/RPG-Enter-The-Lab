@@ -3,11 +3,12 @@
 -- =========================================
 
 local background = lsfml.sprite.create()
+local boss_start = false
 background:setTexture(assets["boss"], false)
 
 function load(scene)
     if (scene == "scene17_right_start") then
-        player.setPosition(950, 200)
+        player.setPosition(950, 1050)
     end
     assets["ambiance_music"]:setLoop(true)
     assets["ambiance_music"]:setVolume(30)
@@ -24,7 +25,7 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 900 and x < 1000 and y < 200 then
+    if x > 900 and x < 1000 and y > 1050 and boss_start == false then
         setScene("scene17_right_start")
     end
     if keyboard.keyPressed(keys.A) then
