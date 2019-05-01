@@ -2,13 +2,23 @@ Class "Entity" [{
     function __Entity(x, y)
         this.x = x
         this.y = y
+        this.angle = 0
+        this.scale_x = 0
+        this.scale_y = 0
         this.uuid = uuid.randomUUID()
-        this.hitbox = new(Hitbox("soft"))
-        this.hitbox.setPosition(x, y)
+        this.hitbox = {}
     end
 
     function getPosition()
         return this.x, this.y
+    end
+
+    function getRotation()
+        return this.angle
+    end
+
+    function getScale()
+        return this.scale_x, this.scale_y
     end
 
     function setPosition(x, y)
@@ -17,7 +27,29 @@ Class "Entity" [{
 
         this.x = x
         this.y = y
-        this.hitbox.setPosition(this.x, this.y)
+        for i=1, #this.hitbox do
+            this.hitbox[i].setPosition(this.x, this.y)
+        end
+    end
+
+    function setRotation(angle)
+        check(angle, "number", 1)
+
+        this.angle = angle
+        for i=1, #this.hitbox do
+            this.hitbox[i].setRotation(this.angle)
+        end
+    end
+
+    function setScale(x, y)
+        check(x, "number", 1)
+        check(y, "number", 2)
+
+        this.scale_x = x
+        this.scale_y = y
+        for i=1, #this.hitbox do
+            this.hitbox[i].setScale(this.scale_x, this.scale_y)
+        end
     end
 
     function move(x, y)
@@ -26,15 +58,30 @@ Class "Entity" [{
 
         this.x = this.x + x
         this.y = this.y + y
-        this.hitbox.setPosition(this.x, this.y)
+        for i=1, #this.hitbox do
+            this.hitbox[i].setPosition(this.x, this.y)
+        end
     end
 
     function getUUID()
         return this.uuid
     end
 
+    function addHitbox(hitbx)
+        check(hitbx, "Hitbox", 1)
+
+        this.hitbox[#this.hitbox + 1] = hitbx
+    end
+
+    function clearHitboxs()
+        this.hitbox = nil
+        this.hitbox = {}
+    end
+
     function drawHitbox()
-        this.hitbox.draw()
+        for i=1, #this.hitbox do
+            this.hitbox[i].draw()
+        end
     end
 
     function draw()
@@ -49,7 +96,7 @@ Class "Entity" [{
 
     end
 
-    function getHitbox()
+    function getHitboxs()
         return this.hitbox
     end
 }]

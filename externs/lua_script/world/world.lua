@@ -98,7 +98,6 @@ function world.getEntitiesInRect(x, y, w, h)
     local ent = {}
     for i = 1, #entities do
         local nx, ny = entities[i].getPosition()
-        --print("\nEntities pos are"..nx, ny)
         if nx > x and nx < x + w and ny > y and ny < y + h then
             ent[#ent + 1] = entities[i]
         end
@@ -116,9 +115,13 @@ function world.getEntitiesRayhit(x, y, dx, dy)
     local ent = {}
     for i = 1, #entities do
         local nx, ny = entities[i].getPosition()
-        local success = RayCast.simpleIntersectPolygon(ray, entities[i].getHitbox().getPoints())
-        if success then
-            ent[#ent + 1] = entities[i]
+        local boxes = entities.getHitboxs()
+        for j=1, #boxes do
+            local success = RayCast.simpleIntersectPolygon(ray, boxes[i].getPoints())
+            if success then
+                ent[#ent + 1] = entities[i]
+                break
+            end
         end
     end
     return ent
@@ -127,8 +130,12 @@ end
 function world.getEntitiesInHitbox(hitbx)
     local ent = {}
     for i = 1, #entities do
-        if hitbox.SAT(hitbx, entities.getHitbox()) then
-            ent[#ent + 1] = entities
+        local boxes = entities.getHitboxs()
+        for j=1, #boxes do
+            if hitbox.SAT(hitbx, boxes[j]) then
+                ent[#ent + 1] = entities
+                break
+            end
         end
     end
     return ent
