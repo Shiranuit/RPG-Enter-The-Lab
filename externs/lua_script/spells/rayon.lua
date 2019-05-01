@@ -91,9 +91,5 @@ function disable(self)
 end
 
 function getCost(self)
-<<<<<<< HEAD
-    return 0.2
-=======
     return 1
->>>>>>> cyril
 end
