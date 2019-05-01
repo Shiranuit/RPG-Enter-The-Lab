@@ -68,8 +68,13 @@ Class "EntityPlayer" extends "EntityLiving" [{
     function desactivateSpell()
         if this.status == "spell" then
             this.status = "idle"
-            this.status_idle = "down"
-            this.pos_rect = {4, 150000, 0, 2000, 220, 500}
+            this.status_vertical = "idle"
+            this.status_horizontal = "idle"
+            if this.status_idle == "down" then
+                this.pos_rect = {4, 150000, 0, 2000, 220, 500}
+            else
+                this.pos_rect = {4, 150000, 0, 3992, 220, 500}
+            end
             this.clock:restart()
             this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
         end
@@ -254,6 +259,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
         end
         if this.status == "spell" then
             return
+        elseif this.max_mana > this.mana then
+            this.mana = this.mana + 0.1 * DeltaTime
         end
         if keyboard.keyPressed(controls.getControl("move_up")) and this.getHealth() > 0 then
             if (this.status ~= "up" and this.status ~= "left" and this.status ~= "right" and this.status ~= "run_right" and this.status ~= "run_left") then

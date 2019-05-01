@@ -7,7 +7,7 @@ function getMaxCooldown(self)
 end
 
 function getCost()
-    return 0
+    return 1
 end
 
 function cooldownStartAtEnd()
@@ -26,17 +26,7 @@ function disable(self)
 
 end
 
-function isNotValid()
-    status, hor, ver = player.getStatus()
-    if (status == "idle") then
-        assets["deny"]:play()
-        return true
-    end
-    return false
-end
-
 function cast(self)
-    player.activateSpell()
     world.spawnEntity(animationSpell["picSpell"])
     animationSpell["picSpell"].restart()
     player.removeMana(getCost())
@@ -68,4 +58,5 @@ function cast(self)
         siz_down_right = x_player + big
         animationSpell["picSpell"].setRotation(-90)
     end
+    player.activateSpell()
 end

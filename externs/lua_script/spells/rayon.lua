@@ -37,11 +37,9 @@ function enable(self)
         animationSpell["rayonSpell"].setRotation(90)
         animationSpell["rayonIdleAnimation"].setRotation(90)
         animationSpell["rayonEndAnimation"].setRotation(90)
-
         animationSpell["rayonEndAnimation"].setOrigin(0, 0)
         animationSpell["rayonSpell"].setOrigin(0, 0)
         animationSpell["rayonIdleAnimation"].setOrigin(0, 0)
-
         animationSpell["rayonSpell"].setTranslation(-28, -85)
         animationSpell["rayonEndAnimation"].setTranslation(-28, -85)
         animationSpell["rayonIdleAnimation"].setTranslation(-28, -85)
