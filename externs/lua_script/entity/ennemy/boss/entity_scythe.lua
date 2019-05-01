@@ -8,6 +8,9 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.sprite:setTexture(assets["scythe"], false)
         this.sprite:setOrigin(264, 565)
         this.sprite:scale(0.5, 0.5)
+        super.getHitbox().setPoints({{73, 130}, {164, 52}, {272, 15}, {377, 4}, {537, 22}, {657, 75}, {666, 172}, {632, 196}})
+        super.getHitbox().setScale(0.5, 0.5)
+        super.getHitbox().setOrigin(264, 565)
     end
 
     function hit(damage)
@@ -30,6 +33,14 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         end
     end
 
+    function setPosition(x, y)
+        check(x ,"number", 1)
+        check(y ,"number", 2)
+
+        super.setPosition(x, y)
+        this.sprite:setPosition(x, y)
+    end
+
     function move(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)
@@ -42,6 +53,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
 
     function draw()
         window:draw(this.sprite)
+        super.drawHitbox()
     end
 
     function update()

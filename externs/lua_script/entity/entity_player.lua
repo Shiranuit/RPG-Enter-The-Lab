@@ -36,7 +36,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.inventory = hud.createFromFile("hud/inventory_hud.lua")
         this.is_sprinting = false
         super.getHitbox().setPoints({{0, 0}, {220, 0}, {220, 500}, {0, 500}})
-        super.getHitbox().setOrigin(-270 / 2 * 0.25, -620 * 0.25)
+        super.getHitbox().setOrigin(220 / 2, 500)
         super.getHitbox().setScale(0.25, 0.25)
     end
 
@@ -68,13 +68,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
     function desactivateSpell()
         if this.status == "spell" then
             this.status = "idle"
-            this.status_vertical = "idle"
-            this.status_horizontal = "idle"
-            if this.status_idle == "down" then
-                this.pos_rect = {4, 150000, 0, 2000, 220, 500}
-            else
-                this.pos_rect = {4, 150000, 0, 3992, 220, 500}
-            end
+            this.status_idle = "down"
+            this.pos_rect = {4, 150000, 0, 2000, 220, 500}
             this.clock:restart()
             this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
         end
@@ -92,7 +87,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         -- this.status -> the actual animation   (idle, run_right, run_left, left, right, up, down, death)
         -- this.status_horizontal -> the horizontal direction   (right, left, none)
         -- this.status_vertical -> the vertical direction   (up, down, none)
-        return this.status, this.status_horizontal, this.status_vertical, this.status_idle
+        return this.status, this.status_horizontal, this.status_vertical
     end
 
     function setMana(mana)
@@ -259,8 +254,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
         end
         if this.status == "spell" then
             return
-        elseif this.max_mana > this.mana then
-            this.mana = this.mana + 0.1 * DeltaTime
         end
         if keyboard.keyPressed(controls.getControl("move_up")) and this.getHealth() > 0 then
             if (this.status ~= "up" and this.status ~= "left" and this.status ~= "right" and this.status ~= "run_right" and this.status ~= "run_left") then
