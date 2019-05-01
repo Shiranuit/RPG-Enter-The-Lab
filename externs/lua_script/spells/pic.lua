@@ -26,26 +26,16 @@ function disable(self)
 
 end
 
-function isNotValid()
-    status, hor, ver = player.getStatus()
-    if (status == "idle") then
-        assets["deny"]:play()
-        return true
-    end
-    return false
-end
-
 function cast(self)
-    player.activateSpell()
     world.spawnEntity(animationSpell["picSpell"])
     animationSpell["picSpell"].restart()
     player.removeMana(getCost())
-    local status, hor, ver = player.getStatus()
     local x_player, y_player = player.getPosition()
     local size = 300
     local big = 100
     local w, h = 0
-
+    local status, hor, ver , idle = player.getStatus()
+    
     if (hor == "left") then
         w = -size * 1.5
         h = -big
@@ -76,4 +66,5 @@ function cast(self)
             print("HEAL : "..entities_in_spell[i].getHealth())
         end
     end
+    player.activateSpell()
 end

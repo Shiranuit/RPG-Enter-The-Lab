@@ -3,13 +3,14 @@
 -- =========================================
 
 local background = lsfml.sprite.create()
-background:setTexture(assets["labo_pop"], false)
+background:setTexture(assets["labo_angle_gauche"], false)
 
 function load(scene)
-    if (scene ~= nil) and (scene == "scene2_angle_g") then
-        player.setPosition(1050, 210)
-    else
-        player.setPosition(1045, 616)
+    if (scene == "test_player") then
+        player.setPosition(960, 1000)
+    end
+    if (scene == "scene3_intersection_bas") then
+        player.setPosition(0, 625)
     end
     assets["ambiance_music"]:setLoop(true)
     assets["ambiance_music"]:setVolume(30)
@@ -26,8 +27,11 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 930 and x < 1100 and y < 200 then
-        setScene("scene2_angle_g")
+    if x > 850 and x < 1050 and y > 1050 then
+        setScene("test_player")
+    end
+    if x < 0 and y > 550 and y < 700 then
+        setScene("scene3_intersection_bas")
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime)

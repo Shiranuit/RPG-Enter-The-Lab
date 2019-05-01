@@ -26,17 +26,7 @@ function disable(self)
 
 end
 
-function isNotValid()
-    status, hor, ver = player.getStatus()
-    if (status == "idle") then
-        assets["deny"]:play()
-        return true
-    end
-    return false
-end
-
 function cast(self)
-    player.activateSpell()
     world.spawnEntity(animationSpell["elecSpell"])
     animationSpell["elecSpell"].restart()
     player.removeMana(getCost())
@@ -76,4 +66,5 @@ function cast(self)
             print("HEAL : "..entities_in_spell[i].getHealth())
         end
     end
+    player.activateSpell()
 end

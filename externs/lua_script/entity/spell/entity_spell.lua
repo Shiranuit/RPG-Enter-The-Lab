@@ -26,6 +26,8 @@ Class "EntitySpell" extends "Entity" [{
         this.damage = info.damage or 0
         this.matrix = transform.trans(info.ox or 0, info.oy or 0) * transform.scale(info.scale or 1, info.scale or 1)
         this.one_animation = info.one_animation or false
+        this.moving_x = 0
+        this.moving_y = 0
     end
 
     function setTextureRect(rect)
@@ -41,10 +43,17 @@ Class "EntitySpell" extends "Entity" [{
         this.sprite:setOrigin(x, y)
     end
 
+    function moving(x, y)
+        this.moving_x = x
+        this.moving_y = y
+    end
+
     function draw()
         if this.follow_player then
             local x, y = player.getPosition()
             this.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
+        else
+            this.move(this.moving_x, this.moving_y)
         end
 
         if this.clock:getEllapsedTime() > this.timeAnimation then
@@ -62,32 +71,9 @@ Class "EntitySpell" extends "Entity" [{
         this.sprite:draw()
     end
 
-    function update()
-        -- local posx, posy = super.getPosition()
-        -- local bounds = {{this.matrix(this.collidebox[1], this.collidebox[2])}, {this.matrix(this.collidebox[1] + this.collidebox[3], this.collidebox[2])},
-        --                 {this.matrix(this.collidebox[1] + this.collidebox[3], this.collidebox[2] + this.collidebox[4])}, {this.matrix(this.collidebox[1], this.collidebox[2] + this.collidebox[4])}}
-        -- print(posx - nx, posy - ny, nw, nh)
-        -- local nx, ny = super.getPosition()
-        -- local entities = world.getEntitiesInRect(this.box[1] - nx, this.box[2] - ny, this.box[3], this.box[4])
-        -- if this.damage_loop then
-        --     for i=1, #entities do
-        --         if class.isInstanceOf(entities[i], "EntityLiving") then
-        --             if entities[i]:isAlive() then
-        --                 entities[i]:hit(this.damage or 0)
-        --             end
-        --         end
-        --     end
-        -- elseif not this.once then
-        --     this.once = true
-        --     print("X:"..nx.." Y:"..ny.." {"..table.concat(this.box  , ", ").."}")
-        --     for i=1, #entities do
-        --         if class.isInstanceOf(entities[i], "EntityLiving") then
-        --             if entities[i]:isAlive() then
-        --                 entities[i]:hit(this.damage or 0)
-        --             end
-        --         end
-        --     end
-        -- end
+    function move(x, y)
+        super.move(x, y)
+        this.sprite:move(x, y)
     end
 
     function setPosition(x, y)
