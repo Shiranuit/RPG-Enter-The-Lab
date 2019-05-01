@@ -34,11 +34,37 @@ Class "EntityItem" extends "Entity" [{
         this.sprite:setTexture(itemstack:getItem():getTexture(), false)
     end
 
+    function move(x, y)
+        check(x ,"number", 1)
+        check(y ,"number", 2)
+
+        local success, nx, ny = super.move(x, y)
+        if success then
+            this.sprite:move(nx, ny)
+        end
+    end
+
     function draw()
         window:draw(this.sprite)
     end
 
+    function compute_push()
+        super.update()
+        local nx, ny = super.getPosition()
+        for i=1, #push_rays do
+            local success, point = hitbox.rayhit(nx, ny, push_rays[i][1] * 20, push_rays[i][2] * 20)
+            if success then
+                return true, -push_rays[i][1] * 20, -push_rays[i][2] * 20
+            end
+        end
+        return false
+    end
+
     function update()
+        local success, mvx, mvy = compute_push()
+        if success then
+            this.move(mvx, mvy)
+        end
         if this.status == "up" then
             this.anim = this.anim + math.floor(DeltaTime)
             if this.anim > 40 then

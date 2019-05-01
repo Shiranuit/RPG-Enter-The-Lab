@@ -13,9 +13,15 @@
 
 int init(lua_State *L)
 {
+    const char *error = 0;
+    int len = -1;
+
     lua_getglobal(L, "init");
     if (pcall(L, 0, 0) != LUA_OK) {
-        printf("%s\n", lua_tostring(L, -1));
+        error = lua_tostring(L, -1);
+        while (error[++len]);
+        write(1,  error, len);
+        write(1, "\n", 1);
         return (84);
     }
     return (1);
@@ -23,9 +29,15 @@ int init(lua_State *L)
 
 int draw(lua_State *L)
 {
+    const char *error = 0;
+    int len = -1;
+
     lua_getglobal(L, "draw");
     if (pcall(L, 0, 0) != LUA_OK) {
-        printf("%s\n", lua_tostring(L, -1));
+        error = lua_tostring(L, -1);
+        while (error[++len]);
+        write(1,  error, len);
+        write(1, "\n", 1);
         return (84);
     }
     return (1);
@@ -33,9 +45,15 @@ int draw(lua_State *L)
 
 int update(lua_State *L)
 {
+    const char *error = 0;
+    int len = -1;
+
     lua_getglobal(L, "update");
     if (pcall(L, 0, 0) != LUA_OK) {
-        printf("%s\n", lua_tostring(L, -1));
+        error = lua_tostring(L, -1);
+        while (error[++len]);
+        write(1,  error, len);
+        write(1, "\n", 1);
         return (84);
     }
     return (1);
@@ -43,8 +61,11 @@ int update(lua_State *L)
 
 int event(lua_State *L, sfRenderWindow *window)
 {
+    const char *error = 0;
+    int len = -1;
     sfEvent event;
     int args = 0;
+
     lua_getglobal(L, "event");
     if (!lua_isfunction(L, -1)) return (84);
     lua_pop(L, 1);
@@ -52,7 +73,10 @@ int event(lua_State *L, sfRenderWindow *window)
         lua_getglobal(L, "event");
         args = get_event(L, &event);
         if (pcall(L, args, 0) != LUA_OK) {
-            printf("%s\n", lua_tostring(L, -1));
+            error = lua_tostring(L, -1);
+            while (error[++len]);
+            write(1,  error, len);
+            write(1, "\n", 1);
             return (84);
         }
     }

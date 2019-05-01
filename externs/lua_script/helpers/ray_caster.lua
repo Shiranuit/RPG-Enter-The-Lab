@@ -117,6 +117,10 @@ Class "Vector2D" [{
     function mag(value)
         return this.__len(this)
     end
+
+    function perp()
+        return new(Vector2D(this.y, -this.x))
+    end
 }]
 
 Class "Line" [{
@@ -213,5 +217,26 @@ Class "RayCast" [{
             return true, points[index]
         end
         return false
+    end
+
+    function simpleIntersectPolygon(ray, polygon)
+        for i=1, #polygon do
+            local success, pt = intersectLine(ray, {polygon[i], polygon[(i + 1 > #polygon) and 1 or i + 1]})
+            if success then
+                return true
+            end
+        end
+        return false
+    end
+
+    function intersectPolygonCount(ray, polygon)
+        local count = 0
+        for i=1, #polygon do
+            local success, pt = intersectLine(ray, {polygon[i], polygon[(i + 1 > #polygon) and 1 or i + 1]})
+            if success then
+                count = count + 1
+            end
+        end
+        return count
     end
 }]

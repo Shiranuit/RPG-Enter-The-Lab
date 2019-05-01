@@ -90,10 +90,33 @@ local function depth_sort()
 end
 
 function world.getEntitiesInRect(x, y, w, h)
+    check(x, "number", 1)
+    check(y, "number", 2)
+    check(w, "number", 3)
+    check(h, "number", 4)
+    x, y, w, h = math.min(x, x + w), math.min(y, y + h), math.abs(w), math.abs(h)
     local ent = {}
     for i = 1, #entities do
         local nx, ny = entities[i].getPosition()
         if nx > x and nx < x + w and ny > y and ny < y + h then
+            ent[#ent + 1] = entities[i]
+        end
+    end
+    return ent
+end
+
+function world.rayhit(x, y, dx, dy)
+    check(x, "number", 1)
+    check(y, "number", 2)
+    check(dx, "number", 3)
+    check(dy, "number", 4)
+
+    local ray = {{x, y}, {x + dx, y + dy}}
+    local ent = {}
+    for i = 1, #entities do
+        local nx, ny = entities[i].getPosition()
+        local success, point = RayCast.intersectPolygon(ray, entities[i].getHitbox().getPoints())
+        if success then
             ent[#ent + 1] = entities[i]
         end
     end

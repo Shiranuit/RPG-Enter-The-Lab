@@ -9,7 +9,8 @@ local key_status = {}
 function keyboard.keyPressed(key)
     check(key, "number", 1)
 
-    return key_status[key] and true or false
+    -- return key_status[key] and true or false
+    return lsfml.keyboard.keyPressed(key)
 end
 
 function keyboard.setKeyPressed(key, state)

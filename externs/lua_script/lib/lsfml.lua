@@ -750,6 +750,8 @@ function lsfml.vertex.create()
         __index = get_index,
         __new_index = set_index,
         __type = "vertex",
+        info.pos_x or 0,
+        info.pos_y or 0,
         __ptr = olsfml.vertex_create(),
         __gc = function(self)
             local meta = getmetatable(self)
