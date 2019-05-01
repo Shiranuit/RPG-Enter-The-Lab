@@ -47,7 +47,7 @@ function event(e)
     if event[1] == "mouse_pressed" and event[4] == mouse.LEFT then
         if hitbx and #hitbx.getPoints() > 0 then
             local pts = hitbx.getPoints()
-            hitbx.setOrigin(pts[1][1], pts[1][2])
+            hitbx.setOrigin(hitbx.getMiddlePoint())
             hitbox.add(hitbx)
             hitbx = new(Hitbox())
         end

@@ -90,6 +90,7 @@ local function depth_sort()
 end
 
 function world.getEntitiesInRect(x, y, w, h)
+    x, y, w, h = math.min(x, x + w), math.min(y, y + h), math.abs(w), math.abs(h)
     local ent = {}
     for i = 1, #entities do
         local nx, ny = entities[i].getPosition()

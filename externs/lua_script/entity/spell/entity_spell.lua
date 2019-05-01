@@ -25,6 +25,11 @@ Class "EntitySpell" extends "Entity" [{
         this.once = false
         this.damage = info.damage or 0
         this.matrix = transform.trans(info.ox or 0, info.oy or 0) * transform.scale(info.scale or 1, info.scale or 1)
+        this.one_animation = info.one_animation or false
+    end
+
+    function setTextureRect(rect)
+        this.sprite:setTextureRect(table.unpack(rect))
     end
 
     function draw()
@@ -48,10 +53,10 @@ Class "EntitySpell" extends "Entity" [{
     end
 
     function update()
-        local posx, posy = super.getPosition()
-        local bounds = {{this.matrix(this.collidebox[1], this.collidebox[2])}, {this.matrix(this.collidebox[1] + this.collidebox[3], this.collidebox[2])},
-                        {this.matrix(this.collidebox[1] + this.collidebox[3], this.collidebox[2] + this.collidebox[4])}, {this.matrix(this.collidebox[1], this.collidebox[2] + this.collidebox[4])}}
-        print(posx - nx, posy - ny, nw, nh)
+        -- local posx, posy = super.getPosition()
+        -- local bounds = {{this.matrix(this.collidebox[1], this.collidebox[2])}, {this.matrix(this.collidebox[1] + this.collidebox[3], this.collidebox[2])},
+        --                 {this.matrix(this.collidebox[1] + this.collidebox[3], this.collidebox[2] + this.collidebox[4])}, {this.matrix(this.collidebox[1], this.collidebox[2] + this.collidebox[4])}}
+        -- print(posx - nx, posy - ny, nw, nh)
         -- local nx, ny = super.getPosition()
         -- local entities = world.getEntitiesInRect(this.box[1] - nx, this.box[2] - ny, this.box[3], this.box[4])
         -- if this.damage_loop then

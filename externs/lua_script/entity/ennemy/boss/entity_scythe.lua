@@ -45,10 +45,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
     end
 
     function update()
-        local success, mvx, mvy = super.compute_push()
-        if success then
-            this.move(mvx, mvy)
-        end
+        super.update()
     end
 
     function event(e)

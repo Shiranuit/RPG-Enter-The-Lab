@@ -39,11 +39,11 @@ end
 
 function hitbox.draw()
     for i=1, #hitboxes do
-        hitboxes[i].setRotation(hitboxes[i].getRotation() + 1)
+        -- hitboxes[i].setRotation(hitboxes[i].getRotation() + 1)
         local nx, ny = hitboxes[i].getPosition()
         local w, h = hitboxes[i].getScale()
         -- hitboxes[i].setPosition(nx + 1, ny)
-        -- hitboxes[i].setScale(w + 0.001, h + 0.001)
+        hitboxes[i].setScale(w + 0.001, h + 0.001)
         hitboxes[i].draw()
     end
 end
