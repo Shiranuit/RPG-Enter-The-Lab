@@ -18,7 +18,7 @@ function getCost()
 end
 
 function isNotValid()
-    status, hor, ver = player.getStatus()
+    local status, hor, ver = player.getStatus()
     print(hor, ver)
     if (status == "idle") then
         assets["deny"]:play()
@@ -28,7 +28,7 @@ function isNotValid()
 end
 
 function cast(self)
-    status, hor, ver = player.getStatus()
+    local status, hor, ver = player.getStatus()
     player.removeMana(getCost())
     assets["dash"]:play()
     if (hor == "right") then

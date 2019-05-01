@@ -35,6 +35,9 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.status_horizontal = "none"
         this.inventory = hud.createFromFile("hud/inventory_hud.lua")
         this.is_sprinting = false
+        super.getHitbox().setPoints({{0, 0}, {220, 0}, {220, 500}, {0, 500}})
+        super.getHitbox().setOrigin(-270 / 2 * 0.25, -620 * 0.25)
+        super.getHitbox().setScale(0.25, 0.25)
     end
 
     function activateSpell()
@@ -171,7 +174,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 defense = defense + (equipment[i]:getItem():getUserdata() and equipment[i]:getItem():getUserdata().defense or 0)
             end
         end
-        print(damage * (1 - defense / 100))
         super.hit(damage * (1 - defense / 100))
     end
 
@@ -211,6 +213,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function event(e)
+        super.event()
         local event = e:getEvent()
         if event[1] == "key_pressed" then
             if event[2] == controls.getControl("pickup") then
@@ -230,6 +233,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function update()
+        super.update()
         if this.status == "respawn" then
             return
         end
@@ -366,6 +370,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function draw()
+        super.draw()
         time = this.pos_rect[2]
 
         if this.is_sprinting == true and this.status ~= "idle" then
@@ -389,5 +394,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
             this.clock:restart()
         end
         window:draw(this.sprite)
+        this.drawHitbox()
     end
 }]

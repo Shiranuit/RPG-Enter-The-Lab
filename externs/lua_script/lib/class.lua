@@ -143,13 +143,14 @@ function Class(className)
     })
 end
 
-function new(clazz)
+function new(clazz, fenv)
     if clazz and class.isInstanceOf(clazz, "Class") and class.isNew(clazz) then
         if clazz.superclass then
+            local cpenv = {}
             local super = setmetatable({}, {__call = function(self, ...)
                 local meta = getmetatable(self)
 
-                meta.__super = new(_G[clazz.superclass](...))
+                meta.__super = new(_G[clazz.superclass](...), cpenv)
                 if not meta.__super then
                     error("Failed to Initialized Superclass '"..clazz.superclass.."', Missing Constructor for '"..clazz.superclass.."'", 3)
                 end
@@ -162,6 +163,7 @@ function new(clazz)
                     return meta.__super[key]
                 end
             end})
+            local final = setmetatable({}, {__index = fenv})
             local env = setmetatable({}, {__index = function(self, key)
                 local meta = getmetatable(self)
                 if not meta.__this then
@@ -180,6 +182,8 @@ function new(clazz)
                     return super
                 elseif key == "this" then
                     return meta.__this
+                elseif key == "final" then
+                    return final
                 else
                     return _G[key]
                 end
@@ -188,13 +192,12 @@ function new(clazz)
             if func then
                 local success, err = pcall(func)
                 if success then
-                    local cpenv = {}
                     for k, v in pairs(env) do
                         if type(v) == "function" then
                             cpenv[k] = v
                         end
                     end
-                local cl = setmetatable(cpenv, {
+                    local cl = setmetatable(cpenv, {
                     __index = function(self, key)
                         local meta = getmetatable(self)
                         if class[key] then

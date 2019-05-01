@@ -105,4 +105,23 @@ Class "EntityLiving" extends "Entity" [{
         end
     end
 
+    function canBePushed()
+        return true
+    end
+
+    function update()
+        super.update()
+        if this.isAlive() and final.canBePushed() then
+            local mvx, mvy = 0, 0
+            local nx, ny = super.getPosition()
+            for i=1, #push_rays do
+                local success, point = hitbox.rayhit(nx, ny, push_rays[i][1] * 20, push_rays[i][2] * 20)
+                if success then
+                    mvx, mvy = mvx - push_rays[i][1] * 20, mvy - push_rays[i][2] * 20
+                end
+            end
+            final.move(mvx, mvy)
+        end
+    end
+
 }]

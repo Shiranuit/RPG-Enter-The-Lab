@@ -3,29 +3,13 @@
 -- =========================================
 
 hitbox = {}
+push_rays = {{0, 1}, {0.70, -0.70}, {1, 0}, {0.70, 0.70}, {0, 1}, {-0.70, 0.70}, {-1, 0}, {-0.70, -0.70}}
 local hitboxes = {}
-local hitbox_vertexs = {}
 
-function hitbox.add(points)
-    check(points, "table", 1)
+function hitbox.add(hbx)
+    check(hbx, "Hitbox", 1)
 
-    for i=1, #points do
-        if type(points[i]) == "table" and #points >= 2 then
-            if not points[i][1] or not points[i][2] then
-                error("Point must have {x, y}")
-            end
-        else
-            error("Hitbox Points must be tables", 2)
-        end
-    end
-    hitboxes[#hitboxes + 1] = points
-    local varray = lsfml.vertexarray.create()
-    varray:setPrimitiveType(primitiveType.LineStrip)
-    for i=1, #points do
-        varray:append({x=points[i][1], y=points[i][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
-    end
-    varray:append({x=points[1][1], y=points[1][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
-    hitbox_vertexs[#hitbox_vertexs + 1] = varray
+    hitboxes[#hitboxes + 1] = hbx
 end
 
 function hitbox.clear()
@@ -37,33 +21,6 @@ function hitbox.clear()
     hitbox_vertexs = {}
 end
 
-local function isInHitbox(box, x, y)
-    return x >= box.x and x <= box.w and y >= box.y and y <= box.h
-end
-
-function hitbox.get(x, y)
-    check(x, "number", 1)
-    check(y, "number", 2)
-
-    for i=1, #hitboxes do
-        if isInHitbox(hitboxes[i], x, y) then
-            return hitboxes[i]
-        end
-    end
-end
-
-function hitbox.collide(x, y)
-    check(x, "number", 1)
-    check(y, "number", 2)
-
-    for i=1, #hitboxes do
-        if isInHitbox(hitboxes[i], x, y) then
-            return true
-        end
-    end
-    return false
-end
-
 function hitbox.rayhit(x, y, dx, dy)
     check(x, "number", 1)
     check(y, "number", 2)
@@ -72,7 +29,7 @@ function hitbox.rayhit(x, y, dx, dy)
 
     local ray = {{x, y}, {x + dx, y + dy}}
     for i=1, #hitboxes do
-        local success, point = RayCast.intersectPolygon(ray, hitboxes[i])
+        local success, point = RayCast.intersectPolygon(ray, hitboxes[i].getPoints())
         if success then
             return true, point
         end
@@ -81,7 +38,12 @@ function hitbox.rayhit(x, y, dx, dy)
 end
 
 function hitbox.draw()
-    for i=1, #hitbox_vertexs do
-        window:draw(hitbox_vertexs[i])
+    for i=1, #hitboxes do
+        -- hitboxes[i].setRotation(hitboxes[i].getRotation() + 1)
+        local nx, ny = hitboxes[i].getPosition()
+        local w, h = hitboxes[i].getScale()
+        -- hitboxes[i].setPosition(nx + 1, ny)
+        hitboxes[i].setScale(w + 0.001, h + 0.001)
+        hitboxes[i].draw()
     end
 end

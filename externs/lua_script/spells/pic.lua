@@ -40,47 +40,40 @@ function cast(self)
     world.spawnEntity(animationSpell["picSpell"])
     animationSpell["picSpell"].restart()
     player.removeMana(getCost())
+    local status, hor, ver = player.getStatus()
     local x_player, y_player = player.getPosition()
-    local x_touch, y_touch = x_player, y_player
-    local size = 100
-    local big = 30
+    local size = 300
+    local big = 100
     local w, h = 0
-    local siz_up_left, siz_down_right = 0
-    local status, hor, ver , idle = player.getStatus()
 
     if (hor == "left") then
-        x_touch = x_player - size
-        siz_up_left = y_player - big
-        siz_down_right = y_player + big
+        w = -size * 1.5
+        h = -big
+        x_player = x_player - big / 2
         animationSpell["picSpell"].setRotation(0)
     elseif (hor == "right") then
-        x_touch = x_player + size
-        siz_up_left = y_player - big
-        siz_down_right = y_player + big
-        
+        w = size * 1.5
+        h = -big
+        x_player = x_player + big / 2
         animationSpell["picSpell"].setRotation(180)
     elseif (ver == "up" or (status == "idle" and idle == "up")) then
-        y_touch = y_player - size
-        siz_up_left = x_player - big
-        siz_down_right = x_player + big
         w = big
         h = -size
-        x_player -= big / 2
-        y_player -= big * 2
+        x_player = x_player - big / 2
+        y_player = y_player - big * 2
         animationSpell["picSpell"].setRotation(90)
     elseif (ver == "down" or (status == "idle" and idle == "down")) then
-        y_touch = y_player + size
-        siz_up_left = x_player - big
-        siz_down_right = x_player + big
-        x_player -= big / 2
+        x_player = x_player - big / 2
         w = big
         h = size
         animationSpell["picSpell"].setRotation(-90)
     end
-    print("RECT EST DE: "..x_player, y_player, size, big)
+    --print("\nRECT EST DE: "..x_player, y_player, size, big)
     local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
     for i = 1, #entities_in_spell do
-        entities_in_spell[i].hit(20)
-        print(entities_in_spell[i].getHealth())
+        if (class.isInstanceOf(entities_in_spell[i], "EntityLiving")) then
+            entities_in_spell[i].hit(20 * DeltaTime)
+            print("HEAL : "..entities_in_spell[i].getHealth())
+        end
     end
 end

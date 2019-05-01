@@ -3,6 +3,7 @@ Class "Entity" [{
         this.x = x
         this.y = y
         this.uuid = uuid.randomUUID()
+        this.hitbox = new(Hitbox())
     end
 
     function getPosition()
@@ -15,6 +16,7 @@ Class "Entity" [{
 
         this.x = x
         this.y = y
+        this.hitbox.setPosition(this.x, this.y)
     end
 
     function move(x, y)
@@ -23,10 +25,15 @@ Class "Entity" [{
 
         this.x = this.x + x
         this.y = this.y + y
+        this.hitbox.setPosition(this.x, this.y)
     end
 
     function getUUID()
         return this.uuid
+    end
+
+    function drawHitbox()
+        this.hitbox.draw()
     end
 
     function draw()
@@ -39,5 +46,9 @@ Class "Entity" [{
 
     function event()
 
+    end
+
+    function getHitbox()
+        return this.hitbox
     end
 }]
