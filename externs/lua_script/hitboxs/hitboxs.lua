@@ -69,7 +69,12 @@ end
 
 function hitbox.draw()
     for i=1, #hitboxes do
+        local rot = hitboxes[i].getRotation()
+        hitboxes[i].setRotation(rot + 1)
         hitboxes[i].draw()
+        if hitbox.collide(hitboxes[i]) then
+            print("COLLISION")
+        end
     end
 end
 
@@ -82,6 +87,7 @@ local function project(hitbox, axis)
     local min = vertices[1].dot(axis)
     local max = min
     for i=1, #vertices do
+        local proj = vertices[i].dot(axis)
         if proj < min then min = proj end
         if proj > max then max = proj end
     end
@@ -106,7 +112,7 @@ local function overlap(a_, b_)
 	return false
 end
 
-local function SAT(a, b)
+function hitbox.SAT(a, b)
     local poly_a = a.getPoints()
     local poly_b = b.getPoints()
     for i=1, #poly_a do
@@ -129,3 +135,13 @@ local function SAT(a, b)
     return true
 end
 
+function hitbox.collide(hitbx)
+    for i=1, #hitboxes do
+        if hitbx ~= hitboxes[i] then
+            if hitbox.SAT(hitbx, hitboxes[i]) then
+                return true
+            end
+        end
+    end
+    return false
+end

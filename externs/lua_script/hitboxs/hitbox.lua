@@ -21,6 +21,7 @@ Class "Hitbox" [{
         varray:setPrimitiveType(primitiveType.LineStrip)
         this.modify = true
         this.modify_mesh = true
+        this.uuid = uuid.randomUUID()
     end
 
     function setPoints(points)
@@ -142,5 +143,13 @@ Class "Hitbox" [{
     function draw()
         recompute_mesh()
         window:draw(this.varray)
+    end
+
+    function getUUID()
+        return this.uuid
+    end
+
+    function __eq(self, other)
+        return class.isInstanceOf(other, "Hitbox") and this.getUUID() == other.getUUID()
     end
 }]

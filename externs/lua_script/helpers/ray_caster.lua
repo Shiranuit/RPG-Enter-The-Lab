@@ -70,15 +70,15 @@ Class "Vector2D" [{
 
     function __add(self, other)
         if class.isInstanceOf(other, "Vector2D") then
-            return new(Vector2D(this.x + other.getX(), this.y + other.setY()))
+            return new(Vector2D(this.x + other.getX(), this.y + other.getY()))
         elseif type(other) == "number" then
             return new(Vector2D(this.x + other, this.y + other))
         end
     end
 
-    function __add(self, other)
+    function __sub(self, other)
         if class.isInstanceOf(other, "Vector2D") then
-            return new(Vector2D(this.x - other.getX(), this.y - other.setY()))
+            return new(Vector2D(this.x - other.getX(), this.y - other.getY()))
         elseif type(other) == "number" then
             return new(Vector2D(this.x - other, this.y - other))
         end
