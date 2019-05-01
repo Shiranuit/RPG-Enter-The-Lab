@@ -277,6 +277,11 @@ loadScene("scenes/scene12_salle.lua")
 loadScene("scenes/scene13_vertical.lua")
 loadScene("scenes/scene14_escalier.lua")
 
+loadScene("scenes/scene15_start.lua")
+loadScene("scenes/scene16_left_start.lua")
+loadScene("scenes/scene17_right_start.lua")
+loadScene("scenes/scene18_boss.lua")
+
 -- =========================================
 -- =           MYRPG GAME-LOGIC            =
 -- =========================================
