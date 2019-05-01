@@ -10,10 +10,10 @@ function load(scene)
         player.setPosition(1030, 200)
     end
     if (scene == "scene11_angle_droit") then
-        player.setPosition(30, 630)
+        player.setPosition(30, 700)
     end
     if (scene == "scene9_horizontal") then
-        player.setPosition(1900, 630)
+        player.setPosition(1900, 700)
     end
     assets["ambiance_music"]:setLoop(true)
     assets["ambiance_music"]:setVolume(30)

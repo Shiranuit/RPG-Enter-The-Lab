@@ -30,13 +30,13 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x < 0 and y > 600 and y < 660 then
+    if x < 0 and y > 550 and y < 700 then
         setScene("scene9_horizontal")
     end
     if x > 950 and x < 1150 and y > 1100 then
         setScene("scene4_angle_haut_gauche")
     end
-    if x > 1910 and y > 600 and y < 660 then
+    if x > 1910 and y > 550 and y < 700 then
         setScene("scene2_angle_g")
     end
     if keyboard.keyPressed(keys.A) then
