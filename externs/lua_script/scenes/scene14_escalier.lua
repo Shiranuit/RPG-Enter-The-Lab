@@ -7,10 +7,10 @@ background:setTexture(assets["labo_escalier"], false)
 
 function load(scene)
     if (scene == "scene15_start") then
-        player.setPosition(1030, 200)
+        player.setPosition(980, 250)
     end
     if (scene == "scene13_vertical") then
-        player.setPosition(1030, 1050)
+        player.setPosition(980, 1050)
     end
     assets["ambiance_music"]:setLoop(true)
     assets["ambiance_music"]:setVolume(30)
@@ -27,7 +27,7 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 950 and x < 1050 and y < 200 then
+    if x > 880 and x < 1000 and y < 180 then
         setScene("scene15_start")
     end
     if x > 950 and x < 1050 and y > 1050 then

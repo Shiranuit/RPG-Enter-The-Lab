@@ -7,13 +7,13 @@ background:setTexture(assets["start_cave"], false)
 
 function load(scene)
     if (scene == "scene14_escalier") then
-        player.setPosition(1030, 200)
+        player.setPosition(990, 250)
     end
     if (scene == "scene16_left_start") then
-        player.setPosition(30, 630)
+        player.setPosition(30, 580)
     end
     if (scene == "scene17_right_start") then
-        player.setPosition(1900, 630)
+        player.setPosition(1900, 580)
     end
     assets["ambiance_music"]:setLoop(true)
     assets["ambiance_music"]:setVolume(30)
@@ -30,13 +30,13 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x < 0 and y > 600 and y < 800 then
+    if x < 0 and y > 500 and y < 700 then
         setScene("scene16_left_start")
     end
-    if x > 950 and x < 1100 and y < 200 then
+    if x > 900 and x < 1050 and y < 180 then
         setScene("scene14_escalier")
     end
-    if x > 1910 and y > 600 and y < 660 then
+    if x > 1910 and y > 500 and y < 700 then
         setScene("scene17_right_start")
     end
     if keyboard.keyPressed(keys.A) then

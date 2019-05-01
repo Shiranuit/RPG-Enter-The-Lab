@@ -97,9 +97,9 @@ assets["plastron5"] = lsfml.texture.createFromFile("./assets/items/armure/plastr
 
 assets["scythe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/scythe/scythe.png", {0, 0, 673, 610})
 
--- =======================
--- =     MAP TEXTURE     =
--- =======================
+-- ==========================
+-- =     MAP BACKGROUND     =
+-- ==========================
 
 assets["labo_pop"] = lsfml.texture.createFromFile("./assets/map/labo/pop.png", {0, 0, 1920, 1080})
 assets["labo_angle_gauche"] = lsfml.texture.createFromFile("./assets/map/labo/angle_gauche.png", {0, 0, 1920, 1080})
@@ -116,6 +116,45 @@ assets["start_cave"] = lsfml.texture.createFromFile("./assets/map/cave/arriver.p
 assets["left_start"] = lsfml.texture.createFromFile("./assets/map/cave/grotte_gauche.png", {0, 0, 1920, 1080})
 assets["right_start"] = lsfml.texture.createFromFile("./assets/map/cave/avant_boss.png", {0, 0, 1920, 1080})
 assets["boss"] = lsfml.texture.createFromFile("./assets/map/cave/boss.png", {0, 0, 1920, 1080})
+
+-- =======================
+-- =     MAP TEXTURE     =
+-- =======================
+
+assets["geant_tapis_gauche"] = lsfml.texture.createFromFile("./assets/map/to_give/geant_tapis_gauche.png", {0, 0, 483, 369})
+assets["grand_tapis_droite"] = lsfml.texture.createFromFile("./assets/map/to_give/grand_tapis_droite.png", {0, 0, 411, 272})
+assets["hologram_break"] = lsfml.texture.createFromFile("./assets/map/to_give/hologram_break.png", {0, 0, 155, 39})
+assets["mini_holo"] = lsfml.texture.createFromFile("./assets/map/to_give/mini_holo.png", {0, 0, 56, 56})
+assets["mini_tp"] = lsfml.texture.createFromFile("./assets/map/to_give/mini_tp.png", {0, 0, 31, 60})
+assets["mini_tube"] = lsfml.texture.createFromFile("./assets/map/to_give/mini_tube.png", {0, 0, 56, 87})
+assets["moyen_tapis_haut_droite"] = lsfml.texture.createFromFile("./assets/map/to_give/moyen_tapis_haut_droite.png", {0, 0, 324, 248})
+assets["parchemin_1"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_1.png", {0, 0, 215, 65})
+assets["parchemin_2"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_2.png", {0, 0, 187, 62})
+assets["parchemin_3"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_3.png", {0, 0, 216, 57})
+assets["parchemin_4"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_4.png", {0, 0, 216, 90})
+assets["parchemin_5"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_5.png", {0, 0, 182, 70})
+assets["parchemin_6"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_6.png", {0, 0, 215, 64})
+assets["petit_tapis_bas_gauche"] = lsfml.texture.createFromFile("./assets/map/to_give/petit_tapis_bas_gauche.png", {0, 0, 192, 248})
+assets["pot1"] = lsfml.texture.createFromFile("./assets/map/to_give/pot1.png", {0, 0, 76, 84})
+assets["pot2"] = lsfml.texture.createFromFile("./assets/map/to_give/pot2.png", {0, 0, 28, 56})
+assets["pot3"] = lsfml.texture.createFromFile("./assets/map/to_give/pot3.png", {0, 0, 35, 56})
+assets["pot4"] = lsfml.texture.createFromFile("./assets/map/to_give/pot4.png", {0, 0, 76, 80})
+assets["pot5"] = lsfml.texture.createFromFile("./assets/map/to_give/pot5.png", {0, 0, 34, 84})
+assets["pot6"] = lsfml.texture.createFromFile("./assets/map/to_give/pot6.png", {0, 0, 28, 32})
+assets["status"] = lsfml.texture.createFromFile("./assets/map/to_give/status.png", {0, 0, 100, 174})
+assets["table"] = lsfml.texture.createFromFile("./assets/map/to_give/table.png", {0, 0, 200, 127})
+assets["tablette"] = lsfml.texture.createFromFile("./assets/map/to_give/tablette.png", {0, 0, 176, 116})
+assets["teleporter"] = lsfml.texture.createFromFile("./assets/map/to_give/teleporter.png", {0, 0, 130, 248})
+assets["torch"] = lsfml.texture.createFromFile("./assets/map/to_give/torch.png", {0, 0, 55, 111})
+assets["torch_empty"] = lsfml.texture.createFromFile("./assets/map/to_give/torch_empty.png", {0, 0, 55, 84})
+assets["tube_bleu_casser"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_bleu_casser.png", {0, 0, 252, 248})
+assets["tube_bleu_femme"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_bleu_femme.png", {0, 0, 159, 247})
+assets["tube_bleu_homme"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_bleu_homme.png", {0, 0, 157, 244})
+assets["tube_bleu_transform"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_bleu_transform.png", {0, 0, 131, 204})
+assets["tube_vert_casser"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_vert_casser.png", {0, 0, 252, 248})
+assets["tube_vert_empty"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_vert_empty.png", {0, 0, 159, 248})
+assets["tube_vert_femme"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_vert_femme.png", {0, 0, 159, 248})
+assets["tube_vert_homme"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_vert_homme.png", {0, 0, 160, 248})
 
 -- =======================
 -- =        FONTS        =

@@ -7,7 +7,7 @@ background:setTexture(assets["right_start"], false)
 
 function load(scene)
     if (scene == "scene15_start") then
-        player.setPosition(30, 630)
+        player.setPosition(30, 580)
     end
     if (scene == "scene18_boss") then
         player.setPosition(950, 200)
@@ -30,7 +30,7 @@ function update()
     if x > 900 and x < 1000 and y < 200 then
         setScene("scene18_boss")
     end
-    if x < 0 and y > 600 and y < 660 then
+    if x < 0 and y > 500 and y < 700 then
         setScene("scene15_start")
     end
     if keyboard.keyPressed(keys.A) then
