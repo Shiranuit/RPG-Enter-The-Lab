@@ -24,6 +24,11 @@ assets["spell_hub"] = lsfml.texture.createFromFile("./assets/menu/spell_menu.png
 assets["other_item"] = lsfml.texture.createFromFile("./assets/hud/other_item.png", {0, 0, 442, 208})
 assets["case_dial"] = lsfml.texture.createFromFile("./assets/hud/case_dial.png", {0, 0, 384, 164})
 
+-- =======================
+-- =    ENTITY MOB   =
+-- =======================
+
+assets["robot1"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot1.png", {0, 0, 4095, 2972})
 
 -- =======================
 -- =    ENTITY TEXTURE   =
