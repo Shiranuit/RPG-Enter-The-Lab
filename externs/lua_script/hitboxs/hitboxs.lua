@@ -12,6 +12,14 @@ function hitbox.add(hbx)
     hitboxes[#hitboxes + 1] = hbx
 end
 
+function hitbox.getHitboxes()
+    return hitboxes
+end
+
+function hitbox.setHitboxes(hitbx)
+    hitboxes = hitbx
+end
+
 function hitbox.clear()
     hitboxes = {}
     for i=1, #hitbox_vertexs do

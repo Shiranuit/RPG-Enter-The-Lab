@@ -46,7 +46,7 @@ Class "EntitySlash" extends "Entity" [{
         if nx < 0 or nx > 1920 or ny < 0 or ny > 1920 then
             world.removeEntityByUUID(super.getUUID())
         end
-        local entities = world.getEntitiesInHitbox(super.getHitboxs()[1])
+        local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "player")
         for i=1, #entities do
             if class.isInstanceOf(entities[i], "EntityLiving") and not this.hit[entities[i].getUUID()] then
                 entities[i].hit(this.damage)

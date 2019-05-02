@@ -45,13 +45,14 @@ local function loadScene(name)
         error("File not found '"..name.."'", 2)
     end
 end
-
+prevScene = "main_menu"
 function setScene(name)
     if name ~= "main_menu" then
         player_hud:open()
     end
     if scenes[scene_name] and scenes[scene_name].unload then
         scenes[scene_name].unload()
+        prevScene = scene_name
     end
     if scenes[name] and scenes[name].load then
         scenes[name].load(scene_name)
@@ -257,6 +258,7 @@ dofile("items.lua")
 player_hud = hud.createFromFile("hud/player_hud.lua", nil, false)
 all_sort = hud.createFromFile("hud/sort.lua", nil, false)
 menu_spell = hud.createFromFile("hud/spell_menu.lua", nil, true)
+option_menu = hud.createFromFile("hud/option_hud.lua", nil, true)
 
 -- =========================================
 -- =                 SCENES                =
@@ -313,6 +315,8 @@ function draw()
         if world.isRenderEnabled() then
             hitbox.draw()
             world.draw()
+        end
+        if hud.isRenderEnabled() then
             for i=1, #hudorder do
                 if hudorder[i]:isOpen() then
                     hudorder[i]:draw()
@@ -333,10 +337,10 @@ function update()
         end
         if world.isUpdateEnabled() then
             world.update()
-            for i=1, #hudorder do
-                if hudorder[i]:isOpen() then
-                    hudorder[i]:update()
-                end
+        end
+        for i=1, #hudorder do
+            if hudorder[i]:isOpen() then
+                hudorder[i]:update()
             end
         end
     else
@@ -357,7 +361,7 @@ function event(...)
     elseif evt[1] == "key_released" then
         keyboard.setKeyPressed(evt[2], false)
     end
-    if evt[1] == "key_pressed" and evt[2] == keys.Escape then
+    if evt[1] == "key_pressed" and evt[2] == keys.Escape and getScene() ~= "options_menu" then
         local found = false
         for i=#hudorder, 1, -1 do
             local meta = getmetatable(hudorder[i])
@@ -368,7 +372,7 @@ function event(...)
             end
         end
         if found == false then
-            setScene("main_menu")
+            option_menu:open()
         end
     end
     if scenes[scene_name] then
