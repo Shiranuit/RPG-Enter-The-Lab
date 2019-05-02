@@ -140,6 +140,7 @@ assets["boss"] = lsfml.texture.createFromFile("./assets/map/cave/boss.png", {0, 
 
 assets["geant_tapis_gauche"] = lsfml.texture.createFromFile("./assets/map/to_give/geant_tapis_gauche.png", {0, 0, 483, 369})
 assets["grand_tapis_droite"] = lsfml.texture.createFromFile("./assets/map/to_give/grand_tapis_droite.png", {0, 0, 411, 272})
+assets["hologram"] = lsfml.texture.createFromFile("./assets/map/to_give/hologram.png", {0, 0, 155, 155})
 assets["hologram_break"] = lsfml.texture.createFromFile("./assets/map/to_give/hologram_break.png", {0, 0, 155, 39})
 assets["mini_holo"] = lsfml.texture.createFromFile("./assets/map/to_give/mini_holo.png", {0, 0, 56, 56})
 assets["mini_tp"] = lsfml.texture.createFromFile("./assets/map/to_give/mini_tp.png", {0, 0, 31, 60})

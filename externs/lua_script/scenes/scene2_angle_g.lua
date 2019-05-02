@@ -5,10 +5,18 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_angle_gauche"], false)
 
+local teleporter = new(EntityProps(950, 500, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
+local hologram1 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+local hologram2 = new(EntityProps(350, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+local hologram3 = new(EntityProps(1700, 450, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+local hologram_break1 = new(EntityProps(1200, 550, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+local hologram_break2 = new(EntityProps(300, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+local torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+
 local robot1 = new(EntityRobot1(800, 800))
 
 local entities = {}
-local hitbx = nil
+local hitbx = {}
 
 function load(scene)
     if (scene == "test_player") then
@@ -21,8 +29,16 @@ function load(scene)
     if #entities == 0 then
         world.spawnEntity(robot1)
         world.spawnEntity(player)
+        world.spawnEntity(teleporter)
+        world.spawnEntity(hologram1)
+        world.spawnEntity(hologram2)
+        world.spawnEntity(hologram3)
+        world.spawnEntity(hologram_break1)
+        world.spawnEntity(torch1)
+
     end
-    if (hitbx == nil) then
+    hitbox.setHitboxes(hitbx)
+    if (#hitbx == 0) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
 
@@ -31,9 +47,7 @@ function load(scene)
 
         HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1020, 1030}, {1920, 1030}, {1920, 1100}, {1020, 1100}})
-        hitbx = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
 end
 
 function unload()
