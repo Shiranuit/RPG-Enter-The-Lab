@@ -6,7 +6,7 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["labo_vertical"], false)
 
 local entities = {}
-local hitbx = nil
+local hitb = nil
 
 function load(scene)
     if (scene == "scene14_escalier") then
@@ -20,21 +20,21 @@ function load(scene)
         world.spawnEntity(scythe)
         world.spawnEntity(player)
     end
-    if (hitbx == nil) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{910, 30}, {910, 1050}})
         HitBoxWall(0, 0, {{1170, 30}, {1170, 1050}})
 
         HitBoxWall(0, 0, {{0, 1030}, {970, 1030}, {970, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1100, 1030}, {1920, 1030}, {1920, 1100}, {1100, 1100}})
-        hitbx = hitbox.getHitboxes()
+        hitb = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
+    hitbox.setHitboxes(hitb)
 end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end

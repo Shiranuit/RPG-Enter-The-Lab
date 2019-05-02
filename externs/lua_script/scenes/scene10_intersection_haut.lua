@@ -6,9 +6,17 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["labo_intersection_haut"], false)
 
 local entities = {}
-local hitbx = nil
+local hitb = nil
 
 function load(scene)
+    local torch1 = new(EntityProps(100, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+    local torch2 = new(EntityProps(100, 450, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
+    local torch3 = new(EntityProps(1800, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+    local torch4 = new(EntityProps(1800, 450, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
+    local hologram1 = new(EntityProps(1350, 400, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+    local hologram2 = new(EntityProps(450, 950, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+    local hologram_break1 = new(EntityProps(550, 350, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+    local hologram_break2 = new(EntityProps(1500, 900, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
     if (scene == "scene13_vertical") then
         player.setPosition(1030, 200)
     end
@@ -21,8 +29,16 @@ function load(scene)
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
+        world.spawnEntity(torch1)
+        world.spawnEntity(torch2)
+        world.spawnEntity(torch3)
+        world.spawnEntity(torch4)
+        world.spawnEntity(hologram1)
+        world.spawnEntity(hologram2)
+        world.spawnEntity(hologram_break1)
+        world.spawnEntity(hologram_break2)
     end
-    if (hitbx == nil) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
 
@@ -31,14 +47,14 @@ function load(scene)
 
         HitBoxWall(0, 0, {{30, 0}, {30, 600}, {-50, 600}, {-50, 0}})
         HitBoxWall(0, 0, {{30, 760}, {30, 1080}, {-50, 1080}, {-50, 760}})
-        hitbx = hitbox.getHitboxes()
+        hitb = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
+    hitbox.setHitboxes(hitb)
 end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end

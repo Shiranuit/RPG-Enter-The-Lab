@@ -6,9 +6,18 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["labo_angle_haut_gauche"], false)
 
 local entities = {}
-local hitbx = nil
+local hitb = nil
 
 function load(scene)
+    local tube_bleu_homme1 = new(EntityProps(300, 300, assets["tube_bleu_homme"], 78, 244, {{8, 183},{0, 244}, {157, 244}, {150, 183}}, 1))
+    local tube_bleu_homme2 = new(EntityProps(900, 1000, assets["tube_bleu_homme"], 78, 244, {{8, 183},{0, 244}, {157, 244}, {150, 183}}, 1))
+    local tube_bleu_homme3 = new(EntityProps(1250, 450, assets["tube_bleu_homme"], 78, 244, {{8, 183},{0, 244}, {157, 244}, {150, 183}}, 1))
+    local tube_bleu_femme1 = new(EntityProps(1600, 700, assets["tube_bleu_femme"], 78, 247, {{8, 185},{0, 247}, {159, 247}, {151, 185}}, 1))
+    local tube_bleu_femme2 = new(EntityProps(1400, 950, assets["tube_bleu_femme"], 78, 247, {{8, 185},{0, 247}, {159, 247}, {151, 185}}, 1))
+    local tube_vert_homme1 = new(EntityProps(1750, 980, assets["tube_vert_homme"], 80, 248, {{7, 186},{0, 248}, {160, 248}, {153, 186}}, 1))
+    local tube_vert_homme2 = new(EntityProps(700, 420, assets["tube_vert_homme"], 80, 248, {{7, 186},{0, 248}, {160, 248}, {153, 186}}, 1))
+    local tube_vert_femme1 = new(EntityProps(1650, 350, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
+    local tube_vert_femme2 = new(EntityProps(350, 850, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
     if (scene == "scene5_intersection_bas") then
         player.setPosition(30, 630)
     end
@@ -18,22 +27,31 @@ function load(scene)
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
+        world.spawnEntity(tube_bleu_homme1)
+        world.spawnEntity(tube_bleu_homme2)
+        world.spawnEntity(tube_bleu_homme3)
+        world.spawnEntity(tube_bleu_femme1)
+        world.spawnEntity(tube_bleu_femme2)
+        world.spawnEntity(tube_vert_homme1)
+        world.spawnEntity(tube_vert_homme2)
+        world.spawnEntity(tube_vert_femme1)
+        world.spawnEntity(tube_vert_femme2)
     end
-    if (hitbx == nil) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 210}, {880, 210}, {880, 190}, {1030, 190}, {1030, 210}, {1920, 210}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
 
         HitBoxWall(0, 0, {{30, 0}, {30, 530}, {-50, 530}, {-50, 0}})
         HitBoxWall(0, 0, {{30, 690}, {30, 1080}, {-50, 1080}, {-50, 690}})
-        hitbx = hitbox.getHitboxes()
+        hitb = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
+    hitbox.setHitboxes(hitb)
 end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end

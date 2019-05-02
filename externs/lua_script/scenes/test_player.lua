@@ -22,7 +22,7 @@ local tube_vert_femme1 = new(EntityProps(1650, 350, assets["tube_vert_femme"], 7
 local tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
 
 local entities = {}
-local hitbx = {}
+local hitb = nil
 
 function load(scene)
     bosshealth:setEntity(scythe)
@@ -51,14 +51,14 @@ function load(scene)
         world.spawnEntity(tube_vert_femme1)
         world.spawnEntity(tube_vert_femme2)
     end
-    hitbox.setHitboxes(hitbx)
-    if (#hitbx == 0) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
         HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
+        hitb = hitbox.getHitboxes()
     end
-    
+    hitbox.setHitboxes(hitb)
 end
 
 function HitBoxWall(x_or, y_or, pts)
@@ -70,7 +70,7 @@ end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end
