@@ -5,6 +5,9 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_intersection_bas"], false)
 
+local entities = {}
+local hitbx = nil
+
 function load(scene)
     if (scene == "scene9_horizontal") then
         player.setPosition(30, 630)
@@ -15,11 +18,29 @@ function load(scene)
     if (scene == "scene4_angle_haut_gauche") then
         player.setPosition(1030, 1050)
     end
-    world.spawnEntity(player)
+    world.setEntities(entities)
+    if #entities == 0 then
+        world.spawnEntity(player)
+    end
+    if (hitbx == nil) then
+        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
+        hitbx = hitbox.getHitboxes()
+    end
+    hitbox.setHitboxes(hitbx)
 end
 
 function unload()
+    entities = world.getEntities()
+    hitbx = hitbox.getHitboxes()
     world.clearEntities()
+    hitbox.clear()
+end
+
+function HitBoxWall(x_or, y_or, pts)
+    local box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+    box.setPoints(pts)
+    box.setPosition(x_or, y_or)
+    hitbox.add(box)
 end
 
 function draw()
