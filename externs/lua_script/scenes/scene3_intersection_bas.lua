@@ -5,10 +5,13 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_intersection_bas"], false)
 
+local scythe = new(EntityScytheBoss(500, 510))
+
 local entities = {}
 local hitbx = nil
 
 function load(scene)
+    bosshealth:setEntity(scythe)
     if (scene == "scene9_horizontal") then
         player.setPosition(30, 630)
     end
@@ -20,6 +23,7 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
+        world.spawnEntity(scythe)
         world.spawnEntity(player)
     end
     if (hitbx == nil) then
