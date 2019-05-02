@@ -28,6 +28,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.hit_entity = false
         this.revert = false
         this.dir = 0
+        this.func = 1
         initHitboxes()
     end
 
@@ -124,7 +125,6 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         end
     end
 
-
     function slash_entity()
         if this.dir == 0 then
             local nx, ny = player.getPosition()
@@ -181,6 +181,56 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
             end
         end
     end
+
+    function asmat_entity()
+        if this.dir == 0 then
+            local nx, ny = player.getPosition()
+            local px, py = super.getPosition()
+            this.dir = nx - px > 0 and 1 or -1
+        end
+        this.sprite:setScale(0.5, 0.5)
+        super.setScale(0.5, 0.5)
+        local angle = super.getRotation()
+        if angle % 360 == 180 then
+            this.revert = true
+        elseif angle > 360 * 5 then
+            this.angle = 0
+            this.attack = "idle"
+            this.func = this.func + 1
+            if this.func > #scythe_func then
+                this.func = 1
+            end
+            super.setRotation(0)
+            this.sprite:setRotation(0)
+            this.revert = false
+            this.hit_entity = false
+            this.dir = 0
+            return
+        end
+        local matrix = super.getHitboxs()[1].getTransform()
+        local px, py = matrix(392, 0)
+        local pos2 = vector.new(px, py)
+        local pos1 = vector.new(super.getPosition())
+        local dir = pos2 - pos1
+        world.spawnEntity(new(EntityVortex(px, py, dir, 20, 5, scythe_func[this.func])))
+        local step = 10
+        super.setRotation(angle + step)
+        this.sprite:setRotation(angle + step)
+        local hit = super.getHitboxs()
+        for i=1, #hit do
+            local success, dist, axis = hitbox.SAT(hit[i], player.getHitboxs()[1])
+            if success then
+                local pos = axis * dist
+                player.move(pos.x, pos.y)
+                if not this.hit_entity then
+                    player.hit(20 * DeltaTime)
+                    this.hit_entity = true
+                end
+                return
+            end
+        end
+    end
+
     function update()
         super.update()
         if super.isAlive() then
@@ -188,6 +238,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 slash()
             elseif this.attack == "slash_entity" then
                 slash_entity()
+            elseif this.attack == "asmat_entity" then
+                asmat_entity()
             end
         end
     end
@@ -195,8 +247,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
     function event(e)
         local event = e:getEvent()
         if event[1] == "key_pressed" and event[2] == keys.L then
-            this.attack = "slash_entity"
+            this.attack = "asmat_entity"
         end
     end
-
 }]

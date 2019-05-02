@@ -32,6 +32,7 @@ assets["boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshealth.pn
 -- =======================
 
 assets["slash"] = lsfml.texture.createFromFile("./assets/entity/slash.png", {0, 0, 67, 147})
+assets["vortex"] = lsfml.texture.createFromFile("./assets/entity/vortex.png", {0, 0, 386, 393})
 
 -- =======================
 -- =    SPELL TEXTURE    =
