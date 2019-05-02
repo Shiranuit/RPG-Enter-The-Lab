@@ -3,6 +3,7 @@
 -- =========================================
 
 hitbox = {}
+local showHitbox = false
 push_rays = {{0, 1}, {0.70, -0.70}, {1, 0}, {0.70, 0.70}, {0, 1}, {-0.70, 0.70}, {-1, 0}, {-0.70, -0.70}}
 local hitboxes = {}
 
@@ -10,6 +11,18 @@ function hitbox.add(hbx)
     check(hbx, "Hitbox", 1)
 
     hitboxes[#hitboxes + 1] = hbx
+end
+
+function hitbox.enableDraw()
+    showHitbox = true
+end
+
+function hitbox.disableDraw()
+    showHitbox = false
+end
+
+function hitbox.isDrawEnable()
+    return showHitbox
 end
 
 function hitbox.getHitboxes()
@@ -81,8 +94,10 @@ function hitbox.rayhitCount(x, y, dx, dy, _type)
 end
 
 function hitbox.draw()
-    for i=1, #hitboxes do
-        hitboxes[i].draw()
+    if showHitbox then
+        for i=1, #hitboxes do
+            hitboxes[i].draw()
+        end
     end
 end
 local c = false

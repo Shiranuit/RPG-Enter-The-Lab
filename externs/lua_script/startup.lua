@@ -361,10 +361,17 @@ function event(...)
         window:close()
         return
     end
-    if evt[1] == "key_pressed" then
-        keyboard.setKeyPressed(evt[2], true)
-    elseif evt[1] == "key_released" then
-        keyboard.setKeyPressed(evt[2], false)
+    -- if evt[1] == "key_pressed" then
+    --     keyboard.setKeyPressed(evt[2], true)
+    -- elseif evt[1] == "key_released" then
+    --     keyboard.setKeyPressed(evt[2], false)
+    -- end
+    if evt[1] == "key_pressed" and evt[2] == controls.getControl("show_hitbox") then
+        if hitbox.isDrawEnable() then
+            hitbox.disableDraw()
+        else
+            hitbox.enableDraw()
+        end
     end
     if evt[1] == "key_pressed" and evt[2] == keys.Escape and getScene() ~= "options_menu" then
         local found = false

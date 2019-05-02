@@ -79,8 +79,10 @@ Class "Entity" [{
     end
 
     function drawHitbox()
-        for i=1, #this.hitbox do
-            this.hitbox[i].draw()
+        if _G.hitbox.isDrawEnable() then
+            for i=1, #this.hitbox do
+                this.hitbox[i].draw()
+            end
         end
     end
 
