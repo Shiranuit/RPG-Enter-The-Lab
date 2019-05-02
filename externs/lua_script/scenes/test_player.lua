@@ -9,7 +9,7 @@ local scythe = new(EntityScytheBoss(500, 510))
 local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
 item1.setPosition(500, 500)
 
-local tube_bleu_casser = new(EntityProps(450, 500, assets["tube_bleu_casser"]))
+local tube_bleu_casser = new(EntityProps(600, 700, assets["tube_bleu_casser"], 126, 248, {{200,200},{200, 300}, {300, 200}}))
 
 local entities = {}
 
