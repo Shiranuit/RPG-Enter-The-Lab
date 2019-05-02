@@ -102,16 +102,16 @@ Class "Hitbox" [{
         recompute()
         if this.modify_mesh and #this.compute_points > 0 then
             varray:clear()
-            -- for i=1, #this.compute_points do
-            --     varray:append({x=this.compute_points[i][1], y=this.compute_points[i][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
-            -- end
-            -- varray:append({x=this.compute_points[1][1], y=this.compute_points[1][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
-            local pos = this.getBoundingBox()
-            varray:append({x=pos[1], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
-            varray:append({x=pos[1] + pos[3], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
-            varray:append({x=pos[1] + pos[3], y=pos[2] + pos[4], r=255, g=255, b=255, a=255, tx=0, ty=0})
-            varray:append({x=pos[1], y=pos[2] + pos[4], r=255, g=255, b=255, a=255, tx=0, ty=0})
-            varray:append({x=pos[1], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            for i=1, #this.compute_points do
+                varray:append({x=this.compute_points[i][1], y=this.compute_points[i][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            end
+            varray:append({x=this.compute_points[1][1], y=this.compute_points[1][2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            -- local pos = this.getBoundingBox()
+            -- varray:append({x=pos[1], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            -- varray:append({x=pos[1] + pos[3], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            -- varray:append({x=pos[1] + pos[3], y=pos[2] + pos[4], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            -- varray:append({x=pos[1], y=pos[2] + pos[4], r=255, g=255, b=255, a=255, tx=0, ty=0})
+            -- varray:append({x=pos[1], y=pos[2], r=255, g=255, b=255, a=255, tx=0, ty=0})
             this.modify_mesh = false
         end
     end

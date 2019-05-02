@@ -21,12 +21,8 @@ function hitbox.setHitboxes(hitbx)
 end
 
 function hitbox.clear()
+    hitboxes = nil
     hitboxes = {}
-    for i=1, #hitbox_vertexs do
-        hitbox_vertexs[i] = nil
-    end
-    hitbox_vertexs = nil
-    hitbox_vertexs = {}
 end
 
 function hitbox.rayhit(x, y, dx, dy, _type)

@@ -6,15 +6,36 @@ local background = lsfml.sprite.create()
 local boss_start = false
 background:setTexture(assets["boss"], false)
 
+local entities = {}
+local hitbx = nil
+
 function load(scene)
     if (scene == "scene17_right_start") then
         player.setPosition(950, 1050)
     end
-    world.spawnEntity(player)
+    world.setEntities(entities)
+    if #entities == 0 then
+        world.spawnEntity(player)
+    end
+    if (hitbx == nil) then
+        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
+        hitbx = hitbox.getHitboxes()
+    end
+    hitbox.setHitboxes(hitbx)
 end
 
 function unload()
+    entities = world.getEntities()
+    hitbx = hitbox.getHitboxes()
     world.clearEntities()
+    hitbox.clear()
+end
+
+function HitBoxWall(x_or, y_or, pts)
+    local box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+    box.setPoints(pts)
+    box.setPosition(x_or, y_or)
+    hitbox.add(box)
 end
 
 function draw()
