@@ -1,6 +1,6 @@
 scythe_func = {
     function(x)
-        return math.cos(x / 40) * 10
+        return math.cos(x / 40) * 2
     end,
     function(x)
         return math.sin(x / 20) * 2

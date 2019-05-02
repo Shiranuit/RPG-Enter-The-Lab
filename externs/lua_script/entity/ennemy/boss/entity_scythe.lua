@@ -213,7 +213,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         local pos1 = vector.new(super.getPosition())
         local dir = pos2 - pos1
         world.spawnEntity(new(EntityVortex(px, py, dir, 20, 5, scythe_func[this.func])))
-        local step = 10
+        local step = 15
         super.setRotation(angle + step)
         this.sprite:setRotation(angle + step)
         local hit = super.getHitboxs()
