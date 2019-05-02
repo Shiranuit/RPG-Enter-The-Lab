@@ -24,10 +24,18 @@ function load(scene)
     local pot2_2 = new(EntityProps(300, 400, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
     local pot2_3 = new(EntityProps(1500, 350, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
     local pot2_4 = new(EntityProps(300, 800, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
-    local pot3_1 = new(EntityProps(300, 800, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 74}}, 1))
-    local pot3_2 = new(EntityProps(300, 800, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 74}}, 1))
-    local pot3_3 = new(EntityProps(300, 800, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 74}}, 1))
-    local pot3_4 = new(EntityProps(300, 800, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 74}}, 1))
+    local pot3_1 = new(EntityProps(414, 488, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+    local pot3_2 = new(EntityProps(1654, 344, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+    local pot3_3 = new(EntityProps(1512, 459, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+    local pot3_4 = new(EntityProps(1376, 859, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+    local pot4_1 = new(EntityProps(659, 427, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+    local pot4_2 = new(EntityProps(387, 411, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+    local pot4_3 = new(EntityProps(300, 607, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+    local pot4_4 = new(EntityProps(408, 617, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+    local pot5_1 = new(EntityProps(507, 534, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+    local pot5_2 = new(EntityProps(686, 523, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+    local pot5_3 = new(EntityProps(494, 816, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+    local pot5_4 = new(EntityProps(404, 905, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
     if (scene == "scene15_start") then
         player.setPosition(980, 250)
     end
@@ -56,6 +64,14 @@ function load(scene)
         world.spawnEntity(pot3_2)
         world.spawnEntity(pot3_3)
         world.spawnEntity(pot3_4)
+        world.spawnEntity(pot4_1)
+        world.spawnEntity(pot4_2)
+        world.spawnEntity(pot4_3)
+        world.spawnEntity(pot4_4)
+        world.spawnEntity(pot5_1)
+        world.spawnEntity(pot5_2)
+        world.spawnEntity(pot5_3)
+        world.spawnEntity(pot5_4)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {880, 220}, {880, 190}, {1030, 190}, {1030, 220}, {1920, 220}, {1920, 0}})
@@ -89,8 +105,8 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if mouse_pressed("mouse_left") then
-        print(mouse.getPosition())
+    if keyboard.keyPressed(keys.P) then
+        print(lsfml.mouse.getPosition(window))
     end
     if y < 200 then
         setScene("scene15_start")
@@ -98,6 +114,7 @@ function update()
     if y > 1050 then
         setScene("scene13_vertical")
     end
+
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime)
         print(player.getHealth())
