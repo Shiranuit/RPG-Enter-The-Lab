@@ -23,7 +23,7 @@ function changeSort(self, index, sort, sprite)
     check(self, "hud", 1)
     check(index, "number", 2)
     check(sort, "string", 3)
-    check(sprite, "sprite")
+    check(sprite, "sprite", 4)
 
     for i = 1, 5 do
         if selected_spell_name[i] and selected_spell_name[i] == sort then

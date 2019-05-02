@@ -34,7 +34,7 @@ function update()
     if x > 950 and x < 1100 and y < 200 then
         setScene("scene13_vertical")
     end
-    if x > 1910 and y > 600 and y < 660 then
+    if x > 1910 and y > 550 and y < 700 then
         setScene("scene9_horizontal")
     end
     if keyboard.keyPressed(keys.A) then

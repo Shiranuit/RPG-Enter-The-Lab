@@ -20,7 +20,9 @@ function check(var, Type, index)
             error("Argument #"..index.." Expected "..Type..", Got "..type(var), 3)
         end
     else
-        error("Missing Parameter for check(var, Type, index)", 1)
+        print(var, Type, index)
+        print(debug.traceback())
+        error("Missing Parameter for check(var, Type, index)", 3)
     end
 end
 
