@@ -94,10 +94,8 @@ function hitbox.rayhitCount(x, y, dx, dy, _type)
 end
 
 function hitbox.draw()
-    if showHitbox then
-        for i=1, #hitboxes do
-            hitboxes[i].draw()
-        end
+    for i=1, #hitboxes do
+        hitboxes[i].draw()
     end
 end
 local c = false
