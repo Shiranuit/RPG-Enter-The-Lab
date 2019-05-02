@@ -46,7 +46,7 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 930 and x < 1100 and y < 200 then
+    if y < 200 then
         setScene("scene7_angle_droit")
     end
     if keyboard.keyPressed(keys.A) then

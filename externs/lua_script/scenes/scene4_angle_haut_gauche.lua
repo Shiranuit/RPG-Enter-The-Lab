@@ -20,8 +20,12 @@ function load(scene)
         world.spawnEntity(player)
     end
     if (hitbx == nil) then
-        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 0}, {0, 210}, {880, 210}, {880, 190}, {1030, 190}, {1030, 210}, {1920, 210}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
+        HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
+
+        HitBoxWall(0, 0, {{30, 0}, {30, 530}, {-50, 530}, {-50, 0}})
+        HitBoxWall(0, 0, {{30, 690}, {30, 1080}, {-50, 1080}, {-50, 690}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)
@@ -47,10 +51,10 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 900 and x < 1000 and y < 200 then
+    if y < 200 then
         setScene("scene3_intersection_bas")
     end
-    if x < 0 and y > 550 and y < 700 then
+    if x < 0 then
         setScene("scene5_intersection_bas")
     end
     if keyboard.keyPressed(keys.A) then

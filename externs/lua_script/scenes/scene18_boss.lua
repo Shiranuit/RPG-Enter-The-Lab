@@ -18,7 +18,12 @@ function load(scene)
         world.spawnEntity(player)
     end
     if (hitbx == nil) then
-        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 0}, {0, 330}, {1920, 330}, {1920, 0}})
+        HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
+        HitBoxWall(0, 0, {{1910, 30}, {1910, 1050}})
+
+        HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
+        HitBoxWall(0, 0, {{1020, 1030}, {1920, 1030}, {1920, 1100}, {1020, 1100}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)

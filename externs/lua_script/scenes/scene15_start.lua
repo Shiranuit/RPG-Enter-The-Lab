@@ -50,13 +50,13 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x < 0 and y > 500 and y < 700 then
+    if x < 0 then
         setScene("scene16_left_start")
     end
-    if x > 900 and x < 1050 and y < 155 then
+    if y < 155 then
         setScene("scene14_escalier")
     end
-    if x > 1910 and y > 500 and y < 700 then
+    if x > 1910 then
         setScene("scene17_right_start")
     end
     if keyboard.keyPressed(keys.A) then
