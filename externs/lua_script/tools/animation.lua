@@ -35,6 +35,15 @@ function animation.create(texture, where)
     })
 end
 
+function animation.changeRect(self, where)
+    check(self, "animation", 1)
+    check(where, "table", 2)
+
+    local meta = getmetatable(self)
+    meta.__sprite:setTextureRect(table.unpack(where))
+    meta.__where = where
+end
+
 function animation.getAnimationFrame(self)
     check(self, "animation", 1)
 

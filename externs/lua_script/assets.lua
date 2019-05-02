@@ -28,6 +28,12 @@ assets["empty_boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshea
 assets["boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshealth.png", {0, 0, 426, 33})
 
 -- =======================
+-- =    ENTITY MOB   =
+-- =======================
+
+assets["robot1"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot1.png", {0, 0, 4095, 2972})
+
+-- =======================
 -- =    ENTITY TEXTURE   =
 -- =======================
 
