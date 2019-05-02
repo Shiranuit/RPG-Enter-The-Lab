@@ -5,12 +5,12 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_angle_gauche"], false)
 
-local robot1 = new(EntityRobot1(800, 800))
 
 local entities = {}
 local hitbx = nil
 
 function load(scene)
+    local robot1 = new(EntityRobot1(800, 800))
     if (scene == "test_player") then
         player.setPosition(960, 1000)
     end

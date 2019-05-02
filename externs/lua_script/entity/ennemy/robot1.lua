@@ -18,16 +18,15 @@ Class "EntityRobot1" extends "EntityLiving" [{
         this.sprite:setOrigin(270, 462)
         this.sprite:scale(0.25, 0.25)
 
-        this.attack = animation.create(assets["laser"], {0, 0, 45, 19})
-        this.attack:setPosition(800, 800)
-        this.attack:setOrigin(0, 0)
-        this.attack:scale(5, 5)
+        this.attack = animation.create(assets["laser"], {0, 0, 46, 19})
+        this.attack:setOrigin(9, 9)
+        this.attack:scale(3, 3)
 
         this.clock = lsfml.clock.create()
         this.clock_attack = lsfml.clock.create()
         this.status = "right"
         this.speed = 2
-        this.max_distance = 300
+        this.max_distance = 500
         this.last_animation = false
         this.is_attack = false
         initHitboxes()
@@ -51,6 +50,16 @@ Class "EntityRobot1" extends "EntityLiving" [{
         end
     end
 
+    function laser()
+        local x, y = player.getPosition()
+        y = y - 62.5
+        local px, py = this.attack:getPosition()
+        local pos1 = vector.new(px, py)
+        local pos2 = vector.new(x, y)
+        local dir = pos2 - pos1
+        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 20)))
+    end
+
     function draw()
         if super.isAlive() then
             if this.clock:getEllapsedTime() > 100000 then
@@ -64,12 +73,13 @@ Class "EntityRobot1" extends "EntityLiving" [{
             super.drawHitbox()
 
             if this.is_attack then
-                if this.clock_attack:getEllapsedTime() > 100000 then
+                if this.clock_attack:getEllapsedTime() > 80000 then
                     this.clock_attack:restart()
                     this.attack:next()
                     if this.attack:hasEnded() then
                         this.attack:restart()
                         this.is_attack = false
+                        laser()
                     end
                 end
                 this.attack:draw()
@@ -81,7 +91,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
             this.clock:restart()
         end
         if this.last_animation then
-            if this.clock:getEllapsedTime() > 100000 then
+            if this.clock:getEllapsedTime() > 10000 then
                 this.clock:restart()
                 this.sprite:next()
                 if this.sprite:hasEnded() then
@@ -100,7 +110,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
         local dir_x, dir_y
         local hitbox = super.getHitboxs()
 
-        if this.is_attack then
+        if this.is_attack or not player.isAlive() then
             return
         end
         sprite_y = sprite_y
@@ -140,9 +150,27 @@ Class "EntityRobot1" extends "EntityLiving" [{
             move((dir_x / total) * this.speed, (dir_y / total) * this.speed)
         elseif (total < this.max_distance - this.speed) then
             move((-dir_x / total) * this.speed, (-dir_y / total) * this.speed)
-        elseif not this.is_attack then
+        end
+        if not this.is_attack and total < this.max_distance + 300 and total > this.max_distance - 20 then
             this.clock_attack:restart()
-            --this.is_attack = true
+            this.is_attack = true
+            if this.status == "down" then
+                this.attack:setPosition(sprite_x - 3, sprite_y - 60)
+                this.attack:setRotation(90)
+                this.attack:setOrigin(9, 9)
+            elseif this.status == "up" then
+                this.attack:setPosition(sprite_x + 3, sprite_y - 150)
+                this.attack:setRotation(-90)
+                this.attack:setOrigin(9, 9)
+            elseif this.status == "right" then
+                this.attack:setPosition(sprite_x + 45, sprite_y - 65)
+                this.attack:setRotation(0)
+                this.attack:setOrigin(9, 9)
+            elseif this.status == "left" then
+                this.attack:setPosition(sprite_x - 45, sprite_y - 70)
+                this.attack:setRotation(180)
+                this.attack:setOrigin(9, 9)
+            end
         end
     end 
 

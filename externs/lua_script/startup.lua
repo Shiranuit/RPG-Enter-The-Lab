@@ -95,6 +95,7 @@ dofile("tools/inventory_slot.lua")
 
 class.createFromFile("helpers/ray_caster.lua")
 class.createFromFile("entity/entity.lua")
+class.createFromFile("entity/entity_laser.lua")
 class.createFromFile("entity/entity_slash.lua")
 class.createFromFile("entity/entity_vortex.lua")
 class.createFromFile("stats/stats.lua")
@@ -226,16 +227,16 @@ animationSpell = {
         pos_x_tp = 0,
         pos_y_tp = 0,
     })),
-    tempSpell = new(EntitySpell({
-        spell = assets["tempAnimation"],
-        rect = {0, 0, 573, 573},
-        time = 400000,
-        pos_y = 100,
-        pos_x = 600,
-        scale = 1.5,
-        follow_player = false,
-        one_animation = true,
-    })),
+    -- tempSpell = new(EntitySpell({
+    --     spell = assets["tempAnimation"],
+    --     rect = {0, 0, 573, 573},
+    --     time = 400000,
+    --     pos_y = 100,
+    --     pos_x = 600,
+    --     scale = 1.5,
+    --     follow_player = false,
+    --     one_animation = true,
+    -- })),
     repulsionSpell = new(EntitySpell({
         spell = assets["repulsionAnimation"],
         rect = {0, 0, 900, 900},
@@ -268,6 +269,7 @@ all_sort = hud.createFromFile("hud/sort.lua", nil, false)
 bosshealth = hud.createFromFile("hud/boss_health.lua", nil, false)
 menu_spell = hud.createFromFile("hud/spell_menu.lua", nil, true)
 option_menu = hud.createFromFile("hud/option_hud.lua", nil, true)
+temp_hud = hud.createFromFile("hud/temp_hud.lua", nil, false)
 
 -- =========================================
 -- =                 SCENES                =
