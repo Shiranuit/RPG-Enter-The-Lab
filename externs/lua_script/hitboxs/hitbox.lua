@@ -223,7 +223,9 @@ Class "Hitbox" [{
 
     function draw()
         recompute_mesh()
-        window:draw(this.varray)
+        if hitbox.isDrawEnable() then
+            window:draw(this.varray)
+        end
     end
 
     function getUUID()
