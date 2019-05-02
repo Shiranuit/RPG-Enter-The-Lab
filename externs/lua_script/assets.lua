@@ -38,6 +38,7 @@ assets["robot1"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot1.png
 -- =======================
 
 assets["slash"] = lsfml.texture.createFromFile("./assets/entity/slash.png", {0, 0, 67, 147})
+assets["laser"] = lsfml.texture.createFromFile("./assets/ennemy/robo/attack.png", {0, 0, 365, 33})
 
 -- =======================
 -- =    SPELL TEXTURE    =
