@@ -107,6 +107,8 @@ function event(e)
             local meta = getmetatable(bts[i])
             bts[i]:setText(getKeyName(shortcuts[meta.__id + offset].key))
         end
+    elseif event[1] == "key_pressed" and event[2] == keys.Escape then
+        setScene(prevScene)
     end
     for i=1, #bts do
         bts[i]:event(e)
