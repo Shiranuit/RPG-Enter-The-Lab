@@ -29,16 +29,25 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.revert = false
         this.dir = 0
         this.speed = 2
-        this.max_distance = 400
+        this.max_distance = 300
         this.func = 1
         this.cooldown = false
         this.clock = lsfml.clock.create()
+        this.phase = 1
         initHitboxes()
     end
 
     function hit(damage)
         if super.isAlive() then
             super.hit(damage)
+            local mx = this.getMaximumHealth()
+            if this.getHealth() < mx * 0.75 and this.phase ~= 2 then
+                this.phase = 2
+                bosshealth:setPhase(this.phase)
+            elseif this.getHealth() < mx * 0.5 and this.phase ~= 3 then
+                this.phase = 3
+                bosshealth:setPhase(this.phase)
+            end
             if super.isDead() then
                 local equipmentItems = {}
                 for k, v in pairs(items) do
@@ -199,43 +208,46 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.sprite:setScale(0.5, 0.5)
         super.setScale(0.5, 0.5)
         local angle = super.getRotation()
-        if angle % 360 == 180 then
-            this.revert = true
-        elseif angle > 360 * 5 then
-            this.angle = 0
-            this.attack = "idle"
-            this.func = this.func + 1
-            if this.func > #scythe_func then
-                this.func = 1
+        if not this.revert then
+            this.setRotation(angle - 0.5)
+            this.sprite:setRotation(angle - 0.5)
+            if angle - 0.5 <= -45 then
+                this.revert = true
             end
-            this.cooldown = true
-            this.clock:restart()
-            super.setRotation(0)
-            this.sprite:setRotation(0)
-            this.revert = false
-            this.hit_entity = false
-            this.dir = 0
-            return
         end
-        local matrix = super.getHitboxs()[1].getTransform()
-        local px, py = matrix(392, 0)
-        local pos2 = vector.new(px, py)
-        local pos1 = vector.new(super.getPosition())
-        local dir = pos2 - pos1
-        world.spawnEntity(new(EntityVortex(px, py, dir, 20, 5, scythe_func[this.func])))
-        local step = 15
-        super.setRotation(angle + step)
-        this.sprite:setRotation(angle + step)
-        local hit = super.getHitboxs()
-        for i=1, #hit do
-            local success, dist, axis = hitbox.SAT(hit[i], player.getHitboxs()[1])
+        if this.revert then
+            if angle > 360 * 5 then
+                this.angle = 0
+                this.attack = "idle"
+                this.func = this.func + 1
+                if this.func > #scythe_func then
+                    this.func = 1
+                end
+                this.cooldown = true
+                this.clock:restart()
+                super.setRotation(0)
+                this.sprite:setRotation(0)
+                this.revert = false
+                this.hit_entity = false
+                this.dir = 0
+                return
+            end
+            local matrix = super.getHitboxs()[1].getTransform()
+            local px, py = matrix(392, 0)
+            local pos2 = vector.new(px, py)
+            local pos1 = vector.new(super.getPosition())
+            local dir = pos2 - pos1
+            world.spawnEntity(new(EntityVortex(px, py, dir, 20, 5, scythe_func[this.func])))
+            local step = 15
+            super.setRotation(angle + step)
+            this.sprite:setRotation(angle + step)
+            local hit = super.getHitboxs()
+            local success, dist, axis = hitbox.SAT(hit[1], player.getHitboxs()[1])
             if success then
                 local pos = axis * dist
                 player.move(pos.x, pos.y)
-                if not this.hit_entity then
-                    player.hit(20 * DeltaTime)
-                    this.hit_entity = true
-                end
+                player.hit(20 * DeltaTime)
+                this.hit_entity = true
                 return
             end
         end
@@ -243,26 +255,33 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
 
     function update()
         super.update()
-        if this.attack == "idle" then
+        if this.attack == "idle" and player.isAlive() then
             local x, y = player.getPosition()
             local sprite_x, sprite_y = super.getPosition()
             local dir_x, dir_y
             local hitbox = super.getHitboxs()
-
             sprite_y = sprite_y
             dir_x = x - sprite_x
             dir_y = y - sprite_y
-
-            local total = math.abs(dir_x) + math.abs(dir_y)
+            local total = math.sqrt(dir_x^2 + dir_y^2)
             if total > this.max_distance then
                 move((dir_x / total) * this.speed, (dir_y / total) * this.speed)
             elseif (total < this.max_distance - this.speed) then
                 move((-dir_x / total) * this.speed, (-dir_y / total) * this.speed)
             end
-            if (total < 400) then
-                this.attack = "slash"
-            elseif total > 700 then
-                this.attack = "slash_entity"
+            if not this.cooldown then
+                if (total < 400) then
+                    this.attack = "slash"
+                elseif total > 500 then
+                    this.attack = "slash_entity"
+                end
+                if this.attack ~= "idle" then
+                    local chance = (super.getHealth() < super.getMaximumHealth() * 0.5 and 33 or (super.getHealth() < super.getMaximumHealth() * 0.75 and 10 or 0))
+                    local rng = math.random(1, 100)
+                    if this.attack ~= "idle" and rng < chance then
+                        this.attack = "asmat_entity"
+                    end
+                end
             end
         end
         if this.clock:getEllapsedTime() > 2000000 then

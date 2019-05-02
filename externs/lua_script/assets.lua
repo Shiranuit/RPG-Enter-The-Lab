@@ -25,7 +25,13 @@ assets["other_item"] = lsfml.texture.createFromFile("./assets/hud/other_item.png
 assets["case_dial"] = lsfml.texture.createFromFile("./assets/hud/case_dial.png", {0, 0, 384, 164})
 
 assets["empty_boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshealth_empty.png", {0, 0, 426, 33})
-assets["boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshealth.png", {0, 0, 426, 33})
+assets["boss_health1"] = lsfml.texture.createFromFile("./assets/hud/bosshealth1.png", {0, 0, 426, 33})
+assets["boss_health2"] = lsfml.texture.createFromFile("./assets/hud/bosshealth2.png", {0, 0, 426, 33})
+assets["boss_health3"] = lsfml.texture.createFromFile("./assets/hud/bosshealth3.png", {0, 0, 426, 33})
+assets["boss_health4"] = lsfml.texture.createFromFile("./assets/hud/bosshealth4.png", {0, 0, 426, 33})
+assets["boss_health5"] = lsfml.texture.createFromFile("./assets/hud/bosshealth5.png", {0, 0, 426, 33})
+assets["boss_health6"] = lsfml.texture.createFromFile("./assets/hud/bosshealth6.png", {0, 0, 426, 33})
+assets["boss_health7"] = lsfml.texture.createFromFile("./assets/hud/bosshealth7.png", {0, 0, 426, 33})
 
 -- =======================
 -- =    ENTITY MOB   =

@@ -11,11 +11,12 @@ text:setFont(assets["fsys"])
 text:setCharacterSize(csize)
 text:setString("")
 local ent = nil
+local phase = 1
 
 health_bar:setPosition(960 - 426, 0)
 empty_bar1:setPosition(960 - 426, 0)
 
-health_bar:setTexture(assets["boss_health"], false)
+health_bar:setTexture(assets["boss_health1"], false)
 empty_bar1:setTexture(assets["empty_boss_health"], false)
 
 health_bar:setScale(2, 2)
@@ -26,8 +27,9 @@ function load(self)
 end
 
 function setEntity(self, entity)
-    if class.isInstanceOf(entity, "EntityLiving") then
+    if class.isInstanceOf(entity, "EntityLiving") or entity == nil then
         ent = entity
+        phase = 1
     else
         error("Entity must be an instance of EntityLiving", 2)
     end
@@ -35,6 +37,20 @@ end
 
 function getEntity()
     return ent
+end
+
+function setPhase(self, lvl)
+    if lvl < 0 then
+        lvl = 1
+    elseif lvl > 7 then
+        lvl = 7
+    end
+    phase = lvl
+    health_bar:setTexture(assets["boss_health"..phase], false)
+end
+
+function getPhase()
+    return phase
 end
 
 function open(self)
