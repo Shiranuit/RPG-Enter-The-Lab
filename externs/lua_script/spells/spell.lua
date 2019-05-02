@@ -19,7 +19,7 @@ function spell.createFromFile(filename)
                 local sp = setmetatable({}, {
                     __type = "spell",
                     __env = data,
-                    __cd = lsfml.clock.create(),
+                    __cd = stopwatch.create(),
                     __isInCD = false,
                     __status = "idle",
                     __index = function(self, key)

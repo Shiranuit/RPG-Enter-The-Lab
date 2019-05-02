@@ -3,6 +3,8 @@
 -- =========================================
 
 assets = {}
+pause = false
+local pstate = false
 local scenes = {}
 local scene_name = "main_menu"
 
@@ -71,6 +73,7 @@ dofile("entity/ennemy/boss/scythe_func.lua")
 transform = dofile("tools/transform.lua")
 dofile("lib/class.lua")
 dofile("lib/lsfml.lua")
+dofile("tools/stopwatch.lua")
 dofile("math/vector.lua")
 dofile("tools/animation.lua")
 dofile("tools/event.lua")
@@ -92,6 +95,7 @@ dofile("tools/inventory_slot.lua")
 
 class.createFromFile("helpers/ray_caster.lua")
 class.createFromFile("entity/entity.lua")
+class.createFromFile("entity/entity_laser.lua")
 class.createFromFile("entity/entity_slash.lua")
 class.createFromFile("entity/entity_vortex.lua")
 class.createFromFile("stats/stats.lua")
@@ -107,7 +111,8 @@ class.createFromFile("entity/spell/rayon_spell.lua")
 -- =========================================
 -- =             LOADING SPELLS            =
 -- =========================================
-
+freeze = false
+freezetime = stopwatch.create()
 spells_tab = {
     healSpell = spell.createFromFile("spells/heal.lua"),
     bouleelecSpell = spell.createFromFile("spells/bouleelec.lua"),
@@ -222,16 +227,16 @@ animationSpell = {
         pos_x_tp = 0,
         pos_y_tp = 0,
     })),
-    tempSpell = new(EntitySpell({
-        spell = assets["tempAnimation"],
-        rect = {0, 0, 573, 573},
-        time = 400000,
-        pos_y = 100,
-        pos_x = 600,
-        scale = 1.5,
-        follow_player = false,
-        one_animation = true,
-    })),
+    -- tempSpell = new(EntitySpell({
+    --     spell = assets["tempAnimation"],
+    --     rect = {0, 0, 573, 573},
+    --     time = 400000,
+    --     pos_y = 100,
+    --     pos_x = 600,
+    --     scale = 1.5,
+    --     follow_player = false,
+    --     one_animation = true,
+    -- })),
     repulsionSpell = new(EntitySpell({
         spell = assets["repulsionAnimation"],
         rect = {0, 0, 900, 900},
@@ -264,6 +269,7 @@ all_sort = hud.createFromFile("hud/sort.lua", nil, false)
 bosshealth = hud.createFromFile("hud/boss_health.lua", nil, false)
 menu_spell = hud.createFromFile("hud/spell_menu.lua", nil, true)
 option_menu = hud.createFromFile("hud/option_hud.lua", nil, true)
+temp_hud = hud.createFromFile("hud/temp_hud.lua", nil, false)
 
 -- =========================================
 -- =                 SCENES                =
@@ -335,13 +341,32 @@ end
 
 -- Called each time we need to update the game-logic
 function update()
-    if scenes[scene_name] then
-        scenes[scene_name].update()
-        for i=1, #spells do
-            spells[i]:update()
+    if pstate ~= _G.pause then
+        if _G.pause then
+            _G.game_pause()
+        else
+            _G.game_resume()
         end
-        if world.isUpdateEnabled() then
-            world.update()
+        pstate = _G.pause
+    end
+    if scenes[scene_name] then
+        if not _G.pause then
+            scenes[scene_name].update()
+            for i=1, #spells do
+                spells[i]:update()
+            end
+            if not freeze then
+                if world.isUpdateEnabled() then
+                    world.update()
+                end
+            else
+                if world.isUpdateEnabled() then
+                    player.update()
+                end
+                if freezetime:getEllapsedTime() > 5000000 then
+                    freeze = false
+                end
+            end
         end
         for i=1, #hudorder do
             if hudorder[i]:isOpen() then
@@ -361,11 +386,6 @@ function event(...)
         window:close()
         return
     end
-    -- if evt[1] == "key_pressed" then
-    --     keyboard.setKeyPressed(evt[2], true)
-    -- elseif evt[1] == "key_released" then
-    --     keyboard.setKeyPressed(evt[2], false)
-    -- end
     if evt[1] == "key_pressed" and evt[2] == controls.getControl("show_hitbox") then
         if hitbox.isDrawEnable() then
             hitbox.disableDraw()
@@ -419,5 +439,17 @@ function event(...)
         end
     else
         error("Scene not found '"..scene_name.."'", 2)
+    end
+end
+
+function game_pause()
+    if assets["time"]:isPlaying() then
+        assets["time"]:pause()
+    end
+end
+
+function game_resume()
+    if assets["time"]:isPaused() then
+        assets["time"]:play()
     end
 end

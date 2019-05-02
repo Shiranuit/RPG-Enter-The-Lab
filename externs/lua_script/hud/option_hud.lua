@@ -73,10 +73,12 @@ function unload()
 end
 
 function open()
+    _G.pause = true
     world.updateDisable()
 end
 
 function close()
+    _G.pause = false
     world.updateEnable()
 end
 
@@ -91,7 +93,11 @@ function update()
 end
 
 function event(self, e)
+    local event = e:getEvent()
     if self:isOpen() then
+        if event[1] == "key_pressed" and event[2] ~= keys.Escape then
+            e:setCanceled(true)
+        end
         play_button:event(e)
         option_button:event(e)
         exit_button:event(e)

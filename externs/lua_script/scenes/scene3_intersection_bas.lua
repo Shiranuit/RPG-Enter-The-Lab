@@ -5,6 +5,8 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_intersection_bas"], false)
 
+local scythe = new(EntityScytheBoss(500, 510))
+
 local entities = {}
 local hitb = nil
 
@@ -19,6 +21,7 @@ function load(scene)
     local hologram2 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
     local hologram_break1 = new(EntityProps(1200, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
     local hologram_break2 = new(EntityProps(450, 950, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+    bosshealth:setEntity(scythe)
     if (scene == "scene9_horizontal") then
         player.setPosition(30, 630)
     end
@@ -30,6 +33,7 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
+        world.spawnEntity(scythe)
         world.spawnEntity(player)
         world.spawnEntity(torch1)
         world.spawnEntity(torch2)

@@ -1218,6 +1218,27 @@ function lsfml.sound.getStatus(sound)
     return olsfml.sound_getStatus(meta.__ptr)
 end
 
+function lsfml.sound.isPlaying(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getStatus(meta.__ptr) == "playing"
+end
+
+function lsfml.sound.isPaused(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getStatus(meta.__ptr) == "paused"
+end
+
+function lsfml.sound.isStopped(sound)
+    check(sound, "sound", 1)
+
+    local meta = getmetatable(sound)
+    return olsfml.sound_getStatus(meta.__ptr) == "stopped"
+end
+
 function lsfml.sound.pause(sound)
     check(sound, "sound", 1)
 

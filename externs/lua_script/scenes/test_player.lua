@@ -5,7 +5,6 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 
-local scythe = new(EntityScytheBoss(500, 510))
 local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
 item1.setPosition(500, 500)
 
@@ -25,7 +24,6 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
-    bosshealth:setEntity(scythe)
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
@@ -36,7 +34,6 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
-        world.spawnEntity(scythe)
         world.spawnEntity(player)
         world.spawnEntity(item1)
         world.spawnEntity(tube_bleu_casser)

@@ -5,6 +5,7 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_angle_gauche"], false)
 
+
 local entities = {}
 local hitb = nil
 

@@ -15,10 +15,11 @@ function getCost()
 end
 
 function cast(self)
-    world.spawnEntity(animationSpell["tempSpell"])
     player.removeMana(getCost())
     assets["time"]:play()
-    animationSpell["tempSpell"].restart()
+    _G.freeze = true
+    _G.freezetime:restart()
+    temp_hud:restart()
 end
 
 function isInstant(self)
