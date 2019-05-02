@@ -62,13 +62,12 @@ LSFML = ./lua_csfml/lsfml.c \
 SRCS += $(LSFML)
 OBJS	= $(SRCS:.c=.o)
 
-CFLAGS = -I./include/ -lcsfml-window -lcsfml-graphics -lcsfml-system -lcsfml-audio -L./externs/lua/src -llua -ldl -lm
+CFLAGS = -I./include/ -lcsfml-window -lcsfml-graphics -lcsfml-system -lcsfml-audio -llua -ldl -lm
 CFLAGS += -Wall -Wno-deprecated-declarations -Wextra
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C ./externs/lua linux
 	 $(CC) $(OBJS) -o $(NAME) $(CFLAGS)
 
 clean:

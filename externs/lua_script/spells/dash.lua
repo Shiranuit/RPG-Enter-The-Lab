@@ -1,4 +1,4 @@
-local distance = 100
+local distance = 200
 local diag_dist = math.floor(math.sqrt(distance^2 / 2))
 
 function getName(self)
