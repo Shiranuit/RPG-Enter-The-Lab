@@ -37,7 +37,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
             if super.isDead() then
                 local equipmentItems = {}
                 for k, v in pairs(items) do
-                    if v:getUserdate().type == "equipment" then
+                    if v:getUserdata().type == "equipement" then
                         equipmentItems[#equipmentItems + 1] = v
                     end
                 end
@@ -45,8 +45,10 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                     local item = equipmentItems[math.random(1, #equipmentItems)]
                     item:getUserdata().defense = math.random(1, 20)
                     item:getUserdata().rarity = rarity[math.floor(item:getUserdata().defense / 5)]
-                    world.spawnEntity(new(EntityItem(itemstack.create(item, 1))))
+                    world.spawnEntity(new(EntityItem(itemstack.create(item, 1)))).setPosition(super.getPosition())
                 end
+                -- world.spawnEntity(new(EntityItem(itemstack.create(items["scythe"], 1)))).setPosition(super.getPosition())
+                world.removeEntityByUUID(this.getUUID())
             end
         end
     end

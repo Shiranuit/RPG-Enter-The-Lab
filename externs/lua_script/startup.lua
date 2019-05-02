@@ -258,6 +258,7 @@ dofile("items.lua")
 
 player_hud = hud.createFromFile("hud/player_hud.lua", nil, false)
 all_sort = hud.createFromFile("hud/sort.lua", nil, false)
+bosshealth = hud.createFromFile("hud/boss_health.lua", nil, false)
 menu_spell = hud.createFromFile("hud/spell_menu.lua", nil, true)
 option_menu = hud.createFromFile("hud/option_hud.lua", nil, true)
 

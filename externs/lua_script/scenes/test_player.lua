@@ -17,6 +17,7 @@ local entities = {}
 local hitbx = nil
 
 function load(scene)
+    bosshealth:setEntity(scythe)
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
