@@ -39,6 +39,9 @@ function load(scene)
     end
     if (hitbx == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
+        HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
+        HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)
