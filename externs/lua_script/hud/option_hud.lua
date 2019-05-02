@@ -73,10 +73,12 @@ function unload()
 end
 
 function open()
+    _G.pause = true
     world.updateDisable()
 end
 
 function close()
+    _G.pause = false
     world.updateEnable()
 end
 

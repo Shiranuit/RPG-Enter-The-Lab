@@ -19,6 +19,8 @@ function cast(self)
     player.removeMana(getCost())
     assets["time"]:play()
     animationSpell["tempSpell"].restart()
+    _G.freeze = true
+    _G.freezetime:restart()
 end
 
 function isInstant(self)
