@@ -17,7 +17,9 @@ end
 function cast(self)
     player.removeMana(getCost())
     assets["time"]:play()
-    temp_hud:open()
+    _G.freeze = true
+    _G.freezetime:restart()
+    temp_hud:restart()
 end
 
 function isInstant(self)

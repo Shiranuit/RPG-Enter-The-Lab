@@ -5,7 +5,7 @@
 local time = animation.create(assets["tempAnimation"], {0, 0, 573, 573})
 time:setPosition(600, 125)
 time:setScale(1.5, 1.5)
-local clock = lsfml.clock.create()
+local clock = stopwatch.create()
 local is_activate = false
 
 function load(self)
@@ -13,22 +13,29 @@ function load(self)
 end
 
 function open(self)
-    time:restart()
+
 end
 
 function close(self)
 
 end
 
+function restart()
+    is_activate = true
+    time:restart()
+end
+
 function draw(self)
-    if clock:getEllapsedTime() > 625000 then
-        clock:restart()
-        time:next()
-        if time:hasEnded() then
-            self:close()
+    if is_activate then
+        if clock:getEllapsedTime() > 625000 then
+            clock:restart()
+            time:next()
+            if time:hasEnded() then
+                is_activate = false
+            end
         end
+        time:draw()
     end
-    time:draw()
 end
 
 function update(self)

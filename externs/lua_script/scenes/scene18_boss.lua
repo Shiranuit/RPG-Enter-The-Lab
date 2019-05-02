@@ -7,7 +7,7 @@ local boss_start = false
 background:setTexture(assets["boss"], false)
 
 local entities = {}
-local hitbx = nil
+local hitb = nil
 
 function load(scene)
     if (scene == "scene17_right_start") then
@@ -17,21 +17,21 @@ function load(scene)
     if #entities == 0 then
         world.spawnEntity(player)
     end
-    if (hitbx == nil) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 330}, {1920, 330}, {1920, 0}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
         HitBoxWall(0, 0, {{1910, 30}, {1910, 1050}})
 
         HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1020, 1030}, {1920, 1030}, {1920, 1100}, {1020, 1100}})
-        hitbx = hitbox.getHitboxes()
+        hitb = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
+    hitbox.setHitboxes(hitb)
 end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end

@@ -6,7 +6,7 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["left_start"], false)
 
 local entities = {}
-local hitbx = nil
+local hitb = nil
 
 function load(scene)
     if (scene == "scene15_start") then
@@ -16,18 +16,18 @@ function load(scene)
     if #entities == 0 then
         world.spawnEntity(player)
     end
-    if (hitbx == nil) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {1920, 160}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
-        hitbx = hitbox.getHitboxes()
+        hitb = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
+    hitbox.setHitboxes(hitb)
 end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end

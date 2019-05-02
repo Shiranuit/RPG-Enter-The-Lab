@@ -13,7 +13,7 @@ Class "EntityVortex" extends "Entity" [{
         this.sprite = lsfml.sprite.create()
         this.sprite:setTexture(assets["vortex"], false)
         this.sprite:setPosition(x, y)
-        this.sprite:scale(0.25, 0.25)
+        this.sprite:scale(0.15, 0.15)
         this.sprite:setOrigin(194, 202)
         this.dir = dir:normalize()
         this.damage = damage
@@ -26,7 +26,7 @@ Class "EntityVortex" extends "Entity" [{
         box.setOrigin(194, 202)
         box.setPosition(super.getPosition())
         box.setRotation(this.angle)
-        box.setScale(0.25, 0.25)
+        box.setScale(0.15, 0.15)
         super.addHitbox(box)
     end
 

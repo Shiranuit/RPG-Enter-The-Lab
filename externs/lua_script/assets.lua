@@ -25,7 +25,13 @@ assets["other_item"] = lsfml.texture.createFromFile("./assets/hud/other_item.png
 assets["case_dial"] = lsfml.texture.createFromFile("./assets/hud/case_dial.png", {0, 0, 384, 164})
 
 assets["empty_boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshealth_empty.png", {0, 0, 426, 33})
-assets["boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshealth.png", {0, 0, 426, 33})
+assets["boss_health1"] = lsfml.texture.createFromFile("./assets/hud/bosshealth1.png", {0, 0, 426, 33})
+assets["boss_health2"] = lsfml.texture.createFromFile("./assets/hud/bosshealth2.png", {0, 0, 426, 33})
+assets["boss_health3"] = lsfml.texture.createFromFile("./assets/hud/bosshealth3.png", {0, 0, 426, 33})
+assets["boss_health4"] = lsfml.texture.createFromFile("./assets/hud/bosshealth4.png", {0, 0, 426, 33})
+assets["boss_health5"] = lsfml.texture.createFromFile("./assets/hud/bosshealth5.png", {0, 0, 426, 33})
+assets["boss_health6"] = lsfml.texture.createFromFile("./assets/hud/bosshealth6.png", {0, 0, 426, 33})
+assets["boss_health7"] = lsfml.texture.createFromFile("./assets/hud/bosshealth7.png", {0, 0, 426, 33})
 
 -- =======================
 -- =    ENTITY MOB   =
@@ -141,18 +147,19 @@ assets["boss"] = lsfml.texture.createFromFile("./assets/map/cave/boss.png", {0, 
 
 assets["geant_tapis_gauche"] = lsfml.texture.createFromFile("./assets/map/to_give/geant_tapis_gauche.png", {0, 0, 483, 369})
 assets["grand_tapis_droite"] = lsfml.texture.createFromFile("./assets/map/to_give/grand_tapis_droite.png", {0, 0, 411, 272})
+assets["moyen_tapis_haut_droite"] = lsfml.texture.createFromFile("./assets/map/to_give/moyen_tapis_haut_droite.png", {0, 0, 324, 248})
+assets["petit_tapis_bas_gauche"] = lsfml.texture.createFromFile("./assets/map/to_give/petit_tapis_bas_gauche.png", {0, 0, 292, 248})
+assets["hologram"] = lsfml.texture.createFromFile("./assets/map/to_give/hologram.png", {0, 0, 155, 155})
 assets["hologram_break"] = lsfml.texture.createFromFile("./assets/map/to_give/hologram_break.png", {0, 0, 155, 39})
 assets["mini_holo"] = lsfml.texture.createFromFile("./assets/map/to_give/mini_holo.png", {0, 0, 56, 56})
 assets["mini_tp"] = lsfml.texture.createFromFile("./assets/map/to_give/mini_tp.png", {0, 0, 31, 60})
 assets["mini_tube"] = lsfml.texture.createFromFile("./assets/map/to_give/mini_tube.png", {0, 0, 56, 87})
-assets["moyen_tapis_haut_droite"] = lsfml.texture.createFromFile("./assets/map/to_give/moyen_tapis_haut_droite.png", {0, 0, 324, 248})
 assets["parchemin_1"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_1.png", {0, 0, 215, 65})
 assets["parchemin_2"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_2.png", {0, 0, 187, 62})
 assets["parchemin_3"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_3.png", {0, 0, 216, 57})
 assets["parchemin_4"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_4.png", {0, 0, 216, 90})
 assets["parchemin_5"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_5.png", {0, 0, 182, 70})
 assets["parchemin_6"] = lsfml.texture.createFromFile("./assets/map/to_give/parchemin_6.png", {0, 0, 215, 64})
-assets["petit_tapis_bas_gauche"] = lsfml.texture.createFromFile("./assets/map/to_give/petit_tapis_bas_gauche.png", {0, 0, 192, 248})
 assets["pot1"] = lsfml.texture.createFromFile("./assets/map/to_give/pot1.png", {0, 0, 76, 84})
 assets["pot2"] = lsfml.texture.createFromFile("./assets/map/to_give/pot2.png", {0, 0, 28, 56})
 assets["pot3"] = lsfml.texture.createFromFile("./assets/map/to_give/pot3.png", {0, 0, 35, 56})

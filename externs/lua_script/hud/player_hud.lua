@@ -45,11 +45,13 @@ end
 function open(self)
     all_sort:open()
     bosshealth:open()
+    temp_hud:open()
 end
 
 function close(self)
     all_sort:close()
     bosshealth:close()
+    temp_hud:close()
 end
 
 function draw(self)

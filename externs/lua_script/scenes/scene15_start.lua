@@ -6,7 +6,7 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["start_cave"], false)
 
 local entities = {}
-local hitbx = nil
+local hitb = nil
 
 function load(scene)
     if (scene == "scene14_escalier") then
@@ -22,17 +22,17 @@ function load(scene)
     if #entities == 0 then
         world.spawnEntity(player)
     end
-    if (hitbx == nil) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {940, 160}, {940, 135}, {1030, 135}, {1030, 160}, {1920, 160}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
-        hitbx = hitbox.getHitboxes()
+        hitb = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
+    hitbox.setHitboxes(hitb)
 end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end

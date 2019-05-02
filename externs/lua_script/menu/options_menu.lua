@@ -58,8 +58,10 @@ function load()
 end
 
 function unload()
+    if prevScene == "main_menu" then
+        world.updateEnable()
+    end
     world.eventEnable()
-    world.updateEnable()
     world.renderEnable()
     hud.renderEnable()
 end
