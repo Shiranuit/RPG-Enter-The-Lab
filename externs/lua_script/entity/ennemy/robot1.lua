@@ -18,12 +18,18 @@ Class "EntityRobot1" extends "EntityLiving" [{
         this.sprite:setOrigin(270, 462)
         this.sprite:scale(0.25, 0.25)
 
-        this.attack = animation.create(assets["robot1"], {0, 0, 19, 45})
+        this.attack = animation.create(assets["laser"], {0, 0, 45, 19})
+        this.attack:setPosition(800, 800)
+        this.attack:setOrigin(0, 0)
+        this.attack:scale(5, 5)
+
         this.clock = lsfml.clock.create()
+        this.clock_attack = lsfml.clock.create()
         this.status = "right"
         this.speed = 2
         this.max_distance = 300
         this.last_animation = false
+        this.is_attack = false
         initHitboxes()
     end
 
@@ -56,6 +62,19 @@ Class "EntityRobot1" extends "EntityLiving" [{
             end
             this.sprite:draw()
             super.drawHitbox()
+
+            if this.is_attack then
+                if this.clock_attack:getEllapsedTime() > 100000 then
+                    this.clock_attack:restart()
+                    this.attack:next()
+                    if this.attack:hasEnded() then
+                        this.attack:restart()
+                        this.is_attack = false
+                    end
+                end
+                this.attack:draw()
+            end
+
         elseif not this.last_animation then
             this.sprite:changeRect({0, 2000, 455, 455})
             this.last_animation = true
@@ -81,6 +100,9 @@ Class "EntityRobot1" extends "EntityLiving" [{
         local dir_x, dir_y
         local hitbox = super.getHitboxs()
 
+        if this.is_attack then
+            return
+        end
         sprite_y = sprite_y
         dir_x = x - sprite_x
         dir_y = y - sprite_y
@@ -118,6 +140,9 @@ Class "EntityRobot1" extends "EntityLiving" [{
             move((dir_x / total) * this.speed, (dir_y / total) * this.speed)
         elseif (total < this.max_distance - this.speed) then
             move((-dir_x / total) * this.speed, (-dir_y / total) * this.speed)
+        elseif not this.is_attack then
+            this.clock_attack:restart()
+            --this.is_attack = true
         end
     end 
 
