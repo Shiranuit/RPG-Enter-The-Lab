@@ -35,6 +35,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.status_horizontal = "none"
         this.inventory = hud.createFromFile("hud/inventory_hud.lua")
         this.is_sprinting = false
+        this.is_damageable = true
         local box = new(Hitbox("player"))
         box.setPoints({{0, 0}, {220, 0}, {220, 500}, {0, 500}})
         box.setOrigin(220 / 2, 500)
@@ -43,6 +44,9 @@ Class "EntityPlayer" extends "EntityLiving" [{
         super.addHitbox(box)
     end
 
+    function damageable(bool)
+        this.is_damageable = bool
+    end
     function activateSpell()
         if this.status == "spell" then
             return
@@ -90,7 +94,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         -- this.status -> the actual animation   (idle, run_right, run_left, left, right, up, down, death)
         -- this.status_horizontal -> the horizontal direction   (right, left, none)
         -- this.status_vertical -> the vertical direction   (up, down, none)
-        return this.status, this.status_horizontal, this.status_vertical
+        return this.status, this.status_horizontal, this.status_vertical, this.status_idle
     end
 
     function setMana(mana)
@@ -172,12 +176,15 @@ Class "EntityPlayer" extends "EntityLiving" [{
     function hit(damage)
         local equipment = this.getEquipement()
         local defense = 0
-        for i=1, 4 do
-            if equipment[i] and equipment[i]:getStackSize() > 0 then
-                defense = defense + (equipment[i]:getItem():getUserdata() and equipment[i]:getItem():getUserdata().defense or 0)
+
+        if this.is_damageable then
+            for i=1, 4 do
+                if equipment[i] and equipment[i]:getStackSize() > 0 then
+                    defense = defense + (equipment[i]:getItem():getUserdata() and equipment[i]:getItem():getUserdata().defense or 0)
+                end
             end
+            super.hit(damage * (1 - defense / 100))
         end
-        super.hit(damage * (1 - defense / 100))
     end
 
     function getExperience()
@@ -246,6 +253,9 @@ Class "EntityPlayer" extends "EntityLiving" [{
             speed = speed * 2
         elseif this.max_stamina > this.stamina and (not keyboard.keyPressed(controls.getControl("sprint")) or this.status == "idle") then
             this.stamina = this.stamina + 1 * DeltaTime
+        end
+        if this.max_mana > this.mana and this.status ~= "spell" then
+            this.mana = this.mana + 0.1 * DeltaTime
         end
         if super.isDead() then
             if (this.status ~= "death") then

@@ -31,9 +31,11 @@ function enable(self)
     animationSpell["shieldSpell"].restart()
     animationSpell["shieldSpell"].setPosition(x, y)
     world.spawnEntity(animationSpell["shieldSpell"])
+    player.damageable(false)
 end
 
 function disable(self)
     world.removeEntityByUUID(animationSpell["shieldSpell"].getUUID())
     player.desactivateSpell()
+    player.damageable(true)
 end
