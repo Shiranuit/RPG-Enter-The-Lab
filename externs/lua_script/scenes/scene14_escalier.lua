@@ -5,6 +5,9 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_escalier"], false)
 
+local entities = {}
+local hitbx = nil
+
 function load(scene)
     if (scene == "scene15_start") then
         player.setPosition(980, 250)
@@ -12,11 +15,29 @@ function load(scene)
     if (scene == "scene13_vertical") then
         player.setPosition(980, 1050)
     end
-    world.spawnEntity(player)
+    world.setEntities(entities)
+    if #entities == 0 then
+        world.spawnEntity(player)
+    end
+    if (hitbx == nil) then
+        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {880, 220}, {880, 190}, {1030, 190}, {1030, 220}, {1920, 220}, {1920, 0}})
+        hitbx = hitbox.getHitboxes()
+    end
+    hitbox.setHitboxes(hitbx)
 end
 
 function unload()
+    entities = world.getEntities()
+    hitbx = hitbox.getHitboxes()
     world.clearEntities()
+    hitbox.clear()
+end
+
+function HitBoxWall(x_or, y_or, pts)
+    local box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+    box.setPoints(pts)
+    box.setPosition(x_or, y_or)
+    hitbox.add(box)
 end
 
 function draw()
@@ -25,7 +46,7 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 880 and x < 1000 and y < 180 then
+    if x > 880 and x < 1000 and y < 200 then
         setScene("scene15_start")
     end
     if x > 950 and x < 1050 and y > 1050 then
