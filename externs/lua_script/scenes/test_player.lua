@@ -14,6 +14,7 @@ local tube_bleu_casser = new(EntityProps(450, 500, assets["tube_bleu_casser"]))
 local entities = {}
 
 function load(scene)
+    bosshealth:setEntity(scythe)
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 210)
     else

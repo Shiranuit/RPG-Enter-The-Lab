@@ -44,10 +44,12 @@ end
 
 function open(self)
     all_sort:open()
+    bosshealth:open()
 end
 
 function close(self)
     all_sort:close()
+    bosshealth:close()
 end
 
 function draw(self)
