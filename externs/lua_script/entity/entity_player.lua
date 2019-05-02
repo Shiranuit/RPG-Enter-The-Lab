@@ -94,7 +94,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         -- this.status -> the actual animation   (idle, run_right, run_left, left, right, up, down, death)
         -- this.status_horizontal -> the horizontal direction   (right, left, none)
         -- this.status_vertical -> the vertical direction   (up, down, none)
-        return this.status, this.status_horizontal, this.status_vertical
+        return this.status, this.status_horizontal, this.status_vertical, this.status_idle
     end
 
     function setMana(mana)

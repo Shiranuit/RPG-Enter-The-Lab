@@ -5,6 +5,8 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_angle_gauche"], false)
 
+local robot1 = new(EntityRobot1(800, 800))
+
 local entities = {}
 local hitbx = nil
 
@@ -17,6 +19,7 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
+        world.spawnEntity(robot1)
         world.spawnEntity(player)
     end
     if (hitbx == nil) then
