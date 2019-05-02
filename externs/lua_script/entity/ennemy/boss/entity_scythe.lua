@@ -28,7 +28,11 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.hit_entity = false
         this.revert = false
         this.dir = 0
+        this.speed = 2
+        this.max_distance = 400
         this.func = 1
+        this.cooldown = false
+        this.clock = lsfml.clock.create()
         initHitboxes()
     end
 
@@ -99,6 +103,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 super.setRotation(0)
                 this.sprite:setRotation(0)
                 this.revert = false
+                this.cooldown = true
+                this.clock:restart()
                 this.hit_entity = false
                 this.dir = 0
                 return
@@ -149,6 +155,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 this.revert = false
                 this.hit_entity = false
                 this.dir = 0
+                this.cooldown = true
+                this.clock:restart()
                 return
             end
         elseif angle % 360 == 90 or angle % 360 == 270 then
@@ -200,6 +208,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
             if this.func > #scythe_func then
                 this.func = 1
             end
+            this.cooldown = true
+            this.clock:restart()
             super.setRotation(0)
             this.sprite:setRotation(0)
             this.revert = false
@@ -233,7 +243,32 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
 
     function update()
         super.update()
-        if super.isAlive() then
+        if this.attack == "idle" then
+            local x, y = player.getPosition()
+            local sprite_x, sprite_y = super.getPosition()
+            local dir_x, dir_y
+            local hitbox = super.getHitboxs()
+
+            sprite_y = sprite_y
+            dir_x = x - sprite_x
+            dir_y = y - sprite_y
+
+            local total = math.abs(dir_x) + math.abs(dir_y)
+            if total > this.max_distance then
+                move((dir_x / total) * this.speed, (dir_y / total) * this.speed)
+            elseif (total < this.max_distance - this.speed) then
+                move((-dir_x / total) * this.speed, (-dir_y / total) * this.speed)
+            end
+            if (total < 400) then
+                this.attack = "slash"
+            elseif total > 700 then
+                this.attack = "slash_entity"
+            end
+        end
+        if this.clock:getEllapsedTime() > 2000000 then
+            this.cooldown = false
+        end
+        if super.isAlive() and not this.cooldown then
             if this.attack == "slash" then
                 slash()
             elseif this.attack == "slash_entity" then
