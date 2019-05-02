@@ -22,6 +22,11 @@ function load(scene)
     end
     if (hitbx == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{910, 30}, {910, 1050}})
+        HitBoxWall(0, 0, {{1170, 30}, {1170, 1050}})
+
+        HitBoxWall(0, 0, {{0, 1030}, {970, 1030}, {970, 1100}, {0, 1100}})
+        HitBoxWall(0, 0, {{1100, 1030}, {1920, 1030}, {1920, 1100}, {1100, 1100}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)
@@ -47,10 +52,10 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 950 and x < 1100 and y < 200 then
+    if y < 200 then
         setScene("scene14_escalier")
     end
-    if x > 950 and x < 1050 and y > 1050 then
+    if y > 1050 then
         setScene("scene10_intersection_haut")
     end
     if keyboard.keyPressed(keys.A) then

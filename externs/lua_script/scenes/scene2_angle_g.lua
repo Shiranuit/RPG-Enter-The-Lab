@@ -21,6 +21,13 @@ function load(scene)
     end
     if (hitbx == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
+
+        HitBoxWall(0, 0, {{30, 0}, {30, 530}, {-50, 530}, {-50, 0}})
+        HitBoxWall(0, 0, {{30, 690}, {30, 1080}, {-50, 1080}, {-50, 690}})
+
+        HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
+        HitBoxWall(0, 0, {{1020, 1030}, {1920, 1030}, {1920, 1100}, {1020, 1100}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)
@@ -46,10 +53,10 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 850 and x < 1050 and y > 1050 then
+    if y > 1050 then
         setScene("test_player")
     end
-    if x < 0 and y > 550 and y < 700 then
+    if x < 0 then
         setScene("scene3_intersection_bas")
     end
     if keyboard.keyPressed(keys.A) then

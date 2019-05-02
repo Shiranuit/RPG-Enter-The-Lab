@@ -20,8 +20,9 @@ function load(scene)
         world.spawnEntity(player)
     end
     if (hitbx == nil) then
-        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 0}, {0, 160}, {900, 160}, {900, 135}, {1000, 135}, {1000, 160}, {1920, 160}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
+        HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)
@@ -47,10 +48,10 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 900 and x < 1000 and y < 200 then
+    if x > 900 and x < 1000 and y < 155 then
         setScene("scene18_boss")
     end
-    if x < 0 and y > 500 and y < 700 then
+    if x < 0 then
         setScene("scene15_start")
     end
     if keyboard.keyPressed(keys.A) then

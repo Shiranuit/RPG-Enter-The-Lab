@@ -17,8 +17,9 @@ function load(scene)
         world.spawnEntity(player)
     end
     if (hitbx == nil) then
-        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 0}, {0, 160}, {1920, 160}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
+        HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)
@@ -44,7 +45,7 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 1910 and y > 600 and y < 800 then
+    if x > 1910 then
         setScene("scene15_start")
     end
     if keyboard.keyPressed(keys.A) then

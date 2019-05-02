@@ -25,6 +25,12 @@ function load(scene)
     if (hitbx == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
+
+        HitBoxWall(0, 0, {{1880, 0}, {1880, 600}, {1920, 600}, {1920, 0}})
+        HitBoxWall(0, 0, {{1880, 760}, {1880, 1080}, {1920, 1080}, {1920, 760}})
+
+        HitBoxWall(0, 0, {{30, 0}, {30, 600}, {-50, 600}, {-50, 0}})
+        HitBoxWall(0, 0, {{30, 760}, {30, 1080}, {-50, 1080}, {-50, 760}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)
@@ -50,13 +56,13 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x < 0 and y > 600 and y < 800 then
+    if x < 0 then
         setScene("scene11_angle_droit")
     end
-    if x > 950 and x < 1100 and y < 200 then
+    if y < 200 then
         setScene("scene13_vertical")
     end
-    if x > 1910 and y > 550 and y < 700 then
+    if x > 1910 then
         setScene("scene9_horizontal")
     end
     if keyboard.keyPressed(keys.A) then
