@@ -23,7 +23,8 @@ function load(scene)
         world.spawnEntity(player)
     end
     if (hitbx == nil) then
-        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 0}, {0, 160}, {940, 160}, {940, 135}, {1030, 135}, {1030, 160}, {1920, 160}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         hitbx = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitbx)
@@ -52,7 +53,7 @@ function update()
     if x < 0 and y > 500 and y < 700 then
         setScene("scene16_left_start")
     end
-    if x > 900 and x < 1050 and y < 180 then
+    if x > 900 and x < 1050 and y < 155 then
         setScene("scene14_escalier")
     end
     if x > 1910 and y > 500 and y < 700 then
