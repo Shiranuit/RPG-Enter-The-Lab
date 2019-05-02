@@ -4,6 +4,7 @@
 
 assets = {}
 pause = false
+local pstate = false
 local scenes = {}
 local scene_name = "main_menu"
 
@@ -110,7 +111,7 @@ class.createFromFile("entity/spell/rayon_spell.lua")
 -- =             LOADING SPELLS            =
 -- =========================================
 freeze = false
-freezetime = lsfml.clock.create()
+freezetime = stopwatch.create()
 spells_tab = {
     healSpell = spell.createFromFile("spells/heal.lua"),
     bouleelecSpell = spell.createFromFile("spells/bouleelec.lua"),
@@ -338,8 +339,16 @@ end
 
 -- Called each time we need to update the game-logic
 function update()
+    if pstate ~= _G.pause then
+        if _G.pause then
+            _G.game_pause()
+        else
+            _G.game_resume()
+        end
+        pstate = _G.pause
+    end
     if scenes[scene_name] then
-        if not pause then
+        if not _G.pause then
             scenes[scene_name].update()
             for i=1, #spells do
                 spells[i]:update()
@@ -428,5 +437,17 @@ function event(...)
         end
     else
         error("Scene not found '"..scene_name.."'", 2)
+    end
+end
+
+function game_pause()
+    if assets["time"]:isPlaying() then
+        assets["time"]:pause()
+    end
+end
+
+function game_resume()
+    if assets["time"]:isPaused() then
+        assets["time"]:play()
     end
 end
