@@ -18,10 +18,9 @@ Class "EntityRobot1" extends "EntityLiving" [{
         this.sprite:setOrigin(270, 462)
         this.sprite:scale(0.25, 0.25)
 
-        this.attack = animation.create(assets["laser"], {0, 0, 45, 19})
-        this.attack:setPosition(800, 800)
-        this.attack:setOrigin(0, 0)
-        this.attack:scale(5, 5)
+        this.attack = animation.create(assets["laser"], {0, 0, 46, 19})
+        this.attack:setOrigin(9, 9)
+        this.attack:scale(3, 3)
 
         this.clock = lsfml.clock.create()
         this.clock_attack = lsfml.clock.create()
@@ -142,7 +141,24 @@ Class "EntityRobot1" extends "EntityLiving" [{
             move((-dir_x / total) * this.speed, (-dir_y / total) * this.speed)
         elseif not this.is_attack then
             this.clock_attack:restart()
-            --this.is_attack = true
+            this.is_attack = true
+            if this.status == "down" then
+                this.attack:setPosition(sprite_x - 3, sprite_y - 60)
+                this.attack:setRotation(90)
+                this.attack:setOrigin(9, 9)
+            elseif this.status == "up" then
+                this.attack:setPosition(sprite_x + 3, sprite_y - 150)
+                this.attack:setRotation(-90)
+                this.attack:setOrigin(9, 9)
+            elseif this.status == "right" then
+                this.attack:setPosition(sprite_x + 45, sprite_y - 65)
+                this.attack:setRotation(0)
+                this.attack:setOrigin(9, 9)
+            elseif this.status == "left" then
+                this.attack:setPosition(sprite_x - 45, sprite_y - 70)
+                this.attack:setRotation(180)
+                this.attack:setOrigin(9, 9)
+            end
         end
     end 
 
