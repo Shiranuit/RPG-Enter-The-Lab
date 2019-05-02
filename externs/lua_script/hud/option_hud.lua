@@ -91,7 +91,9 @@ function update()
 end
 
 function event(self, e)
-    play_button:event(e)
-    option_button:event(e)
-    exit_button:event(e)
+    if self:isOpen() then
+        play_button:event(e)
+        option_button:event(e)
+        exit_button:event(e)
+    end
 end
