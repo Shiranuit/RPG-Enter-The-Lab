@@ -9,6 +9,8 @@ local scythe = new(EntityScytheBoss(500, 510))
 local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
 item1.setPosition(500, 500)
 
+local tube_bleu_casser = new(EntityProps(450, 500, assets["tube_bleu_casser"]))
+
 local entities = {}
 
 function load(scene)
@@ -22,6 +24,7 @@ function load(scene)
     assets["ambiance_music"]:play()
     world.setEntities(entities)
     if #entities == 0 then
+        world.spawnEntity(tube_bleu_casser)
         world.spawnEntity(scythe)
         world.spawnEntity(player)
         world.spawnEntity(item1)

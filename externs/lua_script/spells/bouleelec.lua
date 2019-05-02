@@ -38,7 +38,9 @@ function cast(self)
     local x, y = animationSpell["bouleelecSpell"].getPosition()
     local x_player, y_player = player.getPosition()
     local x_boule, y_boule = x_player, y_player
-    local big = 30
+    local size = 70
+    local big = 70
+    local w, h = 0, 0
     local siz_up_left, siz_down_right = 0
     local status, hor, ver , idle = player.getStatus()
 
@@ -62,5 +64,14 @@ function cast(self)
         animationSpell["bouleelecSpell"].moving(0, 15)
         siz_up_left = x_player - big
         siz_down_right = x_player + big
+    end
+
+    --print("\nRECT EST DE: "..x_player, y_player, size, big)
+    local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
+    for i = 1, #entities_in_spell do
+        if (class.isInstanceOf(entities_in_spell[i], "EntityLiving")) then
+            entities_in_spell[i].hit(20 * DeltaTime)
+            print("HEAL : "..entities_in_spell[i].getHealth())
+        end
     end
 end

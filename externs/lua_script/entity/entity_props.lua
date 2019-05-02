@@ -1,8 +1,12 @@
 Class "EntityProps" extends "Entity" [{
 
-    function __EntityProps(x, y)
+    function __EntityProps(x, y, sprite)
         super(x, y)
         this.exist = true
+        this.sprite = lsfml.sprite.create()
+        this.sprite:setPosition(x, y)
+        this.sprite:setTexture(sprite, false)
+        this.sprite:scale(1, 1)
     end
 
     function move(x, y)
@@ -30,14 +34,10 @@ Class "EntityProps" extends "Entity" [{
         this.exist = false
     end
 
-    function respawn()
-        this.alive = true
-        this.health = this.max_health
-    end
-
     function draw()
         if this.exist then
             window:draw(this.sprite)
+            super.drawHitbox()
         end
     end
 
