@@ -92,6 +92,7 @@ dofile("tools/inventory_slot.lua")
 
 class.createFromFile("helpers/ray_caster.lua")
 class.createFromFile("entity/entity.lua")
+class.createFromFile("entity/entity_laser.lua")
 class.createFromFile("entity/entity_slash.lua")
 class.createFromFile("entity/entity_vortex.lua")
 class.createFromFile("stats/stats.lua")
