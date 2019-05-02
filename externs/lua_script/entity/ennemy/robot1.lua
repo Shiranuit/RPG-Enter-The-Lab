@@ -110,7 +110,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
         local dir_x, dir_y
         local hitbox = super.getHitboxs()
 
-        if this.is_attack then
+        if this.is_attack or not player.isAlive() then
             return
         end
         sprite_y = sprite_y

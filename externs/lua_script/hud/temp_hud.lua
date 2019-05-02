@@ -17,11 +17,11 @@ function open(self)
 end
 
 function close(self)
-    
+
 end
 
 function draw(self)
-    if clock:getEllapsedTime() > 550000 then
+    if clock:getEllapsedTime() > 625000 then
         clock:restart()
         time:next()
         if time:hasEnded() then
@@ -32,7 +32,7 @@ function draw(self)
 end
 
 function update(self)
-    
+
 end
 
 function event(self, e)
