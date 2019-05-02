@@ -1,12 +1,23 @@
 Class "EntityProps" extends "Entity" [{
 
-    function __EntityProps(x, y, sprite)
+    local function initHitboxes(x_or, y_or, pts)
+        local box = new(Hitbox("soft", {takeDamage=false, doDamage=false}))
+        box.setPoints(pts)
+        box.setScale(1, 1)
+        box.setOrigin(x_or, y_or)
+        box.setPosition(super.getPosition())
+        super.addHitbox(box)
+    end
+
+    function __EntityProps(x, y, sprite, x_or, y_or, pts)
         super(x, y)
         this.exist = true
         this.sprite = lsfml.sprite.create()
         this.sprite:setPosition(x, y)
         this.sprite:setTexture(sprite, false)
+        this.sprite:setOrigin(x_or, y_or)
         this.sprite:scale(1, 1)
+        initHitboxes(x_or, y_or, pts)
     end
 
     function move(x, y)
