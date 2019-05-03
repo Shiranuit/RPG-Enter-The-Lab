@@ -18,11 +18,11 @@
 
 lua_State *init_lua(void)
 {
-    lua_State *L = luaL_newstate();
+    lua_State *lua = luaL_newstate();
 
-    luaL_openlibs(L);
-    luaopen_lsfml(L);
-    return (L);
+    luaL_openlibs(lua);
+    luaopen_lsfml(lua);
+    return (lua);
 }
 
 void delete_lua(lua_State *L)
@@ -53,17 +53,17 @@ int pcall(lua_State *L, int args, int result)
 int main(void)
 {
     int code = 0;
-    lua_State *L = init_lua();
+    lua_State *lua = init_lua();
     sfRenderWindow *window = sfRenderWindow_create(
     (sfVideoMode){1920, 1080, 32}, "Lua", sfClose, 0);
     sfRenderWindow **win = (sfRenderWindow **)
-    lua_newuserdata(L, sizeof(sfRenderWindow *));
+    lua_newuserdata(lua, sizeof(sfRenderWindow *));
 
     sfRenderWindow_setKeyRepeatEnabled(window, sfFalse);
     *win = window;
-    lua_setglobal(L, "window");
-    run_file(L, "./externs/lua_script/startup.lua");
-    code = engine(L, window);
-    delete_lua(L);
+    lua_setglobal(lua, "window");
+    run_file(lua, "./externs/lua_script/startup.lua");
+    code = engine(lua, window);
+    delete_lua(lua);
     return (code);
 }

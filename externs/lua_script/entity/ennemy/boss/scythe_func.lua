@@ -1,11 +1,38 @@
 scythe_func = {
-    function(x)
-        return math.cos(x / 40) * 2
-    end,
-    function(x)
-        return math.sin(x / 20) * 2
-    end,
-    function(x)
-        return math.sin(x / 5) * math.cos(x / 5) * 5
-    end
+    -- function(x, dir)
+    --     return dir.x, dir.y
+    -- end
+    -- function(x, dir)
+        -- return x * dir.y, x * -dir.x
+    -- end,
+    -- function(x, dir)
+        -- return math.cos(math.rad(x)), math.sin(math.rad(x))
+    -- end,
+    -- function(x)
+        -- return math.cos(math.rad(x)) * 4, math.sin(math.rad(x)) * 4
+    -- end,
+    -- function(x)
+        -- return math.cos(math.sin(x / 40) * 10) * 2
+    -- end,
+    -- function(x)
+        -- return math.cos(-x / 40) * 2
+    -- end,
+    -- function(x)
+        -- return math.sin(-x / 40) * 2
+    -- end,
+    -- function(x)
+        -- return math.tan(x / 90) * 2
+    -- end,
+    -- function(x)
+        -- return 0
+    -- end,
+    -- function(x)
+        -- return math.cos(x / 40) * 2
+    -- end,
+    -- function(x)
+        -- return math.sin(x / 20) * 2
+    -- end,
+    -- function(x)
+        -- return math.sin(x / 5) * math.cos(x / 5) * 5
+    -- end
 }

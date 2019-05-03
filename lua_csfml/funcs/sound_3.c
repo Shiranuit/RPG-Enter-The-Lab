@@ -21,16 +21,8 @@ int sound_get_status(lua_State *L)
     if (lua_isuserdata(L, 1)) {
         sound = userdata_pointer(L, 1, sfSound);
         sfSoundStatus status = sfSound_getStatus(sound);
-        switch (status)
-        {
-            case 0: lua_pushstring(L, "stopped");
-                break;
-            case 1: lua_pushstring(L, "paused");
-                break;
-            case 2: lua_pushstring(L, "playing");
-                break;
-            default: break;
-        }
+        lua_pushstring(L, status == 0 ? "stopped" :
+        (status == 1 ? "paused" : "playing"));
     } else {
         luaL_error(L, "Expected (Sound)");
         return (0);

@@ -39,8 +39,8 @@ int text_set_color(lua_State *L)
         luaL_error(L, "Expected (Text, R, G, B, A)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_isinteger(L, 2) && lua_isinteger(L, 3)
-    && lua_isinteger(L, 4) && lua_isinteger(L, 5)) {
+    if (lua_isuserdata(L, 1) && lua_isinteger(L, 2) && lua_isinteger(L, 3) &&
+        lua_isinteger(L, 4) && lua_isinteger(L, 5)) {
         text = userdata_pointer(L, 1, sfText);
         color.r = lua_tointeger(L, 2);
         color.g = lua_tointeger(L, 3);
