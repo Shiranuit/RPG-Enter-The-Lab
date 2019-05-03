@@ -4,36 +4,69 @@
 
 local background = lsfml.sprite.create()
 background:setTexture(assets["start_cave"], false)
+local par1 = itemstack.create(items.parchemin_1, 1)
+local par2 = itemstack.create(items.parchemin_2, 1)
+local canP1 = true
+local canP2 = true
 
+local status1
+local status2
+local status3
+local pot1_1
+local pot1_2
+local pot1_3
+local pot1_4
+local pot2_1
+local pot2_2
+local pot2_3
+local pot2_4
+local pot3_1
+local pot3_2
+local pot3_3
+local pot3_4
+local pot4_1
+local pot4_2
+local pot4_3
+local pot4_4
+local pot5_1
+local pot5_2
+local pot5_3
+local pot5_4
+local first_load = false
+local parchemin1
+local parchemin2
 local entities = {}
 local hitb = nil
 
 function load(scene)
-    local status1 = new(EntityProps(600, 600, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
-    local status2 = new(EntityProps(1400, 450, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
-    local status3 = new(EntityProps(1300, 800, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
-    local pot1_1 = new(EntityProps(300, 500, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
-    local pot1_2 = new(EntityProps(400, 800, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
-    local pot1_3 = new(EntityProps(1200, 800, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
-    local pot1_4 = new(EntityProps(1600, 450, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
-    local pot2_1 = new(EntityProps(500, 650, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
-    local pot2_2 = new(EntityProps(300, 400, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
-    local pot2_3 = new(EntityProps(1500, 350, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
-    local pot2_4 = new(EntityProps(300, 800, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
-    local pot3_1 = new(EntityProps(414, 488, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
-    local pot3_2 = new(EntityProps(1654, 344, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
-    local pot3_3 = new(EntityProps(1512, 459, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
-    local pot3_4 = new(EntityProps(1376, 859, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
-    local pot4_1 = new(EntityProps(659, 427, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
-    local pot4_2 = new(EntityProps(387, 411, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
-    local pot4_3 = new(EntityProps(300, 607, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
-    local pot4_4 = new(EntityProps(408, 617, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
-    local pot5_1 = new(EntityProps(507, 534, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-    local pot5_2 = new(EntityProps(686, 523, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-    local pot5_3 = new(EntityProps(494, 816, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-    local pot5_4 = new(EntityProps(404, 905, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-    local parchemin1 = new(EntityProps(404, 905, assets["parchemin_1"], 107, 65, {{0, 0}, {0, 65}, {215, 65}, {215, 0}}, 1))
-    local parchemin2 = new(EntityProps(600, 100, assets["parchemin_2"], 98, 62, {{0, 0}, {0, 62}, {187, 62}, {187, 0}}, 1))
+    if first_load == false then
+        status1 = new(EntityProps(368, 209, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
+        status2 = new(EntityProps(87, 815, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
+        status3 = new(EntityProps(1638, 804, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
+        pot1_1 = new(EntityProps(1805, 286, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
+        pot1_2 = new(EntityProps(1419, 291, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
+        pot1_3 = new(EntityProps(500, 225, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
+        pot1_4 = new(EntityProps(245, 959, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
+        pot2_1 = new(EntityProps(975, 834, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
+        pot2_2 = new(EntityProps(1535, 792, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
+        pot2_3 = new(EntityProps(1829, 374, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
+        pot2_4 = new(EntityProps(1198, 374, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
+        pot3_1 = new(EntityProps(511, 392, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+        pot3_2 = new(EntityProps(83, 399, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+        pot3_3 = new(EntityProps(461, 879, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+        pot3_4 = new(EntityProps(1318, 808, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+        pot4_1 = new(EntityProps(1582, 302, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+        pot4_2 = new(EntityProps(1290, 429, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+        pot4_3 = new(EntityProps(851, 235, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+        pot4_4 = new(EntityProps(748, 893, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+        pot5_1 = new(EntityProps(1046, 900, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+        pot5_2 = new(EntityProps(671, 182, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+        pot5_3 = new(EntityProps(188, 334, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+        pot5_4 = new(EntityProps(335, 731, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+        parchemin1 = new(EntityProps(1800, 840, assets["parchemin_1"], 107, 0, {}, 1))
+        parchemin2 = new(EntityProps(600, 100, assets["parchemin_2"], 98, 62, {}, 1))
+        first_load = true
+    end
     if (scene == "scene14_escalier") then
         player.setPosition(990, 250)
     end
@@ -100,6 +133,16 @@ end
 
 function update()
     local x, y = player.getPosition()
+    if x > 500 and x < 700 and y < 300 and keyboard.keyPressed(keys.F) and canP1 == true then
+        world.removeEntityByUUID(parchemin2.getUUID())
+        player.getInventory():insertItemStack(par2)
+        canP1 = false
+    end
+    if x > 1700 and x < 1900 and y < 900 and y > 700 and keyboard.keyPressed(keys.F) and canP2 == true then
+        world.removeEntityByUUID(parchemin1.getUUID())
+        player.getInventory():insertItemStack(par1)
+        canP2 = false
+    end
     if x < 0 then
         setScene("scene16_left_start")
     end

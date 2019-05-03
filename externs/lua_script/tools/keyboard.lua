@@ -29,3 +29,11 @@ function keyboard.areKeyPressed(...)
     end
     return true
 end
+
+function keyboard.getKeyName(key)
+    for k, v in pairs(keys) do
+        if key == v and v > -1 then
+            return k
+        end
+    end
+end
