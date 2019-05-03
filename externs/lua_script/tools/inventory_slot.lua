@@ -84,7 +84,9 @@ function inv_slot.draw(self)
     local meta = getmetatable(self)
     if meta.__sprite and meta.__item and meta.__item:getStackSize() > 0 then
         window:draw(meta.__sprite)
-        window:draw(meta.__text)
+        if meta.__item:getMaxStackSize() > 1 then
+            window:draw(meta.__text)
+        end
     end
 end
 

@@ -1,38 +1,25 @@
 scythe_func = {
-    -- function(x, dir)
-    --     return dir.x, dir.y
-    -- end
-    -- function(x, dir)
-        -- return x * dir.y, x * -dir.x
-    -- end,
-    -- function(x, dir)
-        -- return math.cos(math.rad(x)), math.sin(math.rad(x))
-    -- end,
-    -- function(x)
-        -- return math.cos(math.rad(x)) * 4, math.sin(math.rad(x)) * 4
-    -- end,
-    -- function(x)
-        -- return math.cos(math.sin(x / 40) * 10) * 2
-    -- end,
-    -- function(x)
-        -- return math.cos(-x / 40) * 2
-    -- end,
-    -- function(x)
-        -- return math.sin(-x / 40) * 2
-    -- end,
-    -- function(x)
-        -- return math.tan(x / 90) * 2
-    -- end,
-    -- function(x)
-        -- return 0
-    -- end,
-    -- function(x)
-        -- return math.cos(x / 40) * 2
-    -- end,
-    -- function(x)
-        -- return math.sin(x / 20) * 2
-    -- end,
-    -- function(x)
-        -- return math.sin(x / 5) * math.cos(x / 5) * 5
-    -- end
+    function(x, dir, odir)
+        local angle = math.floor(x / 90) * 90
+        return odir.x + math.cos(math.rad(angle)), odir.y + math.sin(math.rad(angle))
+    end,
+    function(x, dir, odir)
+        local nx, ny = math.cos(x / 360), math.sin(x / 360)
+        local dx, dy = math.cos((x-1) / 360), math.sin((x-1) / 360)
+        return dir.x + (nx - dx) * 2, dir.y + (ny - dy) * 2
+    end,
+    function(x, dir, odir)
+        local sx = dir.x > 0 and 1 or -1
+        local sy = dir.y > 0 and 1 or -1
+        return dir.x + sx * (math.cos(math.rad(x)) - math.cos(math.rad(x-1))), dir.y + sy * (math.sin(math.rad(x)) - math.sin(math.rad(x-1)))
+    end,
+    function(x, dir, odir)
+        return dir.x * math.cos(math.rad(x)), dir.y * math.sin(math.rad(x))
+    end,
+    function(x, dir, odir)
+        return -odir.x, -odir.y
+    end,
+    function(x, dir)
+        return dir.x, dir.y
+    end,
 }

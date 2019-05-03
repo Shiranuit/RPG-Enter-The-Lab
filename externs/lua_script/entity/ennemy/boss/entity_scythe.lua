@@ -17,8 +17,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
 
     function __EntityScytheBoss(x, y)
         super(x, y)
-        super.setMaximumHealth(1000)
-        super.setHealth(1000)
+        super.setMaximumHealth(1500)
+        super.setHealth(1500)
         this.sprite = lsfml.sprite.create()
         this.sprite:setPosition(x, y)
         this.sprite:setTexture(assets["scythe"], false)
@@ -38,14 +38,21 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
     end
 
     function hit(damage)
-        if super.isAlive() then
+        if super.isAlive() and this.attack ~= "asmat_entity" then
             super.hit(damage)
             local mx = this.getMaximumHealth()
-            if this.getHealth() < mx * 0.75 and this.phase ~= 2 then
-                this.phase = 2
+
+            if this.getHealth() < mx * 0.15 and this.phase < 5 then
+                this.phase = 5
                 bosshealth:setPhase(this.phase)
-            elseif this.getHealth() < mx * 0.5 and this.phase ~= 3 then
+            elseif this.getHealth() < mx * 0.33 and this.phase < 4 then
+                this.phase = 4
+                bosshealth:setPhase(this.phase)
+            elseif this.getHealth() < mx * 0.50 and this.phase < 3 then
                 this.phase = 3
+                bosshealth:setPhase(this.phase)
+            elseif this.getHealth() < mx * 0.75 and this.phase < 2 then
+                this.phase = 2
                 bosshealth:setPhase(this.phase)
             end
             if super.isDead() then
@@ -61,7 +68,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                     item:getUserdata().rarity = rarity[math.floor(item:getUserdata().defense / 5)]
                     world.spawnEntity(new(EntityItem(itemstack.create(item, 1)))).setPosition(super.getPosition())
                 end
-                -- world.spawnEntity(new(EntityItem(itemstack.create(items["scythe"], 1)))).setPosition(super.getPosition())
+                world.spawnEntity(new(EntityItem(itemstack.create(items["scythe"], 1)))).setPosition(super.getPosition())
                 world.removeEntityByUUID(this.getUUID())
             end
         end
@@ -132,7 +139,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 local pos = axis * dist
                 player.move(pos.x, pos.y)
                 if not this.hit_entity then
-                    player.hit(20 * DeltaTime)
+                    player.hit((this.phase < 4 and 20 or 40) * DeltaTime)
                     this.hit_entity = true
                 end
                 return
@@ -175,7 +182,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 local pos1 = vector.new(px, py)
                 local pos2 = vector.new(player.getPosition())
                 local dir = pos2 - pos1
-                world.spawnEntity(new(EntitySlash(px, py, dir, 20, 20)))
+                world.spawnEntity(new(EntitySlash(px, py, dir, this.phase < 4 and 10 or 20, 20)))
             end
         end
         local step = this.dir == 1 and 10 or -10
@@ -237,7 +244,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
             local pos2 = vector.new(px, py)
             local pos1 = vector.new(super.getPosition())
             local dir = pos2 - pos1
-            world.spawnEntity(new(EntityVortex(px, py, dir, 20, 5, scythe_func[this.func])))
+            world.spawnEntity(new(EntityVortex(px, py, dir, this.phase < 4 and 20 or 40, 5, scythe_func[this.func])))
             local step = 15
             super.setRotation(angle + step)
             this.sprite:setRotation(angle + step)
@@ -276,7 +283,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                     this.attack = "slash_entity"
                 end
                 if this.attack ~= "idle" then
-                    local chance = (super.getHealth() < super.getMaximumHealth() * 0.5 and 33 or (super.getHealth() < super.getMaximumHealth() * 0.75 and 10 or 0))
+                    local chance = (super.getHealth() < super.getMaximumHealth() * 0.5 and 33 or (super.getHealth() < super.getMaximumHealth() * 0.75 and 15 or 0))
                     local rng = math.random(1, 100)
                     if this.attack ~= "idle" and rng < chance then
                         this.attack = "asmat_entity"
@@ -284,7 +291,13 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 end
             end
         end
-        if this.clock:getEllapsedTime() > 2000000 then
+        local delay = 2000000
+        if this.phase == 4 then
+            delay = 1500000
+        elseif this.phase == 5 then
+                delay = 1000000
+        end
+        if this.clock:getEllapsedTime() > delay then
             this.cooldown = false
         end
         if super.isAlive() and not this.cooldown then

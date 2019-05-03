@@ -17,6 +17,7 @@ Class "EntityVortex" extends "Entity" [{
         this.sprite:scale(0.15, 0.15)
         this.sprite:setOrigin(194, 202)
         this.dir = dir:normalize()
+        this.odir = dir:normalize()
         this.damage = damage
         this.speed = speed
         this.hit = false
@@ -48,16 +49,11 @@ Class "EntityVortex" extends "Entity" [{
         this.count = this.count + 1
         this.angle = this.angle + 1
         this.sprite:setRotation(this.angle)
-        this.dir.x, this.dir.y = this.func(this.count, this.dir)
-        -- dy = dy or dx
-        -- local amount1 = dx - this.before1
-        -- local amount2 = dy - this.before2
-        -- this.before1 = amount1
-        -- this.before2 = amount2
-        -- local perp = this.dir:perp()
+        this.dir.x, this.dir.y = this.func(this.count, this.dir, this.odir)
+        this.dir = this.dir:normalize()
         this.move(this.dir.x * this.speed * DeltaTime, this.dir.y * this.speed * DeltaTime)
         local nx, ny = super.getPosition()
-        if this.lifetime:getEllapsedTime() > 5000000 then
+        if this.lifetime:getEllapsedTime() > 5000000 or nx < 0 or nx > 1920 or ny < 0 or ny > 1080 then
             world.removeEntityByUUID(super.getUUID())
             return
         end

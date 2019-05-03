@@ -94,6 +94,7 @@ assets["parchemin_3"] = lsfml.texture.createFromFile("./assets/items/parchemin_3
 assets["parchemin_4"] = lsfml.texture.createFromFile("./assets/items/parchemin_4.png", {0, 0, 64, 64})
 assets["parchemin_5"] = lsfml.texture.createFromFile("./assets/items/parchemin_5.png", {0, 0, 64, 64})
 assets["parchemin_6"] = lsfml.texture.createFromFile("./assets/items/parchemin_6.png", {0, 0, 64, 64})
+assets["scythe_item"] = lsfml.texture.createFromFile("./assets/items/scythe.png", {0, 0, 64, 64})
 assets["parchemin"] = lsfml.texture.createFromFile("./assets/items/parchemin.png", {0, 0, 64, 64})
 assets["metal_scrap"] = lsfml.texture.createFromFile("./assets/items/metal_scrap.png", {0, 0, 64, 64})
 assets["tablette"] = lsfml.texture.createFromFile("./assets/items/tablette.png", {0, 0, 64, 64})
