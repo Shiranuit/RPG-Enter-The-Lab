@@ -13,6 +13,8 @@ local mana_bar = lsfml.sprite.create()
 local hand1 = lsfml.sprite.create()
 local hand2 = lsfml.sprite.create()
 local touche = lsfml.sprite.create()
+local touch_pos = {0, 0}
+local touch_show = false
 
 local touch_text = lsfml.text.create()
 local healtext = lsfml.text.create()
@@ -58,7 +60,6 @@ spell4:setFont(assets["fsys"])
 spell5:setFont(assets["fsys"])
 
 health_bar:setPosition(0, 0)
-touche:setPosition(1120, 230)
 stamina_bar:setPosition(0, 82)
 mana_bar:setPosition(0, 164)
 empty_bar1:setPosition(0, 0)
@@ -88,7 +89,18 @@ empty_bar3:setScale(0.25, 0.25)
 sort_bar:setScale(0.5, 0.5)
 other_item:setScale(0.5, 0.5)
 
-touch_text:setString("F")
+function setInteractTouchPosition(self, x, y)
+    check(x, "number", 2)
+    check(y, "number", 3)
+
+    touch_pos = {x, y}
+end
+
+function showInteractTouch(self, state)
+    check(state, "boolean", 2)
+
+    show_touch = state
+end
 
 function load(self)
 
@@ -130,7 +142,7 @@ function draw(self)
     window:draw(healtext)
     window:draw(manatext)
     window:draw(staminatext)
-    if x > 1050 and x < 1250 and y > 400 and y < 500 and getScene() == "test_player" then
+    if show_touch then
         window:draw(touche)
         window:draw(touch_text)
     end
@@ -170,6 +182,11 @@ function update(self)
     update_health()
     update_mana()
     update_stamina()
+    local key = keyboard.getKeyName(controls.getControl("action")):sub(1, 3)
+    touch_text:setString(key)
+    local px, py = lsfml.text.getCenter(key, 24)
+    touch_text:setPosition(touch_pos[1] + 26 - px, touch_pos[2] + 27 - py)
+    touche:setPosition(touch_pos[1], touch_pos[2])
     health_bar:setTextureRect(0, 0, math.floor(player.getHealth() / player.getMaximumHealth() * 980), 328)
     stamina_bar:setTextureRect(0, 0, math.floor(player.getStamina() / player.getMaximumStamina() * 980), 328)
     mana_bar:setTextureRect(0, 0, math.floor(player.getMana() / player.getMaximumMana() * 980), 328)

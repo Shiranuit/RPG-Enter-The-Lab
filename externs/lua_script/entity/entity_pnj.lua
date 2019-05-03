@@ -14,6 +14,8 @@ Class "EntityPnj" extends "EntityLiving" [{
         this.stopwatch = stopwatch.create()
         super(x, y)
         this.exist = true
+        this.scale = scx
+        this.isIn = false
         this.sprite = animation.create(sprite, {0, 0 , 220, 560})
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(x_or, y_or)
@@ -62,6 +64,17 @@ Class "EntityPnj" extends "EntityLiving" [{
 
 
     function update()
-
+        local x, y = player.getPosition()
+        local nx, ny = super.getPosition()
+        if math.abs(x - nx) + math.abs(y - ny) < 100 then
+            if not this.isIn then
+                this.isIn = true
+                player_hud:showInteractTouch(true)
+                player_hud:setInteractTouchPosition(nx - 220 * this.scale / 2, ny - 560 * this.scale - 54)
+            end
+        elseif this.isIn then
+            this.isIn = false
+            player_hud:showInteractTouch(false)
+        end
     end
 }]
