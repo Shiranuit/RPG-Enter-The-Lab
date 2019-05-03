@@ -32,6 +32,8 @@ function load(scene)
     local pot5_2 = new(EntityProps(686, 523, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
     local pot5_3 = new(EntityProps(494, 816, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
     local pot5_4 = new(EntityProps(404, 905, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+    local parchemin1 = new(EntityProps(404, 905, assets["parchemin_1"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+    local parchemin2 = new(EntityProps(404, 905, assets["parchemin_1"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
     if (scene == "scene14_escalier") then
         player.setPosition(990, 250)
     end
@@ -44,29 +46,6 @@ function load(scene)
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
-        world.spawnEntity(status1)
-        world.spawnEntity(status2)
-        world.spawnEntity(status3)
-        world.spawnEntity(pot1_1)
-        world.spawnEntity(pot1_2)
-        world.spawnEntity(pot1_3)
-        world.spawnEntity(pot1_4)
-        world.spawnEntity(pot2_1)
-        world.spawnEntity(pot2_2)
-        world.spawnEntity(pot2_3)
-        world.spawnEntity(pot2_4)
-        world.spawnEntity(pot3_1)
-        world.spawnEntity(pot3_2)
-        world.spawnEntity(pot3_3)
-        world.spawnEntity(pot3_4)
-        world.spawnEntity(pot4_1)
-        world.spawnEntity(pot4_2)
-        world.spawnEntity(pot4_3)
-        world.spawnEntity(pot4_4)
-        world.spawnEntity(pot5_1)
-        world.spawnEntity(pot5_2)
-        world.spawnEntity(pot5_3)
-        world.spawnEntity(pot5_4)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {940, 160}, {940, 135}, {1030, 135}, {1030, 160}, {1920, 160}, {1920, 0}})
@@ -104,9 +83,6 @@ function update()
     end
     if x > 1910 then
         setScene("scene17_right_start")
-    end
-    if keyboard.keyPressed(keys.P) then
-        print(lsfml.mouse.getPosition(window))
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime)

@@ -8,7 +8,7 @@ background:setTexture(assets["labo_intersection_bas"], false)
 local scythe = new(EntityScytheBoss(500, 510))
 
 local entities = {}
-local hitbx = nil
+local hitb = nil
 
 function load(scene)
     bosshealth:setEntity(scythe)
@@ -35,8 +35,18 @@ function load(scene)
     if #entities == 0 then
         world.spawnEntity(scythe)
         world.spawnEntity(player)
+        world.spawnEntity(torch1)
+        world.spawnEntity(torch2)
+        world.spawnEntity(torch3)
+        world.spawnEntity(torch4)
+        world.spawnEntity(torch5)
+        world.spawnEntity(torch6)
+        world.spawnEntity(hologram1)
+        world.spawnEntity(hologram2)
+        world.spawnEntity(hologram_break1)
+        world.spawnEntity(hologram_break2)
     end
-    if (hitbx == nil) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
 
         HitBoxWall(0, 0, {{30, 0}, {30, 530}, {-50, 530}, {-50, 0}})
@@ -47,14 +57,14 @@ function load(scene)
 
         HitBoxWall(0, 0, {{0, 1030}, {950, 1030}, {950, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1120, 1030}, {1920, 1030}, {1920, 1100}, {1100, 1120}})
-        hitbx = hitbox.getHitboxes()
+        hitb = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
+    hitbox.setHitboxes(hitb)
 end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end

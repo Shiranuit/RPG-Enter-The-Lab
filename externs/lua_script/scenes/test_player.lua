@@ -18,9 +18,10 @@ local tube_bleu_femme2 = new(EntityProps(1400, 950, assets["tube_bleu_femme"], 7
 local tube_vert_homme1 = new(EntityProps(1750, 980, assets["tube_vert_homme"], 80, 248, {{7, 186},{0, 248}, {160, 248}, {153, 186}}, 1))
 local tube_vert_homme2 = new(EntityProps(800, 420, assets["tube_vert_homme"], 80, 248, {{7, 186},{0, 248}, {160, 248}, {153, 186}}, 1))
 local tube_vert_femme1 = new(EntityProps(1650, 350, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
+local tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
 
 local entities = {}
-local hitbx = nil
+local hitb = nil
 
 function load(scene)
     local robot2 = new(EntityRobot2(800, 800))
@@ -47,15 +48,16 @@ function load(scene)
         world.spawnEntity(tube_vert_homme1)
         world.spawnEntity(tube_vert_homme2)
         world.spawnEntity(tube_vert_femme1)
+        world.spawnEntity(tube_vert_femme2)
     end
-    if (hitbx == nil) then
+    if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
         HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
-        hitbx = hitbox.getHitboxes()
+        hitb = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitbx)
+    hitbox.setHitboxes(hitb)
 end
 
 function HitBoxWall(x_or, y_or, pts)
@@ -67,7 +69,7 @@ end
 
 function unload()
     entities = world.getEntities()
-    hitbx = hitbox.getHitboxes()
+    hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end
