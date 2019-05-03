@@ -24,7 +24,7 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
-    --local robot2 = new(EntityRobot2(800, 800))
+    local robot2 = new(EntityRobot2(800, 800))
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
@@ -35,7 +35,7 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
-        --world.spawnEntity(robot2)
+        world.spawnEntity(robot2)
         world.spawnEntity(player)
         world.spawnEntity(item1)
         world.spawnEntity(tube_bleu_casser)
