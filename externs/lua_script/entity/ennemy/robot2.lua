@@ -1,4 +1,4 @@
-Class "EntityRobot1" extends "EntityLiving" [{
+Class "EntityRobot2" extends "EntityLiving" [{
 
     local function initHitboxes()
         local box = new(Hitbox("soft", {takeDamage=true, doDamage=true}))
@@ -9,13 +9,13 @@ Class "EntityRobot1" extends "EntityLiving" [{
         super.addHitbox(box)
     end
 
-    function __EntityRobot1(x, y)
+    function __EntityRobot2(x, y)
         super(x, y)
         super.setMaximumHealth(100)
         super.setHealth(100)
-        this.sprite = animation.create(assets["robot1"], {0, 0, 540, 462})
+        this.sprite = animation.create(assets["robot2"], {0, 0, 580, 840})
         this.sprite:setPosition(x, y)
-        this.sprite:setOrigin(270, 462)
+        this.sprite:setOrigin(290, 840)
         this.sprite:scale(0.25, 0.25)
 
         this.attack = animation.create(assets["laser"], {0, 0, 46, 19})
@@ -25,8 +25,8 @@ Class "EntityRobot1" extends "EntityLiving" [{
         this.clock = lsfml.clock.create()
         this.clock_attack = lsfml.clock.create()
         this.status = "right"
-        this.speed = 2
-        this.max_distance = 500
+        this.speed = 1
+        this.max_distance = 800
         this.last_animation = false
         this.is_attack = false
         initHitboxes()
@@ -65,7 +65,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
             if this.clock:getEllapsedTime() > 100000 then
                 this.clock:restart()
                 this.sprite:next()
-                if this.sprite:getAnimationFrame() == 4 then
+                if this.sprite:hasEnded() then
                     this.sprite:restart()
                 end
             end
@@ -119,14 +119,12 @@ Class "EntityRobot1" extends "EntityLiving" [{
         if math.abs(dir_x) > math.abs(dir_y) then
             if dir_x > 0 and this.status ~= "right" then
                 this.status = "right"
-                this.sprite:changeRect({0, 0, 540, 462})
-                this.sprite:setOrigin(270, 462)
+                this.sprite:changeRect({0, 0, 580, 840})
                 hitbox[1].setScale(0.25, 0.25)
                 hitbox[1].setOrigin(270, 462)
             elseif dir_x < 0 and this.status ~= "left" then
                 this.status = "left"
-                this.sprite:changeRect({0, 462, 540, 462})
-                this.sprite:setOrigin(270, 462)
+                this.sprite:changeRect({0, 840, 580, 840})
                 hitbox[1].setScale(0.25, 0.25)
                 hitbox[1].setOrigin(270, 462)
             end
@@ -134,13 +132,11 @@ Class "EntityRobot1" extends "EntityLiving" [{
             if dir_y > 0 and this.status ~= "down" then
                 this.status = "down"
                 this.sprite:changeRect({0, 1460, 341, 540})
-                this.sprite:setOrigin(170, 540)
                 hitbox[1].setScale(0.17, 0.30)
                 hitbox[1].setOrigin(270, 440)
             elseif dir_y < 0 and this.status ~= "up" then
                 this.status = "up"
                 this.sprite:changeRect({0, 920, 341, 540})
-                this.sprite:setOrigin(170, 540)
                 hitbox[1].setScale(0.17, 0.30)
                 hitbox[1].setOrigin(270, 440)
             end
@@ -151,7 +147,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
         elseif (total < this.max_distance - this.speed) then
             move((-dir_x / total) * this.speed, (-dir_y / total) * this.speed)
         end
-        if not this.is_attack and total < this.max_distance + 300 and total > this.max_distance - 20 then
+        if not this.is_attack and total < this.max_distance + 500 and total > this.max_distance - 20 then
             this.clock_attack:restart()
             this.is_attack = true
             if this.status == "down" then
