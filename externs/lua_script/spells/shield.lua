@@ -15,6 +15,8 @@ function getCost()
 end
 
 function cast(self)
+    local x, y = player.getPosition()
+    animationSpell["shieldSpell"].setPosition(x, y + 1)
     if animationSpell["shieldSpell"].hasEnded() then
         self:disable()
     end
@@ -25,11 +27,9 @@ function isInstant(self)
 end
 
 function enable(self)
-    local x, y = player.getPosition()
     player.removeMana(getCost())
     player.activateSpell()
     animationSpell["shieldSpell"].restart()
-    animationSpell["shieldSpell"].setPosition(x, y)
     world.spawnEntity(animationSpell["shieldSpell"])
     player.damageable(false)
 end

@@ -8,6 +8,18 @@ Class "EntitySpell" extends "Entity" [{
 
         super(info.pos_x or 0, info.pos_y or 0)
 
+        if info.hitbox then
+            this.box = new(Hitbox("soft", {takeDamage=false, doDamage=true}))
+            this.box.setPoints(info.hitbox)
+            this.box.setPosition(info.pos_x or 0, info.pos_y or 0)
+            this.box.setOrigin(info.ox or 0, info.oy or 0)
+            this.box.setScale(info.scale or 1, info.scale or 1)
+            this.have_hitbox = true
+        else
+            this.have_hitbox = false
+        end
+
+        this.damage = info.damage or 0
         this.sprite = animation.create(info.spell, info.rect)
         this.sprite:setPosition(info.pos_x or 0, info.pos_y or 0)
         this.sprite:setOrigin(info.ox or 0, info.oy or 0)
@@ -28,6 +40,11 @@ Class "EntitySpell" extends "Entity" [{
         this.one_animation = info.one_animation or false
         this.moving_x = 0
         this.moving_y = 0
+        this.make_damage = false
+    end
+
+    function makeDamage()
+        this.make_damage = true
     end
 
     function setTextureRect(rect)
@@ -41,6 +58,7 @@ Class "EntitySpell" extends "Entity" [{
 
     function setOrigin(x, y)
         this.sprite:setOrigin(x, y)
+        this.box.setOrigin(x, y)
     end
 
     function moving(x, y)
@@ -52,8 +70,10 @@ Class "EntitySpell" extends "Entity" [{
         if this.follow_player then
             local x, y = player.getPosition()
             this.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
+            this.box.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
         else
             this.move(this.moving_x, this.moving_y)
+            this.box.move(this.moving_x, this.moving_y)
         end
 
         if this.clock:getEllapsedTime() > this.timeAnimation then
@@ -71,19 +91,36 @@ Class "EntitySpell" extends "Entity" [{
         this.sprite:draw()
     end
 
+    function update()
+        this.box.draw()
+        if this.have_hitbox and this.make_damage then
+            local entities = world.getEntitiesInHitbox(box, "ennemy")
+            for i = 1, #entities do
+                if (class.isInstanceOf(entities[i], "EntityLiving")) then
+                    entities[i].hit(this.damage * DeltaTime)
+                    print("HEAL : "..entities[i].getHealth())
+                end
+            end
+            this.make_damage = false
+        end
+    end
+
     function move(x, y)
         super.move(x, y)
         this.sprite:move(x, y)
+        this.box.move(x, y)
     end
 
     function setPosition(x, y)
         super.setPosition(x, y)
         this.sprite:setPosition(x, y)
+        this.box.setPosition(x, y)
     end
 
     function setRotation(angle)
         this.sprite:setRotation(angle)
         this.matrix = this.matrix * transform.rotate(angle)
+        this.box.setRotation(angle)
     end
 
     function restart()

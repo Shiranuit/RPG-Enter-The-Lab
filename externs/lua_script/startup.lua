@@ -203,6 +203,8 @@ animationSpell = {
         pos_y_tp = -50,
     })),
     elecSpell = new(EntitySpell({
+        hitbox = {{0, 0}, {83, 0}, {83, 249}, {0, 249}},
+        damage = 15,
         spell = assets["elecAnimation"],
         rect = {0, 0, 83, 249},
         ox = 41.5,
