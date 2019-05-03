@@ -12,6 +12,16 @@ local hitbx = nil
 
 function load(scene)
     bosshealth:setEntity(scythe)
+    local torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+    local torch2 = new(EntityProps(100, 850, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
+    local torch3 = new(EntityProps(1800, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+    local torch4 = new(EntityProps(1800, 850, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
+    local torch5 = new(EntityProps(870, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+    local torch6 = new(EntityProps(1200, 850, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
+    local hologram1 = new(EntityProps(550, 350, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+    local hologram2 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+    local hologram_break1 = new(EntityProps(1200, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+    local hologram_break2 = new(EntityProps(450, 950, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
     if (scene == "scene9_horizontal") then
         player.setPosition(30, 630)
     end
