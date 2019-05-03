@@ -6,7 +6,7 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 
 local entities = {}
-local hitb = nil
+local hitbx = nil
 
 function load(scene)
     if scene == "scene7_angle_droit" then
@@ -16,19 +16,19 @@ function load(scene)
     if #entities == 0 then
         world.spawnEntity(player)
     end
-    if (hitb == nil) then
+    if (hitbx == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
         HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
-        hitb = hitbox.getHitboxes()
+        hitbx = hitbox.getHitboxes()
     end
-    hitbox.setHitboxes(hitb)
+    hitbox.setHitboxes(hitbx)
 end
 
 function unload()
     entities = world.getEntities()
-    hitb = hitbox.getHitboxes()
+    hitbx = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
 end
