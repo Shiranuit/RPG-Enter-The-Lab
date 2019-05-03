@@ -894,6 +894,13 @@ function lsfml.text.create()
     })
 end
 
+function lsfml.text.getCenter(text, csize)
+    check(text, "string", 1)
+    check(csize, "number", 2)
+
+    return (#text * csize) / 4, csize / 1.25
+end
+
 function lsfml.text.destroy(text)
     check(text, "text", 1)
 
