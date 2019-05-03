@@ -14,7 +14,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.sprite:setScale(0.25, 0.25)
         this.sprite:setOrigin(220 / 2, 500)
         this.sprite:setTextureRect(0, 2000, 220, 500)
-        this.clock = lsfml.clock.create()
+        this.clock = stopwatch.create()
         this.pos_rect = {4, 150000, 0, 2000, 220, 500}
         super.setMaximumHealth(info.max_health or 100)
         super.setHealth(info.health or 100)

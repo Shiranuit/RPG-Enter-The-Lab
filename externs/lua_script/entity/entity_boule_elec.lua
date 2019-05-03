@@ -13,7 +13,7 @@ Class "EntityBouleElec" extends "Entity" [{
         this.sprite:scale(1.5, 1.5)
         this.sprite:setOrigin(36, 36)
         this.sprite:setRotation(this.angle)
-        this.clock = lsfml.clock.create()
+        this.clock = stopwatch.create()
         this.dir = dir:normalize()
         this.damage = damage
         this.speed = speed

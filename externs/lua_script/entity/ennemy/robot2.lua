@@ -22,8 +22,8 @@ Class "EntityRobot2" extends "EntityLiving" [{
         this.attack:setOrigin(9, 9)
         this.attack:scale(3, 3)
 
-        this.clock = lsfml.clock.create()
-        this.clock_attack = lsfml.clock.create()
+        this.clock = stopwatch.create()
+        this.clock_attack = stopwatch.create()
         this.status = "right"
         this.speed = 1.2
         this.max_distance = 110
