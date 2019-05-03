@@ -83,7 +83,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function getMana()
-        return this.mana
+        return math.max(this.mana, 0)
     end
 
     function getMaximumMana()
@@ -134,7 +134,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function getStamina()
-        return this.stamina
+        return math.max(this.stamina, 0)
     end
 
     function setStamina(stamina)

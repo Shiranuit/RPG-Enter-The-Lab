@@ -13,13 +13,52 @@ local mana_bar = lsfml.sprite.create()
 local hand1 = lsfml.sprite.create()
 local hand2 = lsfml.sprite.create()
 
+local healtext = lsfml.text.create()
+local manatext = lsfml.text.create()
+local staminatext = lsfml.text.create()
+
+local spell1 = lsfml.text.create()
+local spell2 = lsfml.text.create()
+local spell3 = lsfml.text.create()
+local spell4 = lsfml.text.create()
+local spell5 = lsfml.text.create()
+
+local csize = 24
+
+spell1:setPosition(705 + 91, 889 + 28)
+spell2:setPosition(705, 889)
+spell3:setPosition(705, 889)
+spell4:setPosition(705, 889)
+spell5:setPosition(705, 889)
+healtext:setPosition(620 * 0.25, 174 * 0.25)
+manatext:setPosition(620 * 0.25, 164 + 174 * 0.25)
+staminatext:setPosition(620 * 0.25, 82 + 174 * 0.25)
+
+healtext:setCharacterSize(24)
+staminatext:setCharacterSize(24)
+manatext:setCharacterSize(24)
+spell1:setCharacterSize(csize)
+spell2:setCharacterSize(csize)
+spell3:setCharacterSize(csize)
+spell4:setCharacterSize(csize)
+spell5:setCharacterSize(csize)
+
+healtext:setFont(assets["fsys"])
+staminatext:setFont(assets["fsys"])
+manatext:setFont(assets["fsys"])
+spell1:setFont(assets["fsys"])
+spell2:setFont(assets["fsys"])
+spell3:setFont(assets["fsys"])
+spell4:setFont(assets["fsys"])
+spell5:setFont(assets["fsys"])
+
 health_bar:setPosition(0, 0)
 stamina_bar:setPosition(0, 82)
 mana_bar:setPosition(0, 164)
 empty_bar1:setPosition(0, 0)
 empty_bar2:setPosition(0, 82)
 empty_bar3:setPosition(0, 164)
-sort_bar:setPosition(705, 920-31)
+sort_bar:setPosition(705, 889)
 other_item:setPosition(1250, 900)
 hand1:setPosition(1250 + 24, 900 + 24)
 hand2:setPosition(1250 + 241 * 0.5 + 24, 900 + 24)
@@ -69,9 +108,50 @@ function draw(self)
     window:draw(other_item)
     window:draw(hand1)
     window:draw(hand2)
+    window:draw(spell1)
+    window:draw(spell2)
+    window:draw(spell3)
+    window:draw(spell4)
+    window:draw(spell5)
+    window:draw(healtext)
+    window:draw(manatext)
+    window:draw(staminatext)
+end
+
+local function update_stamina()
+    local maxstamina = tostring(math.floor(player.getMaximumStamina()))
+    local stamina = tostring(math.floor(player.getStamina()))
+    local h = string.rep("0", #maxstamina-#stamina)..stamina
+    local txt = h.." / "..maxstamina
+    staminatext:setString(txt)
+    local px, py = lsfml.text.getCenter(txt, 24)
+    staminatext:setPosition(620 * 0.25 - px, 82 + 174 * 0.25 - py)
+end
+
+local function update_health()
+    local maxhealth = tostring(math.floor(player.getMaximumHealth()))
+    local health = tostring(math.floor(player.getHealth()))
+    local h = string.rep("0", #maxhealth-#health)..health
+    local txt = h.." / "..maxhealth
+    healtext:setString(txt)
+    local px, py = lsfml.text.getCenter(txt, 24)
+    healtext:setPosition(620 * 0.25 - px, 174 * 0.25 - py)
+end
+
+local function update_mana()
+    local maxmana = tostring(math.floor(player.getMaximumMana()))
+    local mana = tostring(math.floor(player.getMana()))
+    local h = string.rep("0", #maxmana-#mana)..mana
+    local txt = h.." / "..maxmana
+    manatext:setString(txt)
+    local px, py = lsfml.text.getCenter(txt, 24)
+    manatext:setPosition(620 * 0.25 - px, 164 + 174 * 0.25 - py)
 end
 
 function update(self)
+    update_health()
+    update_mana()
+    update_stamina()
     health_bar:setTextureRect(0, 0, math.floor(player.getHealth() / player.getMaximumHealth() * 980), 328)
     stamina_bar:setTextureRect(0, 0, math.floor(player.getStamina() / player.getMaximumStamina() * 980), 328)
     mana_bar:setTextureRect(0, 0, math.floor(player.getMana() / player.getMaximumMana() * 980), 328)
@@ -89,6 +169,28 @@ function update(self)
     else
         hand2:setTextureRect(0, 0, 0, 0)
     end
+    local t1 = keyboard.getKeyName(controls.getControl("spell_1"))
+    local t2 = keyboard.getKeyName(controls.getControl("spell_2"))
+    local t3 = keyboard.getKeyName(controls.getControl("spell_3"))
+    local t4 = keyboard.getKeyName(controls.getControl("spell_4"))
+    local t5 = keyboard.getKeyName(controls.getControl("spell_5"))
+
+    spell1:setString(t1)
+    spell2:setString(t2)
+    spell3:setString(t3)
+    spell4:setString(t4)
+    spell5:setString(t5)
+
+    local nx, ny = lsfml.text.getCenter(t1, csize)
+    spell1:setPosition(705 + 118 * 0.5 - nx, 889 + 38 * 0.5 - ny)
+    nx, ny = lsfml.text.getCenter(t2, csize)
+    spell2:setPosition(705 + 307 * 0.5 - nx, 889 + 38 * 0.5 - ny)
+    nx, ny = lsfml.text.getCenter(t3, csize)
+    spell3:setPosition(705 + 497 * 0.5 - nx, 889 + 38 * 0.5 - ny)
+    nx, ny = lsfml.text.getCenter(t4, csize)
+    spell4:setPosition(705 + 693 * 0.5 - nx, 889 + 38 * 0.5 - ny)
+    nx, ny = lsfml.text.getCenter(t5, csize)
+    spell5:setPosition(705 + 879 * 0.5 - nx, 889 + 38 * 0.5 - ny)
 end
 
 function event(self, e)
