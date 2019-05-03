@@ -19,7 +19,7 @@ end
 
 
 local spell = initMenuSpellSprite({
-    douleurSpell = assets["douleurSpell"],
+    --douleurSpell = assets["douleurSpell"],
     healSpell = assets["healSpell"],
     elecSpell = assets["elecSpell"],
     picSpell = assets["picSpell"],
@@ -46,6 +46,7 @@ local selected_spell_name = ""
 local selected_spell = nil
 local spell_hub = spell_menu
 local selected_spell_index = 0
+local bool_spell = false
 
 function event(self, e)
     check(self, "hud", 1)
@@ -60,22 +61,21 @@ function event(self, e)
     end
     local mouse_x, mouse_y  = lsfml.mouse.getPosition(window)
     if self:isOpen() then
-        if lsfml.mouse.isButtonPressed(mouse.LEFT) then
-            for i, v in pairs(all_spell) do
-                local sprite_pos_x, sprite_pos_y = v:getPosition()
-                if mouse_x > sprite_pos_x and mouse_x < sprite_pos_x + 71 and mouse_y > sprite_pos_y and mouse_y < sprite_pos_y + 71 then
-                    if old_pos_x == -1  or old_pos_y == -1 then
-                        origin_pos_y = sprite_pos_y
-                        origin_pos_x = sprite_pos_x
-                        old_pos_x = mouse_x
-                        old_pos_y = mouse_y
-                        selected_spell = v
-                        selected_spell_name = i
-                        break
-                    end
+        for i, v in pairs(all_spell) do
+            local sprite_pos_x, sprite_pos_y = v:getPosition()
+            if mouse_x > sprite_pos_x and mouse_x < sprite_pos_x + 71 and mouse_y > sprite_pos_y and mouse_y < sprite_pos_y + 71 then
+                if old_pos_x == -1  or old_pos_y == -1 then
+                    origin_pos_y = sprite_pos_y
+                    origin_pos_x = sprite_pos_x
+                    old_pos_x = mouse_x
+                    old_pos_y = mouse_y
+                    selected_spell = v
+                    selected_spell_name = i
+                    break
                 end
             end
-        elseif selected_spell ~= nill then
+        end
+        if selected_spell ~= nill and not lsfml.mouse.isButtonPressed(mouse.LEFT) then
             selected_spell:setPosition(origin_pos_x, origin_pos_y)
             old_pos_x = -1
             old_pos_y = -1
@@ -86,11 +86,16 @@ function event(self, e)
             old_pos_x = mouse_x
             old_pos_y = mouse_y
             local sprite_pos_x, sprite_pos_y = selected_spell:getPosition()
+            bool_spell = false
             for i = 1, 5 do
                 if mouse_x > 705 + 30.5 + (i - 1) * 93.5 and mouse_x < 705 + 101.5 + (i - 1) * 93.5 and mouse_y > 920 + 9.5 and mouse_y < 920 + 80.5 then 
+                    bool_spell = true
                     selected_spell_index = i
                     break
                 end
+            end
+            if not bool_spell then
+                selected_spell_index = 0
             end
         end
     end

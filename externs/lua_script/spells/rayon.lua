@@ -5,11 +5,11 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 0
+    return 1.5
 end
 
 function cooldownStartAtEnd()
-    return false
+    return true
 end
 
 function cast(self)
