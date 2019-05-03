@@ -13,6 +13,7 @@
 int clock_create(lua_State *L)
 {
     sfClock **clock = 0;
+
     clock = (sfClock **)lua_newuserdata(L, sizeof(sfClock **));
     *clock = sfClock_create();
     return (1);

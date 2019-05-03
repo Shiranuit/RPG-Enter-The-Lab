@@ -5,6 +5,7 @@
 local health_bar = lsfml.sprite.create()
 local empty_bar1 = lsfml.sprite.create()
 local text = lsfml.text.create()
+local text_name = lsfml.text.create()
 local csize = 50
 local info = {x = 960 - 426, y = 0, width = 426 * 2, height = 33 * 2}
 text:setFont(assets["fsys"])

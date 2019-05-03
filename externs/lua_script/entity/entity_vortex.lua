@@ -10,16 +10,19 @@ Class "EntityVortex" extends "Entity" [{
         super(x, y)
         this.angle = 0
         this.count = 0
+        this.lifetime = stopwatch.create()
         this.sprite = lsfml.sprite.create()
         this.sprite:setTexture(assets["vortex"], false)
         this.sprite:setPosition(x, y)
         this.sprite:scale(0.15, 0.15)
         this.sprite:setOrigin(194, 202)
         this.dir = dir:normalize()
+        this.odir = dir:normalize()
         this.damage = damage
         this.speed = speed
         this.hit = false
-        this.before = 0
+        this.before1 = 0
+        this.before2 = 0
         this.func = func
         local box = new(Hitbox("soft"))
         box.setPoints({{0, 0}, {386, 0}, {386, 393}, {0, 393}})
@@ -46,12 +49,11 @@ Class "EntityVortex" extends "Entity" [{
         this.count = this.count + 1
         this.angle = this.angle + 1
         this.sprite:setRotation(this.angle)
-        local amount = this.func(this.count) - this.before
-        this.before = amount
-        local perp = this.dir:perp()
-        this.move((this.dir.x + perp.x * amount) * this.speed * DeltaTime, (this.dir.y + perp.y * amount) * this.speed * DeltaTime)
+        this.dir.x, this.dir.y = this.func(this.count, this.dir, this.odir)
+        this.dir = this.dir:normalize()
+        this.move(this.dir.x * this.speed * DeltaTime, this.dir.y * this.speed * DeltaTime)
         local nx, ny = super.getPosition()
-        if nx < 0 or nx > 1920 or ny < 0 or ny > 1920 then
+        if this.lifetime:getEllapsedTime() > 5000000 or nx < 0 or nx > 1920 or ny < 0 or ny > 1080 then
             world.removeEntityByUUID(super.getUUID())
             return
         end

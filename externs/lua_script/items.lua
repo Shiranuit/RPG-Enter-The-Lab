@@ -42,3 +42,9 @@ item.create("botte5", assets["botte5"], 1, {type="equipement", subtype="boot"})
 item.create("casque5", assets["casque5"], 1, {type="equipement", subtype="helmet"})
 item.create("jambiere5", assets["jambiere5"], 1, {type="equipement", subtype="pant"})
 item.create("plastron5", assets["plastron5"], 1, {type="equipement", subtype="chestplate"})
+
+-- =========================================
+-- =                  WEAPONS              =
+-- =========================================
+
+item.create("scythe", assets["scythe_item"], 1, {type="weapon"})
