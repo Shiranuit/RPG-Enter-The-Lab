@@ -24,7 +24,6 @@ function load(self)
     slots[#slots + 1] = inv_slot.create(px + 44 * 0.75, py + (72 + (144 + 24) * 3) * 0.75, 128, 144, 64, 64, {type="equipement", subtype="boot"})
     for x = 3, 4 do
         local sprite = lsfml.sprite.create()
-
         slots[#slots + 1] = inv_slot.create(px + (44 + (128 + 24) * x) * 0.75, py + (72 + (144 + 24) * 4) * 0.75, 128, 144, 64, 64)
     end
     local dt = {}
@@ -41,6 +40,7 @@ function load(self)
     slots[2]:setItemStack(itemstack.create(items["casque3"], 1))
     slots[3]:setItemStack(itemstack.create(items["jambiere3"], 1))
     slots[4]:setItemStack(itemstack.create(items["plastron3"], 1))
+    slots[5]:setItemStack(itemstack.create(items["scythe"], 1))
 end
 
 function open(self)
