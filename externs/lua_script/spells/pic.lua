@@ -58,13 +58,7 @@ function cast(self)
         h = size
         animationSpell["picSpell"].setRotation(-90)
     end
-    --print("\nRECT EST DE: "..x_player, y_player, size, big)
-    local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
-    for i = 1, #entities_in_spell do
-        if (class.isInstanceOf(entities_in_spell[i], "EntityLiving")) then
-            entities_in_spell[i].hit(20 * DeltaTime)
-            print("HEAL : "..entities_in_spell[i].getHealth())
-        end
-    end
+
+    animationSpell["picSpell"].makeDamage()
     player.activateSpell()
 end

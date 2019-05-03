@@ -3,7 +3,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
     local function initHitboxes()
         local box = new(Hitbox("ennemy", {takeDamage=true, doDamage=true}))
         box.setPoints({{163, 20}, {743, 20}, {743, 831}, {163, 831}})
-        box.setScale(0.25, 0.25)
+        box.setScale(0.20, 0.20)
         box.setOrigin(451, 875)
         box.setPosition(super.getPosition())
         super.addHitbox(box)
@@ -22,8 +22,8 @@ Class "EntityRobot2" extends "EntityLiving" [{
         this.attack:setOrigin(9, 9)
         this.attack:scale(3, 3)
 
-        this.clock = lsfml.clock.create()
-        this.clock_attack = lsfml.clock.create()
+        this.clock = stopwatch.create()
+        this.clock_attack = stopwatch.create()
         this.status = "right"
         this.speed = 1.2
         this.max_distance = 110
@@ -57,7 +57,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
         local pos1 = vector.new(px, py)
         local pos2 = vector.new(x, y)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 20)))
+        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 20, final)))
     end
 
     function draw()

@@ -22,8 +22,8 @@ Class "EntityRobot1" extends "EntityLiving" [{
         this.attack:setOrigin(9, 9)
         this.attack:scale(3, 3)
 
-        this.clock = lsfml.clock.create()
-        this.clock_attack = lsfml.clock.create()
+        this.clock = stopwatch.create()
+        this.clock_attack = stopwatch.create()
         this.status = "right"
         this.speed = 2
         this.max_distance = 500
@@ -57,7 +57,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
         local pos1 = vector.new(px, py)
         local pos2 = vector.new(x, y)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 20)))
+        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 20, final)))
     end
 
     function draw()

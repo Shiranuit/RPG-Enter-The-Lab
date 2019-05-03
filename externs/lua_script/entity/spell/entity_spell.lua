@@ -30,7 +30,7 @@ Class "EntitySpell" extends "Entity" [{
         this.timeAnimation = info.time or 10000
         this.pos_x_tp = info.pos_x_tp or 0
         this.pos_y_tp = info.pos_y_tp or 0
-        this.clock = lsfml.clock.create()
+        this.clock = stopwatch.create()
         this.follow_player = info.follow_player or false
         this.one_animation = info.one_animation or true
         this.damage_loop = info.damage_loop or false
@@ -99,10 +99,11 @@ Class "EntitySpell" extends "Entity" [{
 
     function update()
         if this.have_hitbox and this.make_damage then
+            this.box.recompute()
             local entities = world.getEntitiesInHitbox(box, "ennemy")
             for i = 1, #entities do
                 if (class.isInstanceOf(entities[i], "EntityLiving")) then
-                    entities[i].hit(this.damage * DeltaTime)
+                    entities[i].hit(this.damage * DeltaTime, player)
                     print("HEAL : "..entities[i].getHealth())
                 end
             end

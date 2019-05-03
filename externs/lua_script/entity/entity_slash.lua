@@ -1,5 +1,5 @@
 Class "EntitySlash" extends "Entity" [{
-    function __EntitySlash(x, y, dir, damage, speed)
+    function __EntitySlash(x, y, dir, damage, speed, source)
         check(x, "number", 1)
         check(y, "number", 2)
         check(dir, "Vector2D", 3)
@@ -7,6 +7,7 @@ Class "EntitySlash" extends "Entity" [{
         check(speed, "number", 5)
 
         super(x, y)
+        this.source = source
         this.angle = -math.deg(math.atan2(0, 1) - math.atan2(dir.y, dir.x))
         this.sprite = lsfml.sprite.create()
         this.sprite:setTexture(assets["slash"], false)
@@ -49,7 +50,7 @@ Class "EntitySlash" extends "Entity" [{
         local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "player")
         for i=1, #entities do
             if class.isInstanceOf(entities[i], "EntityLiving") and not this.hit[entities[i].getUUID()] then
-                entities[i].hit(this.damage)
+                entities[i].hit(this.damage, this.source)
                 this.hit[entities[i].getUUID()] = true
             end
         end

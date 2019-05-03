@@ -1,5 +1,5 @@
 Class "EntityVortex" extends "Entity" [{
-    function __EntityVortex(x, y, dir, damage, speed, func)
+    function __EntityVortex(x, y, dir, damage, speed, func, source)
         check(x, "number", 1)
         check(y, "number", 2)
         check(dir, "Vector2D", 3)
@@ -8,6 +8,7 @@ Class "EntityVortex" extends "Entity" [{
         check(func, "function", 5)
 
         super(x, y)
+        this.source = source
         this.angle = 0
         this.count = 0
         this.lifetime = stopwatch.create()
@@ -59,7 +60,7 @@ Class "EntityVortex" extends "Entity" [{
         end
         if not this.hit then
             if hitbox.rectIntersect(super.getHitboxs()[1].getBoundingBox(), player.getHitboxs()[1].getBoundingBox()) then
-                player.hit(this.damage)
+                player.hit(this.damage * DeltaTime, this.source)
                 this.hit = true
             end
         end

@@ -97,6 +97,7 @@ class.createFromFile("helpers/ray_caster.lua")
 class.createFromFile("entity/entity.lua")
 class.createFromFile("entity/entity_laser.lua")
 class.createFromFile("entity/entity_slash.lua")
+class.createFromFile("entity/entity_boule_elec.lua")
 class.createFromFile("entity/entity_vortex.lua")
 class.createFromFile("stats/stats.lua")
 class.createFromFile("entity/entity_living.lua")
@@ -151,6 +152,8 @@ animationSpell = {
     })),
     rayonIdleAnimation = new(EntitySpell({
         spell = assets["rayonIdleAnimation"],
+        hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
+        damage = 0.5,
         rect = {0, 114, 19, 114},
         ox = 0,
         oy = 0,
@@ -218,20 +221,6 @@ animationSpell = {
         one_animation = true,
         pos_x_tp = 15,
         pos_y_tp = -60,
-    })),
-    bouleelecSpell = new(EntitySpell({
-        spell = assets["bouleelecAnimation"],
-        rect = {0, 0, 71, 281},
-        ox = 35.5,
-        oy = 140.5,
-        time = 80000,
-        pos_y = 0,
-        pos_x = 0,
-        scale = 1,
-        follow_player = false,
-        one_animation = false,
-        pos_x_tp = 0,
-        pos_y_tp = 0,
     })),
     -- tempSpell = new(EntitySpell({
     --     spell = assets["tempAnimation"],

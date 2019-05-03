@@ -1,5 +1,5 @@
-Class "EntityLaser" extends "Entity" [{
-    function __EntityLaser(x, y, dir, damage, speed, mob)
+Class "EntityBouleElec" extends "Entity" [{
+    function __EntityBouleElec(x, y, dir, damage, speed)
         check(x, "number", 1)
         check(y, "number", 2)
         check(dir, "Vector2D", 3)
@@ -8,30 +8,39 @@ Class "EntityLaser" extends "Entity" [{
 
         super(x, y)
         this.angle = -math.deg(math.atan2(0, 1) - math.atan2(dir.y, dir.x))
-        this.sprite = lsfml.sprite.create()
-        this.sprite:setTexture(assets["laser_projectile"], false)
+        this.sprite = animation.create(assets["bouleelecAnimation"],{0, 0, 71, 281})
         this.sprite:setPosition(x, y)
-        this.sprite:scale(3, 3)
-        this.sprite:setOrigin(0, 0)
+        this.sprite:scale(1.5, 1.5)
+        this.sprite:setOrigin(36, 36)
         this.sprite:setRotation(this.angle)
+        this.clock = stopwatch.create()
         this.dir = dir:normalize()
         this.damage = damage
-        this.mob = mob
         this.speed = speed
+        this.timeAnimation = 10000
         this.hit = {}
         local box = new(Hitbox("soft"))
-        box.setPoints({{0, 0}, {30, 0}, {30, 8}, {0, 8}})
-        box.setOrigin(0, 0)
+        box.setPoints({{20, 20}, {50, 20}, {50, 50}, {20, 50}})
+        box.setOrigin(36, 36)
         box.setPosition(super.getPosition())
         box.setRotation(this.angle)
-        box.scale(3, 3)
+        box.scale(1.5, 1.5)
         super.addHitbox(box)
     end
 
     function draw()
         super.draw()
-        window:draw(this.sprite)
         super.drawHitbox()
+
+        if this.clock:getEllapsedTime() > this.timeAnimation then
+            if (this.sprite:hasEnded()) then
+                this.sprite:restart()
+            end
+            this.clock:restart()
+            this.sprite:next()
+        end
+        this.sprite:draw()
+
     end
 
     function move(x, y)
@@ -47,10 +56,10 @@ Class "EntityLaser" extends "Entity" [{
             world.removeEntityByUUID(super.getUUID())
             return
         end
-        local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "player")
+        local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "ennemy")
         for i=1, #entities do
             if class.isInstanceOf(entities[i], "EntityLiving") and not this.hit[entities[i].getUUID()] then
-                entities[i].hit(this.damage, this.mob)
+                entities[i].hit(this.damage, player)
                 this.hit[entities[i].getUUID()] = true
             end
         end

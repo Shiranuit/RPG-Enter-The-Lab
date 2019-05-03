@@ -31,47 +31,26 @@ function disable(self)
 end
 
 function cast(self)
-    world.removeEntityByUUID(animationSpell["bouleelecSpell"].getUUID())
-    world.spawnEntity(animationSpell["bouleelecSpell"])
-    animationSpell["bouleelecSpell"].restart()
-    player.removeMana(getCost())
-    local x, y = animationSpell["bouleelecSpell"].getPosition()
+   
     local x_player, y_player = player.getPosition()
-    local x_boule, y_boule = x_player, y_player
-    local size = 70
-    local big = 70
-    local w, h = 0, 0
-    local siz_up_left, siz_down_right = 0
     local status, hor, ver , idle = player.getStatus()
+    local pos1 = vector.new(x_player, y_player)
 
     if (hor == "left") then
-        animationSpell["bouleelecSpell"].setPosition(x_player, y_player + 60)
-        animationSpell["bouleelecSpell"].moving(-15, 0)
-        siz_up_left = y_player - big
-        siz_down_right = y_player + big
+        local pos2 = vector.new(x_player - 5, y_player)
+        local dir = pos2 - pos1
+        world.spawnEntity(new(EntityBouleElec(x_player + 15, y_player - 70, dir, 5, 20)))
     elseif (hor == "right") then
-        animationSpell["bouleelecSpell"].setPosition(x_player, y_player + 60)
-        animationSpell["bouleelecSpell"].moving(15, 0)
-        siz_up_left = y_player - big
-        siz_down_right = y_player + big
+        local pos2 = vector.new(x_player + 5, y_player)
+        local dir = pos2 - pos1
+        world.spawnEntity(new(EntityBouleElec(x_player + 15, y_player - 70, dir, 5, 20)))
     elseif (ver == "up" or (status == "idle" and idle == "up")) then
-        animationSpell["bouleelecSpell"].setPosition(x_player, y_player + 60)
-        animationSpell["bouleelecSpell"].moving(0, -15)
-        siz_up_left = x_player - big
-        siz_down_right = x_player + big
+        local pos2 = vector.new(x_player, y_player - 5)
+        local dir = pos2 - pos1
+        world.spawnEntity(new(EntityBouleElec(x_player, y_player - 70, dir, 5, 20)))
     elseif (ver == "down" or (status == "idle" and idle == "down")) then
-        animationSpell["bouleelecSpell"].setPosition(x_player, y_player + 60)
-        animationSpell["bouleelecSpell"].moving(0, 15)
-        siz_up_left = x_player - big
-        siz_down_right = x_player + big
-    end
-
-    --print("\nRECT EST DE: "..x_player, y_player, size, big)
-    local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
-    for i = 1, #entities_in_spell do
-        if (class.isInstanceOf(entities_in_spell[i], "EntityLiving")) then
-            entities_in_spell[i].hit(20 * DeltaTime)
-            print("HEAL : "..entities_in_spell[i].getHealth())
-        end
+        local pos2 = vector.new(x_player, y_player + 5)
+        local dir = pos2 - pos1
+        world.spawnEntity(new(EntityBouleElec(x_player, y_player - 70, dir, 5, 20)))
     end
 end

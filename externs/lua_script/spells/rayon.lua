@@ -47,18 +47,7 @@ function cast(self)
         w = big
         h = size
     end
-
-
-    player.removeMana(getCost())
-    if ((w ~= nil) and (h ~= nil) and (x_player ~= nil) and (y_player ~= nil)) then
-            local entities_in_spell = world.getEntitiesInRect(x_player, y_player, w, h)
-        for i = 1, #entities_in_spell do
-            if (class.isInstanceOf(entities_in_spell[i], "EntityLiving")) then
-                entities_in_spell[i].hit(1 * DeltaTime)
-                print("HEAL : "..entities_in_spell[i].getHealth())
-            end
-        end
-    end
+    animationSpell["rayonIdleAnimation"].makeDamage()
 end
 
 function isInstant(self)

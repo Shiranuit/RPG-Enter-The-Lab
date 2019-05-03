@@ -32,14 +32,14 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.max_distance = 300
         this.func = 1
         this.cooldown = false
-        this.clock = lsfml.clock.create()
+        this.clock = stopwatch.create()
         this.phase = 1
         initHitboxes()
     end
 
-    function hit(damage)
+    function hit(damage, source)
         if super.isAlive() and this.attack ~= "asmat_entity" then
-            super.hit(damage)
+            super.hit(damage, source)
             local mx = this.getMaximumHealth()
 
             if this.getHealth() < mx * 0.15 and this.phase < 5 then
@@ -139,7 +139,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 local pos = axis * dist
                 player.move(pos.x, pos.y)
                 if not this.hit_entity then
-                    player.hit((this.phase < 4 and 20 or 40) * DeltaTime)
+                    player.hit((this.phase < 4 and 20 or 40) * DeltaTime, final)
                     this.hit_entity = true
                 end
                 return
@@ -182,7 +182,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 local pos1 = vector.new(px, py)
                 local pos2 = vector.new(player.getPosition())
                 local dir = pos2 - pos1
-                world.spawnEntity(new(EntitySlash(px, py, dir, this.phase < 4 and 10 or 20, 20)))
+                world.spawnEntity(new(EntitySlash(px, py, dir, this.phase < 4 and 10 or 20, 20, final)))
             end
         end
         local step = this.dir == 1 and 10 or -10
@@ -198,7 +198,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 local pos = axis * dist
                 player.move(pos.x, pos.y)
                 if not this.hit_entity then
-                    player.hit(20 * DeltaTime)
+                    player.hit((this.phase < 4 and 20 or 40) * DeltaTime, final)
                     this.hit_entity = true
                 end
                 return
@@ -244,7 +244,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
             local pos2 = vector.new(px, py)
             local pos1 = vector.new(super.getPosition())
             local dir = pos2 - pos1
-            world.spawnEntity(new(EntityVortex(px, py, dir, this.phase < 4 and 20 or 40, 5, scythe_func[this.func])))
+            world.spawnEntity(new(EntityVortex(px, py, dir, this.phase < 4 and 20 or 40, 5, scythe_func[this.func], final)))
             local step = 15
             super.setRotation(angle + step)
             this.sprite:setRotation(angle + step)
@@ -253,7 +253,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
             if success then
                 local pos = axis * dist
                 player.move(pos.x, pos.y)
-                player.hit(20 * DeltaTime)
+                player.hit((this.phase < 4 and 20 or 40) * DeltaTime, final)
                 this.hit_entity = true
                 return
             end
