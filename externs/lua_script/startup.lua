@@ -191,6 +191,8 @@ animationSpell = {
         pos_y_tp = -240,
     })),
     picSpell = new(EntitySpell({
+        hitbox = {{0, 0}, {457, 0}, {457, 224}, {0, 224}},
+        damage = 15,
         spell = assets["picAnimation"],
         rect = {0, 0, 457, 224},
         ox = 457,
