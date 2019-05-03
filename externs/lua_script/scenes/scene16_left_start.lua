@@ -4,17 +4,107 @@
 
 local background = lsfml.sprite.create()
 background:setTexture(assets["left_start"], false)
+local par3 = itemstack.create(items.parchemin_3, 1)
+local par4 = itemstack.create(items.parchemin_4, 1)
+local par5 = itemstack.create(items.parchemin_5, 1)
+
+local canP3 = true
+local canP4 = true
+local canP5 = true
+
+local first = false
+local status1
+local status2
+local status3
+local pot1_1
+local pot1_2
+local pot1_3
+local pot1_4
+local pot2_1
+local pot2_2
+local pot2_3
+local pot2_4
+local pot3_1
+local pot3_2
+local pot3_3
+local pot3_4
+local pot4_1
+local pot4_2
+local pot4_3
+local pot4_4
+local pot5_1
+local pot5_2
+local pot5_3
+local pot5_4
+local parchemin3
+local parchemin4
+local parchemin5
 
 local entities = {}
 local hitb = nil
 
 function load(scene)
+    if first == false then
+        status1 = new(EntityProps(1699, 354, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
+        status2 = new(EntityProps(1535, 792, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
+        status3 = new(EntityProps(1063, 313, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
+        pot1_1 = new(EntityProps(1805, 286, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
+        pot1_2 = new(EntityProps(1419, 291, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
+        pot1_3 = new(EntityProps(730, 351, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
+        pot1_4 = new(EntityProps(245, 959, assets["pot1"], 38, 84, {{0, 74}, {0, 84}, {76, 84}, {55, 74}}, 1))
+        pot2_1 = new(EntityProps(975, 834, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
+        pot2_2 = new(EntityProps(87, 815, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
+        pot2_3 = new(EntityProps(628, 236, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
+        pot2_4 = new(EntityProps(1198, 374, assets["pot2"], 14, 56, {{0, 74}, {0, 56}, {25, 56}, {28, 74}}, 1))
+        pot3_1 = new(EntityProps(511, 392, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+        pot3_2 = new(EntityProps(374, 332, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+        pot3_3 = new(EntityProps(461, 879, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+        pot3_4 = new(EntityProps(1318, 808, assets["pot3"], 17, 56, {{0, 49}, {0, 56}, {35, 56}, {24, 49}}, 1))
+        pot4_1 = new(EntityProps(1582, 302, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+        pot4_2 = new(EntityProps(1290, 429, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+        pot4_3 = new(EntityProps(851, 235, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+        pot4_4 = new(EntityProps(748, 893, assets["pot4"], 38, 80, {{0, 70}, {0, 80}, {76, 80}, {58, 70}}, 1))
+        pot5_1 = new(EntityProps(292, 291, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+        pot5_2 = new(EntityProps(1528, 961, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+        pot5_3 = new(EntityProps(188, 334, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+        pot5_4 = new(EntityProps(1750, 927, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+        parchemin3 = new(EntityProps(600, 30, assets["parchemin_3"], 17, 0, {}, 1))
+        parchemin4 = new(EntityProps(200, 600, assets["parchemin_4"], 17, 0, {}, 1))
+        parchemin5 = new(EntityProps(1550, 927, assets["parchemin_5"], 17, 0, {}, 1))
+        first = true
+    end
     if (scene == "scene15_start") then
         player.setPosition(1900, 630)
     end
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
+        world.spawnEntity(status1)
+        world.spawnEntity(status2)
+        world.spawnEntity(status3)
+        world.spawnEntity(pot1_1)
+        world.spawnEntity(pot1_2)
+        world.spawnEntity(pot1_3)
+        world.spawnEntity(pot1_4)
+        world.spawnEntity(pot2_1)
+        world.spawnEntity(pot2_2)
+        world.spawnEntity(pot2_3)
+        world.spawnEntity(pot2_4)
+        world.spawnEntity(pot3_1)
+        world.spawnEntity(pot3_2)
+        world.spawnEntity(pot3_3)
+        world.spawnEntity(pot3_4)
+        world.spawnEntity(pot4_1)
+        world.spawnEntity(pot4_2)
+        world.spawnEntity(pot4_3)
+        world.spawnEntity(pot4_4)
+        world.spawnEntity(pot5_1)
+        world.spawnEntity(pot5_2)
+        world.spawnEntity(pot5_3)
+        world.spawnEntity(pot5_4)
+        world.spawnEntity(parchemin3)
+        world.spawnEntity(parchemin4)
+        world.spawnEntity(parchemin5)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {1920, 160}, {1920, 0}})
@@ -45,6 +135,24 @@ end
 
 function update()
     local x, y = player.getPosition()
+    if x > 500 and x < 700 and y < 300 and keyboard.keyPressed(keys.F) and canP3 == true then
+        world.removeEntityByUUID(parchemin3.getUUID())
+        player.getInventory():insertItemStack(par3)
+        canP3 = false
+    end
+    if x > 100 and x < 300 and y > 500 and y < 700 and keyboard.keyPressed(keys.F) and canP4 == true then
+        world.removeEntityByUUID(parchemin4.getUUID())
+        player.getInventory():insertItemStack(par4)
+        canP4 = false
+    end
+    if x > 1400 and x < 1700 and y > 800 and y < 1000 and keyboard.keyPressed(keys.F) and canP5 == true then
+        world.removeEntityByUUID(parchemin5.getUUID())
+        player.getInventory():insertItemStack(par5)
+        canP5 = false
+    end
+    if keyboard.keyPressed(keys.P) then
+        print(lsfml.mouse.getPosition(window))
+    end
     if x > 1910 then
         setScene("scene15_start")
     end

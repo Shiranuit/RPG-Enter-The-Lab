@@ -5,16 +5,57 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 
+local first = false
+local table1
+local table2
+local table3
+local table4
+local table5
+local table6
+local mini_holo1
+local mini_holo2
+local mini_holo3
+local mini_tube1
+local mini_tube2
+local mini_tp1
+
 local entities = {}
 local hitb = nil
 
 function load(scene)
+    if first == false then
+        table1 = new(EntityProps(400, 550, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
+        table2 = new(EntityProps(400, 750, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
+        table3 = new(EntityProps(400, 950, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
+        table4 = new(EntityProps(1670, 550, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
+        table5 = new(EntityProps(1670, 750, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
+        table6 = new(EntityProps(1670, 950, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
+        mini_holo1 = new(EntityProps(575, 600, assets["mini_holo"], 200, 200, {}, 1))
+        mini_holo2 = new(EntityProps(550, 1000, assets["mini_holo"], 200, 200, {}, 1))
+        mini_holo3 = new(EntityProps(1875, 800, assets["mini_holo"], 200, 200, {}, 1))
+        mini_tube1 = new(EntityProps(550, 780, assets["mini_tube"], 200, 200, {}, 1))
+        mini_tube2 = new(EntityProps(1825, 980, assets["mini_tube"], 200, 200, {}, 1))
+        mini_tp1 = new(EntityProps(1875, 600, assets["mini_tp"], 200, 200, {}, 1))
+        first = true
+    end
     if scene == "scene11_angle_droit" then
         player.setPosition(1050, 210)
     end
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
+        world.spawnEntity(table1)
+        world.spawnEntity(table2)
+        world.spawnEntity(table3)
+        world.spawnEntity(table4)
+        world.spawnEntity(table5)
+        world.spawnEntity(table6)
+        world.spawnEntity(mini_holo1)
+        world.spawnEntity(mini_holo2)
+        world.spawnEntity(mini_holo3)
+        world.spawnEntity(mini_tube1)
+        world.spawnEntity(mini_tube2)
+        world.spawnEntity(mini_tp1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
