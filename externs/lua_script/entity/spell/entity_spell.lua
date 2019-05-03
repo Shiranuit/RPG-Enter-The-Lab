@@ -58,7 +58,9 @@ Class "EntitySpell" extends "Entity" [{
 
     function setOrigin(x, y)
         this.sprite:setOrigin(x, y)
-        this.box.setOrigin(x, y)
+        if this.have_hitbox then
+            this.box.setOrigin(x, y)
+        end
     end
 
     function moving(x, y)
@@ -70,10 +72,14 @@ Class "EntitySpell" extends "Entity" [{
         if this.follow_player then
             local x, y = player.getPosition()
             this.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
-            this.box.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
+            if this.have_hitbox then
+                this.box.setPosition(x + this.pos_x_tp, y + this.pos_y_tp)
+            end
         else
             this.move(this.moving_x, this.moving_y)
-            this.box.move(this.moving_x, this.moving_y)
+            if this.have_hitbox then
+                this.box.move(this.moving_x, this.moving_y)
+            end
         end
 
         if this.clock:getEllapsedTime() > this.timeAnimation then
@@ -92,7 +98,6 @@ Class "EntitySpell" extends "Entity" [{
     end
 
     function update()
-        this.box.draw()
         if this.have_hitbox and this.make_damage then
             local entities = world.getEntitiesInHitbox(box, "ennemy")
             for i = 1, #entities do
@@ -108,19 +113,25 @@ Class "EntitySpell" extends "Entity" [{
     function move(x, y)
         super.move(x, y)
         this.sprite:move(x, y)
-        this.box.move(x, y)
+        if this.have_hitbox then
+            this.box.move(x, y)
+        end
     end
 
     function setPosition(x, y)
         super.setPosition(x, y)
         this.sprite:setPosition(x, y)
-        this.box.setPosition(x, y)
+        if this.have_hitbox then
+            this.box.setPosition(x, y)
+        end
     end
 
     function setRotation(angle)
         this.sprite:setRotation(angle)
         this.matrix = this.matrix * transform.rotate(angle)
-        this.box.setRotation(angle)
+        if this.have_hitbox then
+            this.box.setRotation(angle)
+        end
     end
 
     function restart()
