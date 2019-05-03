@@ -56,7 +56,7 @@ Class "EntityLiving" extends "Entity" [{
     end
 
     function getHealth()
-        return this.health
+        return math.max(this.health, 0)
     end
 
     function setHealth(health)
