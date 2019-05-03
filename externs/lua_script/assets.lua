@@ -17,6 +17,7 @@ assets["hud_stamina"] = lsfml.texture.createFromFile("./assets/hud/stamina.png",
 assets["hud_empty_health_bar"] = lsfml.texture.createFromFile("./assets/hud/empty_health_bar.png", {0, 0, 980, 328})
 assets["hud_empty_stamina_bar"] = lsfml.texture.createFromFile("./assets/hud/empty_stamina_bar.png", {0, 0, 980, 328})
 assets["hud_empty_mana_bar"] = lsfml.texture.createFromFile("./assets/hud/empty_mana_bar.png", {0, 0, 980, 328})
+assets["hud_touche"] = lsfml.texture.createFromFile("./assets/hud/touche.png", {0, 0, 52, 54})
 assets["sort_bar"] = lsfml.texture.createFromFile("./assets/hud/sort_bar.png", {0, 0, 1006, 233})
 assets["hud_mana"] = lsfml.texture.createFromFile("./assets/hud/mana.png", {0, 0, 980, 328})
 assets["inventory_hud"] = lsfml.texture.createFromFile("./assets/menu/inventory.png", {0, 0, 1337, 940})

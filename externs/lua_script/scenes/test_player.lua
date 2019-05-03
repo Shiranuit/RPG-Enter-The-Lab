@@ -3,7 +3,9 @@
 -- =========================================
 
 local background = lsfml.sprite.create()
+local touche = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
+touche:setTexture(assets["hud_touche"], false)
 
 local pnj = new(EntityPnj(1150, 450, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3))
 local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
@@ -94,6 +96,10 @@ function draw()
     window:draw(background)
 end
 
+local function dialogue()
+    
+end
+
 function update()
     local x, y = player.getPosition()
     if x > 930 and x < 1100 and y < 210 then
@@ -107,8 +113,10 @@ function update()
         player.respawn()
         print(player.getHealth())
     end
-    if keyboard.keyPressed(keys.F) then
-        
+    if x > 1050 and x < 1250 and y > 400 and y < 500 then
+        if keyboard.keyPressed(keys.F) then
+            dialogue()
+        end
     end
 end
 

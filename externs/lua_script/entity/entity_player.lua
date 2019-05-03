@@ -226,7 +226,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         super.event()
         local event = e:getEvent()
         if event[1] == "key_pressed" then
-            if event[2] == controls.getControl("pickup") then
+            if event[2] == controls.getControl("action") then
                 local x, y = super.getPosition()
                 local w, h = 50, 50
                 local entities = world.getEntitiesInRect(x - w, y - h, w * 2,h * 2)
