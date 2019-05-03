@@ -11,11 +11,11 @@ Class "EntityPnj" extends "EntityLiving" [{
     end
 
     function __EntityPnj(x, y, sprite, x_or, y_or, pts, scx)
+        this.stopwatch = stopwatch.create()
         super(x, y)
         this.exist = true
-        this.sprite = lsfml.sprite.create()
+        this.sprite = animation.create(sprite, {0, 0 , 220, 560})
         this.sprite:setPosition(x, y)
-        this.sprite:setTexture(sprite, false)
         this.sprite:setOrigin(x_or, y_or)
         this.sprite:scale(scx, scx)
         initHitboxes(x_or, y_or, pts, scx)
@@ -48,7 +48,14 @@ Class "EntityPnj" extends "EntityLiving" [{
 
     function draw()
         if this.exist then
-            window:draw(this.sprite)
+            if stopwatch:getEllapsedTime() > 250000 then
+                if this.sprite:hasEnded() then
+                    this.sprite:restart()
+                end
+                stopwatch:restart()
+                this.sprite:next()
+            end
+            this.sprite:draw()
             super.drawHitbox()
         end
     end

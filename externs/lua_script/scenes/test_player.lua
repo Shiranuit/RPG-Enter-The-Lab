@@ -5,7 +5,7 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 
-local pnj = new(EntityPnj(1200, 500, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3))
+local pnj = new(EntityPnj(1150, 450, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3))
 local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
 item1.setPosition(500, 500)
 
@@ -51,7 +51,6 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
-        world.spawnEntity(robot2)
         world.spawnEntity(player)
         world.spawnEntity(item1)
         world.spawnEntity(tube_bleu_casser)
@@ -99,7 +98,6 @@ function update()
     local x, y = player.getPosition()
     if x > 930 and x < 1100 and y < 210 then
         setScene("scene2_angle_g")
-        --setScene("scene15_start")
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime)
@@ -108,6 +106,9 @@ function update()
     if keyboard.keyPressed(keys.E) then
         player.respawn()
         print(player.getHealth())
+    end
+    if keyboard.keyPressed(keys.F) then
+        
     end
 end
 
