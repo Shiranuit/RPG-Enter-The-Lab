@@ -1,5 +1,5 @@
 Class "EntityLaser" extends "Entity" [{
-    function __EntityLaser(x, y, dir, damage, speed)
+    function __EntityLaser(x, y, dir, damage, speed, mob)
         check(x, "number", 1)
         check(y, "number", 2)
         check(dir, "Vector2D", 3)
@@ -49,7 +49,7 @@ Class "EntityLaser" extends "Entity" [{
         local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "player")
         for i=1, #entities do
             if class.isInstanceOf(entities[i], "EntityLiving") and not this.hit[entities[i].getUUID()] then
-                entities[i].hit(this.damage)
+                entities[i].hit(this.damage, mob)
                 this.hit[entities[i].getUUID()] = true
             end
         end

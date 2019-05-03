@@ -57,7 +57,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
         local pos1 = vector.new(px, py)
         local pos2 = vector.new(x, y)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 20)))
+        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 20, final)))
     end
 
     function draw()

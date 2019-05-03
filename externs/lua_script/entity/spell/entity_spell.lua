@@ -103,7 +103,7 @@ Class "EntitySpell" extends "Entity" [{
             local entities = world.getEntitiesInHitbox(box, "ennemy")
             for i = 1, #entities do
                 if (class.isInstanceOf(entities[i], "EntityLiving")) then
-                    entities[i].hit(this.damage * DeltaTime)
+                    entities[i].hit(this.damage * DeltaTime, player)
                     print("HEAL : "..entities[i].getHealth())
                 end
             end
