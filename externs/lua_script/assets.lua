@@ -42,6 +42,12 @@ assets["robot1"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot1.png
 assets["robot2"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot2.png", {0, 0, 7216, 4200})
 
 -- =======================
+-- =    ENTITY PNJ   =
+-- =======================
+
+assets["pnj_homme"] = lsfml.texture.createFromFile("./assets/pnj/pnj_homme.png", {0, 0, 1100, 560})
+
+-- =======================
 -- =    ENTITY TEXTURE   =
 -- =======================
 
@@ -99,6 +105,7 @@ assets["parchemin__6"] = lsfml.texture.createFromFile("./assets/items/parchemin_
 assets["parchemin"] = lsfml.texture.createFromFile("./assets/items/parchemin.png", {0, 0, 64, 64})
 assets["metal_scrap"] = lsfml.texture.createFromFile("./assets/items/metal_scrap.png", {0, 0, 64, 64})
 assets["tablette"] = lsfml.texture.createFromFile("./assets/items/tablette.png", {0, 0, 64, 64})
+assets["scythe_item"] = lsfml.texture.createFromFile("./assets/items/scythe.png", {0, 0, 64, 64})
 
 assets["botte1"] = lsfml.texture.createFromFile("./assets/items/armure/botte1.png", {0, 0, 64, 64})
 assets["casque1"] = lsfml.texture.createFromFile("./assets/items/armure/casque1.png", {0, 0, 64, 64})

@@ -5,6 +5,7 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 
+local pnj = new(EntityPnj(1200, 500, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3))
 local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
 item1.setPosition(500, 500)
 
@@ -64,6 +65,7 @@ function load(scene)
         world.spawnEntity(tube_vert_homme2)
         world.spawnEntity(tube_vert_femme1)
         world.spawnEntity(tube_vert_femme2)
+        world.spawnEntity(pnj)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
