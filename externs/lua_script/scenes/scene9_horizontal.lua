@@ -5,20 +5,35 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_horizontal"], false)
 
+local first = false
+local teleporter
+local torch1
+local torch2
+local torch3
+local torch4
+local tube_vert_empty1
+local tube_vert_empty2
+local tube_vert_empty3
+local tube_vert_casser1
+local tube_vert_casser2
+
 local entities = {}
 local hitb = nil
 
 function load(scene)
-    local teleporter = new(EntityProps(350, 250, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
-    local torch1 = new(EntityProps(100, 550, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
-    local torch2 = new(EntityProps(100, 950, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
-    local torch3 = new(EntityProps(1800, 550, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
-    local torch4 = new(EntityProps(1800, 950, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
-    local tube_vert_empty1 = new(EntityProps(1650, 350, assets["tube_vert_empty"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
-    local tube_vert_empty2 = new(EntityProps(1100, 980, assets["tube_vert_empty"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
-    local tube_vert_empty3 = new(EntityProps(1600, 980, assets["tube_vert_empty"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
-    local tube_vert_casser1 = new(EntityProps(300, 900, assets["tube_vert_casser"], 126, 156, {{8, 148},{0, 248}, {162, 248}, {162, 148}}, 1))
-    local tube_vert_casser2 = new(EntityProps(700, 900, assets["tube_vert_casser"], 126, 156, {{8, 148},{0, 248}, {162, 248}, {162, 148}}, 1))
+    if first == false then
+        teleporter = new(EntityProps(350, 250, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
+        torch1 = new(EntityProps(100, 550, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+        torch2 = new(EntityProps(100, 950, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
+        torch3 = new(EntityProps(1800, 550, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+        torch4 = new(EntityProps(1800, 950, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
+        tube_vert_empty1 = new(EntityProps(1650, 350, assets["tube_vert_empty"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
+        tube_vert_empty2 = new(EntityProps(1100, 980, assets["tube_vert_empty"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
+        tube_vert_empty3 = new(EntityProps(1600, 980, assets["tube_vert_empty"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
+        tube_vert_casser1 = new(EntityProps(300, 900, assets["tube_vert_casser"], 126, 156, {{8, 148},{0, 248}, {162, 248}, {162, 148}}, 1))
+        tube_vert_casser2 = new(EntityProps(700, 900, assets["tube_vert_casser"], 126, 156, {{8, 148},{0, 248}, {162, 248}, {162, 148}}, 1))
+        first = true
+    end
     if (scene == "scene10_intersection_haut") then
         player.setPosition(30, 700)
     end

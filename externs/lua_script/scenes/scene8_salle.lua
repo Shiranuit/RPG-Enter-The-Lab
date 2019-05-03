@@ -42,6 +42,17 @@ function load(scene)
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
+        world.spawnEntity(tube_bleu_casser)
+        world.spawnEntity(tube_bleu_transform1)
+        world.spawnEntity(tube_bleu_transform2)
+        world.spawnEntity(tube_bleu_homme1)
+        world.spawnEntity(tube_bleu_homme2)
+        world.spawnEntity(tube_bleu_femme1)
+        world.spawnEntity(tube_bleu_femme2)
+        world.spawnEntity(tube_vert_homme1)
+        world.spawnEntity(tube_vert_homme2)
+        world.spawnEntity(tube_vert_femme1)
+        world.spawnEntity(tube_vert_femme2)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})

@@ -5,20 +5,32 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_angle_gauche"], false)
 
+local first = false
+local teleporter
+local hologram1
+local hologram2
+local hologram3
+local hologram_break1
+local hologram_break2
+local torch1
+local torch2
+local robot1 = new(EntityRobot1(800, 800))
 
 local entities = {}
 local hitb = nil
 
 function load(scene)
-    local teleporter = new(EntityProps(950, 500, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
-    local hologram1 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
-    local hologram2 = new(EntityProps(350, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
-    local hologram3 = new(EntityProps(1700, 450, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
-    local hologram_break1 = new(EntityProps(1200, 550, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
-    local hologram_break2 = new(EntityProps(300, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
-    local torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
-    local torch2 = new(EntityProps(100, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
-    local robot1 = new(EntityRobot1(800, 800))
+    if first == false then
+        teleporter = new(EntityProps(950, 500, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
+        hologram1 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+        hologram2 = new(EntityProps(350, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+        hologram3 = new(EntityProps(1700, 450, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+        hologram_break1 = new(EntityProps(1200, 550, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+        hologram_break2 = new(EntityProps(300, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+        torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+        torch2 = new(EntityProps(100, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+        first = true
+    end
     if (scene == "test_player") then
         player.setPosition(960, 1000)
     end
