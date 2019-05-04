@@ -106,6 +106,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
             super.drawHitbox()
             super.drawHealth()
         end
+        super.drawHealth()
     end
 
     function update()
@@ -120,9 +121,8 @@ Class "EntityRobot2" extends "EntityLiving" [{
         if this.is_attack then
             this.attack:setPosition(sprite_x, sprite_y - 190)
         end
-        sprite_y = sprite_y
-        dir_x = x - sprite_x
-        dir_y = y - sprite_y
+        local dir_x = x - sprite_x
+        local dir_y = y - sprite_y
         if math.abs(dir_x) > math.abs(dir_y) then
             if dir_x > 0 and this.status ~= "right" then
                 this.status = "right"

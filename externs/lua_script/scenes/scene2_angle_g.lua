@@ -16,6 +16,7 @@ local hologram_break2
 local torch1
 local torch2
 local robot1 = new(EntityRobot1(800, 800))
+local soucoupe = new(EntitySoucoupe(800, 800))
 
 local entities = {}
 local hitb = nil
@@ -23,15 +24,15 @@ local hitb = nil
 function load(scene)
     if first == false then
         pnj = new(EntityPnj("robot", 820, 510, assets["pnj_robo"], 120, 540, {{0, 0},{0, 540}, {220, 540}, {220, 0}}, 0.3, 240, 540))
-        teleporter = new(EntityProps(950, 500, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
-        hologram1 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
-        hologram2 = new(EntityProps(350, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
-        hologram3 = new(EntityProps(1700, 450, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
-        hologram_break1 = new(EntityProps(1200, 550, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
-        hologram_break2 = new(EntityProps(300, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
-        torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
-        torch2 = new(EntityProps(100, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
-        first = true
+        -- teleporter = new(EntityProps(950, 500, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
+        -- hologram1 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+        -- hologram2 = new(EntityProps(350, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+        -- hologram3 = new(EntityProps(1700, 450, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
+        -- hologram_break1 = new(EntityProps(1200, 550, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+        -- hologram_break2 = new(EntityProps(300, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+        -- torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+        -- torch2 = new(EntityProps(100, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+        -- first = true
     end
     if (scene == "test_player") then
         player.setPosition(960, 1000)
@@ -41,18 +42,18 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
-        world.spawnEntity(robot1)
-        world.spawnEntity(robot3)
-        world.spawnEntity(robot2)
-        world.spawnEntity(player)
-        world.spawnEntity(teleporter)
-        world.spawnEntity(hologram1)
-        world.spawnEntity(hologram2)
-        world.spawnEntity(hologram3)
-        world.spawnEntity(hologram_break1)
-        world.spawnEntity(hologram_break2)
-        world.spawnEntity(torch1)
-        world.spawnEntity(torch2)
+        world.spawnEntity(soucoupe)
+        -- world.spawnEntity(robot3)
+        -- world.spawnEntity(robot2)
+        -- world.spawnEntity(player)
+        -- world.spawnEntity(teleporter)
+        -- world.spawnEntity(hologram1)
+        -- world.spawnEntity(hologram2)
+        -- world.spawnEntity(hologram3)
+        -- world.spawnEntity(hologram_break1)
+        -- world.spawnEntity(hologram_break2)
+        -- world.spawnEntity(torch1)
+        -- world.spawnEntity(torch2)
         world.spawnEntity(pnj)
 
     end

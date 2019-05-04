@@ -71,8 +71,6 @@ end
 
 function next_quete()
     nb_dialogue_quete = nb_dialogue_quete + 1
-    print("NOMBRE ACTUEL"..nb_dialogue_quete)
-    print("NOMBRE DEPASSE"..nb_read_to_do_quete)
     if nb_dialogue_quete > nb_read_to_do_quete then
         return true
     else
