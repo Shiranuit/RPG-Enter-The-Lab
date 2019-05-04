@@ -40,8 +40,8 @@ function animation.changeRect(self, where)
     check(where, "table", 2)
 
     local meta = getmetatable(self)
-    meta.__sprite:setTextureRect(table.unpack(where))
     meta.__where = where
+    meta.__sprite:setTextureRect(meta.__where[1] + meta.__where[3] * meta.__anim, meta.__where[2], meta.__where[3], meta.__where[4])
 end
 
 function animation.getAnimationFrame(self)
