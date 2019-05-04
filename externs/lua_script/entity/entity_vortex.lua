@@ -25,13 +25,20 @@ Class "EntityVortex" extends "Entity" [{
         this.before1 = 0
         this.before2 = 0
         this.func = func
-        local box = new(Hitbox("soft"))
+        local box = new(Hitbox("projectile"))
         box.setPoints({{0, 0}, {386, 0}, {386, 393}, {0, 393}})
         box.setOrigin(194, 202)
         box.setPosition(super.getPosition())
         box.setRotation(this.angle)
         box.setScale(0.15, 0.15)
         super.addHitbox(box)
+    end
+
+    function setDir(x, y)
+        check(x, "number", 1)
+        check(y, "number", 2)
+
+        this.odir = vector.new(x, y):normalize()
     end
 
     function draw()

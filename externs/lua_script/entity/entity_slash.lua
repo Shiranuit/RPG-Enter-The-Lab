@@ -19,13 +19,20 @@ Class "EntitySlash" extends "Entity" [{
         this.damage = damage
         this.speed = speed
         this.hit = {}
-        local box = new(Hitbox("soft"))
+        local box = new(Hitbox("projectile"))
         box.setPoints({{0, 0}, {47, 24}, {61, 48}, {66, 73}, {61, 100}, {47, 120}, {0, 147}})
         box.setOrigin(48, 147 / 2)
         box.setPosition(super.getPosition())
         box.setRotation(this.angle)
         box.setScale(1.25, 2)
         super.addHitbox(box)
+    end
+
+    function setDir(x, y)
+        check(x, "number", 1)
+        check(y, "number", 2)
+
+        this.dir = vector.new(x, y):normalize()
     end
 
     function draw()

@@ -19,7 +19,7 @@ Class "EntityLaser" extends "Entity" [{
         this.mob = mob
         this.speed = speed
         this.hit = {}
-        local box = new(Hitbox("soft"))
+        local box = new(Hitbox("projectile"))
         box.setPoints({{0, 0}, {30, 0}, {30, 8}, {0, 8}})
         box.setOrigin(0, 0)
         box.setPosition(super.getPosition())
