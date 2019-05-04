@@ -1,7 +1,7 @@
 Class "EntityRobot2" extends "EntityLiving" [{
 
     local function initHitboxes()
-        local box = new(Hitbox("ennemy", {takeDamage=true, doDamage=true}))
+        local box = new(Hitbox("enemy", {takeDamage=true, doDamage=true}))
         box.setPoints({{163, 20}, {743, 20}, {743, 831}, {163, 831}})
         box.setScale(0.20, 0.20)
         box.setOrigin(451, 875)

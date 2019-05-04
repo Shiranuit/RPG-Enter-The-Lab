@@ -1,7 +1,7 @@
 Class "EntityRobot1" extends "EntityLiving" [{
 
     local function initHitboxes()
-        local box = new(Hitbox("ennemy", {takeDamage=true, doDamage=true}))
+        local box = new(Hitbox("enemy", {takeDamage=true, doDamage=true}))
         box.setPoints({{0, 0}, {540, 0}, {540, 460}, {0, 460}})
         box.setScale(0.25, 0.25)
         box.setOrigin(270, 462)
@@ -11,6 +11,8 @@ Class "EntityRobot1" extends "EntityLiving" [{
 
     function __EntityRobot1(x, y)
         super(x, y)
+        super.setHealthBarVisible(true)
+        super.setHealthBarOffset(0, -464 * 0.25)
         super.setMaximumHealth(100)
         super.setHealth(100)
         this.sprite = animation.create(assets["robot1"], {0, 0, 540, 462})
@@ -100,8 +102,9 @@ Class "EntityRobot1" extends "EntityLiving" [{
                 end
             end
             this.sprite:draw()
-            super.drawHitbox()
         end
+        super.drawHitbox()
+        super.drawHealth()
     end
 
     function update()
