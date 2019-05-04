@@ -46,7 +46,7 @@ function load(scene)
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
-        player.setPosition(1037, 684)
+        player.setPosition(550, 680)
         assets["ambiance_music"]:setLoop(true)
         assets["ambiance_music"]:setVolume(30)
         assets["ambiance_music"]:play()

@@ -17,6 +17,7 @@ Class "EntityPnj" extends "EntityLiving" [{
         this.scale = scx
         this.isIn = false
         this.sprite = animation.create(sprite, {0, 0 , 220, 560})
+        this.dial_open = false
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(x_or, y_or)
         this.sprite:scale(scx, scx)
@@ -75,6 +76,34 @@ Class "EntityPnj" extends "EntityLiving" [{
         elseif this.isIn then
             this.isIn = false
             player_hud:showInteractTouch(false)
+        else
+            dialogue_hud:close()
+            dialogue_hud:restart_dialogue()
+            dialogue_hud:next()
+            this.dial_open = false
+        end
+    end
+
+    function event(e)
+        local event = e:getEvent()
+        local x, y = player.getPosition()
+        local nx, ny = super.getPosition()
+
+        dialogue_hud:set_Position(nx / 1.2, ny / 3.4)
+        if math.abs(x - nx) + math.abs(y - ny) < 100 then
+            if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
+                dialogue_hud:next()
+            end
+            if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
+                dialogue_hud:open()
+                this.dial_open = true
+            end
+            if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
+                dialogue_hud:close()
+                dialogue_hud:restart_dialogue()
+                dialogue_hud:next()
+                this.dial_open = false
+            end
         end
     end
 }]
