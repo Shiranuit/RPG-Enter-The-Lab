@@ -192,12 +192,17 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function respawn()
-        this.status = "respawn"
-        super.respawn()
-        this.stamina = this.max_stamina
-        this.pos_rect = {12, 30000, 2640, 2500, 220, 500}
-        this.clock:restart()
-        this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
+        if super.isDead() then
+            this.status = "respawn"
+            super.respawn()
+            print(super.getPosition())
+            setScene("test_player")
+            this.setPosition(1037, 684)
+            this.stamina = this.max_stamina
+            this.pos_rect = {12, 30000, 2640, 2500, 220, 500}
+            this.clock:restart()
+            this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
+        end
     end
 
     function setPosition(x, y)

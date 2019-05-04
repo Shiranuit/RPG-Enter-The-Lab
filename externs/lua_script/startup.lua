@@ -55,6 +55,7 @@ function setScene(name)
     if scenes[scene_name] and scenes[scene_name].unload then
         scenes[scene_name].unload()
         prevScene = scene_name
+        prevDeadScene = scene_name
     end
     if scenes[name] and scenes[name].load then
         scenes[name].load(scene_name)
@@ -297,8 +298,8 @@ loadScene("scenes/scene18_boss.lua")
 -- =========================================
 
 player = new(EntityPlayer({
-    pos_x = 100,
-    pos_y = 100,
+    pos_x = 1037,
+    pos_y = 684,
     texture = assets["player"],
     speed = 5,
 }))

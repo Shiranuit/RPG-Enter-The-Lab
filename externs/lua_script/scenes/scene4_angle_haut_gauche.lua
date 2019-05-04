@@ -90,7 +90,7 @@ function update()
         setScene("scene5_intersection_bas")
     end
     if keyboard.keyPressed(keys.A) then
-        player.hit(10 * DeltaTime)
+        player.hit(10 * DeltaTime, "World")
         print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
