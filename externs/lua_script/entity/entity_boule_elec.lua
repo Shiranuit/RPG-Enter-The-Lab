@@ -56,7 +56,7 @@ Class "EntityBouleElec" extends "Entity" [{
             world.removeEntityByUUID(super.getUUID())
             return
         end
-        local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "ennemy")
+        local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "enemy")
         for i=1, #entities do
             if class.isInstanceOf(entities[i], "EntityLiving") and not this.hit[entities[i].getUUID()] then
                 entities[i].hit(this.damage, player)

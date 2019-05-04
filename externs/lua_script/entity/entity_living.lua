@@ -7,10 +7,46 @@ Class "EntityLiving" extends "Entity" [{
         this.alive = true
         this.stats = new(Stats())
         this.lvl = 1
+        this.health_x = 0
+        this.health_y = 0
+        this.empty_health_bar = lsfml.sprite.create()
+        this.empty_health_bar:setTexture(assets["mob_health_empty"], false)
+        this.empty_health_bar:setOrigin(520, 15)
+        this.empty_health_bar:setScale(0.15, 0.5)
+        this.health_bar = lsfml.sprite.create()
+        this.health_bar:setTexture(assets["mob_health"], false)
+        this.health_bar:setOrigin(520, 15)
+        this.health_bar:setScale(0.15, 0.5)
+        this.show_health = false
     end
 
     function getStats()
         return this.stats
+    end
+
+    function setHealthBarVisible(state)
+        check(state, "boolean", 1)
+
+        this.show_health = state
+    end
+
+    function isHealthBarVisible()
+        return this.show_health
+    end
+
+    function setHealthBarOffset(x, y)
+        check(x, "number", 1)
+        check(y, "number", 2)
+
+        this.health_x = x
+        this.health_y = y
+        local nx, ny = super.getPosition()
+        this.empty_health_bar:setPosition(nx + this.health_x, ny + this.health_y)
+        this.health_bar:setPosition(nx + this.health_x, ny + this.health_y)
+    end
+
+    function getHealthBarOffset()
+        return this.health_x, this.health_y
     end
 
     function setLevel(lvl)
@@ -18,6 +54,15 @@ Class "EntityLiving" extends "Entity" [{
 
         cassert(lvl >= 0, "Level must be positive", 3)
         this.lvl = lvl
+    end
+
+    function setPosition(x, y)
+        check(x, "number", 1)
+        check(y, "number", 2)
+
+        super.setPosition(x, y)
+        this.empty_health_bar:setPosition(x + this.health_x, y + this.health_y)
+        this.health_bar:setPosition(x + this.health_x, y + this.health_y)
     end
 
     function move(x, y)
@@ -28,12 +73,16 @@ Class "EntityLiving" extends "Entity" [{
         local success1, point1 = hitbox.rayhit(nx, ny, x * 2, y * 2, "hard")
         if not success1 then
             super.move(x, y)
+            this.health_bar:move(x, y)
+            this.empty_health_bar:move(x, y)
             return true, x, y
         end
         local dir = vector.new(x, y)
         dir = dir:normalize()
         local px, py = (point1[1] - dir.x) - nx, (point1[2] - dir.y) - ny
         super.move(px, py)
+        this.health_bar:move(px, py)
+        this.empty_health_bar:move(px, py)
         return true, px, py
     end
 
@@ -107,6 +156,14 @@ Class "EntityLiving" extends "Entity" [{
 
     function canBePushed()
         return true
+    end
+
+    function drawHealth()
+        if this.show_health then
+            this.health_bar:setTextureRect(0, 0, math.floor(this.health / this.max_health * 989 + 26), 30)
+            window:draw(this.empty_health_bar)
+            window:draw(this.health_bar)
+        end
     end
 
     function update()

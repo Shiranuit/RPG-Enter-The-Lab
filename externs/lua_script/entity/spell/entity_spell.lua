@@ -100,7 +100,7 @@ Class "EntitySpell" extends "Entity" [{
     function update()
         if this.have_hitbox and this.make_damage then
             this.box.recompute()
-            local entities = world.getEntitiesInHitbox(box, "ennemy")
+            local entities = world.getEntitiesInHitbox(box, "enemy")
             for i = 1, #entities do
                 if (class.isInstanceOf(entities[i], "EntityLiving")) then
                     entities[i].hit(this.damage * DeltaTime, player)

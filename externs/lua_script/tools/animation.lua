@@ -57,6 +57,7 @@ function animation.setAnimationFrame(self, id)
 
     local meta = getmetatable(self)
     meta.__anim = id % meta.__anim_max
+    meta.__sprite:setTextureRect(meta.__where[1] + meta.__where[3] * meta.__anim, meta.__where[2], meta.__where[3], meta.__where[4])
 end
 
 function animation.next(self)

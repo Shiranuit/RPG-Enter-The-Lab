@@ -249,7 +249,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
             super.respawn()
             print(super.getPosition())
             setScene("test_player")
-            this.setPosition(1037, 684)
+            this.setPosition(550, 680)
             this.stamina = this.max_stamina
             this.pos_rect = {12, 30000, 2640, 2500, 220, 500}
             this.clock:restart()
