@@ -150,9 +150,11 @@ function event(self, e)
     for i=1, #slots do
         if slots[i]:isIn(mouse_x, mouse_y) then
             local item_stack = slots[i]:getItemStack()
-            if item_stack then
+            if item_stack and item_stack:getStackSize() > 0 then
                 item_info = true
                 help_item:setName(tostring(item_stack:getItem():getName()))
+                local stat = item_stack:getStat()
+                help_item:setString()
             end
         end
     end
