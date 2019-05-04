@@ -10,6 +10,7 @@ touche:setTexture(assets["hud_touche"], false)
 local pnj = new(EntityPnj("homme", 1150, 450, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3, 220, 560))
 local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
 item1.setPosition(500, 500)
+local robot1 = new(EntityTurret(500, 510))
 
 local first = false
 local tube_bleu_casser
@@ -53,6 +54,7 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
+        world.spawnEntity(robot1)
         world.spawnEntity(player)
         world.spawnEntity(item1)
         world.spawnEntity(tube_bleu_casser)

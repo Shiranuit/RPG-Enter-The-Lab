@@ -42,6 +42,7 @@ assets["stats"] = lsfml.texture.createFromFile("./assets/hud/stats.png", {0, 0, 
 
 assets["robot1"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot1.png", {0, 0, 4095, 2972})
 assets["robot2"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot2.png", {0, 0, 7216, 4200})
+assets["turret"] = lsfml.texture.createFromFile("./assets/ennemy/tourelle.png", {0, 0, 156, 312})
 
 -- =======================
 -- =    ENTITY PNJ   =
