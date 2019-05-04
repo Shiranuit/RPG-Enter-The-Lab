@@ -46,7 +46,7 @@ function load(scene)
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
-        player.setPosition(700, 730)
+        player.setPosition(550, 680)
         assets["ambiance_music"]:setLoop(true)
         assets["ambiance_music"]:setVolume(30)
         assets["ambiance_music"]:play()
@@ -96,10 +96,6 @@ function draw()
     window:draw(background)
 end
 
-local function dialogue()
-    
-end
-
 function update()
     local x, y = player.getPosition()
     if x > 930 and x < 1100 and y < 210 then
@@ -112,11 +108,6 @@ function update()
     if keyboard.keyPressed(keys.E) then
         player.respawn()
         print(player.getHealth())
-    end
-    if x > 1050 and x < 1250 and y > 400 and y < 500 then
-        if keyboard.keyPressed(keys.F) then
-            dialogue()
-        end
     end
 end
 
