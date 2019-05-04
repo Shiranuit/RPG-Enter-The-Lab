@@ -99,6 +99,9 @@ Class "EntityLiving" extends "Entity" [{
 
         if (health > 0) then
             this.max_health = health
+            if this.health > this.max_health then
+                this.health = this.max_health
+            end
         else
             error("Health must be superior to 0", 2)
         end
