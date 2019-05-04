@@ -96,10 +96,6 @@ function draw()
     window:draw(background)
 end
 
-local function dialogue()
-    
-end
-
 function update()
     local x, y = player.getPosition()
     if x > 930 and x < 1100 and y < 210 then
@@ -115,26 +111,6 @@ function update()
     end
 end
 
-
-local hitbx = new(Hitbox())
-local press = false
-local px, py = 0, 0
 function event(e)
-    local event = e:getEvent()
-    if event[1] == "mouse_pressed" and press == false and event[4] == mouse.RIGHT then
-        px, py = event[2], event[3]
-        press = true
-        hitbx.addPoint(px, py)
-    elseif event[1] == "mouse_released" and press and event[4] == mouse.RIGHT then
-        press = false
-    end
-    if event[1] == "mouse_pressed" and event[4] == mouse.LEFT then
-        if hitbx and #hitbx.getPoints() > 0 then
-            local pts = hitbx.getPoints()
-            hitbx.setOrigin(pts[1][1], pts[1][2])
-            hitbx.setPosition(pts[1][1], pts[1][2])
-            hitbox.add(hitbx)
-            hitbx = new(Hitbox())
-        end
-    end
+
 end
