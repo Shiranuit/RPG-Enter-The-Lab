@@ -73,6 +73,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
             end
             this.sprite:draw()
             super.drawHitbox()
+            super.drawHealth()
 
             if this.is_attack then
                 if this.clock_attack:getEllapsedTime() > 80000 then
@@ -102,9 +103,9 @@ Class "EntityRobot1" extends "EntityLiving" [{
                 end
             end
             this.sprite:draw()
+            super.drawHitbox()
+            super.drawHealth()
         end
-        super.drawHitbox()
-        super.drawHealth()
     end
 
     function update()
