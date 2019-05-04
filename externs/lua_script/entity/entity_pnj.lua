@@ -80,14 +80,14 @@ Class "EntityPnj" extends "EntityLiving" [{
         else
             dialogue_hud:close()
             dialogue_hud:restart_dialogue()
-            dialogue_hud:next()
+            --dialogue_hud:next()
             this.dial_open = false
         end
     end
 
-    function dialogue_png_homme(event, x, y, nx, ny)
+    local function dialogue_png_homme(event, x, y, nx, ny)
         if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
-            dialogue_hud:next()
+            dialogue_hud:next_homme()
         end
         if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
             dialogue_hud:open()
@@ -96,7 +96,23 @@ Class "EntityPnj" extends "EntityLiving" [{
         if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
             dialogue_hud:close()
             dialogue_hud:restart_dialogue()
-            dialogue_hud:next()
+            
+            this.dial_open = false
+        end
+    end
+
+    local function dialogue_png_robot(event, x, y, nx, ny)
+        if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
+            dialogue_hud:next_robot()
+        end
+        if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
+            dialogue_hud:open()
+            this.dial_open = true
+        end
+        if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
+            dialogue_hud:close()
+            dialogue_hud:restart_dialogue()
+            
             this.dial_open = false
         end
     end
@@ -108,10 +124,14 @@ Class "EntityPnj" extends "EntityLiving" [{
 
         dialogue_hud:set_Position(nx / 1.2, ny / 3.4)
         if math.abs(x - nx) + math.abs(y - ny) < 100 then
+
             if this.name == "homme" then
+                dialogue_hud:itIsHom()
                 dialogue_png_homme(event, x, y, nx, ny)
             end
             if this.name == "robot" then
+                dialogue_hud:itIsRob()
+                dialogue_png_robot(event, x, y, nx, ny)
             end
         end
     end
