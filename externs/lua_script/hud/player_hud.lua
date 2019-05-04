@@ -118,12 +118,7 @@ function close(self)
     temp_hud:close()
 end
 
-function position()
-
-end
-
 function draw(self)
-    local x, y = player.getPosition()
     window:draw(empty_bar1)
     window:draw(empty_bar2)
     window:draw(empty_bar3)
@@ -156,6 +151,7 @@ local function update_stamina()
     staminatext:setString(txt)
     local px, py = lsfml.text.getCenter(txt, 24)
     staminatext:setPosition(620 * 0.25 - px, 82 + 174 * 0.25 - py)
+    stamina_bar:setTextureRect(0, 0, math.floor(player.getStamina() / player.getMaximumStamina() * 980), 328)
 end
 
 local function update_health()
@@ -166,6 +162,7 @@ local function update_health()
     healtext:setString(txt)
     local px, py = lsfml.text.getCenter(txt, 24)
     healtext:setPosition(620 * 0.25 - px, 174 * 0.25 - py)
+    health_bar:setTextureRect(0, 0, math.floor(player.getHealth() / player.getMaximumHealth() * 980), 328)
 end
 
 local function update_mana()
@@ -176,34 +173,38 @@ local function update_mana()
     manatext:setString(txt)
     local px, py = lsfml.text.getCenter(txt, 24)
     manatext:setPosition(620 * 0.25 - px, 164 + 174 * 0.25 - py)
+    mana_bar:setTextureRect(0, 0, math.floor(player.getMana() / player.getMaximumMana() * 980), 328)
 end
 
-function update(self)
-    update_health()
-    update_mana()
-    update_stamina()
+function update_interact_key()
     local key = keyboard.getKeyName(controls.getControl("action")):sub(1, 3)
     touch_text:setString(key)
     local px, py = lsfml.text.getCenter(key, 24)
     touch_text:setPosition(touch_pos[1] + 26 - px, touch_pos[2] + 27 - py)
     touche:setPosition(touch_pos[1], touch_pos[2])
-    health_bar:setTextureRect(0, 0, math.floor(player.getHealth() / player.getMaximumHealth() * 980), 328)
-    stamina_bar:setTextureRect(0, 0, math.floor(player.getStamina() / player.getMaximumStamina() * 980), 328)
-    mana_bar:setTextureRect(0, 0, math.floor(player.getMana() / player.getMaximumMana() * 980), 328)
+end
+
+function update_hand1()
     local item1 = player.getInventory():getItemInSlot(33)
-    local item2 = player.getInventory():getItemInSlot(34)
     if item1 and item1:getStackSize() > 0 then
         hand1:setTexture(item1:getItem():getTexture(), false)
         hand1:setTextureRect(0, 0, 64, 64)
     else
         hand1:setTextureRect(0, 0, 0, 0)
     end
+end
+
+function update_hand2()
+    local item2 = player.getInventory():getItemInSlot(34)
     if item2 and item2:getStackSize() > 0 then
         hand2:setTexture(item2:getItem():getTexture(), false)
         hand2:setTextureRect(0, 0, 64, 64)
     else
         hand2:setTextureRect(0, 0, 0, 0)
     end
+end
+
+function update_sort_bar()
     local t1 = keyboard.getKeyName(controls.getControl("spell_1"))
     local t2 = keyboard.getKeyName(controls.getControl("spell_2"))
     local t3 = keyboard.getKeyName(controls.getControl("spell_3"))
@@ -226,6 +227,16 @@ function update(self)
     spell4:setPosition(705 + 693 * 0.5 - nx, 889 + 38 * 0.5 - ny)
     nx, ny = lsfml.text.getCenter(t5, csize)
     spell5:setPosition(705 + 879 * 0.5 - nx, 889 + 38 * 0.5 - ny)
+end
+
+function update(self)
+    update_health()
+    update_mana()
+    update_stamina()
+    update_interact_key()
+    update_hand1()
+    update_hand2()
+    update_sort_bar()
 end
 
 function event(self, e)

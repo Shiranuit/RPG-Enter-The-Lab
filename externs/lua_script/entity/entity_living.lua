@@ -87,9 +87,8 @@ Class "EntityLiving" extends "Entity" [{
         this.health = this.max_health
     end
 
-    function hit(damage, source)
+    function hit(damage)
         check(damage, "number", 1)
-        cassert(source ~= nil, "Arguments #2, Source can not be nil", 3)
 
         if (damage >= 0) then
             this.setHealth(this.health - damage)
