@@ -12,16 +12,16 @@ local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
 item1.setPosition(500, 500)
 
 local first = false
-local tube_bleu_casser 
-local tube_bleu_transform1 
-local tube_bleu_transform2 
-local tube_bleu_homme1 
-local tube_bleu_homme2 
-local tube_bleu_femme1 
-local tube_bleu_femme2 
-local tube_vert_homme1 
-local tube_vert_homme2 
-local tube_vert_femme1 
+local tube_bleu_casser
+local tube_bleu_transform1
+local tube_bleu_transform2
+local tube_bleu_homme1
+local tube_bleu_homme2
+local tube_bleu_femme1
+local tube_bleu_femme2
+local tube_vert_homme1
+local tube_vert_homme2
+local tube_vert_femme1
 local tube_vert_femme2
 
 local entities = {}
@@ -46,7 +46,7 @@ function load(scene)
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
-        player.setPosition(700, 730)
+        player.setPosition(1037, 684)
         assets["ambiance_music"]:setLoop(true)
         assets["ambiance_music"]:setVolume(30)
         assets["ambiance_music"]:play()
@@ -106,17 +106,12 @@ function update()
         setScene("scene2_angle_g")
     end
     if keyboard.keyPressed(keys.A) then
-        player.hit(10 * DeltaTime)
+        player.hit(10 * DeltaTime, "World")
         print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
         print(player.getHealth())
-    end
-    if x > 1050 and x < 1250 and y > 400 and y < 500 then
-        if keyboard.keyPressed(keys.F) then
-            dialogue()
-        end
     end
 end
 
