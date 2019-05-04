@@ -51,7 +51,7 @@ Class "EntityPnj" extends "EntityLiving" [{
     end
 
     function draw()
-        if this.exist then
+        if this.exist and this.isAlive() then
             if stopwatch:getEllapsedTime() > 250000 then
                 if this.sprite:hasEnded() then
                     this.sprite:restart()

@@ -17,6 +17,11 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.sprite:setOrigin(220 / 2, 500)
         this.sprite:setTextureRect(0, 2000, 220, 500)
         this.clock = stopwatch.create()
+        this.scythe = lsfml.sprite.create()
+        this.scythe:setPosition(super.getPosition())
+        this.scythe:setTexture(assets["scythe"], false)
+        this.scythe:setOrigin(264, 565)
+        this.scythe:setScale(0.25, 0.25)
         this.pos_rect = {4, 150000, 0, 2000, 220, 500}
         super.setMaximumHealth(info.max_health or 100)
         super.setHealth(info.health or 100)
@@ -24,6 +29,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
         super.getStats().setAttack(info.attack or 1)
         super.getStats().setParade(info.parade or 1)
         super.getStats().setSpeed(info.speed or 20)
+        this.scythe_time = stopwatch.create()
+        this.scythe_attack = "none"
         super.setLevel(info.level or 1)
         this.stamina = info.stamina or 100
         this.max_stamina = info.max_stamina or 100
@@ -138,7 +145,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 stamina = stamina + (equipment[i]:getStats() and equipment[i]:getStats().max_stamina or 0)
             end
         end
-        return this.max_stamina + stamina
+        return this.max_stamina + stamina + math.min(this.getLevel() * 5, 100)
     end
 
     function setMaximumStamina(stamina)
@@ -166,7 +173,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
         cassert(life > 0, "The added stamina must be positive", 3)
         this.stamina = this.stamina + stamina
-        if this.stamina > this.max_stamina then this.stamina = this.max_stamina end
+        if this.stamina > this.getMaximumStamina() then this.stamina = this.getMaximumStamina() end
     end
 
     function removeStamina(stamina)
@@ -215,7 +222,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 damage = damage + (equipment[i]:getStats() and equipment[i]:getStats().damage or 0)
             end
         end
-        return damage / 100 + this.getStats().getDefense()
+        return this.getLevel() * 2 / 100
     end
 
     function getParade()
@@ -226,7 +233,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 parade = parade + (equipment[i]:getStats() and equipment[i]:getStats().parade or 0)
             end
         end
-        return parade / 100 + this.getStats().getParade()
+        return parade / 100 + this.getStats().getParade() + math.min(this.getLevel() * 0.5, 10) / 100
     end
 
     function getSpeed()
@@ -237,14 +244,13 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 speed = speed + (equipment[i]:getStats() and equipment[i]:getStats().speed or 0)
             end
         end
-        return speed + this.getStats().getSpeed()
+        return speed + this.getStats().getSpeed() + math.min(this.getLevel() * 0.25, 5)
     end
 
     function respawn()
         if super.isDead() then
             this.status = "respawn"
             super.respawn()
-            print(super.getPosition())
             setScene("test_player")
             this.setPosition(550, 680)
             this.addExperience(-math.floor(this.getExperience()) / 2)
@@ -261,6 +267,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
         super.setPosition(x, y)
         this.sprite:setPosition(x, y)
+        this.scythe:setPosition(x, y)
     end
 
     function move(x, y)
@@ -270,11 +277,24 @@ Class "EntityPlayer" extends "EntityLiving" [{
         local success, nx, ny = super.move(x, y)
         if success then
             this.sprite:move(nx, ny)
+            this.scythe:move(nx, ny)
         end
     end
 
     function isSprinting()
         return this.is_sprinting
+    end
+
+    function hasScythe()
+        local item1 = player.getInventory():getItemInSlot(33)
+        local item2 = player.getInventory():getItemInSlot(34)
+        if item1 and item1:getStackSize() > 0 and item1:getItem():getName() == "scythe" then
+            return true
+        end
+        if item2 and item2:getStackSize() > 0 and item2:getItem():getName() == "scythe" then
+            return true
+        end
+        return false
     end
 
     function event(e)
@@ -294,6 +314,29 @@ Class "EntityPlayer" extends "EntityLiving" [{
                     end
                 end
             end
+        elseif event[1] == "mouse_released" then
+            if this.hasScythe() then
+                if event[4] == mouse.LEFT and this.scythe_attack == "slash" then
+                    local nx, ny = super.getPosition()
+                    local px, py = lsfml.mouse.getPosition(window)
+                    local pos = vector.new(px - nx, py - ny)
+                    local size = this.scythe_time:getEllapsedTime() / 1000000
+                    world.spawnEntity(new(EntitySlashWeapon(nx, ny, pos, 20, 20, final, math.max(math.min(size, 4), 0.5))))
+                    this.scythe_attack = "none"
+                elseif event[4] == mouse.RIGHT then
+
+                end
+            end
+        elseif event[1] == "mouse_pressed" then
+            if this.hasScythe() then
+                if event[4] == mouse.LEFT and this.scythe_attack == "none" then
+                    this.scythe_time:restart()
+                    this.scythe_attack = "slash"
+                elseif event[4] == mouse.RIGHT and this.scythe_attack == "none" then
+                    this.scythe_time:restart()
+                    this.scythe_attack = "slash"
+                end
+            end
         end
     end
 
@@ -305,7 +348,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 health = health + (equipment[i]:getStats() and equipment[i]:getStats().max_health or 0)
             end
         end
-        this.setMaximumHealth(health + this.base_health)
+        this.setMaximumHealth(health + this.base_health + math.min(this.getLevel() * 9, 180))
     end
 
     function update()
@@ -473,6 +516,24 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 end
                 this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
                 this.clock:restart()
+            end
+            if this.scythe_attack == "slash" then
+                local dir = 0
+                if dir == 0 then
+                    local nx, ny = player.getPosition()
+                    local px, py = lsfml.mouse.getPosition(window)
+                    dir = nx - px > 0 and 1 or -1
+                end
+                local size = this.scythe_time:getEllapsedTime() / 1000000
+                size = math.max(math.min(size, 4), 0.5)
+                if dir == -1 then
+                    this.scythe:setRotation(-45)
+                    this.scythe:setScale(0.25 * size, 0.25 * size)
+                else
+                    this.scythe:setRotation(45)
+                    this.scythe:setScale(-0.25 * size, 0.25 * size)
+                end
+                window:draw(this.scythe)
             end
             window:draw(this.sprite)
             this.drawHitbox()
