@@ -41,7 +41,7 @@ function animation.changeRect(self, where)
 
     local meta = getmetatable(self)
     meta.__where = where
-    meta.__sprite:setTextureRect(meta.__where[1] + meta.__where[3] * meta.__anim, meta.__where[2], meta.__where[3], meta.__where[4])
+    meta.__sprite:setTextureRect(math.floor(meta.__where[1] + meta.__where[3] * meta.__anim), math.floor(meta.__where[2]), math.floor(meta.__where[3]), math.floor(meta.__where[4]))
 end
 
 function animation.getAnimationFrame(self)
@@ -56,8 +56,8 @@ function animation.setAnimationFrame(self, id)
     check(id, "number", 2)
 
     local meta = getmetatable(self)
-    meta.__anim = id % meta.__anim_max
-    meta.__sprite:setTextureRect(meta.__where[1] + meta.__where[3] * meta.__anim, meta.__where[2], meta.__where[3], meta.__where[4])
+    meta.__anim = math.floor(id % meta.__anim_max)
+    meta.__sprite:setTextureRect(math.floor(meta.__where[1] + meta.__where[3] * meta.__anim), math.floor(meta.__where[2]), math.floor(meta.__where[3]), math.floor(meta.__where[4]))
 end
 
 function animation.next(self)
@@ -66,7 +66,7 @@ function animation.next(self)
     local meta = getmetatable(self)
     if meta.__anim + 1 < meta.__anim_max then
         meta.__anim = meta.__anim + 1
-        meta.__sprite:setTextureRect(meta.__where[1] + meta.__where[3] * meta.__anim, meta.__where[2], meta.__where[3], meta.__where[4])
+        meta.__sprite:setTextureRect(math.floor(meta.__where[1] + meta.__where[3] * meta.__anim), math.floor(meta.__where[2]), math.floor(meta.__where[3]), math.floor(meta.__where[4]))
     end
 end
 
@@ -75,7 +75,7 @@ function animation.restart(self)
 
     local meta = getmetatable(self)
     meta.__anim = 0
-    meta.__sprite:setTextureRect(meta.__where[1] + meta.__where[3] * meta.__anim, meta.__where[2], meta.__where[3], meta.__where[4])
+    meta.__sprite:setTextureRect(math.floor(meta.__where[1] + meta.__where[3] * meta.__anim), math.floor(meta.__where[2]), math.floor(meta.__where[3]), math.floor(meta.__where[4]))
 end
 
 function animation.hasEnded(self)
