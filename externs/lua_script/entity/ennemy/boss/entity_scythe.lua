@@ -56,17 +56,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 bosshealth:setPhase(this.phase)
             end
             if super.isDead() then
-                local equipmentItems = {}
-                for k, v in pairs(items) do
-                    if v:getUserdata().type == "equipement" then
-                        equipmentItems[#equipmentItems + 1] = v
-                    end
-                end
                 for i=1, math.random(1, 4) do
-                    local item = equipmentItems[math.random(1, #equipmentItems)]
-                    item:getUserdata().defense = math.random(1, 20)
-                    item:getUserdata().rarity = rarity[math.floor(item:getUserdata().defense / 5)]
-                    world.spawnEntity(new(EntityItem(itemstack.create(item, 1)))).setPosition(super.getPosition())
+                    world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
                 end
                 world.spawnEntity(new(EntityItem(itemstack.create(items["scythe"], 1)))).setPosition(super.getPosition())
                 world.removeEntityByUUID(this.getUUID())
