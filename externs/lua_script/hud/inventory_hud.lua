@@ -33,6 +33,7 @@ local item_info = nil
 local help_item = description.create(assets["info"], assets["fsys"])
 help_item:setPosition(1500, py)
 help_item:setScale(0.40, 0.40)
+help_item:setCharacterSize(35)
 local slots = {}
 
 inventory:scale(0.75, 0.75)
@@ -188,9 +189,11 @@ function event(self, e)
     for i=1, #slots do
         if slots[i]:isIn(mouse_x, mouse_y) then
             local item_stack = slots[i]:getItemStack()
-            if item_stack then
+            if item_stack and item_stack:getStackSize() > 0 then
                 item_info = true
-                help_item:setName(tostring(item_stack:getItem():getName()))
+                help_item:setName(tostring(item_stack:getUserdata().name or item_stack:getItem():getName()))
+                local stat = item_stack:getStats()
+                help_item:setString("Rarity : "..string.rep(" ", 10 - #(stat.rarity or "Unknown"))..(stat.rarity or "Unknown").."\nDammage : "..string.rep(" ", 8 - #tostring(stat.dammage or 0)).."+"..tostring(stat.dammage or 0).."\nDefense : "..string.rep(" ", 8 - #tostring(stat.defense or 0)).."+"..tostring(stat.defense or 0).."\nSpeed : "..string.rep(" ", 10 - #tostring(stat.speed or 0)).."+"..tostring(stat.speed or 0).."\nParade : "..string.rep(" ", 9 - #tostring(stat.parade or 0)).."+"..tostring(stat.parade or 0).."\nHealth : "..string.rep(" ", 9 - #tostring(stat.max_health or 0)).."+"..tostring(stat.max_health or 0).."\nMana : "..string.rep(" ", 11 - #tostring(stat.max_mana or 0)).."+"..tostring(stat.max_mana or 0).."\nStamina : "..string.rep(" ", 8 - #tostring(stat.max_stamina or 0)).."+"..tostring(stat.max_stamina or 0).."\n")
             end
         end
     end
