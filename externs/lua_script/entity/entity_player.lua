@@ -14,7 +14,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.sprite:setScale(0.25, 0.25)
         this.sprite:setOrigin(220 / 2, 500)
         this.sprite:setTextureRect(0, 2000, 220, 500)
-        this.clock = lsfml.clock.create()
+        this.clock = stopwatch.create()
         this.pos_rect = {4, 150000, 0, 2000, 220, 500}
         super.setMaximumHealth(info.max_health or 100)
         super.setHealth(info.health or 100)
@@ -192,12 +192,17 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function respawn()
-        this.status = "respawn"
-        super.respawn()
-        this.stamina = this.max_stamina
-        this.pos_rect = {12, 30000, 2640, 2500, 220, 500}
-        this.clock:restart()
-        this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
+        if super.isDead() then
+            this.status = "respawn"
+            super.respawn()
+            print(super.getPosition())
+            setScene("test_player")
+            this.setPosition(1037, 684)
+            this.stamina = this.max_stamina
+            this.pos_rect = {12, 30000, 2640, 2500, 220, 500}
+            this.clock:restart()
+            this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
+        end
     end
 
     function setPosition(x, y)
@@ -226,7 +231,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         super.event()
         local event = e:getEvent()
         if event[1] == "key_pressed" then
-            if event[2] == controls.getControl("pickup") then
+            if event[2] == controls.getControl("action") then
                 local x, y = super.getPosition()
                 local w, h = 50, 50
                 local entities = world.getEntitiesInRect(x - w, y - h, w * 2,h * 2)

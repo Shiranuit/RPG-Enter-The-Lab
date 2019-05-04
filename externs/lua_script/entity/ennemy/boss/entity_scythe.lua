@@ -32,7 +32,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.max_distance = 300
         this.func = 1
         this.cooldown = false
-        this.clock = lsfml.clock.create()
+        this.clock = stopwatch.create()
         this.phase = 1
         initHitboxes()
     end

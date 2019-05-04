@@ -12,7 +12,11 @@ local empty_bar3 = lsfml.sprite.create()
 local mana_bar = lsfml.sprite.create()
 local hand1 = lsfml.sprite.create()
 local hand2 = lsfml.sprite.create()
+local touche = lsfml.sprite.create()
+local touch_pos = {0, 0}
+local touch_show = false
 
+local touch_text = lsfml.text.create()
 local healtext = lsfml.text.create()
 local manatext = lsfml.text.create()
 local staminatext = lsfml.text.create()
@@ -30,10 +34,12 @@ spell2:setPosition(705, 889)
 spell3:setPosition(705, 889)
 spell4:setPosition(705, 889)
 spell5:setPosition(705, 889)
+touch_text:setPosition(1140, 230)
 healtext:setPosition(620 * 0.25, 174 * 0.25)
 manatext:setPosition(620 * 0.25, 164 + 174 * 0.25)
 staminatext:setPosition(620 * 0.25, 82 + 174 * 0.25)
 
+touch_text:setCharacterSize(24)
 healtext:setCharacterSize(24)
 staminatext:setCharacterSize(24)
 manatext:setCharacterSize(24)
@@ -43,6 +49,7 @@ spell3:setCharacterSize(csize)
 spell4:setCharacterSize(csize)
 spell5:setCharacterSize(csize)
 
+touch_text:setFont(assets["fsys"])
 healtext:setFont(assets["fsys"])
 staminatext:setFont(assets["fsys"])
 manatext:setFont(assets["fsys"])
@@ -63,6 +70,7 @@ other_item:setPosition(1250, 900)
 hand1:setPosition(1250 + 24, 900 + 24)
 hand2:setPosition(1250 + 241 * 0.5 + 24, 900 + 24)
 
+touche:setTexture(assets["hud_touche"], false)
 health_bar:setTexture(assets["hud_health"], false)
 stamina_bar:setTexture(assets["hud_stamina"], false)
 mana_bar:setTexture(assets["hud_mana"], false)
@@ -81,6 +89,19 @@ empty_bar3:setScale(0.25, 0.25)
 sort_bar:setScale(0.5, 0.5)
 other_item:setScale(0.5, 0.5)
 
+function setInteractTouchPosition(self, x, y)
+    check(x, "number", 2)
+    check(y, "number", 3)
+
+    touch_pos = {x, y}
+end
+
+function showInteractTouch(self, state)
+    check(state, "boolean", 2)
+
+    show_touch = state
+end
+
 function load(self)
 
 end
@@ -97,7 +118,12 @@ function close(self)
     temp_hud:close()
 end
 
+function position()
+
+end
+
 function draw(self)
+    local x, y = player.getPosition()
     window:draw(empty_bar1)
     window:draw(empty_bar2)
     window:draw(empty_bar3)
@@ -116,6 +142,10 @@ function draw(self)
     window:draw(healtext)
     window:draw(manatext)
     window:draw(staminatext)
+    if show_touch then
+        window:draw(touche)
+        window:draw(touch_text)
+    end
 end
 
 local function update_stamina()
@@ -152,6 +182,11 @@ function update(self)
     update_health()
     update_mana()
     update_stamina()
+    local key = keyboard.getKeyName(controls.getControl("action")):sub(1, 3)
+    touch_text:setString(key)
+    local px, py = lsfml.text.getCenter(key, 24)
+    touch_text:setPosition(touch_pos[1] + 26 - px, touch_pos[2] + 27 - py)
+    touche:setPosition(touch_pos[1], touch_pos[2])
     health_bar:setTextureRect(0, 0, math.floor(player.getHealth() / player.getMaximumHealth() * 980), 328)
     stamina_bar:setTextureRect(0, 0, math.floor(player.getStamina() / player.getMaximumStamina() * 980), 328)
     mana_bar:setTextureRect(0, 0, math.floor(player.getMana() / player.getMaximumMana() * 980), 328)

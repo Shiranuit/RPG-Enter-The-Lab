@@ -133,12 +133,12 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 500 and x < 700 and y < 300 and keyboard.keyPressed(keys.F) and canP1 == true then
+    if x > 500 and x < 700 and y < 300 and keyboard.keyPressed(controls.getControl("action")) and canP1 == true then
         world.removeEntityByUUID(parchemin2.getUUID())
         player.getInventory():insertItemStack(par2)
         canP1 = false
     end
-    if x > 1700 and x < 1900 and y < 900 and y > 700 and keyboard.keyPressed(keys.F) and canP2 == true then
+    if x > 1700 and x < 1900 and y < 900 and y > 700 and keyboard.keyPressed(controls.getControl("action")) and canP2 == true then
         world.removeEntityByUUID(parchemin1.getUUID())
         player.getInventory():insertItemStack(par1)
         canP2 = false
@@ -153,7 +153,7 @@ function update()
         setScene("scene17_right_start")
     end
     if keyboard.keyPressed(keys.A) then
-        player.hit(10 * DeltaTime)
+        player.hit(10 * DeltaTime, "World")
         print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then

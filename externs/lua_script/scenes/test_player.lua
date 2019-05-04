@@ -3,23 +3,25 @@
 -- =========================================
 
 local background = lsfml.sprite.create()
+local touche = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
+touche:setTexture(assets["hud_touche"], false)
 
 local pnj = new(EntityPnj(1150, 450, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3))
 local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
 item1.setPosition(500, 500)
 
 local first = false
-local tube_bleu_casser 
-local tube_bleu_transform1 
-local tube_bleu_transform2 
-local tube_bleu_homme1 
-local tube_bleu_homme2 
-local tube_bleu_femme1 
-local tube_bleu_femme2 
-local tube_vert_homme1 
-local tube_vert_homme2 
-local tube_vert_femme1 
+local tube_bleu_casser
+local tube_bleu_transform1
+local tube_bleu_transform2
+local tube_bleu_homme1
+local tube_bleu_homme2
+local tube_bleu_femme1
+local tube_bleu_femme2
+local tube_vert_homme1
+local tube_vert_homme2
+local tube_vert_femme1
 local tube_vert_femme2
 
 local entities = {}
@@ -44,7 +46,7 @@ function load(scene)
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
-        player.setPosition(700, 730)
+        player.setPosition(1037, 684)
         assets["ambiance_music"]:setLoop(true)
         assets["ambiance_music"]:setVolume(30)
         assets["ambiance_music"]:play()
@@ -100,38 +102,15 @@ function update()
         setScene("scene2_angle_g")
     end
     if keyboard.keyPressed(keys.A) then
-        player.hit(10 * DeltaTime)
+        player.hit(10 * DeltaTime, "World")
         print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
         print(player.getHealth())
     end
-    if keyboard.keyPressed(keys.F) then
-        
-    end
 end
 
-
-local hitbx = new(Hitbox())
-local press = false
-local px, py = 0, 0
 function event(e)
-    local event = e:getEvent()
-    if event[1] == "mouse_pressed" and press == false and event[4] == mouse.RIGHT then
-        px, py = event[2], event[3]
-        press = true
-        hitbx.addPoint(px, py)
-    elseif event[1] == "mouse_released" and press and event[4] == mouse.RIGHT then
-        press = false
-    end
-    if event[1] == "mouse_pressed" and event[4] == mouse.LEFT then
-        if hitbx and #hitbx.getPoints() > 0 then
-            local pts = hitbx.getPoints()
-            hitbx.setOrigin(pts[1][1], pts[1][2])
-            hitbx.setPosition(pts[1][1], pts[1][2])
-            hitbox.add(hitbx)
-            hitbx = new(Hitbox())
-        end
-    end
+
 end
