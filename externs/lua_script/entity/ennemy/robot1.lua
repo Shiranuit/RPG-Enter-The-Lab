@@ -11,6 +11,8 @@ Class "EntityRobot1" extends "EntityLiving" [{
 
     function __EntityRobot1(x, y)
         super(x, y)
+        super.setHealthBarVisible(true)
+        super.setHealthBarOffset(0, -464 * 0.25)
         super.setMaximumHealth(100)
         super.setHealth(100)
         this.sprite = animation.create(assets["robot1"], {0, 0, 540, 462})
@@ -100,8 +102,9 @@ Class "EntityRobot1" extends "EntityLiving" [{
                 end
             end
             this.sprite:draw()
-            super.drawHitbox()
         end
+        super.drawHitbox()
+        super.drawHealth()
     end
 
     function update()
