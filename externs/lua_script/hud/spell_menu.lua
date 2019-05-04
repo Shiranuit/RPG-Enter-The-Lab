@@ -140,7 +140,7 @@ function draw(self)
     check(self, "hud", 1)
 
     window:draw(spell_hub)
-    if spell_description or (selected_spell_name and lsfml.mouse.isButtonPressed(mouse.LEFT)) then
+    if spell_description then
         help_spell:draw()
     end
     for i, v in pairs(all_spell) do
