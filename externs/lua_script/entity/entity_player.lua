@@ -29,6 +29,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.max_mana = info.max_mana or 250
         this.experience = info.experience or 0
         this.luck = info.luck or 1
+        this.base_health = super.getMaximumHealth()
         this.status = "idle"
         this.status_idle = "down"
         this.status_vertical = "none"
@@ -87,7 +88,14 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function getMaximumMana()
-        return this.max_mana
+        local equipment = this.getEquipement()
+        local mana = 0
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                mana = mana + (equipment[i]:getStats() and equipment[i]:getStats().max_mana or 0)
+            end
+        end
+        return this.max_mana + mana
     end
 
     function getStatus()
@@ -122,7 +130,14 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function getMaximumStamina()
-        return this.max_stamina
+        local equipment = this.getEquipement()
+        local stamina = 0
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                stamina = stamina + (equipment[i]:getStats() and equipment[i]:getStats().max_stamina or 0)
+            end
+        end
+        return this.max_stamina + stamina
     end
 
     function setMaximumStamina(stamina)
@@ -163,7 +178,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
     ---------------------------------
 
-    function getInventory(elf)
+    function getInventory(self)
         return this.inventory
     end
 
@@ -174,17 +189,54 @@ Class "EntityPlayer" extends "EntityLiving" [{
     ---------------------------------
 
     function hit(damage, source)
+        if this.is_damageable then
+            local defense = this.getDefense()
+            super.hit(damage * (1 - (defense - 1)), source)
+        end
+    end
+
+    function getDefense()
         local equipment = this.getEquipement()
         local defense = 0
-
-        if this.is_damageable then
-            for i=1, 4 do
-                if equipment[i] and equipment[i]:getStackSize() > 0 then
-                    defense = defense + (equipment[i]:getItem():getUserdata() and equipment[i]:getItem():getUserdata().defense or 0)
-                end
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                defense = defense + (equipment[i]:getStats() and equipment[i]:getStats().defense or 0)
             end
-            super.hit(damage * (1 - defense / 100), source)
         end
+        return defense / 100 + this.getStats().getDefense()
+    end
+
+    function getAttack()
+        local equipment = this.getEquipement()
+        local damage = 0
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                damage = damage + (equipment[i]:getStats() and equipment[i]:getStats().damage or 0)
+            end
+        end
+        return damage / 100 + this.getStats().getDefense()
+    end
+
+    function getParade()
+        local equipment = this.getEquipement()
+        local parade = 0
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                parade = parade + (equipment[i]:getStats() and equipment[i]:getStats().parade or 0)
+            end
+        end
+        return parade / 100 + this.getStats().getParade()
+    end
+
+    function getSpeed()
+        local equipment = this.getEquipement()
+        local speed = 0
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                speed = speed + (equipment[i]:getStats() and equipment[i]:getStats().speed or 0)
+            end
+        end
+        return speed + this.getStats().getSpeed()
     end
 
     function getExperience()
@@ -247,8 +299,20 @@ Class "EntityPlayer" extends "EntityLiving" [{
         end
     end
 
+    function computeMaxHealth()
+        local equipment = this.getEquipement()
+        local health = 0
+        for i=1, 4 do
+            if equipment[i] and equipment[i]:getStackSize() > 0 then
+                health = health + (equipment[i]:getStats() and equipment[i]:getStats().max_health or 0)
+            end
+        end
+        this.setMaximumHealth(health + this.base_health)
+    end
+
     function update()
         super.update()
+        computeMaxHealth()
         if this.status == "respawn" then
             return
         end

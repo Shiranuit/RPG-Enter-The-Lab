@@ -14,6 +14,7 @@ function itemstack.create(item, count)
         __item = item,
         __eq = itemstack.equals,
         __count = count or 0,
+        __stats = {},
     })
 end
 
@@ -48,6 +49,13 @@ function itemstack.getUserdata(self)
     return self:getItem():getUserdata()
 end
 
+function itemstack.getStats(self)
+    check(self, "itemstack", 1)
+
+    local meta = getmetatable(self)
+    return meta.__stats
+end
+
 function itemstack.getStackSize(self)
     check(self, "itemstack", 1)
 
@@ -74,4 +82,31 @@ function itemstack.pack(self, itemstack)
     check(itemstack, "itemstack", 2)
 
     itemstack:setStackSize(self:setStackSize(self:getStackSize() + itemstack:getStackSize()))
+end
+
+function itemstack.generateEquipment()
+    local equipmentItems = {}
+    for k, v in pairs(items) do
+        if v:getUserdata().type == "equipement" then
+            equipmentItems[#equipmentItems + 1] = v
+        end
+    end
+
+    local item = itemstack.create(equipmentItems[math.random(1, #equipmentItems)], 1)
+    local rarity_lvl = math.random(1, #rarity)
+    item:getStats().rarity = rarity[rarity_lvl]
+    if item:getUserdata().subtype == "boot" then
+        item:getStats().speed = math.random(math.floor(10 * (rarity_lvl / 10)), math.floor(10 * ((rarity_lvl + 1) / 10)))
+        item:getStats().max_health = math.random(math.floor(10 * (rarity_lvl / 10)), math.floor(10 * ((rarity_lvl + 1) / 10)))
+    elseif item:getUserdata().subtype == "chestplate" then
+        item:getStats().max_health = math.random(math.floor(50 * (rarity_lvl / 10)), math.floor(50 * ((rarity_lvl + 1) / 10)))
+        item:getStats().parade = math.random(math.floor(10 * (rarity_lvl / 10)), math.floor(10 * ((rarity_lvl + 1) / 10)))
+    elseif item:getUserdata().subtype == "pant" then
+        item:getStats().max_health = math.random(math.floor(20 * (rarity_lvl / 10)), math.floor(20 * ((rarity_lvl + 1) / 10)))
+        item:getStats().parade = math.random(math.floor(10 * (rarity_lvl / 10)), math.floor(10 * ((rarity_lvl + 1) / 10)))
+    elseif item:getUserdata().subtype == "helmet" then
+        item:getStats().max_health = math.random(math.floor(10 * (rarity_lvl / 10)), math.floor(10 * ((rarity_lvl + 1) / 10)))
+    end
+    item:getStats().defense = math.random(math.floor(20 * (rarity_lvl / 10)), math.floor(20 * ((rarity_lvl + 1) / 10)))
+    return item
 end

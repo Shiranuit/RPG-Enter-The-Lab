@@ -2,15 +2,39 @@
 -- =              INVENTORY HUD            =
 -- =========================================
 
-local inventory = lsfml.sprite.create()
-local slots = {}
-
-local px = 960 - 1337 * 0.75 / 2
+local px = 980 - 1337 * 0.75 / 2
 local py = 540 - 940 * 0.75 / 2
+
+local inventory = lsfml.sprite.create()
+local stats = lsfml.sprite.create()
+local attack = lsfml.text.create()
+local defense = lsfml.text.create()
+local parade = lsfml.text.create()
+local speed = lsfml.text.create()
+
+attack:setCharacterSize(48)
+defense:setCharacterSize(48)
+parade:setCharacterSize(48)
+speed:setCharacterSize(48)
+
+attack:setPosition(100 * 0.5, py + 260 * 0.5 - 48 / 1.25)
+defense:setPosition(100 * 0.5, py + 370 * 0.5 - 48 / 1.25)
+parade:setPosition(100 * 0.5, py + 480 * 0.5 - 48 / 1.25)
+speed:setPosition(100 * 0.5, py + 590 * 0.5 - 48 / 1.25)
+
+attack:setFont(assets["fsys"])
+defense:setFont(assets["fsys"])
+parade:setFont(assets["fsys"])
+speed:setFont(assets["fsys"])
+
+local slots = {}
 
 inventory:scale(0.75, 0.75)
 inventory:setPosition(px, py)
 inventory:setTexture(assets["inventory_hud"], false)
+stats:setPosition(940 * 0.5, py)
+stats:setScale(-0.50, 0.50)
+stats:setTexture(assets["stats"], false)
 
 function load(self)
     for y = 0, 3 do
@@ -111,10 +135,22 @@ function draw(self)
     for i=1, #slots do
         slots[i]:draw()
     end
+    window:draw(stats)
+    window:draw(attack)
+    window:draw(defense)
+    window:draw(parade)
+    window:draw(speed)
 end
 
 function update(self)
-
+    local att_str = tostring(math.floor(player.getAttack() * 100)).."%"
+    local def_str = tostring(math.floor(player.getDefense() * 100) - 100).."%"
+    local par_str = tostring(math.floor(player.getParade() * 100) - 100).."%"
+    local spe_str = tostring(math.floor(player.getSpeed()))
+    attack:setString("Attack: "..string.rep(" ", 6 - #att_str)..att_str)
+    defense:setString("Defense: "..string.rep(" ", 5 - #def_str)..def_str)
+    parade:setString("Parade: "..string.rep(" ", 6 - #par_str)..par_str)
+    speed:setString("Speed: "..string.rep(" ", 7 - #spe_str)..spe_str)
 end
 
 function event(self, e)
