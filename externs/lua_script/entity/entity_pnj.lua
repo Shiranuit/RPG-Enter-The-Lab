@@ -126,6 +126,7 @@ Class "EntityPnj" extends "EntityLiving" [{
     local function dialogue_png_quete(event, x, y, nx, ny)
         if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
             dialogue_hud:next_quete()
+            print("THIS")
         end
         if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
             dialogue_hud:open()
@@ -136,6 +137,7 @@ Class "EntityPnj" extends "EntityLiving" [{
             dialogue_hud:restart_dialogue()
             
             this.dial_open = false
+            player.setIsInQuest(true)
         end
     end
 
@@ -147,7 +149,7 @@ Class "EntityPnj" extends "EntityLiving" [{
         dialogue_hud:set_Position(nx / 1.2, ny / 3.4)
         this.val = dialogue_hud:getQuest()
         if math.abs(x - nx) + math.abs(y - ny) < 100 then
-            if this.name == "homme" and this.nb_dial == 1 then
+            if this.name == "homme" and this.val ~= 2 then
                 dialogue_hud:itIsHom(this.nb_dial)
                 dialogue_png_homme(event, x, y, nx, ny)
             end

@@ -23,7 +23,7 @@ local spell_info = {
     picSpell = {"Sword", "Lance une epee\ndans la\ndirection que\nvous regardez\n\nVotre corps\npeut se moduler\npour former des\narmes,\nMAGINIFIQUE"},
     rayonSpell = {"Rayon", "Lance un rayon\ncontinu dans la\ndirection que\nvous regardez\n\nBeau rayon de\nlumiere, sous\nles projecteurs"},
     bouleelecSpell = {"Energy Ball", "Lance un projectile\ndans la\ndirection que\nvous regardez\n\nL'energie n'est"},
-    dashSpell = {"Dash", "lol6"},
+    dashSpell = {"Dash", "Vous projette\nvers la direction\ndans laquelle\nvous\nregardez\n\nComment ca on\na plagier\nl'image de League\nOf Leagend ?"},
     repulsionSpell = {"Repulsion", "lol7"},
     shieldSpell = {"Shield", "lol8"},
     tempSpell = {"Time", "lol9"},
@@ -48,6 +48,7 @@ local spell_menu = lsfml.sprite.create()
 spell_menu:setTexture(assets["spell_hub"], false)
 spell_menu:setScale(0.5, 0.5)
 spell_menu:setPosition(625, 305)
+help_spell:setCharacterSize(30)
 local type = "menu_sort"
 local index = menu_sort
 local all_spell = spell

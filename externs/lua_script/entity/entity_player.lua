@@ -43,6 +43,15 @@ Class "EntityPlayer" extends "EntityLiving" [{
         box.setScale(0.25, 0.25)
         box.setPosition(super.getPosition())
         super.addHitbox(box)
+        this.isInQuest = false
+    end
+
+    function getIsInQuest()
+        return this.isInQuest
+    end
+
+    function setIsInQuest(quest)
+        this.isInQuest = quest
     end
 
     function damageable(bool)
@@ -449,6 +458,10 @@ Class "EntityPlayer" extends "EntityLiving" [{
             end
         end
         this.is_sprinting = keyboard.keyPressed(controls.getControl("sprint")) and this.getHealth() > 0 and this.stamina > 0
+        print(this.isInQuest)
+        if this.isInQuest then
+            quete_hud:open()
+        end
     end
 
     function draw()
