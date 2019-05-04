@@ -10,13 +10,14 @@ Class "EntityPnj" extends "EntityLiving" [{
         hitbox.add(box)
     end
 
-    function __EntityPnj(x, y, sprite, x_or, y_or, pts, scx)
+    function __EntityPnj(name, x, y, sprite, x_or, y_or, pts, scx, animX, animY)
         this.stopwatch = stopwatch.create()
         super(x, y)
         this.exist = true
         this.scale = scx
         this.isIn = false
-        this.sprite = animation.create(sprite, {0, 0 , 220, 560})
+        this.name = name
+        this.sprite = animation.create(sprite, {0, 0 , animX, animY})
         this.dial_open = false
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(x_or, y_or)
@@ -84,6 +85,22 @@ Class "EntityPnj" extends "EntityLiving" [{
         end
     end
 
+    function dialogue_png_homme(event, x, y, nx, ny)
+        if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
+            dialogue_hud:next()
+        end
+        if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
+            dialogue_hud:open()
+            this.dial_open = true
+        end
+        if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
+            dialogue_hud:close()
+            dialogue_hud:restart_dialogue()
+            dialogue_hud:next()
+            this.dial_open = false
+        end
+    end
+
     function event(e)
         local event = e:getEvent()
         local x, y = player.getPosition()
@@ -91,18 +108,10 @@ Class "EntityPnj" extends "EntityLiving" [{
 
         dialogue_hud:set_Position(nx / 1.2, ny / 3.4)
         if math.abs(x - nx) + math.abs(y - ny) < 100 then
-            if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
-                dialogue_hud:next()
+            if this.name == "homme" then
+                dialogue_png_homme(event, x, y, nx, ny)
             end
-            if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
-                dialogue_hud:open()
-                this.dial_open = true
-            end
-            if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
-                dialogue_hud:close()
-                dialogue_hud:restart_dialogue()
-                dialogue_hud:next()
-                this.dial_open = false
+            if this.name == "robot" then
             end
         end
     end

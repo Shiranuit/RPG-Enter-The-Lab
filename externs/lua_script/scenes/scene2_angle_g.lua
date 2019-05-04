@@ -4,6 +4,7 @@
 
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_angle_gauche"], false)
+local pnj
 
 local first = false
 local teleporter
@@ -21,6 +22,7 @@ local hitb = nil
 
 function load(scene)
     if first == false then
+        pnj = new(EntityPnj("robot", 820, 510, assets["pnj_robo"], 120, 540, {{0, 0},{0, 540}, {220, 540}, {220, 0}}, 0.3, 240, 540))
         teleporter = new(EntityProps(950, 500, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
         hologram1 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
         hologram2 = new(EntityProps(350, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
@@ -51,6 +53,7 @@ function load(scene)
         world.spawnEntity(hologram_break2)
         world.spawnEntity(torch1)
         world.spawnEntity(torch2)
+        world.spawnEntity(pnj)
 
     end
     if (hitb == nil) then

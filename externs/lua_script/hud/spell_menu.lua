@@ -18,11 +18,11 @@ function initMenuSpellSprite(spell)
 end
 
 local spell_info = {
-    healSpell = {"Heal", "lol"},
-    elecSpell = {"Elec","lol1"},
-    picSpell = {"Sword", "lol2"},
-    rayonSpell = {"Rayon", "lol4"},
-    bouleelecSpell = {"BouleElec", "lol5"},
+    healSpell = {"Heal", "Vous soigne de\nquelque PV\n\nVoir que vous\netes capable de\ntant de chose \nvous rempli de \nDETERMINATION"},
+    elecSpell = {"Elec","Lance un eclair\ndans la\ndirection que\nvous regardez\n\nVous n'avez rien\nn'as envier au \nseigneur\nPalpatine..."},
+    picSpell = {"Sword", "Lance une epee\ndans la\ndirection que\nvous regardez\n\nVotre corps\npeut se moduler\npour former des\narmes,\nMAGINIFIQUE"},
+    rayonSpell = {"Rayon", "Lance un rayon\ncontinu dans la\ndirection que\nvous regardez\n\nBeau rayon de\nlumiere, sous\nles projecteurs"},
+    bouleelecSpell = {"Energy Ball", "Lance un projectile\ndans la\ndirection que\nvous regardez\n\nL'energie n'est"},
     dashSpell = {"Dash", "lol6"},
     repulsionSpell = {"Repulsion", "lol7"},
     shieldSpell = {"Shield", "lol8"},

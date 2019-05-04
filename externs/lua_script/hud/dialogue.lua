@@ -4,17 +4,17 @@
 
 local dial = lsfml.sprite.create()
 local dialogue = lsfml.text.create()
-local file_dial = io.open("./assets/dialogue_script/dialogue_script.txt", "r")
+local file_dial_homme = io.open("./assets/dialogue_script/dialogue_script_homme.txt", "r")
 local nb_dialogue = 0
 local line = {}
 local already_aff = {false}
 
 for i = 1, 3 do
-    line[i] = file_dial:read()
+    line[i] = file_dial_homme:read()
 end
---local line1 = file_dial:read()
---local line2 = file_dial:read()
---local line3 = file_dial:read()
+--local line1 = file_dial_homme:read()
+--local line2 = file_dial_homme:read()
+--local line3 = file_dial_homme:read()
 local lines = line[1].."\n"..line[2].."\n"..line[3]
 local can_aff = false
 
@@ -54,7 +54,7 @@ function draw(self)
 end
 
 function restart_dialogue()
-    file_dial = io.open("./assets/dialogue_script/dialogue_script.txt", "r")
+    file_dial_homme = io.open("./assets/dialogue_script/dialogue_script_homme.txt", "r")
     nb_dialogue = 0
     line = {}
     already_aff = {false}
@@ -68,7 +68,7 @@ function update(self)
 end
 
 function event(self, e)
-    if file_dial then
+    if file_dial_homme then
         if nb_dialogue == 0 then
             dialogue:setString(lines)
             can_aff = true
@@ -76,7 +76,7 @@ function event(self, e)
         if nb_dialogue == 1 and not already_aff[nb_dialogue] then
             for i = 1, 3 do
                 
-                line[i] = file_dial:read()
+                line[i] = file_dial_homme:read()
             end
             
             lines = line[1].."\n"..line[2].."\n"..line[3]
@@ -87,7 +87,7 @@ function event(self, e)
         if nb_dialogue == 2 and not already_aff[nb_dialogue] then
             for i = 1, 3 do
                 
-                line[i] = file_dial:read()
+                line[i] = file_dial_homme:read()
             end
             
             lines = line[1].."\n"..line[2].."\n"..line[3]
@@ -98,7 +98,7 @@ function event(self, e)
         if nb_dialogue == 3 and not already_aff[nb_dialogue] then
             for i = 1, 3 do
                 
-                line[i] = file_dial:read()
+                line[i] = file_dial_homme:read()
             end
             
             lines = line[1].."\n"..line[2].."\n"..line[3]
@@ -109,7 +109,29 @@ function event(self, e)
         if nb_dialogue == 4 and not already_aff[nb_dialogue] then
             for i = 1, 3 do
                 
-                line[i] = file_dial:read()
+                line[i] = file_dial_homme:read()
+            end
+            
+            lines = line[1].."\n"..line[2].."\n"..line[3]
+            dialogue:setString(lines)
+            can_aff = true
+            already_aff[nb_dialogue] = true
+        end
+        if nb_dialogue == 5 and not already_aff[nb_dialogue] then
+            for i = 1, 3 do
+                
+                line[i] = file_dial_homme:read()
+            end
+            
+            lines = line[1].."\n"..line[2].."\n"..line[3]
+            dialogue:setString(lines)
+            can_aff = true
+            already_aff[nb_dialogue] = true
+        end
+        if nb_dialogue == 6 and not already_aff[nb_dialogue] then
+            for i = 1, 3 do
+                
+                line[i] = file_dial_homme:read()
             end
             
             lines = line[1].."\n"..line[2].."\n"..line[3]

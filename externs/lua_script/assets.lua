@@ -48,6 +48,7 @@ assets["robot2"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot2.png
 -- =======================
 
 assets["pnj_homme"] = lsfml.texture.createFromFile("./assets/pnj/pnj_homme.png", {0, 0, 1100, 560})
+assets["pnj_robo"] = lsfml.texture.createFromFile("./assets/pnj/robo_casser_240x540.png", {0, 0, 960, 540})
 
 -- =======================
 -- =    ENTITY TEXTURE   =
