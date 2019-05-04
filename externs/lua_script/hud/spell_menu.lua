@@ -31,6 +31,10 @@ local spell = initMenuSpellSprite({
     tempSpell = assets["tempSpell"],
 })
 
+local help_spell = description.create(assets["help_spell"], assets["fsys"])
+help_spell:setPosition(1320, 305)
+help_spell:setScale(0.5, 0.5)
+help_spell:setString("lol")
 local spell_menu = lsfml.sprite.create()
 spell_menu:setTexture(assets["spell_hub"], false)
 spell_menu:setScale(0.5, 0.5)
@@ -42,11 +46,12 @@ local old_pos_x = -1
 local old_pos_y = -1
 local origin_pos_x = -1
 local origin_pos_y = -1
-local selected_spell_name = ""
+local selected_spell_name = nil
 local selected_spell = nil
 local spell_hub = spell_menu
 local selected_spell_index = 0
 local bool_spell = false
+local speel_description = nil
 
 function event(self, e)
     check(self, "hud", 1)
@@ -61,6 +66,7 @@ function event(self, e)
     end
     local mouse_x, mouse_y  = lsfml.mouse.getPosition(window)
     if self:isOpen() then
+        speel_description = nil
         for i, v in pairs(all_spell) do
             local sprite_pos_x, sprite_pos_y = v:getPosition()
             if mouse_x > sprite_pos_x and mouse_x < sprite_pos_x + 71 and mouse_y > sprite_pos_y and mouse_y < sprite_pos_y + 71 then
@@ -71,6 +77,7 @@ function event(self, e)
                     old_pos_y = mouse_y
                     selected_spell = v
                     selected_spell_name = i
+                    speel_description = i
                     break
                 end
             end
@@ -108,12 +115,16 @@ end
 function update(self)
     check(self, "hud", 1)
 
+
 end
 
 function draw(self)
     check(self, "hud", 1)
 
     window:draw(spell_hub)
+    if speel_description or (selected_spell_name and lsfml.mouse.isButtonPressed(mouse.LEFT)) then
+        help_spell:draw()
+    end
     for i, v in pairs(all_spell) do
         window:draw(v)
     end
