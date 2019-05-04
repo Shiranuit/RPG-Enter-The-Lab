@@ -270,6 +270,7 @@ menu_spell = hud.createFromFile("hud/spell_menu.lua", nil, true)
 option_menu = hud.createFromFile("hud/option_hud.lua", nil, true)
 temp_hud = hud.createFromFile("hud/temp_hud.lua", nil, false)
 dialogue_hud = hud.createFromFile("hud/dialogue.lua", nil, true)
+quete_hud = hud.createFromFile("hud/hud_quete.lua", nil, true)
 
 -- =========================================
 -- =                 SCENES                =

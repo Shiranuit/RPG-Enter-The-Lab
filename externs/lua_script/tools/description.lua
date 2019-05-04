@@ -13,7 +13,7 @@ function description.create(texture, font)
     text:setCharacterSize(40)
     local name = lsfml.text.create()
     name:setFont(font)
-    name:setCharacterSize(50)
+    name:setCharacterSize(40)
     local sprite = lsfml.sprite.create()
     local size = {texture:getSize()}
     sprite:setTexture(texture, false)
@@ -62,7 +62,7 @@ function description.setName(self, name)
 
     local meta = getmetatable(self)
     meta.__name:setString(name)
-    meta.__name:setOrigin(meta.__name.getCenter(meta.__name:getString(), 50))
+    meta.__name:setOrigin(meta.__name.getCenter(meta.__name:getString(), 40))
 end
 
 function description.setPosition(self, x, y)
@@ -73,7 +73,7 @@ function description.setPosition(self, x, y)
     local meta = getmetatable(self)
     meta.__sprite:setPosition(x, y)
     meta.__text:setPosition(x + 15, y + 60)
-    meta.__name:setOrigin(meta.__name.getCenter(meta.__name:getString(), 50))
+    meta.__name:setOrigin(meta.__name.getCenter(meta.__name:getString(), 40))
     meta.__name:setPosition(x + 470 * meta.__scale_x, y + 80 * meta.__scale_y)
 end
 
