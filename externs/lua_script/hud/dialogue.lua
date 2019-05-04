@@ -18,6 +18,19 @@ for i = 1, 3 do
 end
 local line_hommes = line_homme[1].."\n"..line_homme[2].."\n"..line_homme[3]
 
+-- ===============================================
+-- =               DIALOGUE_QUETE                =
+-- ===============================================
+local file_dial_quete = io.open("./assets/dialogue_script/dialogue_script_quete.txt", "r")
+local nb_dialogue_quete = 0
+local line_quete = {}
+local already_aff_quete = {false}
+
+for i = 1, 3 do
+    line_quete[i] = file_dial_quete:read()
+end
+local line_quetes = line_quete[1].."\n"..line_quete[2].."\n"..line_quete[3]
+
 -- ==============================================
 -- =               DIALOGUE_ROBOT               =
 -- ==============================================
@@ -34,6 +47,7 @@ local line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
 --===============================================
 local can_aff = false
 local name
+local quest
 
 dialogue:setFont(assets["fsys"])
 dialogue:setCharacterSize(30)
@@ -45,6 +59,10 @@ dial:setScale(1, 1)
 
 function next_homme()
     nb_dialogue_homme = nb_dialogue_homme + 1
+end
+
+function next_quete()
+    nb_dialogue_quete = nb_dialogue_quete + 1
 end
 
 function next_robot()
@@ -74,12 +92,22 @@ function draw(self)
     end
 end
 
-function itIsRob()
-    name = "robot"
+function getQuest(self)
+    return quest
 end
 
-function itIsHom()
+function itIsRob(self, quete)
+    name = "robot"
+    if quest ~= 2 then
+        quest = quete
+    end
+end
+
+function itIsHom(self, quete)
     name = "homme"
+    if quest ~= 2 then
+        quest = quete
+    end
 end
 
 function restart_dialogue()
@@ -92,6 +120,11 @@ function restart_dialogue()
     nb_dialogue_robot = 1
     line_robot = {}
     already_aff_robot = {false}
+
+    file_dial_quete = io.open("./assets/dialogue_script/dialogue_script_quete.txt", "r")
+    nb_dialogue_quete = 0
+    line_quete = {}
+    already_aff_quete = {false}
 end
 
 function update(self)
@@ -100,7 +133,7 @@ function update(self)
     dialogue:setPosition(x + 384 / 2.1 - cx / 3, y + 164 / 4 - cy / 1.5)
 end
 
-function event_homme(e)
+function event_homme_first(e)
     if nb_dialogue_homme == 0 then
         dialogue:setString(line_hommes)
         can_aff = true
@@ -279,9 +312,74 @@ function event_robot(e)
     end
 end
 
+function event_homme_quest(e)
+    if nb_dialogue_quete == 0 then
+        dialogue:setString(line_quetes)
+        can_aff = true
+    end
+    if nb_dialogue_quete == 1 and not already_aff_quete[nb_dialogue_quete] then
+        for i = 1, 3 do
+            
+            line_quete[i] = file_dial_quete:read()
+        end
+        
+        line_quetes = line_quete[1].."\n"..line_quete[2].."\n"..line_quete[3]
+        dialogue:setString(line_quetes)
+        can_aff = true
+        already_aff_quete[nb_dialogue_quete] = true
+    end
+    if nb_dialogue_quete == 2 and not already_aff_quete[nb_dialogue_quete] then
+        for i = 1, 3 do
+            
+            line_quete[i] = file_dial_quete:read()
+        end
+        
+        line_quetes = line_quete[1].."\n"..line_quete[2].."\n"..line_quete[3]
+        dialogue:setString(line_quetes)
+        can_aff = true
+        already_aff_quete[nb_dialogue_quete] = true
+    end
+    if nb_dialogue_quete == 3 and not already_aff_quete[nb_dialogue_quete] then
+        for i = 1, 3 do
+            
+            line_quete[i] = file_dial_quete:read()
+        end
+        
+        line_quetes = line_quete[1].."\n"..line_quete[2].."\n"..line_quete[3]
+        dialogue:setString(line_quetes)
+        can_aff = true
+        already_aff_quete[nb_dialogue_quete] = true
+    end
+    if nb_dialogue_quete == 4 and not already_aff_quete[nb_dialogue_quete] then
+        for i = 1, 3 do
+            
+            line_quete[i] = file_dial_quete:read()
+        end
+        
+        line_quetes = line_quete[1].."\n"..line_quete[2].."\n"..line_quete[3]
+        dialogue:setString(line_quetes)
+        can_aff = true
+        already_aff_quete[nb_dialogue_quete] = true
+    end
+    if nb_dialogue_quete == 5 and not already_aff_quete[nb_dialogue_quete] then
+        for i = 1, 3 do
+            
+            line_quete[i] = file_dial_quete:read()
+        end
+        
+        line_quetes = line_quete[1].."\n"..line_quete[2].."\n"..line_quete[3]
+        dialogue:setString(line_quetes)
+        can_aff = true
+        already_aff_quete[nb_dialogue_quete] = true
+    end
+end
+
 function event(self, e)
-    if file_dial_homme and name == "homme" then
-        event_homme(e)
+    if file_dial_homme and name == "homme" and quest == 1 then
+        event_homme_first(e)
+    end
+    if file_dial_homme and name == "homme" and quest == 2 then
+        event_homme_quest(e)
     end
     if file_dial_robot and name == "robot" then
         event_robot(e)

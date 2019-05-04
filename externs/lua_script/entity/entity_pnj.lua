@@ -22,6 +22,8 @@ Class "EntityPnj" extends "EntityLiving" [{
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(x_or, y_or)
         this.sprite:scale(scx, scx)
+        this.nb_dial = 1
+        this.val = 0
         initHitboxes(x_or, y_or, pts, scx)
     end
 
@@ -80,6 +82,9 @@ Class "EntityPnj" extends "EntityLiving" [{
         else
             dialogue_hud:close()
             dialogue_hud:restart_dialogue()
+            if this.name == "robot" then
+                this.nb_dial = 2
+            end
             --dialogue_hud:next()
             this.dial_open = false
         end
@@ -112,6 +117,23 @@ Class "EntityPnj" extends "EntityLiving" [{
         if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
             dialogue_hud:close()
             dialogue_hud:restart_dialogue()
+            this.nb_dial = 2
+            
+            this.dial_open = false
+        end
+    end
+
+    local function dialogue_png_quete(event, x, y, nx, ny)
+        if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
+            dialogue_hud:next_quete()
+        end
+        if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
+            dialogue_hud:open()
+            this.dial_open = true
+        end
+        if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
+            dialogue_hud:close()
+            dialogue_hud:restart_dialogue()
             
             this.dial_open = false
         end
@@ -123,14 +145,18 @@ Class "EntityPnj" extends "EntityLiving" [{
         local nx, ny = super.getPosition()
 
         dialogue_hud:set_Position(nx / 1.2, ny / 3.4)
+        this.val = dialogue_hud:getQuest()
         if math.abs(x - nx) + math.abs(y - ny) < 100 then
-
-            if this.name == "homme" then
-                dialogue_hud:itIsHom()
+            if this.name == "homme" and this.nb_dial == 1 then
+                dialogue_hud:itIsHom(this.nb_dial)
                 dialogue_png_homme(event, x, y, nx, ny)
             end
+            if this.name == "homme" and this.val == 2 then
+                dialogue_hud:itIsHom(this.val)
+                dialogue_png_quete(event, x, y, nx, ny)
+            end
             if this.name == "robot" then
-                dialogue_hud:itIsRob()
+                dialogue_hud:itIsRob(this.nb_dial)
                 dialogue_png_robot(event, x, y, nx, ny)
             end
         end
