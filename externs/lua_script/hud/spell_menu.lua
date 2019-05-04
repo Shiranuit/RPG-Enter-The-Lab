@@ -30,7 +30,6 @@ local spell_info = {
 
 }
 local spell = initMenuSpellSprite({
-    --douleurSpell = assets["douleurSpell"],
     healSpell = assets["healSpell"],
     elecSpell = assets["elecSpell"],
     picSpell = assets["picSpell"],
@@ -45,7 +44,6 @@ local spell = initMenuSpellSprite({
 local help_spell = description.create(assets["info"], assets["fsys"])
 help_spell:setPosition(1320, 305)
 help_spell:setScale(0.34, 0.34)
-help_spell:setString("lol\nlol")
 local spell_menu = lsfml.sprite.create()
 spell_menu:setTexture(assets["spell_hub"], false)
 spell_menu:setScale(0.5, 0.5)
@@ -69,6 +67,9 @@ function event(self, e)
     check(self, "hud", 1)
 
     local event = e:getEvent()
+    if event[1] == "mouse_move" then
+        e:setCanceled(true)
+    end
     if event[1] == "key_pressed" and event[2] == controls.getControl("menu_spell") then
         if self:isOpen() then
             self:close()
