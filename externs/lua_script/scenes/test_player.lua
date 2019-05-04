@@ -54,7 +54,7 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
-        world.spawnEntity(robot1)
+        world.spawnEntity(robot2)
         world.spawnEntity(player)
         world.spawnEntity(item1)
         world.spawnEntity(tube_bleu_casser)

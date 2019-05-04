@@ -11,6 +11,8 @@ Class "EntityTurret" extends "EntityLiving" [{
 
     function __EntityTurret(x, y)
         super(x, y)
+        super.setHealthBarVisible(true)
+        super.setHealthBarOffset(0, - 156)
         super.setMaximumHealth(5)
         super.setHealth(5)
         this.sprite = animation.create(assets["turret"], {0, 0, 78, 78})
@@ -63,6 +65,7 @@ Class "EntityTurret" extends "EntityLiving" [{
     function draw()
         if super.isAlive() then
             this.sprite:draw()
+            super.drawHealth()
             super.drawHitbox()
             if this.is_attack then
                 if this.clock_attack:getEllapsedTime() > 20000 then
