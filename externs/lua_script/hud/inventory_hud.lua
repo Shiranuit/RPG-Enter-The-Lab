@@ -7,6 +7,10 @@ local slots = {}
 
 local px = 960 - 1337 * 0.75 / 2
 local py = 540 - 940 * 0.75 / 2
+local item_info = nil
+local help_item = description.create(assets["info"], assets["fsys"])
+help_item:setPosition(1500, py)
+help_item:setScale(0.40, 0.40)
 
 inventory:scale(0.75, 0.75)
 inventory:setPosition(px, py)
@@ -108,6 +112,9 @@ end
 
 function draw(self)
     window:draw(inventory)
+    if item_info then
+        help_item:draw()
+    end
     for i=1, #slots do
         slots[i]:draw()
     end
@@ -132,6 +139,20 @@ function event(self, e)
             slots[i]:event(self, e)
             if e:isCanceled() then
                 break
+            end
+        end
+    end
+    if event[1] == "mouse_move" then
+        e:setCanceled(true)
+    end
+    local mouse_x, mouse_y  = lsfml.mouse.getPosition(window)
+    item_info = false
+    for i=1, #slots do
+        if slots[i]:isIn(mouse_x, mouse_y) then
+            local item_stack = slots[i]:getItemStack()
+            if item_stack then
+                item_info = true
+                help_item:setName(tostring(item_stack:getItem():getName()))
             end
         end
     end
