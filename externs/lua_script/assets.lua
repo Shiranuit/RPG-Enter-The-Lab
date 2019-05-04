@@ -46,6 +46,7 @@ assets["mob_health"] = lsfml.texture.createFromFile("./assets/hud/mob_health.png
 assets["robot1"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot1.png", {0, 0, 4095, 2972})
 assets["robot2"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot2.png", {0, 0, 7216, 4200})
 assets["turret"] = lsfml.texture.createFromFile("./assets/ennemy/tourelle.png", {0, 0, 156, 312})
+assets["soucoupe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/soucoupe/soucoupe250x86.png", {0, 0, 1993, 258})
 
 -- =======================
 -- =    ENTITY PNJ   =

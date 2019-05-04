@@ -28,7 +28,7 @@ Class "EntityTurret" extends "EntityLiving" [{
         this.clock_attack = stopwatch.create()
         this.status = "right"
         this.speed = 2
-        this.max_distance = 650
+        this.max_distance = 750
         this.last_animation = false
         this.is_attack = false
         initHitboxes()
@@ -94,9 +94,8 @@ Class "EntityTurret" extends "EntityLiving" [{
         if this.is_attack then
             return
         end
-        sprite_y = sprite_y
-        dir_x = x - sprite_x
-        dir_y = y - sprite_y
+        local dir_x = x - sprite_x
+        local dir_y = y - sprite_y
         if math.abs(dir_x) > math.abs(dir_y) then
             if dir_x > 0 and this.status ~= "right" then
                 this.status = "right"
