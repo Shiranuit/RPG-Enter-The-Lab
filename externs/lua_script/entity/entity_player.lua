@@ -458,10 +458,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
             end
         end
         this.is_sprinting = keyboard.keyPressed(controls.getControl("sprint")) and this.getHealth() > 0 and this.stamina > 0
-        print(this.isInQuest)
-        if this.isInQuest then
-            quete_hud:open()
-        end
     end
 
     function draw()

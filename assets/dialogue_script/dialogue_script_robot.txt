@@ -16,6 +16,15 @@ et des info sur les items
 Vous avez aussi acces a
 votre propre menu de
 sort drag and drop
+Lorsque vous parler
+a quelqu'un, n'oubliez
+pas de finir le dialogue
+Si vous partez avant la
+fin il ne sera pas
+"valider" et vous devrez
+le recommencer. Pour
+"valider" un dialogue,
+appuyer sur SPACE
 N'hesitez pas a faire un
 tour dans les option pour
 voir les possibilitees !

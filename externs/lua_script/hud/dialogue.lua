@@ -12,6 +12,7 @@ local file_dial_homme = io.open("./assets/dialogue_script/dialogue_script_homme.
 local nb_dialogue_homme = 1
 local line_homme = {}
 local already_aff_homme = {false}
+local nb_read_to_do_homme = 7
 
 for i = 1, 3 do
     line_homme[i] = file_dial_homme:read()
@@ -25,6 +26,7 @@ local file_dial_quete = io.open("./assets/dialogue_script/dialogue_script_quete.
 local nb_dialogue_quete = 0
 local line_quete = {}
 local already_aff_quete = {false}
+local nb_read_to_do_quete = 5
 
 for i = 1, 3 do
     line_quete[i] = file_dial_quete:read()
@@ -38,6 +40,7 @@ local file_dial_robot = io.open("./assets/dialogue_script/dialogue_script_robot.
 local nb_dialogue_robot = 1
 local line_robot = {}
 local already_aff_robot = {false}
+local nb_read_to_do_robot = 11
 
 for i = 1, 3 do
     line_robot[i] = file_dial_robot:read()
@@ -59,14 +62,31 @@ dial:setScale(1, 1)
 
 function next_homme()
     nb_dialogue_homme = nb_dialogue_homme + 1
+    if nb_dialogue_homme > nb_read_to_do_homme then
+        return true
+    else
+        return false
+    end
 end
 
 function next_quete()
     nb_dialogue_quete = nb_dialogue_quete + 1
+    print("NOMBRE ACTUEL"..nb_dialogue_quete)
+    print("NOMBRE DEPASSE"..nb_read_to_do_quete)
+    if nb_dialogue_quete > nb_read_to_do_quete then
+        return true
+    else
+        return false
+    end
 end
 
 function next_robot()
     nb_dialogue_robot = nb_dialogue_robot + 1
+    if nb_dialogue_robot > nb_read_to_do_robot then
+        return true
+    else
+        return false
+    end
 end
 
 function load(self)
@@ -300,6 +320,39 @@ function event_robot(e)
         already_aff_robot[nb_dialogue_robot] = true
     end
     if nb_dialogue_robot == 8 and not already_aff_robot[nb_dialogue_robot] then
+        for i = 1, 3 do
+            
+            line_robot[i] = file_dial_robot:read()
+        end
+        
+        line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
+        dialogue:setString(line_robots)
+        can_aff = true
+        already_aff_robot[nb_dialogue_robot] = true
+    end
+    if nb_dialogue_robot == 9 and not already_aff_robot[nb_dialogue_robot] then
+        for i = 1, 3 do
+            
+            line_robot[i] = file_dial_robot:read()
+        end
+        
+        line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
+        dialogue:setString(line_robots)
+        can_aff = true
+        already_aff_robot[nb_dialogue_robot] = true
+    end
+    if nb_dialogue_robot == 10 and not already_aff_robot[nb_dialogue_robot] then
+        for i = 1, 3 do
+            
+            line_robot[i] = file_dial_robot:read()
+        end
+        
+        line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
+        dialogue:setString(line_robots)
+        can_aff = true
+        already_aff_robot[nb_dialogue_robot] = true
+    end
+    if nb_dialogue_robot == 11 and not already_aff_robot[nb_dialogue_robot] then
         for i = 1, 3 do
             
             line_robot[i] = file_dial_robot:read()

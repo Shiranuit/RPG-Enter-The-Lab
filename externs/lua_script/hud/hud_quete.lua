@@ -2,14 +2,14 @@
 -- =               QUEST HUD                =
 -- =========================================
 
-local hud = lsfml.sprite.create()
+local hud_quete = lsfml.sprite.create()
 local text_quest_aquired = lsfml.text.create()
 local text_quest_description = lsfml.text.create()
 local text_quest_press = lsfml.text.create()
 
-hud:setTexture(assets["button_idle"], false)
-hud:setPosition(1415, 0)
-hud:setScale(1.2, 2.5)
+hud_quete:setTexture(assets["button_idle"], false)
+hud_quete:setPosition(1415, 0)
+hud_quete:setScale(1.2, 2.5)
 
 text_quest_aquired:setCharacterSize(50)
 text_quest_aquired:setFont(assets["fsys"])
@@ -43,7 +43,7 @@ function restart()
 end
 
 function draw(self)
-    window:draw(hud)
+    window:draw(hud_quete)
     window:draw(text_quest_aquired)
     window:draw(text_quest_description)
     window:draw(text_quest_press)
@@ -54,5 +54,12 @@ function update(self)
 end
 
 function event(self, e)
-
+    local event = e:getEvent()
+    if event[1] == "key_pressed" and event[2] == controls.getControl("hide/show") then
+        if self:isOpen() then
+            hud.close(self)
+        else
+            hud.open(self)
+        end
+    end
 end

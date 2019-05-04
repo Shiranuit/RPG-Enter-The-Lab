@@ -22,11 +22,11 @@ local spell_info = {
     elecSpell = {"Elec","Lance un eclair\ndans la\ndirection que\nvous regardez\n\nVous n'avez rien\nn'as envier au \nseigneur\nPalpatine..."},
     picSpell = {"Sword", "Lance une epee\ndans la\ndirection que\nvous regardez\n\nVotre corps\npeut se moduler\npour former des\narmes,\nMAGINIFIQUE"},
     rayonSpell = {"Rayon", "Lance un rayon\ncontinu dans la\ndirection que\nvous regardez\n\nBeau rayon de\nlumiere, sous\nles projecteurs"},
-    bouleelecSpell = {"Energy Ball", "Lance un projectile\ndans la\ndirection que\nvous regardez\n\nL'energie n'est"},
+    bouleelecSpell = {"Energy Ball", "Lance un projectile\ndans la\ndirection que\nvous regardez\n\nL'energie n'est\nqu'une forme\nirreelle prenant\ndifferentes formes"},
     dashSpell = {"Dash", "Vous projette\nvers la direction\ndans laquelle\nvous\nregardez\n\nComment ca on\na plagier\nl'image de League\nOf Leagend ?"},
-    repulsionSpell = {"Repulsion", "lol7"},
-    shieldSpell = {"Shield", "lol8"},
-    tempSpell = {"Time", "lol9"},
+    repulsionSpell = {"Repulsion", "Tout les ennemis\net projectiles\nautour de vous sont\nexpulsé\n\nUne onde de choc\ndigne des explosions\nnucleaire !"},
+    shieldSpell = {"Shield", "Vous protege\nen continue (tant\nque tu appuie\ndessus)\n\nQui aurais crus\nqu'un bouclier\npouvait prendre\nune forme\noctogonale ?"},
+    tempSpell = {"Time", "Arrete le\ntemps pendant\nquelque seconde\n\nTo be continued ->\n (Ceci est une\nreference)"},
 
 }
 local spell = initMenuSpellSprite({

@@ -24,6 +24,7 @@ Class "EntityPnj" extends "EntityLiving" [{
         this.sprite:scale(scx, scx)
         this.nb_dial = 1
         this.val = 0
+        this.fin = false
         initHitboxes(x_or, y_or, pts, scx)
     end
 
@@ -87,6 +88,9 @@ Class "EntityPnj" extends "EntityLiving" [{
             end
             --dialogue_hud:next()
             this.dial_open = false
+            if this.val == 2 and this.name == "homme" and not this.dial_open and this.fin then
+                quete_hud:open()
+            end
         end
     end
 
@@ -103,6 +107,7 @@ Class "EntityPnj" extends "EntityLiving" [{
             dialogue_hud:restart_dialogue()
             
             this.dial_open = false
+            this.fin = true
         end
     end
 
@@ -125,8 +130,13 @@ Class "EntityPnj" extends "EntityLiving" [{
 
     local function dialogue_png_quete(event, x, y, nx, ny)
         if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
-            dialogue_hud:next_quete()
-            print("THIS")
+            if dialogue_hud:next_quete() then
+                dialogue_hud:close()
+                dialogue_hud:restart_dialogue()
+                this.dial_open = false
+                player.setIsInQuest(true)
+                quete_hud:open()
+            end
         end
         if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
             dialogue_hud:open()
@@ -138,6 +148,7 @@ Class "EntityPnj" extends "EntityLiving" [{
             
             this.dial_open = false
             player.setIsInQuest(true)
+            quete_hud:open()
         end
     end
 
@@ -159,6 +170,7 @@ Class "EntityPnj" extends "EntityLiving" [{
             end
             if this.name == "robot" then
                 dialogue_hud:itIsRob(this.nb_dial)
+                
                 dialogue_png_robot(event, x, y, nx, ny)
             end
         end
