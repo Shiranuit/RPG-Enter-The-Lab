@@ -34,6 +34,7 @@ assets["boss_health4"] = lsfml.texture.createFromFile("./assets/hud/bosshealth4.
 assets["boss_health5"] = lsfml.texture.createFromFile("./assets/hud/bosshealth5.png", {0, 0, 426, 33})
 assets["boss_health6"] = lsfml.texture.createFromFile("./assets/hud/bosshealth6.png", {0, 0, 426, 33})
 assets["boss_health7"] = lsfml.texture.createFromFile("./assets/hud/bosshealth7.png", {0, 0, 426, 33})
+assets["stats"] = lsfml.texture.createFromFile("./assets/hud/stats.png", {0, 0, 950, 1400})
 
 -- =======================
 -- =    ENTITY MOB   =
