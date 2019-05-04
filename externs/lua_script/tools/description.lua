@@ -11,6 +11,9 @@ function description.create(texture, font)
     local text = lsfml.text.create()
     text:setFont(font)
     text:setCharacterSize(40)
+    local name = lsfml.text.create()
+    name:setFont(font)
+    name:setCharacterSize(50)
     local sprite = lsfml.sprite.create()
     local size = {texture:getSize()}
     sprite:setTexture(texture, false)
@@ -31,10 +34,35 @@ function description.create(texture, font)
                 end
             end
         end,
+        __scale_x = 1,
+        __scale_y = 1,
+        __name = name,
         __sprite = sprite,
         __text = text,
         __visible = true,
     })
+end
+
+function description.setScale(self, x, y)
+    check(self, "description", 1)
+    check(x, "number", 2)
+    check(y, "number", 3)
+
+    local meta = getmetatable(self)
+    meta.__sprite:setScale(x, y)
+    meta.__scale_x = x
+    meta.__scale_y = y
+    local x_p, y_p = meta.__sprite:getPosition()
+    meta.__name:setPosition(x_p + 470 * meta.__scale_x, y_p + 80 * meta.__scale_y)
+end
+
+function description.setName(self, name)
+    check(self, "description", 1)
+    check(name, "string", 2)
+
+    local meta = getmetatable(self)
+    meta.__name:setString(name)
+    meta.__name:setOrigin(meta.__name.getCenter(meta.__name:getString(), 50))
 end
 
 function description.setPosition(self, x, y)
@@ -44,7 +72,9 @@ function description.setPosition(self, x, y)
 
     local meta = getmetatable(self)
     meta.__sprite:setPosition(x, y)
-    meta.__text:setPosition(x + 15, y)
+    meta.__text:setPosition(x + 15, y + 40)
+    meta.__name:setOrigin(meta.__name.getCenter(meta.__name:getString(), 50))
+    meta.__name:setPosition(x + 470 * meta.__scale_x, y + 80 * meta.__scale_y)
 end
 
 function description.show(self)
@@ -68,5 +98,6 @@ function description.draw(self)
     if meta.__visible then
         window:draw(meta.__sprite)
         window:draw(meta.__text)
+        window:draw(meta.__name)
     end
 end
