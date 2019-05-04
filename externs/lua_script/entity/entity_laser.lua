@@ -1,17 +1,21 @@
 Class "EntityLaser" extends "Entity" [{
-    function __EntityLaser(x, y, dir, damage, speed, mob)
+    function __EntityLaser(x, y, dir, damage, speed, mob, scale_x, scale_y)
         check(x, "number", 1)
         check(y, "number", 2)
         check(dir, "Vector2D", 3)
         check(damage, "number", 4)
         check(speed, "number", 5)
+        scale_x = scale_x or 3
+        scale_y = scale_y or 3
+        check(scale_x, "number", 6)
+        check(scale_y, "number", 7)
 
         super(x, y)
         this.angle = -math.deg(math.atan2(0, 1) - math.atan2(dir.y, dir.x))
         this.sprite = lsfml.sprite.create()
         this.sprite:setTexture(assets["laser_projectile"], false)
         this.sprite:setPosition(x, y)
-        this.sprite:scale(3, 3)
+        this.sprite:scale(scale_x, scale_y)
         this.sprite:setOrigin(0, 0)
         this.sprite:setRotation(this.angle)
         this.dir = dir:normalize()
@@ -24,7 +28,7 @@ Class "EntityLaser" extends "Entity" [{
         box.setOrigin(0, 0)
         box.setPosition(super.getPosition())
         box.setRotation(this.angle)
-        box.scale(3, 3)
+        box.scale(scale_x, scale_y)
         super.addHitbox(box)
     end
 

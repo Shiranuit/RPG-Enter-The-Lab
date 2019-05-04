@@ -109,6 +109,7 @@ class.createFromFile("entity/entity_player.lua")
 class.createFromFile("entity/entity_props.lua")
 class.createFromFile("entity/ennemy/robot1.lua")
 class.createFromFile("entity/ennemy/robot2.lua")
+class.createFromFile("entity/ennemy/turret.lua")
 class.createFromFile("entity/ennemy/boss/entity_scythe.lua")
 class.createFromFile("entity/spell/entity_spell.lua")
 class.createFromFile("entity/spell/rayon_spell.lua")
@@ -155,7 +156,7 @@ animationSpell = {
     rayonIdleAnimation = new(EntitySpell({
         spell = assets["rayonIdleAnimation"],
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
-        damage = 0.5,
+        damage = 1000000,
         rect = {0, 114, 19, 114},
         ox = 0,
         oy = 0,

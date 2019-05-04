@@ -1,0 +1,24 @@
+***********************
+/**DEBUT TRANSMISSION**\
+************************
+BoBzzz..jour, je suis bZZ
+Voici les information
+pour BzzZz bien jouer
+Vous pouvez vous deplacer
+dans la map malgres les 
+differents ennemis
+Certaines salles
+contiennent des BOSS
+alors soyez pret
+Vous avez acces a votre
+inventaire, votre status
+et des info sur les items
+Vous avez aussi acces a
+votre propre menu de
+sort drag and drop
+N'hesitez pas a faire un
+tour dans les option pour
+voir les possibilitees !
+***********************
+/***FIN TRANSMISSION***\
+************************

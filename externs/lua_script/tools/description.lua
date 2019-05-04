@@ -72,7 +72,7 @@ function description.setPosition(self, x, y)
 
     local meta = getmetatable(self)
     meta.__sprite:setPosition(x, y)
-    meta.__text:setPosition(x + 15, y + 40)
+    meta.__text:setPosition(x + 15, y + 60)
     meta.__name:setOrigin(meta.__name.getCenter(meta.__name:getString(), 50))
     meta.__name:setPosition(x + 470 * meta.__scale_x, y + 80 * meta.__scale_y)
 end

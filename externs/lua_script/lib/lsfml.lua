@@ -703,7 +703,7 @@ function lsfml.sprite.setTextureRect(sprite, x, y, width, height)
     check(height, "number", 5)
 
     local meta = getmetatable(sprite)
-    olsfml.sprite_setTextureRect(meta.__ptr, {x=x, y=y, width=width, height=height})
+    olsfml.sprite_setTextureRect(meta.__ptr, {x=math.floor(x), y=math.floor(y), width=math.floor(width), height=math.floor(height)})
 end
 
 function lsfml.sprite.copy(sprite)
