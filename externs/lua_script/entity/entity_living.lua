@@ -7,8 +7,17 @@ Class "EntityLiving" extends "Entity" [{
         this.alive = true
         this.stats = new(Stats())
         this.lvl = 1
+        this.experience = 0
+        this.next_exp_stage = 100
         this.health_x = 0
         this.health_y = 0
+        this.lvl_text = lsfml.text.create()
+        this.lvl_text:setCharacterSize(20)
+        this.lvl_text:setFont(assets["fsys"])
+        this.circle_lvl = lsfml.sprite.create()
+        this.circle_lvl:setScale(0.5, 0.5)
+        this.circle_lvl:setOrigin(35, 35)
+        this.circle_lvl:setTexture(assets["circle"], false)
         this.empty_health_bar = lsfml.sprite.create()
         this.empty_health_bar:setTexture(assets["mob_health_empty"], false)
         this.empty_health_bar:setOrigin(520, 15)
@@ -18,6 +27,24 @@ Class "EntityLiving" extends "Entity" [{
         this.health_bar:setOrigin(520, 15)
         this.health_bar:setScale(0.15, 0.5)
         this.show_health = false
+    end
+
+    function getExperience()
+        return this.experience
+    end
+
+    function addExperience(amount)
+        check(amount, "number", 1)
+
+        this.experience = this.experience + math.floor(amount)
+        while this.experience > this.next_exp_stage do
+            this.lvl = this.lvl + 1
+            this.experience = this.experience - this.next_exp_stage
+            this.next_exp_stage = this.next_exp_stage * 1.01 ^ this.lvl
+            if final and final.onLevelUp then
+                final.onLevelUp(this.lvl)
+            end
+        end
     end
 
     function getStats()
@@ -43,6 +70,7 @@ Class "EntityLiving" extends "Entity" [{
         local nx, ny = super.getPosition()
         this.empty_health_bar:setPosition(nx + this.health_x, ny + this.health_y)
         this.health_bar:setPosition(nx + this.health_x, ny + this.health_y)
+        this.circle_lvl:setPosition(nx + this.health_x - 520 * 0.15 - 20, ny + this.health_y)
     end
 
     function getHealthBarOffset()
@@ -56,6 +84,14 @@ Class "EntityLiving" extends "Entity" [{
         this.lvl = lvl
     end
 
+    function getNextExperienceStage()
+        return this.next_exp_stage
+    end
+
+    function getLevel()
+        return this.lvl
+    end
+
     function setPosition(x, y)
         check(x, "number", 1)
         check(y, "number", 2)
@@ -63,6 +99,7 @@ Class "EntityLiving" extends "Entity" [{
         super.setPosition(x, y)
         this.empty_health_bar:setPosition(x + this.health_x, y + this.health_y)
         this.health_bar:setPosition(x + this.health_x, y + this.health_y)
+        this.circle_lvl:setPosition(x + this.health_x - 520 * 0.15 - 20, y + this.health_y)
     end
 
     function move(x, y)
@@ -75,6 +112,7 @@ Class "EntityLiving" extends "Entity" [{
             super.move(x, y)
             this.health_bar:move(x, y)
             this.empty_health_bar:move(x, y)
+            this.circle_lvl:move(x, y)
             return true, x, y
         end
         local dir = vector.new(x, y)
@@ -83,11 +121,8 @@ Class "EntityLiving" extends "Entity" [{
         super.move(px, py)
         this.health_bar:move(px, py)
         this.empty_health_bar:move(px, py)
+        this.circle_lvl:move(px, py)
         return true, px, py
-    end
-
-    function getLevel()
-        return this.lvl
     end
 
     function getMaximumHealth()
@@ -139,11 +174,23 @@ Class "EntityLiving" extends "Entity" [{
         this.health = this.max_health
     end
 
-    function hit(damage)
+    function hit(damage, source)
         check(damage, "number", 1)
 
+        if source == nil then
+            error("Argument #2, Source cannot be nil", 2)
+        end
         if (damage >= 0) then
-            this.setHealth(this.health - damage)
+            if this.isAlive() then
+                this.setHealth(this.health - damage)
+                if this.isDead() then
+                    if class.isInstanceOf(source, "EntityLiving") then
+                        if final and final.getExperience() then
+                            source.addExperience(final.getExperience())
+                        end
+                    end
+                end
+            end
         else
             error("Damage can not be negative", 2)
         end
@@ -164,8 +211,14 @@ Class "EntityLiving" extends "Entity" [{
     function drawHealth()
         if this.show_health then
             this.health_bar:setTextureRect(0, 0, math.floor(this.health / this.max_health * 989 + 26), 30)
+            local x, y = super.getPosition()
+            local nx, ny = lsfml.text.getCenter(tostring(this.lvl), 20)
+            this.lvl_text:setPosition(x + this.health_x - 520 * 0.15 - 20 - nx, y + this.health_y - ny)
+            this.lvl_text:setString(tostring(this.lvl))
             window:draw(this.empty_health_bar)
             window:draw(this.health_bar)
+            window:draw(this.circle_lvl)
+            window:draw(this.lvl_text)
         end
     end
 

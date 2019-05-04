@@ -39,6 +39,10 @@ assets["stats"] = lsfml.texture.createFromFile("./assets/hud/stats.png", {0, 0, 
 assets["mob_health_empty"] = lsfml.texture.createFromFile("./assets/hud/mob_health_empty.png", {0, 0, 1040, 30})
 assets["mob_health"] = lsfml.texture.createFromFile("./assets/hud/mob_health.png", {0, 0, 1040, 30})
 
+assets["xp_bar"] = lsfml.texture.createFromFile("./assets/hud/xp_bar.png", {0, 0, 1080, 80})
+assets["xp_bar_empty"] = lsfml.texture.createFromFile("./assets/hud/xp_bar_empty.png", {0, 0, 1080, 80})
+assets["circle"] = lsfml.texture.createFromFile("./assets/hud/circle.png", {0, 0, 71, 71})
+
 -- =======================
 -- =    ENTITY MOB   =
 -- =======================

@@ -8,6 +8,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
         super(info.pos_x or 0, info.pos_y or 0)
 
+        super.setHealthBarVisible(true)
+        super.setHealthBarOffset(0, -500 * 0.25)
         this.sprite = lsfml.sprite.create()
         this.sprite:setTexture(info.texture, false)
         this.sprite:setPosition(info.pos_x or 0, info.pos_y or 0)
@@ -27,7 +29,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.max_stamina = info.max_stamina or 100
         this.mana = info.mana or 250
         this.max_mana = info.max_mana or 250
-        this.experience = info.experience or 0
         this.luck = info.luck or 1
         this.base_health = super.getMaximumHealth()
         this.status = "idle"
@@ -239,10 +240,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
         return speed + this.getStats().getSpeed()
     end
 
-    function getExperience()
-        return this.experience
-    end
-
     function respawn()
         if super.isDead() then
             this.status = "respawn"
@@ -250,6 +247,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
             print(super.getPosition())
             setScene("test_player")
             this.setPosition(550, 680)
+            this.addExperience(-math.floor(this.getExperience()) / 2)
             this.stamina = this.max_stamina
             this.pos_rect = {12, 30000, 2640, 2500, 220, 500}
             this.clock:restart()
@@ -455,27 +453,30 @@ Class "EntityPlayer" extends "EntityLiving" [{
         super.draw()
         time = this.pos_rect[2]
 
-        if this.is_sprinting == true and this.status ~= "idle" then
-            time = time * 1.25
-        end
-        if this.clock:getEllapsedTime() > time * DeltaTime then
-            if this.status ~= "respawn" then
-                this.pos_rect[3] = this.pos_rect[3] + this.pos_rect[5]
-                if this.pos_rect[3] > this.pos_rect[5] * (this.pos_rect[1] - 1) and  this.status ~= "death" then
-                    this.pos_rect[3] = 0
-                end
-            elseif this.status == "respawn" then
-                this.pos_rect[3] = this.pos_rect[3] - this.pos_rect[5]
-                if this.pos_rect[3] < 0 then
-                    this.status = "idle"
-                    this.status_idle = "down"
-                    this.pos_rect = {4, 150000, 0, 2000, 220, 500}
-                end
+        if this.isAlive() then
+            if this.is_sprinting == true and this.status ~= "idle" then
+                time = time * 1.25
             end
-            this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
-            this.clock:restart()
+            if this.clock:getEllapsedTime() > time * DeltaTime then
+                if this.status ~= "respawn" then
+                    this.pos_rect[3] = this.pos_rect[3] + this.pos_rect[5]
+                    if this.pos_rect[3] > this.pos_rect[5] * (this.pos_rect[1] - 1) and  this.status ~= "death" then
+                        this.pos_rect[3] = 0
+                    end
+                elseif this.status == "respawn" then
+                    this.pos_rect[3] = this.pos_rect[3] - this.pos_rect[5]
+                    if this.pos_rect[3] < 0 then
+                        this.status = "idle"
+                        this.status_idle = "down"
+                        this.pos_rect = {4, 150000, 0, 2000, 220, 500}
+                    end
+                end
+                this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
+                this.clock:restart()
+            end
+            window:draw(this.sprite)
+            this.drawHitbox()
+            this.drawHealth()
         end
-        window:draw(this.sprite)
-        this.drawHitbox()
     end
 }]

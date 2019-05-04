@@ -42,6 +42,10 @@ Class "EntityRobot1" extends "EntityLiving" [{
         this.sprite:setPosition(x, y)
     end
 
+    function getExperience()
+        return 10000
+    end
+
     function move(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)

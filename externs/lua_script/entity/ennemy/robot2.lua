@@ -11,6 +11,8 @@ Class "EntityRobot2" extends "EntityLiving" [{
 
     function __EntityRobot2(x, y)
         super(x, y)
+        super.setHealthBarVisible(true)
+        super.setHealthBarOffset(0, -875 * 0.25)
         super.setMaximumHealth(100)
         super.setHealth(100)
         this.sprite = animation.create(assets["robot2"], {0, 0, 902, 875})
@@ -71,6 +73,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
             end
             this.sprite:draw()
             super.drawHitbox()
+            super.drawHealth()
 
             if this.is_attack then
                 if this.clock_attack:getEllapsedTime() > 80000 then
@@ -101,6 +104,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
             end
             this.sprite:draw()
             super.drawHitbox()
+            super.drawHealth()
         end
     end
 

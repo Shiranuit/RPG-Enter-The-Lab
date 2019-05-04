@@ -19,6 +19,7 @@ local touch_show = false
 local touch_text = lsfml.text.create()
 local healtext = lsfml.text.create()
 local manatext = lsfml.text.create()
+local xptext = lsfml.text.create()
 local staminatext = lsfml.text.create()
 
 local spell1 = lsfml.text.create()
@@ -26,6 +27,22 @@ local spell2 = lsfml.text.create()
 local spell3 = lsfml.text.create()
 local spell4 = lsfml.text.create()
 local spell5 = lsfml.text.create()
+
+local xp_bar_empty = lsfml.sprite.create()
+local xp_bar = lsfml.sprite.create()
+
+xp_bar:setTexture(assets["xp_bar"], false)
+xp_bar_empty:setTexture(assets["xp_bar_empty"], false)
+
+xp_bar:setPosition(723, 889 - 73 * 0.43)
+xp_bar_empty:setPosition(723, 889 - 73 * 0.43)
+
+xp_bar:setScale(0.43, 0.43)
+xp_bar_empty:setScale(0.43, 0.43)
+xptext:setPosition(723 + 533 * 0.43, 889 - 73 * 0.43 + 48 * 0.43)
+xptext:setCharacterSize(24)
+xptext:setFont(assets["fsys"])
+xptext:setString("0 / 100")
 
 local csize = 24
 
@@ -125,6 +142,9 @@ function draw(self)
     window:draw(health_bar)
     window:draw(mana_bar)
     window:draw(stamina_bar)
+    window:draw(xp_bar_empty)
+    window:draw(xp_bar)
+    window:draw(xptext)
     window:draw(sort_bar)
     window:draw(other_item)
     window:draw(hand1)
@@ -174,6 +194,17 @@ local function update_mana()
     local px, py = lsfml.text.getCenter(txt, 24)
     manatext:setPosition(620 * 0.25 - px, 164 + 174 * 0.25 - py)
     mana_bar:setTextureRect(0, 0, math.floor(player.getMana() / player.getMaximumMana() * 980), 328)
+end
+
+local function update_experience()
+    local nextexp = tostring(math.floor(player.getNextExperienceStage()))
+    local exp = tostring(math.floor(player.getExperience()))
+    local h = string.rep("0", #nextexp-#exp)..exp
+    local txt = h.." / "..nextexp
+    xptext:setString(txt)
+    local px, py = lsfml.text.getCenter(txt, 24)
+    xptext:setPosition(723 + 533 * 0.43 - px, 889 - 73 * 0.43 + 48 * 0.43 - py)
+    xp_bar:setTextureRect(0, 0, math.floor(player.getExperience() / player.getNextExperienceStage() * 1080), 80)
 end
 
 function update_interact_key()
@@ -237,6 +268,7 @@ function update(self)
     update_hand1()
     update_hand2()
     update_sort_bar()
+    update_experience()
 end
 
 function event(self, e)
