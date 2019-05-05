@@ -3,19 +3,34 @@
 -- =========================================
 
 stopwatch = {}
+local stopwatchs = {}
 function stopwatch.create()
     local function stringify(self)
         return tostring(self:getEllapsedTime())
     end
-    return setmetatable({}, {
+    local stopwtch = setmetatable({}, {
         __index = stopwatch,
         __type = "stopwatch",
         __time = 0,
+        __id = #stopwatchs + 1,
         __clock = lsfml.clock.create(),
         __pause = false,
         __gstate = isPaused(),
         __tostring = stringify,
+        __gc = function(self)
+            local meta = getmetatable(self)
+
+            table.remove(stopwatchs, meta.__id)
+        end,
     })
+    stopwatchs[#stopwatchs + 1] = stopwtch
+    return stopwtch
+end
+
+function stopwatch.update()
+    for i=1, #stopwatchs do
+        stopwatchs[i]:getEllapsedTime()
+    end
 end
 
 function stopwatch.restart(self)
