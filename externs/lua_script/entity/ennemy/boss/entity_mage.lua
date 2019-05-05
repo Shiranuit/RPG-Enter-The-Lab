@@ -19,9 +19,11 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         this.anim = stopwatch.create()
         this.tp_attack = stopwatch.create()
         this.rayon_attack = stopwatch.create()
+        this.wait = stopwatch.create()
+        this.in_wait = false
         this.scale = 1
         this.phase = 1
-        this.action = {act = "none"}
+        this.action = {act = "none", atk = "none"}
         this.rayon = {}
         super.setType("ennemy")
     end
@@ -146,7 +148,7 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         if this.action.blackhole then
             if this.action.act == "none" then
                 this.action.act = "blackhole"
-                this.action.blackhole_entity = world.spawnEntity(new(EntityBlackHole(0.5, 5 * this.phase, final)))
+                this.action.blackhole_entity = world.spawnEntity(new(EntityBlackHole(0.5 * DeltaTime, 5 * this.phase, final)))
             end
             if this.action.act == "blackhole" then
                 if this.action.blackhole_entity.asExpired() then
@@ -158,9 +160,9 @@ Class "EntityMageBoss" extends "EntityLiving" [{
     end
 
     local function doTpAttack()
-        if this.action.tpAttack then
+        if this.action.atk == "tpAttack" then
             if this.tp_attack:getEllapsedTime() > 5000000 then
-                this.action.tpAttack = false
+                this.action.atk = "none"
                 return
             end
             if this.action.act == "none" then
@@ -177,13 +179,14 @@ Class "EntityMageBoss" extends "EntityLiving" [{
     end
 
     function tpAttack()
-        this.action.tpAttack = true
+        this.action.atk = "tpAttack"
         this.tp_attack:restart()
     end
 
     local function doLaser()
-        if this.action.laser then
-            if this.rayon_attack:getEllapsedTime() > 5000000 then
+        if this.action.act == "laser" then
+            if this.rayon_attack:getEllapsedTime() > 7000000 then
+                this.action.act = "none"
                 this.rayon_attack:restart()
                 for i = 1, #this.rayon do
                     world.removeEntityByUUID(this.rayon[i]:getUUID())
@@ -193,14 +196,15 @@ Class "EntityMageBoss" extends "EntityLiving" [{
     end
 
     function laser()
-        this.action.laser = true
+        this.action.act = "laser"
         this.rayon_attack:restart()
         local x, y = super.getPosition()
         for i = 1, this.phase do
-            this.rayon[i] = world.spawnEntity(new(EntityRayon(x, y - 90 , (360/this.phase) * i, 0.5, final)))
+            this.rayon[i] = world.spawnEntity(new(EntityRayon(x, y - 90 , (360/this.phase) * i, 1 * DeltaTime * this.phase, final)))
         end
     end
 
+    local funct_atk = {this.blackHole, this.tpAttack, this.laser}
     function update()
         super.update()
         this.look(player.getPosition())
@@ -208,6 +212,16 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         doBlackHole()
         doTpAttack()
         doLaser()
+        if this.action.act == "none" and this.action.atk == "none" then
+            if not this.in_wait then
+                this.wait:restart()
+                this.in_wait = true
+            end
+            if this.wait:getEllapsedTime() > 1500000 then
+                funct_atk[math.random(1, #funct_atk)]()
+                this.in_wait = false
+            end
+        end
     end
 
     function event(e)

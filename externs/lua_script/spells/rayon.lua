@@ -52,6 +52,8 @@ function cast(self)
         h = size
     end
     animationSpell["rayonIdleAnimation"].makeDamage()
+    animationSpell["rayonEndAnimation"].makeDamage()
+    animationSpell["rayonSpell"].makeDamage()
 end
 
 function isInstant(self)
