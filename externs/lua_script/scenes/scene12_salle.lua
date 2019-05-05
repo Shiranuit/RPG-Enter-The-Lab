@@ -10,6 +10,7 @@ local door
 local canPass = false
 local stopwatch = stopwatch.create()
 local play_door = false
+local soucoupe
 
 local entities = {}
 local hitb = nil
@@ -23,7 +24,6 @@ function load(scene)
             player:setNeedRestart(i, true)
         end
     end
-    bosshealth:setEntity(soucoupe)
     if first == false or player:getNeedRestart(12) then
         soucoupe = new(EntitySoucoupe(250, 300))
         door = animation.create(assets["door"], {0, 0 , 400, 351})
@@ -31,6 +31,7 @@ function load(scene)
         door:scale(0.38, 0.38)
         first = true
     end
+    bosshealth:setEntity(soucoupe)
     if player:getNeedRestart(12) then
         entities = {}
         player:setNeedRestart(12, false)
