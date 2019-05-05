@@ -3,7 +3,13 @@
 -- =========================================
 
 local background = lsfml.sprite.create()
+local title = lsfml.text.create()
 background:setTexture(assets["background"], false)
+
+title:setFont(assets["fsys"])
+title:setCharacterSize(200)
+title:setString("Enter the Lab")
+title:setPosition(500, 50)
 
 local play_button = button.create{
     x = 750,
@@ -91,6 +97,7 @@ function draw()
     play_button:draw()
     option_button:draw()
     exit_button:draw()
+    window:draw(title)
 end
 
 function update()

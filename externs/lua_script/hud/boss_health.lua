@@ -31,6 +31,7 @@ function setEntity(self, entity)
     if class.isInstanceOf(entity, "EntityLiving") or entity == nil then
         ent = entity
         phase = 1
+        health_bar:setTexture(assets["boss_health"..phase], false)
     else
         error("Entity must be an instance of EntityLiving", 2)
     end
