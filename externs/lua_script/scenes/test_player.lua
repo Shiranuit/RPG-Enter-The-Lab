@@ -11,9 +11,6 @@ local canPass = false
 local pnj = new(EntityPnj("homme", 1150, 450, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3, 220, 560))
 local stopwatch = stopwatch.create()
 local door = animation.create(assets["door"], {0, 0 , 400, 351})
-local item1 = new(EntityItem(itemstack.create(items["parchemin_6"], 2)))
-item1.setPosition(500, 500)
-local robot1 = new(EntityTurret(500, 510))
 local play_door = false
 
 door:setPosition(965, 80)
@@ -62,7 +59,6 @@ function load(scene)
         entities = {}
         player:setNeedRestart(1, false)
     end
-    local robot3 = new(EntityRobot3(800, 800))
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
@@ -73,7 +69,6 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
-        world.spawnEntity(robot3)
         world.spawnEntity(player)
         world.spawnEntity(item1)
         world.spawnEntity(tube_bleu_casser)
