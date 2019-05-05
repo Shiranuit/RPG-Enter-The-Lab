@@ -10,7 +10,8 @@
 #include <SFML/Window.h>
 #include "utility.h"
 
-int lua_checktype(int (*func)(lua_State *, int), lua_State *L, int id) {
+int lua_checktype(int (*func)(lua_State *, int), lua_State *L, int id)
+{
     int state = func(L, id);
 
     lua_pop(L, 1);

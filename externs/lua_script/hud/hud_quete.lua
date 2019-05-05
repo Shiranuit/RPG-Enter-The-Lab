@@ -19,7 +19,7 @@ text_quest_aquired:setString("QUEST ACQUIRED")
 text_quest_description:setCharacterSize(30)
 text_quest_description:setFont(assets["fsys"])
 text_quest_description:setPosition(1500, 100)
-text_quest_description:setString("Tu doit trouver les 6\nmorceaux de parchemins\nqui sont quelque\npars dans cette structure\n Fais attention aux\ndangeureux ennemis !!!")
+text_quest_description:setString("Tu doit trouver les 6\nmorceaux de parchemins\nqui sont quelque\npars dans cette structure\n Fais attention aux\ndangereux ennemis !!!")
 
 text_quest_press:setCharacterSize(25)
 text_quest_press:setFont(assets["fsys"])
