@@ -46,8 +46,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.is_sprinting = false
         this.is_damageable = true
         local box = new(Hitbox("player"))
-        box.setPoints({{0, 0}, {220, 0}, {220, 500}, {0, 500}})
-        box.setOrigin(220 / 2, 500)
+        box.setPoints({{0, 0}, {220, 0}, {220, 220}, {0, 220}})
+        box.setOrigin(220 / 2, 220)
         box.setScale(0.25, 0.25)
         box.setPosition(super.getPosition())
         super.addHitbox(box)
@@ -329,9 +329,25 @@ Class "EntityPlayer" extends "EntityLiving" [{
                     local nx, ny = super.getPosition()
                     local px, py = lsfml.mouse.getPosition(window)
                     local pos = vector.new(px - nx, py - ny)
-                    local size = this.scythe_time:getEllapsedTime() / 1000000
-                    world.spawnEntity(new(EntitySlashWeapon(nx, ny, pos, 20, 20, final, math.max(math.min(size, 4), 0.5))))
-                    this.scythe_attack = "none"
+                    this.scythe_attack = "slash_attack"
+                    this.dir_slash = 0
+                    if this.dir_slash == 0 then
+                        local nx, ny = player.getPosition()
+                        local px, py = lsfml.mouse.getPosition(window)
+                        this.dir_slash = nx - px > 0 and 1 or -1
+                        this.vec_slash = vector.new(px - nx, py - ny)
+                    end
+                    this.size_slash = this.scythe_time:getEllapsedTime() / 1000000
+                    this.size_slash = math.max(math.min(this.size_slash, 2), 0.5)
+                    if this.dir_slash == -1 then
+                        this.scythe_angle = -45
+                        this.scythe:setRotation(-45)
+                        this.scythe:setScale(0.5 * this.size_slash, 0.5 * this.size_slash)
+                    else
+                        this.scythe_angle = 45
+                        this.scythe:setRotation(45)
+                        this.scythe:setScale(-0.5 * this.size_slash, 0.5 * this.size_slash)
+                    end
                 elseif event[4] == mouse.RIGHT then
 
                 end
@@ -360,8 +376,28 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.setMaximumHealth(health + this.base_health + math.min(this.getLevel() * 9, 180))
     end
 
+    local function slashAttack()
+        if this.isAlive() and this.scythe_attack == "slash_attack" then
+            if this.dir_slash == -1 then
+                this.scythe_angle = this.scythe_angle + 15
+                this.scythe:setScale(0.5 * this.size_slash, 0.5 * this.size_slash)
+            else
+                this.scythe_angle = this.scythe_angle - 15
+                this.scythe:setScale(-0.5 * this.size_slash, 0.5 * this.size_slash)
+            end
+            this.scythe:setRotation(this.scythe_angle)
+            if this.scythe_angle % 360 == 90 or this.scythe_angle % 360 == 270 then
+                local nx, ny = super.getPosition()
+                world.spawnEntity(new(EntitySlashWeapon(nx, ny, this.vec_slash, 20, 20, final, this.size_slash)))
+            elseif this.scythe_angle % 360 == 180 then
+                this.scythe_attack = "none"
+            end
+        end
+    end
+
     function update()
         super.update()
+        slashAttack()
         computeMaxHealth()
         if this.status == "respawn" then
             return
@@ -534,14 +570,16 @@ Class "EntityPlayer" extends "EntityLiving" [{
                     dir = nx - px > 0 and 1 or -1
                 end
                 local size = this.scythe_time:getEllapsedTime() / 1000000
-                size = math.max(math.min(size, 4), 0.5)
+                size = math.max(math.min(size, 2), 0.5)
                 if dir == -1 then
                     this.scythe:setRotation(-45)
-                    this.scythe:setScale(0.25 * size, 0.25 * size)
+                    this.scythe:setScale(0.5 * size, 0.5 * size)
                 else
                     this.scythe:setRotation(45)
-                    this.scythe:setScale(-0.25 * size, 0.25 * size)
+                    this.scythe:setScale(-0.5 * size, 0.5 * size)
                 end
+            end
+            if this.scythe_attack ~= "none" then
                 window:draw(this.scythe)
             end
             window:draw(this.sprite)
