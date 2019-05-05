@@ -37,6 +37,7 @@ local parchemin1
 local parchemin2
 local entities = {}
 local hitb = nil
+local robot1
 
 function load(scene)
     if first_load == false then
@@ -65,6 +66,7 @@ function load(scene)
         pot5_4 = new(EntityProps(335, 731, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         parchemin1 = new(EntityProps(1800, 840, assets["parchemin_1"], 107, 0, {}, 1))
         parchemin2 = new(EntityProps(600, 100, assets["parchemin_2"], 98, 62, {}, 1))
+        robot1 = new(EntityTurret(500, 510))
         first_load = true
     end
     if (scene == "scene14_escalier") then
@@ -104,10 +106,14 @@ function load(scene)
         world.spawnEntity(pot5_4)
         world.spawnEntity(parchemin1)
         world.spawnEntity(parchemin2)
+        world.spawnEntity(robot1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {940, 160}, {940, 135}, {1030, 135}, {1030, 160}, {1920, 160}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
+
+        HitBoxWall(0, 0, {{-10, 0}, {-10, 1080}})
+        HitBoxWall(0, 0, {{1920, 0}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -143,22 +149,28 @@ function update()
         player.getInventory():insertItemStack(par1)
         canP2 = false
     end
-    if x < 0 then
-        setScene("scene16_left_start")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if y < 155 then
-        setScene("scene14_escalier")
-    end
-    if x > 1910 then
-        setScene("scene17_right_start")
+    if canPass then
+        if x < 0 then
+            setScene("scene16_left_start")
+        end
+        if y < 155 then
+            setScene("scene14_escalier")
+        end
+        if x > 1910 then
+            setScene("scene17_right_start")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

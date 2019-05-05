@@ -18,6 +18,7 @@ local mini_holo3
 local mini_tube1
 local mini_tube2
 local mini_tp1
+local robot1
 
 local entities = {}
 local hitb = nil
@@ -36,6 +37,7 @@ function load(scene)
         mini_tube1 = new(EntityProps(550, 780, assets["mini_tube"], 200, 200, {}, 1))
         mini_tube2 = new(EntityProps(1825, 980, assets["mini_tube"], 200, 200, {}, 1))
         mini_tp1 = new(EntityProps(1875, 600, assets["mini_tp"], 200, 200, {}, 1))
+        robot1 = new(EntityTurret(500, 510))
         first = true
     end
     if scene == "scene5_intersection_bas" then
@@ -56,6 +58,7 @@ function load(scene)
         world.spawnEntity(mini_tube1)
         world.spawnEntity(mini_tube2)
         world.spawnEntity(mini_tp1)
+        world.spawnEntity(robot1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
@@ -87,16 +90,22 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if y < 200 then
-        setScene("scene5_intersection_bas")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if keyboard.keyPressed(keys.A) then
-        player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
-    end
-    if keyboard.keyPressed(keys.E) then
-        player.respawn()
-        print(player.getHealth())
+    if canPass then
+        if y < 200 then
+            setScene("scene5_intersection_bas")
+        end
+        if keyboard.keyPressed(keys.A) then
+            player.hit(10 * DeltaTime, "World")
+        end
+        if keyboard.keyPressed(keys.E) then
+            player.respawn()
+        end
     end
 end
 

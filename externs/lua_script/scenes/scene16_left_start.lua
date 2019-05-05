@@ -39,6 +39,7 @@ local pot5_4
 local parchemin3
 local parchemin4
 local parchemin5
+local robot1
 
 local entities = {}
 local hitb = nil
@@ -71,6 +72,7 @@ function load(scene)
         parchemin3 = new(EntityProps(600, 30, assets["parchemin_3"], 17, 0, {}, 1))
         parchemin4 = new(EntityProps(200, 600, assets["parchemin_4"], 17, 0, {}, 1))
         parchemin5 = new(EntityProps(1550, 927, assets["parchemin_5"], 17, 0, {}, 1))
+        robot1 = new(EntityTurret(500, 510))
         first = true
     end
     if (scene == "scene15_start") then
@@ -105,11 +107,13 @@ function load(scene)
         world.spawnEntity(parchemin3)
         world.spawnEntity(parchemin4)
         world.spawnEntity(parchemin5)
+        world.spawnEntity(robot1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {1920, 160}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
+        HitBoxWall(0, 0, {{1920, 0}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -150,19 +154,22 @@ function update()
         player.getInventory():insertItemStack(par5)
         canP5 = false
     end
-    if keyboard.keyPressed(keys.P) then
-        print(lsfml.mouse.getPosition(window))
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if x > 1910 then
-        setScene("scene15_start")
+    if canPass then
+        if x > 1910 then
+            setScene("scene15_start")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

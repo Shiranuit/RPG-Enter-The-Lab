@@ -33,6 +33,7 @@ local pot5_1
 local pot5_2
 local pot5_3
 local pot5_4
+local robot1
 
 local entities = {}
 local hitb = nil
@@ -65,6 +66,7 @@ function load(scene)
     pot5_2 = new(EntityProps(686, 523, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
     pot5_3 = new(EntityProps(494, 816, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
     pot5_4 = new(EntityProps(404, 905, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
+    robot1 = new(EntityTurret(500, 510))
     if (scene == "scene15_start") then
         player.setPosition(980, 250)
     end
@@ -101,6 +103,7 @@ function load(scene)
         world.spawnEntity(pot5_2)
         world.spawnEntity(pot5_3)
         world.spawnEntity(pot5_4)
+        world.spawnEntity(robot1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {880, 220}, {880, 190}, {1030, 190}, {1030, 220}, {1920, 220}, {1920, 0}})
@@ -109,6 +112,8 @@ function load(scene)
 
         HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1050, 1030}, {1920, 1030}, {1920, 1100}, {1050, 1100}})
+
+        HitBoxWall(0, 0, {{0, 1080}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -134,20 +139,25 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if y < 200 then
-        setScene("scene15_start")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if y > 1050 then
-        setScene("scene13_vertical")
+    if canPass then
+        if y < 200 then
+            setScene("scene15_start")
+        end
+        if y > 1050 then
+            setScene("scene13_vertical")
+        end
     end
-
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

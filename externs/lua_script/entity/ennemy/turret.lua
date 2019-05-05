@@ -31,6 +31,7 @@ Class "EntityTurret" extends "EntityLiving" [{
         this.max_distance = 750
         this.last_animation = false
         this.is_attack = false
+        super.setType("ennemy")
         initHitboxes()
     end
 

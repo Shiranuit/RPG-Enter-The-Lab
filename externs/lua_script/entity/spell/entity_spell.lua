@@ -104,7 +104,6 @@ Class "EntitySpell" extends "Entity" [{
             for i = 1, #entities do
                 if (class.isInstanceOf(entities[i], "EntityLiving")) then
                     entities[i].hit(this.damage * DeltaTime, player)
-                    print("HEAL : "..entities[i].getHealth())
                 end
             end
             this.make_damage = false

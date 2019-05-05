@@ -33,6 +33,7 @@ local pot5_2
 local pot5_3
 local pot5_4
 local parchemin6
+local robot1
 
 local entities = {}
 local hitb = nil
@@ -63,6 +64,7 @@ function load(scene)
         pot5_3 = new(EntityProps(1129, 244, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_4 = new(EntityProps(739, 400, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         parchemin6 = new(EntityProps(1550, 550, assets["parchemin_6"], 17, 0, {}, 1))
+        robot1 = new(EntityTurret(500, 510))
         first = true
     end
     if (scene == "scene15_start") then
@@ -98,11 +100,14 @@ function load(scene)
         world.spawnEntity(pot5_3)
         world.spawnEntity(pot5_4)
         world.spawnEntity(parchemin6)
+        world.spawnEntity(robot1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {900, 160}, {900, 135}, {1000, 135}, {1000, 160}, {1920, 160}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
+
+        HitBoxWall(0, 0, {{-10, 0}, {-10, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -133,22 +138,25 @@ function update()
         player.getInventory():insertItemStack(par6)
         canP6 = false
     end
-    if keyboard.keyPressed(keys.P) then
-        print(lsfml.mouse.getPosition(window))
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if x > 900 and x < 1000 and y < 155 then
-        setScene("scene18_boss")
-    end
-    if x < 0 then
-        setScene("scene15_start")
+    if canPass then
+        if x > 900 and x < 1000 and y < 155 then
+            setScene("scene18_boss")
+        end
+        if x < 0 then
+            setScene("scene15_start")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

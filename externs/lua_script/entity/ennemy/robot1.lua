@@ -31,6 +31,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
         this.max_distance = 500
         this.last_animation = false
         this.is_attack = false
+        super.setType("ennemy")
         initHitboxes()
     end
 

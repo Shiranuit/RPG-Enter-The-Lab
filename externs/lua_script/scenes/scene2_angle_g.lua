@@ -45,7 +45,7 @@ function load(scene)
         world.spawnEntity(soucoupe)
         -- world.spawnEntity(robot3)
         -- world.spawnEntity(robot2)
-        -- world.spawnEntity(player)
+        world.spawnEntity(player)
         -- world.spawnEntity(teleporter)
         -- world.spawnEntity(hologram1)
         -- world.spawnEntity(hologram2)
@@ -66,6 +66,9 @@ function load(scene)
 
         HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1020, 1030}, {1920, 1030}, {1920, 1100}, {1020, 1100}})
+
+        HitBoxWall(0, 0, {{-10, 0}, {-10, 1080}})
+        HitBoxWall(0, 0, {{0, 1080}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -91,19 +94,25 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if y > 1050 then
-        setScene("test_player")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if x < 0 then
-        setScene("scene3_intersection_bas")
+    if canPass then
+        if y > 1050 then
+            setScene("test_player")
+        end
+        if x < 0 then
+            setScene("scene3_intersection_bas")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 
