@@ -8,6 +8,7 @@ local par1 = itemstack.create(items.parchemin_1, 1)
 local par2 = itemstack.create(items.parchemin_2, 1)
 local canP1 = true
 local canP2 = true
+local one = true
 
 local status1
 local status2
@@ -72,8 +73,10 @@ function load(scene)
         pot5_2 = new(EntityProps(671, 182, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_3 = new(EntityProps(188, 334, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_4 = new(EntityProps(335, 731, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-        parchemin1 = new(EntityProps(1800, 840, assets["parchemin_1"], 107, 0, {}, 1))
-        parchemin2 = new(EntityProps(600, 100, assets["parchemin_2"], 98, 62, {}, 1))
+        if one then
+            parchemin1 = new(EntityProps(1800, 840, assets["parchemin_1"], 107, 0, {}, 1))
+            parchemin2 = new(EntityProps(600, 100, assets["parchemin_2"], 98, 62, {}, 1))
+        end
         robot1 = new(EntityRobot1(200, 600))
         first_load = true
     end
@@ -116,8 +119,11 @@ function load(scene)
         world.spawnEntity(pot5_2)
         world.spawnEntity(pot5_3)
         world.spawnEntity(pot5_4)
-        world.spawnEntity(parchemin1)
-        world.spawnEntity(parchemin2)
+        if one then
+            world.spawnEntity(parchemin1)
+            world.spawnEntity(parchemin2)
+            one = false
+        end
         world.spawnEntity(robot1)
     end
     if (hitb == nil) then

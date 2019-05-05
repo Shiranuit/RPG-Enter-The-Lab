@@ -7,6 +7,7 @@ background:setTexture(assets["right_start"], false)
 local par6 = itemstack.create(items.parchemin_6, 1)
 
 local canP6 = true
+local one = true
 
 local first = false
 local status1
@@ -74,7 +75,9 @@ function load(scene)
         pot5_2 = new(EntityProps(114, 320, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_3 = new(EntityProps(1129, 244, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_4 = new(EntityProps(739, 400, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-        parchemin6 = new(EntityProps(1550, 550, assets["parchemin_6"], 17, 0, {}, 1))
+        if one then
+            parchemin6 = new(EntityProps(1550, 550, assets["parchemin_6"], 17, 0, {}, 1))
+        end
         robot1 = new(EntityRobot1(700, 510))
         robot2 = new(EntityRobot1(400, 700))
         robot3 = new(EntityRobot1(600, 800))
@@ -116,7 +119,10 @@ function load(scene)
         world.spawnEntity(pot5_2)
         world.spawnEntity(pot5_3)
         world.spawnEntity(pot5_4)
-        world.spawnEntity(parchemin6)
+        if one then
+            world.spawnEntity(parchemin6)
+            one = false
+        end
         world.spawnEntity(robot1)
         world.spawnEntity(robot2)
         world.spawnEntity(robot3)

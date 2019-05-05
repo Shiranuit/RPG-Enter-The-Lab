@@ -6,11 +6,10 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["left_start"], false)
 local par3 = itemstack.create(items.parchemin_3, 1)
 local par4 = itemstack.create(items.parchemin_4, 1)
-local par5 = itemstack.create(items.parchemin_5, 1)
 
 local canP3 = true
 local canP4 = true
-local canP5 = true
+local one = true
 
 local first = false
 local status1
@@ -38,7 +37,6 @@ local pot5_3
 local pot5_4
 local parchemin3
 local parchemin4
-local parchemin5
 local robot1
 local robot2
 local robot3
@@ -80,9 +78,10 @@ function load(scene)
         pot5_2 = new(EntityProps(1528, 961, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_3 = new(EntityProps(188, 334, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_4 = new(EntityProps(1750, 927, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-        parchemin3 = new(EntityProps(600, 30, assets["parchemin_3"], 17, 0, {}, 1))
-        parchemin4 = new(EntityProps(200, 600, assets["parchemin_4"], 17, 0, {}, 1))
-        parchemin5 = new(EntityProps(1550, 927, assets["parchemin_5"], 17, 0, {}, 1))
+        if one then
+            parchemin3 = new(EntityProps(600, 30, assets["parchemin_3"], 17, 0, {}, 1))
+            parchemin4 = new(EntityProps(200, 600, assets["parchemin_4"], 17, 0, {}, 1))
+        end
         robot1 = new(EntityRobot2(300, 400))
         robot2 = new(EntityRobot2(200, 500))
         robot3 = new(EntityRobot2(300, 600))
@@ -122,9 +121,11 @@ function load(scene)
         world.spawnEntity(pot5_2)
         world.spawnEntity(pot5_3)
         world.spawnEntity(pot5_4)
-        world.spawnEntity(parchemin3)
-        world.spawnEntity(parchemin4)
-        world.spawnEntity(parchemin5)
+        if one then
+            world.spawnEntity(parchemin3)
+            world.spawnEntity(parchemin4)
+            one = false
+        end
         world.spawnEntity(robot1)
         world.spawnEntity(robot2)
         world.spawnEntity(robot3)
@@ -175,11 +176,6 @@ function update()
         world.removeEntityByUUID(parchemin4.getUUID())
         player.getInventory():insertItemStack(par4)
         canP4 = false
-    end
-    if x > 1400 and x < 1700 and y > 800 and y < 1000 and keyboard.keyPressed(keys.F) and canP5 == true and canPass then
-        world.removeEntityByUUID(parchemin5.getUUID())
-        player.getInventory():insertItemStack(par5)
-        canP5 = false
     end
     
     if canPass then

@@ -25,6 +25,7 @@ Class "EntityPnj" extends "EntityLiving" [{
         this.nb_dial = 1
         this.val = 0
         this.fin = false
+        this.canPass = false
         initHitboxes(x_or, y_or, pts, scx)
     end
 
@@ -47,6 +48,13 @@ Class "EntityPnj" extends "EntityLiving" [{
 
     function isExist()
         return this.exist
+    end
+
+    function pnj_canPass()
+        if this.canPass then
+            return true
+        end
+        return false
     end
 
     function kill()
@@ -110,6 +118,7 @@ Class "EntityPnj" extends "EntityLiving" [{
             dialogue_hud:restart_dialogue()
             
             this.dial_open = false
+            this.canPass = true
         end
     end
 

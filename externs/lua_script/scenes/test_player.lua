@@ -121,12 +121,7 @@ end
 
 function update()
     local x, y = player.getPosition()
-    canPass = true
-    for i=1, #entities do
-        if entities[i].getType() == "ennemy" then
-            canPass = false
-        end
-    end
+    canPass = pnj:pnj_canPass()
     if canPass then
         if not play_door then
             assets["door_sound"]:play()

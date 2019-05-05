@@ -8,7 +8,7 @@ background:setTexture(assets["background"], false)
 
 text_fin:setFont(assets["fsys"])
 text_fin:setCharacterSize(60)
-text_fin:setString("Merci d'avoir jouer a notre jeu, nous l'avons\nrealise a trois jusqu'a la fin\net on compte bien evidemment le continuer,\nceci n'est que notre premiere version qui\nplus est assez complete !!\nFait pars Combe Yannick, Begard Cyril et Vessiere Yoan")
+text_fin:setString("Merci d'avoir jouer a notre jeu, nous l'avons\nrealise a trois jusqu'a la fin\net on compte bien evidemment le continuer,\nceci n'est que notre premiere version qui\nplus est assez complete !!\nFait par Combe Yannick, Begard Cyril et Vessiere Yoan")
 text_fin:setPosition(250, 100)
 
 local exit_button = button.create{

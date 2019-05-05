@@ -6,7 +6,6 @@ local background = lsfml.sprite.create()
 local boss_start = false
 background:setTexture(assets["boss"], false)
 local first = false
-
 local entities = {}
 local hitb = nil
 
@@ -22,7 +21,6 @@ function load(scene)
     bosshealth:setEntity(scythe)
     
     if first == false or player:getNeedRestart(17) then
-        
         scythe = new(EntityScytheBoss(800, 800))
         first = true
     end
