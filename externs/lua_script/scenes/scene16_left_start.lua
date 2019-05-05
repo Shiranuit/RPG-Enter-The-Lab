@@ -6,11 +6,10 @@ local background = lsfml.sprite.create()
 background:setTexture(assets["left_start"], false)
 local par3 = itemstack.create(items.parchemin_3, 1)
 local par4 = itemstack.create(items.parchemin_4, 1)
-local par5 = itemstack.create(items.parchemin_5, 1)
 
 local canP3 = true
 local canP4 = true
-local canP5 = true
+local one = true
 
 local first = false
 local status1
@@ -38,14 +37,24 @@ local pot5_3
 local pot5_4
 local parchemin3
 local parchemin4
-local parchemin5
 local robot1
+local robot2
+local robot3
+local robot4
 
 local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first == false or player:getNeedRestart(15) then
         status1 = new(EntityProps(1699, 354, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status2 = new(EntityProps(1535, 792, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status3 = new(EntityProps(1063, 313, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
@@ -69,11 +78,19 @@ function load(scene)
         pot5_2 = new(EntityProps(1528, 961, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_3 = new(EntityProps(188, 334, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_4 = new(EntityProps(1750, 927, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-        parchemin3 = new(EntityProps(600, 30, assets["parchemin_3"], 17, 0, {}, 1))
-        parchemin4 = new(EntityProps(200, 600, assets["parchemin_4"], 17, 0, {}, 1))
-        parchemin5 = new(EntityProps(1550, 927, assets["parchemin_5"], 17, 0, {}, 1))
-        robot1 = new(EntityTurret(500, 510))
+        if one then
+            parchemin3 = new(EntityProps(600, 30, assets["parchemin_3"], 17, 0, {}, 1))
+            parchemin4 = new(EntityProps(200, 600, assets["parchemin_4"], 17, 0, {}, 1))
+        end
+        robot1 = new(EntityRobot2(300, 400))
+        robot2 = new(EntityRobot2(200, 500))
+        robot3 = new(EntityRobot2(300, 600))
+        robot4 = new(EntityRobot2(400, 500))
         first = true
+    end
+    if player:getNeedRestart(15) then
+        entities = {}
+        player:setNeedRestart(15, false)
     end
     if (scene == "scene15_start") then
         player.setPosition(1900, 630)
@@ -104,10 +121,15 @@ function load(scene)
         world.spawnEntity(pot5_2)
         world.spawnEntity(pot5_3)
         world.spawnEntity(pot5_4)
-        world.spawnEntity(parchemin3)
-        world.spawnEntity(parchemin4)
-        world.spawnEntity(parchemin5)
+        if one then
+            world.spawnEntity(parchemin3)
+            world.spawnEntity(parchemin4)
+            one = false
+        end
         world.spawnEntity(robot1)
+        world.spawnEntity(robot2)
+        world.spawnEntity(robot3)
+        world.spawnEntity(robot4)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {1920, 160}, {1920, 0}})
@@ -155,14 +177,10 @@ function update()
         player.getInventory():insertItemStack(par4)
         canP4 = false
     end
-    if x > 1400 and x < 1700 and y > 800 and y < 1000 and keyboard.keyPressed(keys.F) and canP5 == true and canPass then
-        world.removeEntityByUUID(parchemin5.getUUID())
-        player.getInventory():insertItemStack(par5)
-        canP5 = false
-    end
     
     if canPass then
         if x > 1910 then
+            player:plusNb_salle_pass()
             setScene("scene15_start")
         end
     end

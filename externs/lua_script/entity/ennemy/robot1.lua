@@ -46,7 +46,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
     end
 
     function getExperience()
-        return 10000
+        return 25
     end
 
     function move(x, y)
@@ -72,7 +72,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
 
     function draw()
         if super.isAlive() then
-            if this.clock:getEllapsedTime() > 100000 then
+            if this.clock:getEllapsedTime() > 100000 and _G.freeze ~= true then
                 this.clock:restart()
                 this.sprite:next()
                 if this.sprite:getAnimationFrame() == 4 then
@@ -84,7 +84,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
             super.drawHealth()
 
             if this.is_attack then
-                if this.clock_attack:getEllapsedTime() > 80000 then
+                if this.clock_attack:getEllapsedTime() > 80000 and _G.freeze ~= true then
                     this.clock_attack:restart()
                     this.attack:next()
                     if this.attack:hasEnded() then
@@ -108,6 +108,11 @@ Class "EntityRobot1" extends "EntityLiving" [{
                 this.clock:restart()
                 this.sprite:next()
                 if this.sprite:hasEnded() then
+                    if math.random(0, 100) < 10 then
+                        for i=1, math.random(1, 2) do
+                            world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
+                        end
+                    end
                     world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
                     world.removeEntityByUUID(this.getUUID())
                 end

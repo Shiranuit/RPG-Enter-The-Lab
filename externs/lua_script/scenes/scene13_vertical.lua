@@ -21,11 +21,14 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
-        world.spawnEntity(scythe)
         world.spawnEntity(player)
         door = animation.create(assets["door"], {0, 0 , 400, 351})
         door:setPosition(965, 80)
         door:scale(0.38, 0.38)
+    end
+    if player:getNeedRestart() then
+        entities = {}
+        player:setNeedRestart(false)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
@@ -78,9 +81,11 @@ function update()
             play_door = true
         end
         if y < 200 then
+            player:plusNb_salle_pass()
             setScene("scene14_escalier")
         end
         if y > 1050 then
+            player:plusNb_salle_pass()
             setScene("scene10_intersection_haut")
         end
     end

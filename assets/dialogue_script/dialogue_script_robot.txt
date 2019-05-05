@@ -22,6 +22,18 @@ pouvez instantanement
 sortir du dialogue en
 appuyant sur SPACE
 
+Attention, les ennemis
+des salles deja
+vaincus reapparaissent
+au bout d'un certain
+temps, alors ne
+soyez pas surpris
+Fouillez un maximum
+pour ne rater aucune
+salle
+Votre touche d'action
+([F] de base) vous 
+seras toujours utile
 N'hesitez pas a faire un
 tour dans les option pour
 voir les possibilitees !

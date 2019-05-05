@@ -25,6 +25,7 @@ Class "EntityPnj" extends "EntityLiving" [{
         this.nb_dial = 1
         this.val = 0
         this.fin = false
+        this.canPass = false
         initHitboxes(x_or, y_or, pts, scx)
     end
 
@@ -49,13 +50,20 @@ Class "EntityPnj" extends "EntityLiving" [{
         return this.exist
     end
 
+    function pnj_canPass()
+        if this.canPass then
+            return true
+        end
+        return false
+    end
+
     function kill()
         this.exist = false
     end
 
     function draw()
         if this.exist and this.isAlive() then
-            if stopwatch:getEllapsedTime() > 250000 then
+            if stopwatch:getEllapsedTime() > 250000 and _G.freeze ~= true then
                 if this.sprite:hasEnded() then
                     this.sprite:restart()
                 end
@@ -110,6 +118,7 @@ Class "EntityPnj" extends "EntityLiving" [{
             dialogue_hud:restart_dialogue()
             
             this.dial_open = false
+            this.canPass = true
         end
     end
 

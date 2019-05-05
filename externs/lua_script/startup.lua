@@ -303,10 +303,12 @@ temp_hud = hud.createFromFile("hud/temp_hud.lua", nil, false)
 dialogue_hud = hud.createFromFile("hud/dialogue.lua", nil, true)
 quete_hud = hud.createFromFile("hud/hud_quete.lua", nil, true)
 
+
 -- =========================================
 -- =                 SCENES                =
 -- =========================================
 
+loadScene("menu/respawn.lua")
 loadScene("menu/main_menu.lua")
 loadScene("menu/options_menu.lua")
 loadScene("scenes/test_player.lua")

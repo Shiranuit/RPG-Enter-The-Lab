@@ -8,6 +8,8 @@ background:setTexture(assets["labo_pop"], false)
 touche:setTexture(assets["hud_touche"], false)
 local canPass = false
 
+local mage
+
 local stopwatch = stopwatch.create()
 local door = animation.create(assets["door"], {0, 0 , 400, 351})
 local play_door = false
@@ -23,12 +25,14 @@ local hitb = nil
 
 function load(scene)
     if first == false then
+        mage = new(EntityMageBoss(800, 500))
         first = true
     end
     player.setPosition(1050, 240)
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
+        world.spawnEntity(mage)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {965, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})

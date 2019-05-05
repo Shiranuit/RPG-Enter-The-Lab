@@ -35,6 +35,10 @@ Class "EntityTurret" extends "EntityLiving" [{
         initHitboxes()
     end
 
+    function getExperience()
+        return 10
+    end
+
     function setPosition(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)
@@ -71,7 +75,7 @@ Class "EntityTurret" extends "EntityLiving" [{
             super.drawHitbox()
             super.drawHealth()
             if this.is_attack then
-                if this.clock_attack:getEllapsedTime() > 20000 then
+                if this.clock_attack:getEllapsedTime() > 20000 and _G.freeze ~= true then
                     this.clock_attack:restart()
                     this.attack:next()
                     if this.attack:hasEnded() then

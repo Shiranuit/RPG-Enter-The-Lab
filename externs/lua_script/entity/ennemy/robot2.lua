@@ -28,13 +28,17 @@ Class "EntityRobot2" extends "EntityLiving" [{
 
         this.clock = stopwatch.create()
         this.clock_attack = stopwatch.create()
-        this.status = "right"
+        this.status = "idle"
         this.speed = 1.2
         this.max_distance = 110
         this.last_animation = false
         this.is_attack = false
         super.setType("ennemy")
         initHitboxes()
+    end
+
+    function getExperience()
+        return 55
     end
 
     function setPosition(x, y)
@@ -68,7 +72,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
 
     function draw()
         if super.isAlive() then
-            if this.clock:getEllapsedTime() > 100000 then
+            if this.clock:getEllapsedTime() > 100000 and _G.freeze ~= true then
                 this.clock:restart()
                 this.sprite:next()
                 if this.sprite:hasEnded() then
@@ -80,7 +84,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
             super.drawHealth()
 
             if this.is_attack then
-                if this.clock_attack:getEllapsedTime() > 80000 then
+                if this.clock_attack:getEllapsedTime() > 80000 and _G.freeze ~= true then
                     this.clock_attack:restart()
                     this.attack:next()
                     if this.attack:hasEnded() then
@@ -103,6 +107,11 @@ Class "EntityRobot2" extends "EntityLiving" [{
                 this.clock:restart()
                 this.sprite:next()
                 if this.sprite:hasEnded() then
+                    if math.random(0, 100) < 20 then
+                        for i=1, math.random(1, 2) do
+                            world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
+                        end
+                    end
                     world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
                     world.removeEntityByUUID(this.getUUID())
                 end

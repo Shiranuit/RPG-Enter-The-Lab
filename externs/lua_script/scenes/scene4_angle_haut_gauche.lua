@@ -16,6 +16,8 @@ local tube_vert_homme2
 local tube_vert_femme1
 local tube_vert_femme2
 local robot1
+local robot2
+local robot3
 local door
 local canPass = false
 local stopwatch = stopwatch.create()
@@ -25,7 +27,15 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first == false or player:getNeedRestart(4) then
         tube_bleu_homme1 = new(EntityProps(300, 300, assets["tube_bleu_homme"], 78, 244, {{8, 183},{0, 244}, {157, 244}, {150, 183}}, 1))
         tube_bleu_homme2 = new(EntityProps(900, 1000, assets["tube_bleu_homme"], 78, 244, {{8, 183},{0, 244}, {157, 244}, {150, 183}}, 1))
         tube_bleu_homme3 = new(EntityProps(1250, 450, assets["tube_bleu_homme"], 78, 244, {{8, 183},{0, 244}, {157, 244}, {150, 183}}, 1))
@@ -35,11 +45,17 @@ function load(scene)
         tube_vert_homme2 = new(EntityProps(700, 420, assets["tube_vert_homme"], 80, 248, {{7, 186},{0, 248}, {160, 248}, {153, 186}}, 1))
         tube_vert_femme1 = new(EntityProps(1650, 350, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         tube_vert_femme2 = new(EntityProps(350, 850, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
-        robot1 = new(EntityTurret(500, 510))
+        robot1 = new(EntityTurret(500, 500))
+        robot2 = new(EntityTurret(500, 750))
+        robot3 = new(EntityRobot2(100, 630))
         door = animation.create(assets["door"], {0, 0 , 400, 351})
         door:setPosition(880, 80)
         door:scale(0.38, 0.38)
         first = true
+    end
+    if player:getNeedRestart(4) then
+        entities = {}
+        player:setNeedRestart(4, false)
     end
     if (scene == "scene5_intersection_bas") then
         player.setPosition(30, 630)
@@ -60,6 +76,8 @@ function load(scene)
         world.spawnEntity(tube_vert_femme1)
         world.spawnEntity(tube_vert_femme2)
         world.spawnEntity(robot1)
+        world.spawnEntity(robot2)
+        world.spawnEntity(robot3)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 210}, {880, 210}, {880, 190}, {1030, 190}, {1030, 210}, {1920, 210}, {1920, 0}})
@@ -114,9 +132,11 @@ function update()
             play_door = true
         end
         if y < 200 then
+            player:plusNb_salle_pass()
             setScene("scene3_intersection_bas")
         end
         if x < 0 then
+            player:plusNb_salle_pass()
             setScene("scene5_intersection_bas")
         end
     end

@@ -11,9 +11,6 @@ local canPass = false
 local pnj = new(EntityPnj("homme", 1150, 450, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3, 220, 560))
 local stopwatch = stopwatch.create()
 local door = animation.create(assets["door"], {0, 0 , 400, 351})
-local item1 = new(EntityItem(itemstack.create(items["parchemin_6"], 2)))
-item1.setPosition(500, 500)
-local robot1 = new(EntityTurret(500, 510))
 local play_door = false
 
 door:setPosition(965, 80)
@@ -36,7 +33,15 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first == false or player:getNeedRestart(1) then
         tube_bleu_casser = new(EntityProps(600, 700, assets["tube_bleu_casser"], 126, 156, {{8, 148},{0, 248}, {162, 248}, {162, 148}}, 1))
         tube_bleu_transform1 = new(EntityProps(200, 900, assets["tube_bleu_transform"], 65, 204, {{6, 153},{0, 204}, {131, 204}, {125, 153}}, 1.2))
         tube_bleu_transform2 = new(EntityProps(1300, 400, assets["tube_bleu_transform"], 65, 204, {{6, 153},{0, 204}, {131, 204}, {125, 153}}, 1.2))
@@ -50,7 +55,10 @@ function load(scene)
         tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         first = true
     end
-    local robot3 = new(EntityRobot1(800, 800))
+    if player:getNeedRestart(1) then
+        entities = {}
+        player:setNeedRestart(1, false)
+    end
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
@@ -61,7 +69,6 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
-        world.spawnEntity(robot3)
         world.spawnEntity(player)
         world.spawnEntity(item1)
         world.spawnEntity(tube_bleu_casser)
@@ -114,18 +121,14 @@ end
 
 function update()
     local x, y = player.getPosition()
-    canPass = true
-    for i=1, #entities do
-        if entities[i].getType() == "ennemy" then
-            canPass = false
-        end
-    end
+    canPass = pnj:pnj_canPass()
     if canPass then
         if not play_door then
             assets["door_sound"]:play()
             play_door = true
         end
         if x > 930 and x < 1100 and y < 210 then
+            player:plusNb_salle_pass()
             setScene("scene2_angle_g")
         end
     end
