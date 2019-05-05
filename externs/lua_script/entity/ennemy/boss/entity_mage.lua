@@ -17,6 +17,7 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         this.sprite:setOrigin(45, 192)
         this.sprite:setPosition(x, y)
         this.anim = stopwatch.create()
+        this.tp_attack = stopwatch.create()
         this.scale = 1
         this.phase = 1
         this.action = {act = "none"}
@@ -143,7 +144,7 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         if this.action.blackhole then
             if this.action.act == "none" then
                 this.action.act = "blackhole"
-                this.action.blackhole_entity = world.spawnEntity(new(EntityBlackHole(20, 15, final)))
+                this.action.blackhole_entity = world.spawnEntity(new(EntityBlackHole(0.5, 5 * this.phase, final)))
             end
             if this.action.act == "blackhole" then
                 if this.action.blackhole_entity.asExpired() then
@@ -154,18 +155,46 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         end
     end
 
+    local function doTpAttack()
+        if this.action.tpAttack then
+            if this.tp_attack:getEllapsedTime() > 5000000 then
+                this.action.tpAttack = false
+                return
+            end
+            if this.action.act == "none" then
+                local x, y = player.getPosition()
+                y = y - 62.5
+                local px, py = super.getPosition()
+                local pos1 = vector.new(px, py)
+                local pos2 = vector.new(x, y)
+                local dir = pos2 - pos1
+                world.spawnEntity(new(EntityBouleMagie(px, py, dir, 5, 20, final)))
+                teleport(math.random(200, 1800), math.random(200, 800))
+                this.tp_time:restart()
+            end
+        end
+    end
+
+    function tpAttack()
+        this.action.tpAttack = true
+        this.tp_attack:restart()
+    end
+
     function update()
         super.update()
         this.look(player.getPosition())
         doTeleport()
         doBlackHole()
-        -- teleport(math.random(200, 1800), math.random(200, 800))
+        doTpAttack()
     end
 
     function event(e)
         local event = e:getEvent()
         if event[1] == "key_pressed" and event[2] == keys.L then
             this.blackHole()
+        end
+        if event[1] == "key_pressed" and event[2] == keys.K then
+            this.tpAttack()
         end
     end
 }]
