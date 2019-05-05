@@ -13,17 +13,17 @@ Class "EntityRobot3" extends "EntityLiving" [{
         super(x, y)
         super.setHealthBarVisible(true)
         super.setHealthBarOffset(0, -875 * 0.25)
-        super.setMaximumHealth(100)
-        super.setHealth(100)
-        this.sprite = animation.create(assets["robot3"], {0, 0, 65, 65})
+        super.setMaximumHealth(250)
+        super.setHealth(250)
+        this.sprite = animation.create(assets["robot3"], {0, 0, 73, 63})
         this.sprite:setPosition(x, y)
-        this.sprite:setOrigin(32.5, 65)
+        this.sprite:setOrigin(32.5, 64)
         this.sprite:scale(3, 3)
 
         this.clock = stopwatch.create()
         this.clock_attack = stopwatch.create()
         this.status = "right"
-        this.speed = 1.2
+        this.speed = 2
         this.max_distance = 110
         this.last_animation = false
         this.is_attack = false
@@ -60,22 +60,9 @@ Class "EntityRobot3" extends "EntityLiving" [{
             this.sprite:draw()
             super.drawHitbox()
 
-        elseif not this.last_animation then
-            this.sprite:changeRect({180, 3600, 455, 600})
-            this.last_animation = true
-            this.clock:restart()
-        end
-        if this.last_animation then
-            if this.clock:getEllapsedTime() > 80000 then
-                this.clock:restart()
-                this.sprite:next()
-                if this.sprite:hasEnded() then
-                    world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
-                    world.removeEntityByUUID(this.getUUID())
-                end
-            end
-            this.sprite:draw()
-            super.drawHitbox()
+        else
+            world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
+            world.removeEntityByUUID(this.getUUID())
         end
         super.drawHealth()
     end
@@ -94,23 +81,26 @@ Class "EntityRobot3" extends "EntityLiving" [{
         if math.abs(dir_x) > math.abs(dir_y) then
             if dir_x > 0 and this.status ~= "right" then
                 this.status = "right"
-                this.sprite:changeRect({0, 130, 65, 65})
+                this.sprite:changeRect({0, 128, 73, 64})
             elseif dir_x < 0 and this.status ~= "left" then
                 this.status = "left"
-                this.sprite:changeRect({0, 65, 65, 65})
+                this.sprite:changeRect({0, 64, 73, 64})
             end
         else
             if dir_y > 0 and this.status ~= "down" then
                 this.status = "down"
-                this.sprite:changeRect({0, 0, 65, 65})
+                this.sprite:changeRect({0, 0, 73, 64})
             elseif dir_y < 0 and this.status ~= "up" then
                 this.status = "up"
-                this.sprite:changeRect({0, 195, 65, 65})
+                this.sprite:changeRect({0, 192, 73, 64})
             end
         end
         local total = math.abs(dir_x) + math.abs(dir_y)
         if total > this.max_distance then
             move((dir_x / total) * this.speed, (dir_y / total) * this.speed)
+        elseif this.clock_attack:getEllapsedTime() > 1000000 then
+            player.hit(30 * (1 + this.getLevel() * 2 / 100) * DeltaTime, final)
+            this.clock_attack:restart()
         end
     end 
 

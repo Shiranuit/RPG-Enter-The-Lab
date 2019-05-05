@@ -56,7 +56,7 @@ assets["turret"] = lsfml.texture.createFromFile("./assets/ennemy/tourelle.png", 
 assets["soucoupe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/soucoupe/soucoupe250x86.png", {0, 0, 1993, 258})
 assets["scythe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/scythe/scythe.png", {0, 0, 673, 610})
 assets["mage"] = lsfml.texture.createFromFile("./assets/ennemy/boss/mage/mage.png", {0, 0, 480, 846})
-assets["robot3"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot3.png", {0, 0, 255, 256})
+assets["robot3"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot3.png", {0, 0, 292, 256})
 
 -- =======================
 -- =    ENTITY PNJ       =
@@ -69,6 +69,7 @@ assets["pnj_robo"] = lsfml.texture.createFromFile("./assets/pnj/robo_casser_240x
 -- =    ENTITY TEXTURE   =
 -- =======================
 
+assets["rayon"] = lsfml.texture.createFromFile("./assets/entity/rayon.png", {0, 0, 199, 44})
 assets["slash"] = lsfml.texture.createFromFile("./assets/entity/slash.png", {0, 0, 67, 147})
 assets["vortex"] = lsfml.texture.createFromFile("./assets/entity/vortex.png", {0, 0, 386, 393})
 assets["laser_beam"] = lsfml.texture.createFromFile("./assets/entity/laser_beam.png", {0, 0, 580, 32})

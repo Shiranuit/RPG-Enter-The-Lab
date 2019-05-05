@@ -79,6 +79,7 @@ end
 
 math.randomseed(os.time())
 local owindow = window
+
 dofile("tools/keyboard.lua")
 dofile("entity/ennemy/boss/mage_func.lua")
 dofile("entity/ennemy/boss/scythe_func.lua")
@@ -113,6 +114,7 @@ class.createFromFile("entity/entity.lua")
 class.createFromFile("entity/entity_laser.lua")
 class.createFromFile("entity/entity_boule_magie.lua")
 class.createFromFile("entity/entity_blackhole.lua")
+class.createFromFile("entity/entity_rayon.lua")
 class.createFromFile("entity/entity_slash.lua")
 class.createFromFile("entity/entity_laser_beam.lua")
 class.createFromFile("entity/entity_slash_weapon.lua")
@@ -168,7 +170,7 @@ dofile("assets.lua")
 animationSpell = {
     rayonSpell = new(EntitySpell({
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
-        damage = 1000000,
+        damage = 0.5,
         spell = assets["rayonAnimation"],
         rect = {0, 0, 19, 114},
         ox = 0,
@@ -180,7 +182,7 @@ animationSpell = {
     })),
     rayonIdleAnimation = new(EntitySpell({
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
-        damage = 1000000,
+        damage = 0.5,
         spell = assets["rayonIdleAnimation"],
         rect = {0, 114, 19, 114},
         ox = 0,
@@ -192,7 +194,7 @@ animationSpell = {
     })),
     rayonEndAnimation = new(EntitySpell({
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
-        damage = 1000000,
+        damage = 0.5,
         spell = assets["rayonEndAnimation"],
         rect = {0, 228, 19, 114},
         ox = 0,

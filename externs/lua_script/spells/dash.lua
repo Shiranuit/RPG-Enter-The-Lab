@@ -33,7 +33,6 @@ function cast(self)
     local x = 0
     local y = 0
     
-    print(status, hor, ver)
     if hor ~= "none" and ver ~= "none" then
         if hor == "right" then
             x = diag_dist

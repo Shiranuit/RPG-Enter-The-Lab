@@ -109,7 +109,6 @@ Class "EntitySpell" extends "Entity" [{
                     local pos_y = y - py
                     local total = math.abs(pos_x) + math.abs(pos_y)
                     entities[i].move((pos_x / total) * this.knockback, (pos_y / total) * this.knockback)
-                    print("HEAL : "..entities[i].getHealth())
                     entities[i].hit(this.damage * DeltaTime * player.getAttack(), player)
                 end
             end
