@@ -22,6 +22,7 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
+    bosshealth:setEntity(soucoupe)
     if first == false then
         pnj = new(EntityPnj("robot", 820, 510, assets["pnj_robo"], 120, 540, {{0, 0},{0, 540}, {220, 540}, {220, 0}}, 0.3, 240, 540))
         -- teleporter = new(EntityProps(950, 500, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))

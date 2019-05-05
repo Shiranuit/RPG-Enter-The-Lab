@@ -1,14 +1,14 @@
 soucoupe_func = {
     function()
-        return 400, 400
+        return 250, 300
     end,
     function()
-        return 400, 850
+        return 250, 900
     end,
     function()
-        return 1500, 850
+        return 1550, 900
     end,
     function()
-        return 1500, 400
+        return 1550, 300
     end,
 }

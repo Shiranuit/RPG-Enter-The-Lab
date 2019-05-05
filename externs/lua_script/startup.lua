@@ -242,18 +242,21 @@ animationSpell = {
     --     one_animation = true,
     -- })),
     repulsionSpell = new(EntitySpell({
-        spell = assets["repulsionAnimation"],
+        hitbox = {{0, 0}, {900, 0}, {900, 900}, {0, 900}},
         rect = {0, 0, 900, 900},
+        spell = assets["repulsionAnimation"],
+        damage = 5,
+        knockback = 300,
         ox = 450,
-        oy = 900,
+        oy = 0,
         time = 80000,
         pos_y = 0,
         pos_x = 0,
-        scale = 0.5,
+        scale = 0.40,
         follow_player = true,
         one_animation = true,
         pos_x_tp = 0,
-        pos_y_tp = 200,
+        pos_y_tp = - 250,
     }))
 
 }

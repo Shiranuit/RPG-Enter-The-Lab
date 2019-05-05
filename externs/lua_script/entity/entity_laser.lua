@@ -22,7 +22,7 @@ Class "EntityLaser" extends "Entity" [{
         this.damage = damage
         this.mob = mob
         this.speed = speed
-        this.hit = {}
+        this.asHit = falses
         local box = new(Hitbox("projectile"))
         box.setPoints({{0, 0}, {30, 0}, {30, 8}, {0, 8}})
         box.setOrigin(0, 0)
@@ -32,6 +32,13 @@ Class "EntityLaser" extends "Entity" [{
         super.addHitbox(box)
     end
 
+    function setDir(x, y)
+        check(x, "number", 1)
+        check(y, "number", 2)
+
+        this.dir = vector.new(x, y):normalize()
+    end
+    
     function draw()
         super.draw()
         window:draw(this.sprite)
@@ -51,11 +58,11 @@ Class "EntityLaser" extends "Entity" [{
             world.removeEntityByUUID(super.getUUID())
             return
         end
-        local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "player")
-        for i=1, #entities do
-            if class.isInstanceOf(entities[i], "EntityLiving") and not this.hit[entities[i].getUUID()] then
-                entities[i].hit(this.damage, this.mob)
-                this.hit[entities[i].getUUID()] = true
+        if not this.asHit then
+            local success = hitbox.SAT(super.getHitboxs()[1], player.getHitboxs()[1])
+            if success then
+                player.hit(this.damage, this.mob)
+                this.asHit = true
             end
         end
     end
