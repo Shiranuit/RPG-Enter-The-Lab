@@ -160,10 +160,10 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function setMaximumStamina(stamina)
-        check(life ,"number", 1)
+        check(stamina ,"number", 1)
 
-        assert(life > 0, "The Maximum stamina must be positive", 3)
-        this.max_stamina = life
+        assert(stamina > 0, "The Maximum stamina must be positive", 3)
+        this.max_stamina = stamina
         if this.stamina > this.max_stamina then this.stamina = this.max_stamina end
     end
 

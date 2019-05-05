@@ -38,15 +38,6 @@ Class "EntityBlackHole" extends "Entity" [{
     end
 
     function update()
-        if _G.freeze then
-            if not this.lifetime:isPaused() then
-                this.lifetime:pause()
-            end
-        else
-            if this.lifetime:isPaused() then
-                this.lifetime:start()
-            end
-        end
         super.update()
         this.angle = this.angle + this.speed * DeltaTime
         this.sprite:setRotation(this.angle)
@@ -64,6 +55,9 @@ Class "EntityBlackHole" extends "Entity" [{
             if dist > this.speed then
                 local dir = vector.new(nx - px, ny - py):normalize() * this.speed
                 player.move(dir.x, dir.y)
+            end
+            if dist < 200 then
+                player.hit(this.damage * DeltaTime, source)
             end
         end
     end

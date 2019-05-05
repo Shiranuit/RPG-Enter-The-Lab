@@ -110,6 +110,8 @@ dofile("quete/quete.lua")
 class.createFromFile("helpers/ray_caster.lua")
 class.createFromFile("entity/entity.lua")
 class.createFromFile("entity/entity_laser.lua")
+class.createFromFile("entity/entity_boule_magie.lua")
+class.createFromFile("entity/entity_blackhole.lua")
 class.createFromFile("entity/entity_slash.lua")
 class.createFromFile("entity/entity_slash_weapon.lua")
 class.createFromFile("entity/entity_scythe_weapon.lua")
@@ -162,9 +164,10 @@ dofile("assets.lua")
 
 animationSpell = {
     rayonSpell = new(EntitySpell({
+        hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
+        damage = 1000000,
         spell = assets["rayonAnimation"],
         rect = {0, 0, 19, 114},
-        damage = 1000000,
         ox = 0,
         oy = 0,
         follow_player = true,
@@ -173,9 +176,9 @@ animationSpell = {
         time = 10000,
     })),
     rayonIdleAnimation = new(EntitySpell({
-        spell = assets["rayonIdleAnimation"],
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
         damage = 1000000,
+        spell = assets["rayonIdleAnimation"],
         rect = {0, 114, 19, 114},
         ox = 0,
         oy = 0,
@@ -185,9 +188,10 @@ animationSpell = {
         time = 10000,
     })),
     rayonEndAnimation = new(EntitySpell({
+        hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
+        damage = 1000000,
         spell = assets["rayonEndAnimation"],
         rect = {0, 228, 19, 114},
-        damage = 1000000,
         ox = 0,
         oy = 0,
         follow_player = true,
