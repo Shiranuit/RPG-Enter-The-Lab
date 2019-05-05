@@ -274,28 +274,30 @@ Class "EntityMageBoss" extends "EntityLiving" [{
 
     local funct_atk = {this.blackHole, this.tpAttack, this.laser, this.KageBunshin, this.missile, this.laserForm}
     function update()
-        super.update()
-        this.look(player.getPosition())
-        doTeleport()
-        doBlackHole()
-        doKageBunshin()
-        doMissile()
-        doLaserForm()
-        doTpAttack()
-        doLaser()
-        if this.action.act == "none" and this.action.atk == "none" then
-            if not this.in_wait then
-                this.wait:restart()
-                this.in_wait = true
-            end
-            if this.wait:getEllapsedTime() > 1500000 then
-                funct_atk[math.random(1, #funct_atk)]()
-                this.in_wait = false
+        if this.isAlive() then
+            super.update()
+            this.look(player.getPosition())
+            doTeleport()
+            doBlackHole()
+            doKageBunshin()
+            doMissile()
+            doLaserForm()
+            doTpAttack()
+            doLaser()
+            if this.action.act == "none" and this.action.atk == "none" then
+                if not this.in_wait then
+                    this.wait:restart()
+                    this.in_wait = true
+                end
+                if this.wait:getEllapsedTime() > 1500000 then
+                    funct_atk[math.random(1, #funct_atk)]()
+                    this.in_wait = false
+                end
             end
         end
     end
 
     function event(e)
-        
+
     end
 }]
