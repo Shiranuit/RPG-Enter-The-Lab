@@ -97,7 +97,7 @@ int sound_stop(lua_State *L)
         luaL_error(L, "Expected (Sound)");
         return (0);
     }
-    if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
+    if (lua_isuserdata(L, 1)) {
         sound = USERDATA_POINTER(L, 1, sfSound);
         sfSound_stop(sound);
     } else {

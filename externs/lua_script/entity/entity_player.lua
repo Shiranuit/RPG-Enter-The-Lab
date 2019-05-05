@@ -211,6 +211,12 @@ Class "EntityPlayer" extends "EntityLiving" [{
         if this.is_damageable then
             local defense = this.getDefense()
             super.hit(damage * (1 - (defense - 1)), source)
+            if super.isDead() then
+                if this.scythe_attack == "scythe_launch" and this.my_scythe then
+                    world.removeEntityByUUID(this.my_scythe.getUUID())
+                    this.scythe_attack = "none"
+                end
+            end
         end
     end
 
@@ -354,7 +360,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
                 end
             end
-        elseif event[1] == "mouse_pressed" and hud.areAllClosed() then
+        elseif event[1] == "mouse_pressed" and hud.areAllClosed() and player.isAlive() then
             if this.hasScythe() then
                 if event[4] == mouse.LEFT and this.scythe_attack == "none" then
                     this.scythe_time:restart()

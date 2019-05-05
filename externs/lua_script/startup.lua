@@ -116,6 +116,7 @@ class.createFromFile("entity/ennemy/robot2.lua")
 class.createFromFile("entity/ennemy/turret.lua")
 class.createFromFile("entity/ennemy/boss/soucoupe.lua")
 class.createFromFile("entity/ennemy/boss/entity_scythe.lua")
+class.createFromFile("entity/ennemy/boss/entity_mage.lua")
 class.createFromFile("entity/spell/entity_spell.lua")
 class.createFromFile("entity/spell/rayon_spell.lua")
 

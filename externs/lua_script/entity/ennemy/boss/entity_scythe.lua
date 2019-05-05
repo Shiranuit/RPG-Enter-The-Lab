@@ -308,9 +308,6 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
     end
 
     function event(e)
-        local event = e:getEvent()
-        if event[1] == "key_pressed" and event[2] == keys.L then
-            this.attack = "asmat_entity"
-        end
+
     end
 }]

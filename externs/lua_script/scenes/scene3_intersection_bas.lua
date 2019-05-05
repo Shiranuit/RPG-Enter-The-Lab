@@ -5,7 +5,7 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_intersection_bas"], false)
 
-local scythe = new(EntityScytheBoss(500, 510))
+local scythe = new(EntityMageBoss(500, 510))
 
 local first = false
 local torch1
