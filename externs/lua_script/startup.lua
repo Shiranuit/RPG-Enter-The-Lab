@@ -308,6 +308,9 @@ loadScene("scenes/scene16_left_start.lua")
 loadScene("scenes/scene17_right_start.lua")
 loadScene("scenes/scene18_boss.lua")
 
+loadScene("scenes/last_scene.lua")
+loadScene("scenes/fin.lua")
+
 -- =========================================
 -- =           MYRPG GAME-LOGIC            =
 -- =========================================

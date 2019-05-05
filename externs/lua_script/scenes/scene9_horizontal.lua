@@ -17,6 +17,7 @@ local tube_vert_empty3
 local tube_vert_casser1
 local tube_vert_casser2
 local robot1
+local play_door = false
 
 local entities = {}
 local hitb = nil
@@ -101,6 +102,10 @@ function update()
         end
     end
     if canPass then
+        if not play_door then
+            assets["door_sound"]:play()
+            play_door = true
+        end
         if x < 0 then
             setScene("scene10_intersection_haut")
         end

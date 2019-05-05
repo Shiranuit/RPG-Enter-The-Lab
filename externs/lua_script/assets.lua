@@ -231,6 +231,8 @@ assets["rayon_end"] = lsfml.sound.createFromFile("./assets/sound/rayon_end.ogg")
 assets["pic"] = lsfml.sound.createFromFile("./assets/sound/pic.ogg")
 assets["robot2_sound"] = lsfml.sound.createFromFile("./assets/sound/robot2.ogg")
 assets["robot1_sound"] = lsfml.sound.createFromFile("./assets/sound/robot1.ogg")
+assets["laser_sound"] = lsfml.sound.createFromFile("./assets/sound/laser.ogg")
+assets["door_sound"] = lsfml.sound.createFromFile("./assets/sound/door.ogg")
 
 -- =======================
 -- =        MUSICS       =

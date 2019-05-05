@@ -139,6 +139,12 @@ end
 
 function update()
     local x, y = player.getPosition()
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
+    end
     if x > 500 and x < 700 and y < 300 and keyboard.keyPressed(keys.F) and canP3 == true and canPass then
         world.removeEntityByUUID(parchemin3.getUUID())
         player.getInventory():insertItemStack(par3)
@@ -154,12 +160,7 @@ function update()
         player.getInventory():insertItemStack(par5)
         canP5 = false
     end
-    local canPass = true
-    for i=1, #entities do
-        if entities[i].getType() == "ennemy" then
-            canPass = false
-        end
-    end
+    
     if canPass then
         if x > 1910 then
             setScene("scene15_start")

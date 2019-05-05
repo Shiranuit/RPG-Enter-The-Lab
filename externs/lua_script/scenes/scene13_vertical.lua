@@ -10,6 +10,7 @@ local hitb = nil
 local door
 local canPass = false
 local stopwatch = stopwatch.create()
+local play_door = false
 
 function load(scene)
     if (scene == "scene14_escalier") then
@@ -72,6 +73,10 @@ function update()
         end
     end
     if canPass then
+        if not play_door then
+            assets["door_sound"]:play()
+            play_door = true
+        end
         if y < 200 then
             setScene("scene14_escalier")
         end

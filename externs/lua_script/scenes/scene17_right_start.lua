@@ -34,6 +34,7 @@ local pot5_3
 local pot5_4
 local parchemin6
 local robot1
+local play_door = false
 
 local entities = {}
 local hitb = nil
@@ -133,17 +134,18 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 1450 and x < 1750 and y > 450 and y < 650 and keyboard.keyPressed(keys.F) and canP6 == true and canPass then
-        world.removeEntityByUUID(parchemin6.getUUID())
-        player.getInventory():insertItemStack(par6)
-        canP6 = false
-    end
     local canPass = true
     for i=1, #entities do
         if entities[i].getType() == "ennemy" then
             canPass = false
         end
     end
+    if x > 1450 and x < 1750 and y > 450 and y < 650 and keyboard.keyPressed(keys.F) and canP6 == true and canPass then
+        world.removeEntityByUUID(parchemin6.getUUID())
+        player.getInventory():insertItemStack(par6)
+        canP6 = false
+    end
+    
     if canPass then
         if x > 900 and x < 1000 and y < 155 then
             setScene("scene18_boss")

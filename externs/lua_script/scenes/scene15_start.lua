@@ -138,6 +138,12 @@ function draw()
 end
 
 function update()
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
+    end
     local x, y = player.getPosition()
     if x > 500 and x < 700 and y < 300 and keyboard.keyPressed(controls.getControl("action")) and canP1 == true and canPass then
         world.removeEntityByUUID(parchemin2.getUUID())
@@ -148,12 +154,6 @@ function update()
         world.removeEntityByUUID(parchemin1.getUUID())
         player.getInventory():insertItemStack(par1)
         canP2 = false
-    end
-    local canPass = true
-    for i=1, #entities do
-        if entities[i].getType() == "ennemy" then
-            canPass = false
-        end
     end
     if canPass then
         if x < 0 then

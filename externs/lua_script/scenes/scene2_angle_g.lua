@@ -17,6 +17,7 @@ local torch1
 local torch2
 local robot1 = new(EntityRobot1(800, 800))
 local soucoupe = new(EntitySoucoupe(800, 800))
+local play_door = false
 
 local entities = {}
 local hitb = nil
@@ -102,6 +103,10 @@ function update()
         end
     end
     if canPass then
+        if not play_door then
+            assets["door_sound"]:play()
+            play_door = true
+        end
         if y > 1050 then
             setScene("test_player")
         end
