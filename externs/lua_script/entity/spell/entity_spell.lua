@@ -102,7 +102,7 @@ Class "EntitySpell" extends "Entity" [{
             local entities = world.getEntitiesInHitbox(box, "enemy")
             for i = 1, #entities do
                 if (class.isInstanceOf(entities[i], "EntityLiving")) then
-                    entities[i].hit(this.damage * DeltaTime, player)
+                    entities[i].hit(this.damage * DeltaTime * player.getAttack(), player)
                 end
             end
             this.make_damage = false

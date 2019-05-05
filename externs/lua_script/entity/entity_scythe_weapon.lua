@@ -79,14 +79,14 @@ Class "EntityScytheWeapon" extends "Entity" [{
         local entities = world.getEntitiesInHitbox(this.getHitboxs()[1], "enemy")
         for i=1, #entities do
             if not this.hit_entity[entities[i].getUUID()] then
-                entities[i].hit(80 * player.getAttack(), player)
+                entities[i].hit(80 * player.getAttack() * DeltaTime, player)
                 this.hit_entity[entities[i].getUUID()] = true
             end
         end
         entities = world.getEntitiesInHitbox(this.getHitboxs()[2], "enemy")
         for i=1, #entities do
             if not this.hit_entity[entities[i].getUUID()] then
-                entities[i].hit(80 * player.getAttack(), player)
+                entities[i].hit(80 * player.getAttack() * DeltaTime, player)
                 this.hit_entity[entities[i].getUUID()] = true
             end
         end
