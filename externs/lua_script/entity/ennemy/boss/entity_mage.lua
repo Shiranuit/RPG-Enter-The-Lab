@@ -26,13 +26,14 @@ Class "EntityMageBoss" extends "EntityLiving" [{
 
         local nx, ny = super.getPosition()
         local dir = vector.new(nx - px, ny - py):normalize()
+        local angle = -math.deg(math.atan2(0, 1) - math.atan2(dir.y, dir.x))
         if dir.x >= 0 and dir.y <= 1 and dir.y >= -1 then
-            this.sprite:changeRect({0, 666, 96, 180})
-        elseif dir.x < 0 and dir.y <= 1 and dir.y >= -1 then
             this.sprite:changeRect({0, 445, 96, 180})
-        elseif dir.y >= 0 and dir.x < 1 and dir.y > -1 then
+        elseif dir.x < 0 and dir.y <= 1 and dir.y >= -1 then
+            this.sprite:changeRect({0, 666, 96, 180})
+        elseif dir.y >= 0 and dir.x < 1 and dir.x > -1 then
             this.sprite:changeRect({0, 0, 96, 180})
-        elseif dir.x < 0 and dir.y < 1 and dir.y > -1 then
+        elseif dir.x < 0 and dir.y < 1 and dir.x > -1 then
             this.sprite:changeRect({0, 222, 96, 180})
         end
     end

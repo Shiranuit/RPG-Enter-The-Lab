@@ -580,27 +580,27 @@ Class "EntityPlayer" extends "EntityLiving" [{
         super.draw()
         time = this.pos_rect[2]
 
-        if this.isAlive() then
-            if this.is_sprinting == true and this.status ~= "idle" then
-                time = time * 1.25
-            end
-            if this.clock:getEllapsedTime() > time * DeltaTime then
-                if this.status ~= "respawn" then
-                    this.pos_rect[3] = this.pos_rect[3] + this.pos_rect[5]
-                    if this.pos_rect[3] > this.pos_rect[5] * (this.pos_rect[1] - 1) and  this.status ~= "death" then
-                        this.pos_rect[3] = 0
-                    end
-                elseif this.status == "respawn" then
-                    this.pos_rect[3] = this.pos_rect[3] - this.pos_rect[5]
-                    if this.pos_rect[3] < 0 then
-                        this.status = "idle"
-                        this.status_idle = "down"
-                        this.pos_rect = {4, 150000, 0, 2000, 220, 500}
-                    end
+        if this.is_sprinting == true and this.status ~= "idle" then
+            time = time * 1.25
+        end
+        if this.clock:getEllapsedTime() > time * DeltaTime then
+            if this.status ~= "respawn" then
+                this.pos_rect[3] = this.pos_rect[3] + this.pos_rect[5]
+                if this.pos_rect[3] > this.pos_rect[5] * (this.pos_rect[1] - 1) and  this.status ~= "death" then
+                    this.pos_rect[3] = 0
                 end
-                this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
-                this.clock:restart()
+            elseif this.status == "respawn" then
+                this.pos_rect[3] = this.pos_rect[3] - this.pos_rect[5]
+                if this.pos_rect[3] < 0 then
+                    this.status = "idle"
+                    this.status_idle = "down"
+                    this.pos_rect = {4, 150000, 0, 2000, 220, 500}
+                end
             end
+            this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
+            this.clock:restart()
+        end
+        if this.isAlive() then
             if this.scythe_attack == "slash" then
                 local dir = 0
                 if dir == 0 then
@@ -621,9 +621,9 @@ Class "EntityPlayer" extends "EntityLiving" [{
             if this.scythe_attack ~= "none" and this.scythe_attack ~= "scythe_launch" then
                 window:draw(this.scythe)
             end
-            window:draw(this.sprite)
-            this.drawHitbox()
-            this.drawHealth()
         end
+        window:draw(this.sprite)
+        this.drawHitbox()
+        this.drawHealth()
     end
 }]
