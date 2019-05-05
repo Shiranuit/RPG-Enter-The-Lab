@@ -18,12 +18,11 @@ function load(scene)
             player:setNeedRestart(i, true)
         end
     end
-    bosshealth:setEntity(scythe)
-    
     if first == false or player:getNeedRestart(17) then
         scythe = new(EntityScytheBoss(800, 800))
         first = true
     end
+    bosshealth:setEntity(scythe)
     if (scene == "scene17_right_start") then
         player.setPosition(950, 1050)
     end
@@ -55,7 +54,7 @@ function unload()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
-    bosshealth = nil
+    bosshealth:setEntity(nil)
 end
 
 function HitBoxWall(x_or, y_or, pts)

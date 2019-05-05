@@ -132,7 +132,6 @@ function update()
             setScene("scene2_angle_g")
         end
     end
-
 end
 
 function event(e)

@@ -170,7 +170,7 @@ dofile("assets.lua")
 animationSpell = {
     rayonSpell = new(EntitySpell({
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
-        damage = 0.5,
+        damage = 0.1,
         spell = assets["rayonAnimation"],
         rect = {0, 0, 19, 114},
         ox = 0,

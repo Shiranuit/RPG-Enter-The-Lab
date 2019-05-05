@@ -25,7 +25,7 @@ function load(scene)
         end
     end
     if first == false or player:getNeedRestart(12) then
-        soucoupe = new(EntitySoucoupe(250, 300))
+        soucoupe = new(EntitySoucoupe(600, 600))
         door = animation.create(assets["door"], {0, 0 , 400, 351})
         door:setPosition(965, 80)
         door:scale(0.38, 0.38)
@@ -60,7 +60,7 @@ function unload()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
-    bosshealth = nil
+    bosshealth:setEntity(nil)
 end
 
 function HitBoxWall(x_or, y_or, pts)

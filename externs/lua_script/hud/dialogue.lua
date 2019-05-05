@@ -152,21 +152,25 @@ function itIsHom(self, quete)
 end
 
 function restart_dialogue()
+    file_dial_homme:close()
     file_dial_homme = io.open("./assets/dialogue_script/dialogue_script_homme.txt", "r")
     nb_dialogue_homme = 1
     line_homme = {}
     already_aff_homme = {false}
 
+    file_dial_robot:close()
     file_dial_robot = io.open("./assets/dialogue_script/dialogue_script_robot.txt", "r")
     nb_dialogue_robot = 1
     line_robot = {}
     already_aff_robot = {false}
 
+    file_dial_quete:close()
     file_dial_quete = io.open("./assets/dialogue_script/dialogue_script_quete.txt", "r")
     nb_dialogue_quete = 0
     line_quete = {}
     already_aff_quete = {false}
 
+    file_dial_end:close()
     file_dial_end = io.open("./assets/dialogue_script/dialogue_script_end.txt", "r")
     nb_dialogue_end = 0
     line_end = {}

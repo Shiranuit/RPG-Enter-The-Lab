@@ -57,7 +57,7 @@ function unload()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
-    bosshealth = nil
+    bosshealth:setEntity(nil)
 end
 
 function draw()
