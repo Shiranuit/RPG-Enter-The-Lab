@@ -41,7 +41,7 @@ function event(self, e)
 
     status_sort = {"down", "down", "down", "down", "down"}
     if player.isAlive() then
-        if not _G.pause then
+        if not isPaused() then
             if menu_spell:isClose() then
                 if keyboard.keyPressed(controls.getControl("spell_1")) and spells_tab[selected_spell_name[1]] then
                     if player.getMana() >= spells_tab[selected_spell_name[1]]:getCost() then
@@ -85,29 +85,27 @@ function update(self)
     if not player.isAlive() then
         status_sort = {"down", "down", "down", "down", "down"}
     end
-    if not _G.pause then
-        for i = 1, 5 do
-            if status_sort[i] == "up" and spells_tab[selected_spell_name[i]] then
-                if (spells_tab[selected_spell_name[i]]:isInstant()) then
-                    spells_tab[selected_spell_name[i]]:cast()
-                    status_sort[i] = "down"
-                elseif player.getMana() >= spells_tab[selected_spell_name[i]]:getCost() then
-                    spells_tab[selected_spell_name[i]]:enable()
-                end
-            elseif spells_tab[selected_spell_name[i]] and not spells_tab[selected_spell_name[i]]:isInstant() then
-                spells_tab[selected_spell_name[i]]:disable()
+    for i = 1, 5 do
+        if status_sort[i] == "up" and spells_tab[selected_spell_name[i]] then
+            if (spells_tab[selected_spell_name[i]]:isInstant()) then
+                spells_tab[selected_spell_name[i]]:cast()
+                status_sort[i] = "down"
+            elseif player.getMana() >= spells_tab[selected_spell_name[i]]:getCost() then
+                spells_tab[selected_spell_name[i]]:enable()
             end
+        elseif spells_tab[selected_spell_name[i]] and not spells_tab[selected_spell_name[i]]:isInstant() then
+            spells_tab[selected_spell_name[i]]:disable()
         end
-        for i = 1, 5 do
-            if selected_spell_name[i] and spells_tab[selected_spell_name[i]] and spells_tab[selected_spell_name[i]]:isInCooldown() and spells_tab[selected_spell_name[i]]:getMaxCooldown() ~= 0 then
-                local full_number = tostring(spells_tab[selected_spell_name[i]]:getCooldown())
-                cd[i]:setString(string.sub(full_number, 1, 4))
-                local color = math.ceil(255 / spells_tab[selected_spell_name[i]]:getCooldown())
-                if color > 255 then
-                    color = 255
-                end
-                selected_spell_sprite[i]:setColor(color, color, color, 255)
+    end
+    for i = 1, 5 do
+        if selected_spell_name[i] and spells_tab[selected_spell_name[i]] and spells_tab[selected_spell_name[i]]:isInCooldown() and spells_tab[selected_spell_name[i]]:getMaxCooldown() ~= 0 then
+            local full_number = tostring(spells_tab[selected_spell_name[i]]:getCooldown())
+            cd[i]:setString(string.sub(full_number, 1, 4))
+            local color = math.ceil(255 / spells_tab[selected_spell_name[i]]:getCooldown())
+            if color > 255 then
+                color = 255
             end
+            selected_spell_sprite[i]:setColor(color, color, color, 255)
         end
     end
 end

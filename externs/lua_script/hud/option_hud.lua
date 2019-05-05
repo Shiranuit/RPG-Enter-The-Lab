@@ -95,12 +95,12 @@ function unload()
 end
 
 function open()
-    _G.pause = true
+    setPaused(true)
     world.updateDisable()
 end
 
 function close()
-    _G.pause = false
+    setPaused(false)
     world.updateEnable()
 end
 
