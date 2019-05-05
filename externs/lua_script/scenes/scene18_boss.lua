@@ -5,20 +5,27 @@
 local background = lsfml.sprite.create()
 local boss_start = false
 background:setTexture(assets["boss"], false)
+local first = false
 
 local entities = {}
 local hitb = nil
 
 function load(scene)
+    bosshealth:setEntity(soucoupe)
+    if first == false then
+        soucoupe = new(EntitySoucoupe(250, 300))
+        first = true
+    end
     if (scene == "scene17_right_start") then
         player.setPosition(950, 1050)
     end
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
+        world.spawnEntity(soucoupe)
     end
     if (hitb == nil) then
-        HitBoxWall(0, 0, {{0, 0}, {0, 330}, {1920, 330}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
         HitBoxWall(0, 0, {{1910, 30}, {1910, 1050}})
 

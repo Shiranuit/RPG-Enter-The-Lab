@@ -27,6 +27,7 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
+    bosshealth:setEntity(scythe)
     if first == false then
         table1 = new(EntityProps(400, 550, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
         table2 = new(EntityProps(400, 750, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
@@ -40,7 +41,7 @@ function load(scene)
         mini_tube1 = new(EntityProps(550, 780, assets["mini_tube"], 200, 200, {}, 1))
         mini_tube2 = new(EntityProps(1825, 980, assets["mini_tube"], 200, 200, {}, 1))
         mini_tp1 = new(EntityProps(1875, 600, assets["mini_tp"], 200, 200, {}, 1))
-        robot1 = new(EntityTurret(500, 510))
+        scythe = new(EntityScytheBoss(800, 800))
         door = animation.create(assets["door"], {0, 0 , 400, 351})
         door:setPosition(965, 80)
         door:scale(0.38, 0.38)
@@ -51,6 +52,7 @@ function load(scene)
     end
     world.setEntities(entities)
     if #entities == 0 then
+        world.spawnEntity(scythe)
         world.spawnEntity(player)
         world.spawnEntity(table1)
         world.spawnEntity(table2)

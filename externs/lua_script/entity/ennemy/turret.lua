@@ -26,7 +26,7 @@ Class "EntityTurret" extends "EntityLiving" [{
 
         this.clock = stopwatch.create()
         this.clock_attack = stopwatch.create()
-        this.status = "right"
+        this.status = "idle"
         this.speed = 2
         this.max_distance = 750
         this.last_animation = false
