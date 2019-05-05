@@ -40,4 +40,5 @@ function cast(self)
     world.spawnEntity(animationSpell["repulsionSpell"])
     animationSpell["repulsionSpell"].restart()
     player.removeMana(getCost())
+    animationSpell["repulsionSpell"].makeDamage()
 end

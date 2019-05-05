@@ -1,4 +1,4 @@
-local distance = 200
+local distance = 240
 local diag_dist = math.floor(math.sqrt(distance^2 / 2))
 
 function getName(self)
@@ -10,7 +10,7 @@ function getMaxCooldown(self)
 end
 
 function cooldownStartAtEnd()
-    return true
+    return false
 end
 
 function getCost()
@@ -19,7 +19,6 @@ end
 
 function isNotValid()
     local status, hor, ver = player.getStatus()
-    print(hor, ver)
     if (status == "idle") then
         assets["deny"]:play()
         return true
@@ -31,33 +30,34 @@ function cast(self)
     local status, hor, ver = player.getStatus()
     player.removeMana(getCost())
     assets["dash"]:play()
-    if (hor == "right") then
-        player.move(distance, 0)
-    end
-    if (hor == "left") then
-        player.move(-distance, 0)
-    end
-    if (ver == "down") then
-        if (hor == "left") then
-            player.move(-diag_dist, diag_dist)
-            return
+    local x = 0
+    local y = 0
+    
+    print(status, hor, ver)
+    if hor ~= "none" and ver ~= "none" then
+        if hor == "right" then
+            x = diag_dist
+        else
+            x = -diag_dist
         end
-        if (hor == "right") then
-            player.move(diag_dist, diag_dist)
-            return
+        if ver == "down" then
+            y = diag_dist
+        else
+            y = -diag_dist
         end
-        player.move(0, distance)
+    elseif hor ~= "none" then
+        if hor == "right" then
+            x = distance
+        else
+            x = -distance
+        end
+    elseif ver ~= "none" then
+        if ver == "down" then
+            y = distance
+        else
+            y = -distance
+        end
     end
-    if (ver == "up") then
-        if (hor == "left") then
-            player.move(-diag_dist, -diag_dist)
-            return
-        end
-        if (hor == "right") then
-            player.move(diag_dist, -diag_dist)
-            return
-        end
-        player.move(0, -distance)
-    end
+    player.move(x, y)
 end
 

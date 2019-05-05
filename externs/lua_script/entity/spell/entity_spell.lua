@@ -41,6 +41,7 @@ Class "EntitySpell" extends "Entity" [{
         this.moving_x = 0
         this.moving_y = 0
         this.make_damage = false
+        this.knockback = info.knockback or 0
     end
 
     function makeDamage()
@@ -104,10 +105,27 @@ Class "EntitySpell" extends "Entity" [{
             for i = 1, #entities do
                 if (class.isInstanceOf(entities[i], "EntityLiving")) then
                     entities[i].hit(this.damage * DeltaTime, player)
+                    local x, y = entities[i].getPosition()
+                    local px, py = player.getPosition()
+                    local pos_x = x - px
+                    local pos_y = y - py
+                    local total = math.abs(pos_x) + math.abs(pos_y)
+                    entities[i].move((pos_x / total) * this.knockback, (pos_y / total) * this.knockback)
                     print("HEAL : "..entities[i].getHealth())
                 end
             end
             this.make_damage = false
+        end
+        if this.knockback ~= 0 then
+            local entities = world.getEntitiesInHitbox(box, "projectile")
+            for i = 1, #entities do
+                    local x, y = entities[i].getPosition()
+                    local px, py = player.getPosition()
+                    local pos_x = x - px
+                    local pos_y = y - py
+                    local total = math.abs(pos_x) + math.abs(pos_y)
+                    entities[i].setDir(pos_x, pos_y)
+            end
         end
     end
 

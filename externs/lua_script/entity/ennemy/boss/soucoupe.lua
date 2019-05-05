@@ -11,8 +11,6 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
 
     function __EntitySoucoupe(x, y)
         super(x, y)
-        super.setHealthBarVisible(true)
-        super.setHealthBarOffset(0, -86 * 2)
         super.setMaximumHealth(1000)
         super.setHealth(1000)
         this.sprite = animation.create(assets["soucoupe"], {0, 0, 249, 86})
@@ -38,6 +36,11 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         this.dir_x = 0
         this.dir_y = 0
         this.time = 2000000
+        this.time_attack = {0, 200000, 700000, 1000000}
+        this.selected_time_attack = 0
+        this.nb_laser = 0
+        this.safe = 0
+        this.safe2 = 180
         initHitboxes()
     end
 
@@ -50,6 +53,10 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
     end
 
     function move(x, y)
+
+    end
+
+    function move_s(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)
 
@@ -69,11 +76,11 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
 
     function laser_to_coord(x, y)
         local px, py = super.getPosition()
-        py = py - 86
+        py = py - 150
         local pos1 = vector.new(px, py)
         local pos2 = vector.new(x, y)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 10, final)))
+        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 15, final)))
     end
 
     function draw()
@@ -95,6 +102,9 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         local x_player, y_player = player.getPosition()
         local sprite_x, sprite_y = super.getPosition()
 
+        if player:isDead() then
+            return
+        end
         if super.isDead() then
             for i=1, math.random(1, 4) do
                 world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
@@ -110,16 +120,31 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
             this.time = 1500000
             this.sprite:changeRect({0, 172, 249, 86})
         end
-
-        if this.big_attack then
-            this.time = 0
-            if this.clock_attack:getEllapsedTime() > 70000 then
-                laser_to_coord(sprite_x + 10, sprite_y)
+        if this.big_attack and sprite_y < 320 then
+            this.time = 10000
+            if this.selected_time_attack == 1 and this.clock_attack:getEllapsedTime() > 25000 then
+                laser_to_coord(960, 540)
+                this.clock_attack:restart()
+            elseif this.clock_attack:getEllapsedTime() > 25000 and this.selected_time_attack == 2 then
+                laser_to_coord(sprite_x, sprite_y + 10)
+                this.clock_attack:restart()
+            elseif this.clock_attack:getEllapsedTime() > 25000 and this.selected_time_attack == 3 then
+                laser_to_coord(0, sprite_x)
+                laser_to_coord(1920, sprite_x)
+                this.clock_attack:restart()
+            elseif this.clock_attack:getEllapsedTime() > 25000 and this.selected_time_attack == 4 then
+                laser_to_coord(1920, sprite_x)
+                laser_to_coord(0, sprite_x)
+                if not(this.move_x > 500 and sprite_x < 1200 and sprite_x > 1000) and not(this.move_x < 500 and sprite_x < 1000 and sprite_x > 800) then
+                    laser_to_coord(sprite_x, sprite_y + 10)
+                end
                 this.clock_attack:restart()
             end
             if this.clock_big_attack:getEllapsedTime() > 5000000 then
                 this.big_attack = false
             end
+        elseif this.big_attack and sprite_y > 320 then
+            this.clock_big_attack:restart()
         end
         if (this.move_x > sprite_x -  this.speed and this.move_x < sprite_x + this.speed and this.move_y > sprite_y -  this.speed and this.move_y < sprite_y +  this.speed) or (this.move_x == 0 and this.move_y == 0) then
             if (this.dir_x ~= 0 and this.dir_y ~= 0) then
@@ -136,12 +161,26 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                     this.big_attack = true
                     this.clock_big_attack:restart()
                     this.clock_attack:restart()
+                    this.nb_laser = 0
+                    this.selectioned_move = 1
+                    this.selected_time_attack = this.selected_time_attack + 1
+                    if this.selected_time_attack > #this.time_attack then
+                        this.selected_time_attack = 1
+                    end
                     return
                 elseif not this.big_attack then
-                    for angle = 1, 360, 10 do
-                        if not(angle > 30 and angle < 60) and not(angle > 120 and angle < 150) and not(angle > 210 and angle < 240) and not(angle > 320 and angle < 350) then
+                    for angle = 1, 360, 2 do
+                        if not(angle > this.safe and angle < this.safe + 15) and not(angle > this.safe2 and angle < this.safe2 + 15) then
                             laser(math.cos(math.rad(angle)), math.sin(math.rad(angle)))
                         end
+                    end
+                    this.safe2 = this.safe2 + 30
+                    this.safe = this.safe + 30
+                    if this.safe > 360 then
+                        this.safe = 0
+                    end
+                    if this.safe2 > 360 then
+                        this.safe2 = 0
                     end
                 end
             end
@@ -160,7 +199,6 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                         this.selectioned_move = 4
                     end
                 end
-                print(res_x, res_y)
                 this.move_x = res_x
                 this.move_y = res_y
                 this.dir_x = this.move_x - sprite_x
@@ -170,11 +208,21 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                 this.dir_y = (this.dir_y / total) * this.speed
             end
         end
-        move(this.dir_x, this.dir_y)
+        move_s(this.dir_x, this.dir_y)
     end
 
     function event(e)
-
+        if keyboard.keyPressed(keys.L) and not this.big_attack then
+            this.big_attack = true
+            this.clock_big_attack:restart()
+            this.clock_attack:restart()
+            this.nb_laser = 0
+            this.selected_time_attack = 1
+            if this.selected_time_attack > #this.time_attack then
+                this.selected_time_attack = 1
+            end
+            print(this.selected_time_attack)
+        end
     end
 
 }]
