@@ -35,8 +35,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         this.move_y = 0
         this.dir_x = 0
         this.dir_y = 0
-        this.time = 2000000
-        this.time_attack = {0, 200000, 700000, 1000000}
+        this.time = 3000000
         this.selected_time_attack = 0
         this.nb_laser = 0
         this.safe = 0
@@ -113,12 +112,12 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
             world.removeEntityByUUID(this.getUUID())
         end
         if super.getHealth() > 0.66 * super.getMaximumHealth() then
-            this.time = 2000000
+            this.time = 3000000
         elseif super.getHealth() > 0.33 * super.getMaximumHealth() and super.getHealth() < 0.66 * super.getMaximumHealth() then
             this.sprite:changeRect({0, 86, 249, 86})
-            this.time = 1700000
+            this.time = 2500000
         elseif super.getHealth() < 0.33 * super.getMaximumHealth() then
-            this.time = 1500000
+            this.time = 2000000
             this.sprite:changeRect({0, 172, 249, 86})
         end
         if this.big_attack and sprite_y < 320 then
@@ -165,7 +164,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                     this.nb_laser = 0
                     this.selectioned_move = 1
                     this.selected_time_attack = this.selected_time_attack + 1
-                    if this.selected_time_attack > #this.time_attack then
+                    if this.selected_time_attack > 4 then
                         this.selected_time_attack = 1
                     end
                     return
@@ -213,7 +212,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
     end
 
     function event(e)
-        
+
     end
 
 }]

@@ -56,6 +56,7 @@ assets["turret"] = lsfml.texture.createFromFile("./assets/ennemy/tourelle.png", 
 assets["soucoupe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/soucoupe/soucoupe250x86.png", {0, 0, 1993, 258})
 assets["scythe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/scythe/scythe.png", {0, 0, 673, 610})
 assets["mage"] = lsfml.texture.createFromFile("./assets/ennemy/boss/mage/mage.png", {0, 0, 480, 846})
+assets["robot3"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot3.png", {0, 0, 255, 256})
 
 -- =======================
 -- =    ENTITY PNJ       =
