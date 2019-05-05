@@ -3,7 +3,7 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 1
+    return 0.25
 end
 
 function cooldownStartAtEnd()
@@ -40,18 +40,18 @@ function cast(self)
     if (hor == "left") then
         local pos2 = vector.new(x_player - 5, y_player)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityBouleElec(x_player + 15, y_player - 70, dir, 5, 20)))
+        world.spawnEntity(new(EntityBouleElec(x_player + 15, y_player - 70, dir, 3, 20)))
     elseif (hor == "right") then
         local pos2 = vector.new(x_player + 5, y_player)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityBouleElec(x_player + 15, y_player - 70, dir, 5, 20)))
+        world.spawnEntity(new(EntityBouleElec(x_player + 15, y_player - 70, dir, 3, 20)))
     elseif (ver == "up" or (status == "idle" and idle == "up")) then
         local pos2 = vector.new(x_player, y_player - 5)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityBouleElec(x_player, y_player - 70, dir, 5, 20)))
+        world.spawnEntity(new(EntityBouleElec(x_player, y_player - 70, dir, 3, 20)))
     elseif (ver == "down" or (status == "idle" and idle == "down")) then
         local pos2 = vector.new(x_player, y_player + 5)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityBouleElec(x_player, y_player - 70, dir, 5, 20)))
+        world.spawnEntity(new(EntityBouleElec(x_player, y_player - 70, dir, 3, 20)))
     end
 end

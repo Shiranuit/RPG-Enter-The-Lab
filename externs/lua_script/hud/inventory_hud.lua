@@ -137,6 +137,10 @@ function getSlotAt(self, x, y)
     end
 end
 
+function getSlot_tab(self)
+    return slots
+end
+
 function draw(self)
     window:draw(inventory)
     if item_info then

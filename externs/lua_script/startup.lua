@@ -91,6 +91,7 @@ dofile("tools/hud.lua")
 dofile("tools/item.lua")
 dofile("tools/itemstack.lua")
 dofile("tools/inventory_slot.lua")
+dofile("quete/quete.lua")
 
 -- =========================================
 -- =             LOADING CLASSES           =
@@ -149,6 +150,7 @@ animationSpell = {
     rayonSpell = new(EntitySpell({
         spell = assets["rayonAnimation"],
         rect = {0, 0, 19, 114},
+        damage = 1000000,
         ox = 0,
         oy = 0,
         follow_player = true,
@@ -171,6 +173,7 @@ animationSpell = {
     rayonEndAnimation = new(EntitySpell({
         spell = assets["rayonEndAnimation"],
         rect = {0, 228, 19, 114},
+        damage = 1000000,
         ox = 0,
         oy = 0,
         follow_player = true,
@@ -216,12 +219,12 @@ animationSpell = {
     })),
     elecSpell = new(EntitySpell({
         hitbox = {{0, 0}, {83, 0}, {83, 249}, {0, 249}},
-        damage = 15,
+        damage = 20,
         spell = assets["elecAnimation"],
         rect = {0, 0, 83, 249},
         ox = 41.5,
         oy = 0,
-        time = 80000,
+        time = 50000,
         scale = 1.25,
         follow_player = true,
         one_animation = true,

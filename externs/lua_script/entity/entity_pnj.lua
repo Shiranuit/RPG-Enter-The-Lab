@@ -163,12 +163,17 @@ Class "EntityPnj" extends "EntityLiving" [{
         this.val = dialogue_hud:getQuest()
         if math.abs(x - nx) + math.abs(y - ny) < 100 then
             if this.name == "homme" and this.val ~= 2 then
+                quete()
                 dialogue_hud:itIsHom(this.nb_dial)
                 dialogue_png_homme(event, x, y, nx, ny)
             end
             if this.name == "homme" and this.val == 2 then
                 dialogue_hud:itIsHom(this.val)
                 dialogue_png_quete(event, x, y, nx, ny)
+            end
+            if this.name == "homme" and this.val == 3 then
+                dialogue_hud:itIsHom(this.val)
+                dialogue_png_end(event, x, y, nx, ny)
             end
             if this.name == "robot" then
                 dialogue_hud:itIsRob(this.nb_dial)
