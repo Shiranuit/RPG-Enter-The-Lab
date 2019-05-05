@@ -3,7 +3,7 @@
 -- =========================================
 
 assets = {}
-pause = false
+local paused = false
 local pstate = false
 local scenes = {}
 local scene_name = "main_menu"
@@ -19,6 +19,16 @@ function dofile(filename)
     else
         return odofile()
     end
+end
+
+function setPaused(state)
+    check(state, "boolean", 1)
+
+    paused = state
+end
+
+function isPaused()
+    return paused
 end
 
 local function loadScene(name)
@@ -109,6 +119,7 @@ class.createFromFile("stats/stats.lua")
 class.createFromFile("entity/entity_living.lua")
 class.createFromFile("entity/entity_pnj.lua")
 class.createFromFile("entity/entity_item.lua")
+class.createFromFile("entity/entity_blackhole.lua")
 class.createFromFile("entity/entity_player.lua")
 class.createFromFile("entity/entity_props.lua")
 class.createFromFile("entity/ennemy/robot1.lua")
@@ -356,16 +367,16 @@ end
 
 -- Called each time we need to update the game-logic
 function update()
-    if pstate ~= _G.pause then
-        if _G.pause then
+    if pstate ~= isPaused() then
+        if isPaused() then
             _G.game_pause()
         else
             _G.game_resume()
         end
-        pstate = _G.pause
+        pstate = isPaused()
     end
     if scenes[scene_name] then
-        if not _G.pause then
+        if not isPaused() then
             scenes[scene_name].update()
             for i=1, #spells do
                 spells[i]:update()
