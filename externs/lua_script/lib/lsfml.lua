@@ -334,7 +334,7 @@ end
 function lsfml.texture.bind(texture)
     check(texture, "texture", 1)
 
-    local meta = getmetatable(shader)
+    local meta = getmetatable(texture)
     olsfml.texture_bind(meta.__ptr)
 end
 

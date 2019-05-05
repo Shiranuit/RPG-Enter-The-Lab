@@ -231,7 +231,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 damage = damage + (equipment[i]:getStats() and equipment[i]:getStats().damage or 0)
             end
         end
-        return this.getLevel() * 2 / 100
+        return 1 + this.getLevel() * 2 / 100 + (this.hasScythe() and 0.5 or 0)
     end
 
     function getParade()
@@ -359,7 +359,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
                     this.scythe_attack = "slash"
                 elseif event[4] == mouse.RIGHT and this.scythe_attack == "none" then
                     this.scythe_time:restart()
-                    this.scythe_attack = "slash"
+                    this.scythe_attack = "scythe_launch"
+                    this.my_scythe = world.spawnEntity(new(EntityScytheWeapon(super.getPosition())))
                 end
             end
         end
@@ -398,6 +399,17 @@ Class "EntityPlayer" extends "EntityLiving" [{
     function update()
         super.update()
         slashAttack()
+        if this.scythe_attack == "scythe_launch" then
+            if this.my_scythe and this.my_scythe.isRevert() then
+                local nx, ny = super.getPosition()
+                local px, py = this.my_scythe.getPosition()
+                local dist = math.abs(px - nx) + math.abs(py - ny)
+                if dist < this.my_scythe.getSpeed() then
+                    world.removeEntityByUUID(this.my_scythe.getUUID())
+                    this.scythe_attack = "none"
+                end
+            end
+        end
         computeMaxHealth()
         if this.status == "respawn" then
             return
@@ -579,7 +591,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                     this.scythe:setScale(-0.5 * size, 0.5 * size)
                 end
             end
-            if this.scythe_attack ~= "none" then
+            if this.scythe_attack ~= "none" and this.scythe_attack ~= "scythe_launch" then
                 window:draw(this.scythe)
             end
             window:draw(this.sprite)
