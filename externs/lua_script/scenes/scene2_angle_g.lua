@@ -23,7 +23,12 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        first = false
+        player:restartNb_salle_pass()
+        player:setNeedRestart(true)
+    end
+    if first == false or player:getNeedRestart(2) then
         pnj = new(EntityPnj("robot", 820, 510, assets["pnj_robo"], 120, 540, {{0, 0},{0, 540}, {220, 540}, {220, 0}}, 0.3, 240, 540))
         teleporter = new(EntityProps(950, 500, assets["teleporter"], 65, 248, {{8, 212},{0, 248}, {130, 248}, {122, 208}}, 1))
         hologram1 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
@@ -34,6 +39,10 @@ function load(scene)
         torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
         torch2 = new(EntityProps(100, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
         first = true
+    end
+    if player:getNeedRestart(2) then
+        entities = {}
+        player:setNeedRestart(2, false)
     end
     if (scene == "test_player") then
         player.setPosition(960, 1000)
@@ -104,9 +113,11 @@ function update()
             play_door = true
         end
         if y > 1050 then
+            player:plusNb_salle_pass()
             setScene("test_player")
         end
         if x < 0 then
+            player:plusNb_salle_pass()
             setScene("scene3_intersection_bas")
         end
     end

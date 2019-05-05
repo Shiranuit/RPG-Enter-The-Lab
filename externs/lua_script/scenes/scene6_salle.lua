@@ -19,6 +19,12 @@ local mini_tube1
 local mini_tube2
 local mini_tp1
 local robot1
+local robot2
+local robot3
+local robot4
+local robot5
+local robot6
+local robot7
 local door
 local canPass = false
 local stopwatch = stopwatch.create()
@@ -28,7 +34,15 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first == false or player:getNeedRestart(6) then
         table1 = new(EntityProps(400, 550, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
         table2 = new(EntityProps(400, 750, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
         table3 = new(EntityProps(400, 950, assets["table"], 100, 110, {{0, 102},{0, 127}, {200, 127}, {200, 102}}, 1))
@@ -47,11 +61,15 @@ function load(scene)
         robot4 = new(EntityTurret(1435, 850))
         robot5 = new(EntityTurret(879, 654))
         robot6 = new(EntityTurret(1198, 654))
-        robot7 = new(EntityTurret(1035, 540))
+        robot7 = new(EntityTurret(1035, 700))
         door = animation.create(assets["door"], {0, 0 , 400, 351})
         door:setPosition(965, 80)
         door:scale(0.38, 0.38)
         first = true
+    end
+    if player:getNeedRestart(6) then
+        entities = {}
+        player:setNeedRestart(6, false)
     end
     if scene == "scene5_intersection_bas" then
         player.setPosition(1050, 210)
@@ -128,6 +146,7 @@ function update()
             play_door = true
         end
         if y < 200 then
+            player:plusNb_salle_pass()
             setScene("scene5_intersection_bas")
         end
         if keyboard.keyPressed(keys.A) then

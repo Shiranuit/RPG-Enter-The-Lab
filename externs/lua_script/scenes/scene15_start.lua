@@ -40,7 +40,15 @@ local hitb = nil
 local robot1
 
 function load(scene)
-    if first_load == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first_load == false or player:getNeedRestart(14) then
         status1 = new(EntityProps(368, 209, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status2 = new(EntityProps(87, 815, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status3 = new(EntityProps(1638, 804, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
@@ -66,8 +74,12 @@ function load(scene)
         pot5_4 = new(EntityProps(335, 731, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         parchemin1 = new(EntityProps(1800, 840, assets["parchemin_1"], 107, 0, {}, 1))
         parchemin2 = new(EntityProps(600, 100, assets["parchemin_2"], 98, 62, {}, 1))
-        robot1 = new(EntityTurret(500, 510))
+        robot1 = new(EntityRobot1(200, 600))
         first_load = true
+    end
+    if player:getNeedRestart(14) then
+        entities = {}
+        player:setNeedRestart(14, false)
     end
     if (scene == "scene14_escalier") then
         player.setPosition(990, 250)
@@ -157,12 +169,15 @@ function update()
     end
     if canPass then
         if x < 0 then
+            player:plusNb_salle_pass()
             setScene("scene16_left_start")
         end
         if y < 155 then
+            player:plusNb_salle_pass()
             setScene("scene14_escalier")
         end
         if x > 1910 then
+            player:plusNb_salle_pass()
             setScene("scene17_right_start")
         end
     end

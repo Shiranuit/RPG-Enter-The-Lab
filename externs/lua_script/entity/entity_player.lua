@@ -54,6 +54,28 @@ Class "EntityPlayer" extends "EntityLiving" [{
         box.setPosition(super.getPosition())
         super.addHitbox(box)
         this.isInQuest = false
+        this.nb_salle_pass = 0
+        this.needRestart = {false}
+    end
+
+    function setNeedRestart(self, i, need)
+        this.needRestart[i] = need
+    end
+
+    function getNeedRestart(self, i, need)
+        return this.needRestart[i]
+    end
+
+    function getNb_salle_pass(self)
+        return this.nb_salle_pass
+    end
+
+    function plusNb_salle_pass(self)
+        this.nb_salle_pass = this.nb_salle_pass + 1
+    end
+
+    function restartNb_salle_pass(self)
+        this.nb_salle_pass = 0
     end
 
     function getIsInQuest()

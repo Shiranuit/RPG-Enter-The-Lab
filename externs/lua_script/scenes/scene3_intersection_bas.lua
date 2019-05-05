@@ -5,8 +5,6 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_intersection_bas"], false)
 
-local scythe = new(EntityMageBoss(500, 510))
-
 local first = false
 local torch1
 local torch2
@@ -18,13 +16,24 @@ local hologram1
 local hologram2
 local hologram_break1
 local hologram_break2
+local robot1
+local robot2
+
 local play_door = false
 local entities = {}
 local hitb = nil
 
 function load(scene)
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
     bosshealth:setEntity(scythe)
-    if first == false then
+    if first == false or player:getNeedRestart(3) then
         torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
         torch2 = new(EntityProps(100, 850, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
         torch3 = new(EntityProps(1800, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
@@ -35,7 +44,13 @@ function load(scene)
         hologram2 = new(EntityProps(1500, 900, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
         hologram_break1 = new(EntityProps(1200, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
         hologram_break2 = new(EntityProps(450, 950, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+        robot1 = new(EntityRobot1(600, 600))
+        robot2 = new(EntityRobot2(1200, 900))
         first = true
+    end
+    if player:getNeedRestart(3) then
+        entities = {}
+        player:setNeedRestart(3, false)
     end
     if (scene == "scene9_horizontal") then
         player.setPosition(30, 630)
@@ -60,6 +75,8 @@ function load(scene)
         world.spawnEntity(hologram2)
         world.spawnEntity(hologram_break1)
         world.spawnEntity(hologram_break2)
+        world.spawnEntity(robot1)
+        world.spawnEntity(robot2)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
@@ -114,12 +131,15 @@ function update()
             play_door = true
         end
         if x < 0 then
+            player:plusNb_salle_pass()
             setScene("scene9_horizontal")
         end
         if y > 1050 then
+            player:plusNb_salle_pass()
             setScene("scene4_angle_haut_gauche")
         end
         if x > 1910 then
+            player:plusNb_salle_pass()
             setScene("scene2_angle_g")
         end
     end

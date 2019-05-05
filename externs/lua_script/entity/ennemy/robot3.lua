@@ -71,6 +71,7 @@ Class "EntityRobot3" extends "EntityLiving" [{
                 this.sprite:next()
                 if this.sprite:hasEnded() then
                     world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
+                    world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
                     world.removeEntityByUUID(this.getUUID())
                 end
             end

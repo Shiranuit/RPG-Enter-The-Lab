@@ -108,6 +108,11 @@ Class "EntityRobot1" extends "EntityLiving" [{
                 this.clock:restart()
                 this.sprite:next()
                 if this.sprite:hasEnded() then
+                    if math.random(0, 100) < 10 then
+                        for i=1, math.random(1, 2) do
+                            world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
+                        end
+                    end
                     world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
                     world.removeEntityByUUID(this.getUUID())
                 end

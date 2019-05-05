@@ -152,8 +152,9 @@ dofile("assets.lua")
 animationSpell = {
     rayonSpell = new(EntitySpell({
         spell = assets["rayonAnimation"],
-        rect = {0, 0, 19, 114},
+        hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
         damage = 1000000,
+        rect = {0, 0, 19, 114},
         ox = 0,
         oy = 0,
         follow_player = true,
@@ -175,8 +176,9 @@ animationSpell = {
     })),
     rayonEndAnimation = new(EntitySpell({
         spell = assets["rayonEndAnimation"],
-        rect = {0, 228, 19, 114},
+        hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
         damage = 1000000,
+        rect = {0, 228, 19, 114},
         ox = 0,
         oy = 0,
         follow_player = true,

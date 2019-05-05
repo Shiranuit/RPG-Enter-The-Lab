@@ -17,13 +17,23 @@ local tube_vert_homme2
 local tube_vert_femme1
 local tube_vert_femme2
 local robot1
+local robot2
 local play_door = false
 
 local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    ends = {}
+    end
+    if first == false or player:getNeedRestart(7) then
         tube_bleu_transform1 = new(EntityProps(200, 900, assets["tube_bleu_transform"], 65, 204, {{6, 153},{0, 204}, {131, 204}, {125, 153}}, 1.2))
         tube_bleu_transform2 = new(EntityProps(1300, 400, assets["tube_bleu_transform"], 65, 204, {{6, 153},{0, 204}, {131, 204}, {125, 153}}, 1.2))
         tube_bleu_homme1 = new(EntityProps(300, 300, assets["tube_bleu_homme"], 78, 244, {{8, 183},{0, 244}, {157, 244}, {150, 183}}, 1))
@@ -34,8 +44,13 @@ function load(scene)
         tube_vert_homme2 = new(EntityProps(800, 420, assets["tube_vert_homme"], 80, 248, {{7, 186},{0, 248}, {160, 248}, {153, 186}}, 1))
         tube_vert_femme1 = new(EntityProps(1650, 350, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
-        robot1 = new(EntityTurret(500, 510))
+        robot1 = new(EntityRobot2(1800, 300))
+        robot2 = new(EntityRobot2(1800, 850))
         first = true
+    end
+    if player:getNeedRestart(7) then
+        entities = {}
+        player:setNeedRestart(7, false)
     end
     if (scene == "scene8_salle") then
         player.setPosition(980, 1050)
@@ -57,6 +72,7 @@ function load(scene)
         world.spawnEntity(tube_vert_femme1)
         world.spawnEntity(tube_vert_femme2)
         world.spawnEntity(robot1)
+        world.spawnEntity(robot2)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
@@ -107,9 +123,11 @@ function update()
             play_door = true
         end
         if y > 1050 then
+            player:plusNb_salle_pass()
             setScene("scene8_salle")
         end
         if x > 1910 then
+            player:plusNb_salle_pass()
             setScene("scene5_intersection_bas")
         end
     end

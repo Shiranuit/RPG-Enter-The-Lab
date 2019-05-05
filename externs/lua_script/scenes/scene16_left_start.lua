@@ -40,12 +40,23 @@ local parchemin3
 local parchemin4
 local parchemin5
 local robot1
+local robot2
+local robot3
+local robot4
 
 local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first == false or player:getNeedRestart(15) then
         status1 = new(EntityProps(1699, 354, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status2 = new(EntityProps(1535, 792, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status3 = new(EntityProps(1063, 313, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
@@ -72,8 +83,15 @@ function load(scene)
         parchemin3 = new(EntityProps(600, 30, assets["parchemin_3"], 17, 0, {}, 1))
         parchemin4 = new(EntityProps(200, 600, assets["parchemin_4"], 17, 0, {}, 1))
         parchemin5 = new(EntityProps(1550, 927, assets["parchemin_5"], 17, 0, {}, 1))
-        robot1 = new(EntityTurret(500, 510))
+        robot1 = new(EntityRobot2(300, 400))
+        robot2 = new(EntityRobot2(200, 500))
+        robot3 = new(EntityRobot2(300, 600))
+        robot4 = new(EntityRobot2(400, 500))
         first = true
+    end
+    if player:getNeedRestart(15) then
+        entities = {}
+        player:setNeedRestart(15, false)
     end
     if (scene == "scene15_start") then
         player.setPosition(1900, 630)
@@ -108,6 +126,9 @@ function load(scene)
         world.spawnEntity(parchemin4)
         world.spawnEntity(parchemin5)
         world.spawnEntity(robot1)
+        world.spawnEntity(robot2)
+        world.spawnEntity(robot3)
+        world.spawnEntity(robot4)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {1920, 160}, {1920, 0}})
@@ -163,6 +184,7 @@ function update()
     
     if canPass then
         if x > 1910 then
+            player:plusNb_salle_pass()
             setScene("scene15_start")
         end
     end

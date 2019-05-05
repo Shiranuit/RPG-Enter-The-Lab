@@ -11,9 +11,19 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
-    bosshealth:setEntity(soucoupe)
-    if first == false then
-        soucoupe = new(EntitySoucoupe(250, 300))
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    bosshealth:setEntity(scythe)
+    
+    if first == false or player:getNeedRestart(17) then
+        
+        scythe = new(EntityScytheBoss(800, 800))
         first = true
     end
     if (scene == "scene17_right_start") then
@@ -22,7 +32,11 @@ function load(scene)
     world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
-        world.spawnEntity(soucoupe)
+        world.spawnEntity(scythe)
+    end
+    if player:getNeedRestart(17) then
+        entities = {}
+        player:setNeedRestart(17, false)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
@@ -64,10 +78,9 @@ function update()
             canPass = false
         end
     end
-    if canPass then
-        if x > 900 and x < 1000 and y > 1050 and boss_start == false then
-            setScene("scene17_right_start")
-        end
+    if x > 900 and x < 1000 and y > 1050 then
+        setScene("scene17_right_start")
+        player:plusNb_salle_pass()
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")

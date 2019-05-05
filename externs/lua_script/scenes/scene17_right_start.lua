@@ -34,13 +34,23 @@ local pot5_3
 local pot5_4
 local parchemin6
 local robot1
+local robot2
+local robot3
 local play_door = false
 
 local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first == false or player:getNeedRestart(16) then
         status1 = new(EntityProps(375, 339, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status2 = new(EntityProps(186, 802, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status3 = new(EntityProps(1355, 682, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
@@ -65,8 +75,14 @@ function load(scene)
         pot5_3 = new(EntityProps(1129, 244, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_4 = new(EntityProps(739, 400, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         parchemin6 = new(EntityProps(1550, 550, assets["parchemin_6"], 17, 0, {}, 1))
-        robot1 = new(EntityTurret(500, 510))
+        robot1 = new(EntityRobot1(700, 510))
+        robot2 = new(EntityRobot1(400, 700))
+        robot3 = new(EntityRobot1(600, 800))
         first = true
+    end
+    if player:getNeedRestart(16) then
+        entities = {}
+        player:setNeedRestart(16, false)
     end
     if (scene == "scene15_start") then
         player.setPosition(30, 580)
@@ -102,6 +118,8 @@ function load(scene)
         world.spawnEntity(pot5_4)
         world.spawnEntity(parchemin6)
         world.spawnEntity(robot1)
+        world.spawnEntity(robot2)
+        world.spawnEntity(robot3)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 160}, {900, 160}, {900, 135}, {1000, 135}, {1000, 160}, {1920, 160}, {1920, 0}})
@@ -148,9 +166,11 @@ function update()
     
     if canPass then
         if x > 900 and x < 1000 and y < 155 then
+            player:plusNb_salle_pass()
             setScene("scene18_boss")
         end
         if x < 0 then
+            player:plusNb_salle_pass()
             setScene("scene15_start")
         end
     end

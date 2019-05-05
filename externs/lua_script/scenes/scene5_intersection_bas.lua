@@ -17,13 +17,23 @@ local hologram2
 local hologram_break1
 local hologram_break2
 local robot1
+local robot2
+local robot3
 local play_door = false
 
 local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first == false or player:getNeedRestart(5) then
         torch1 = new(EntityProps(100, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
         torch2 = new(EntityProps(100, 450, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
         torch3 = new(EntityProps(1800, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
@@ -34,8 +44,14 @@ function load(scene)
         hologram2 = new(EntityProps(450, 950, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
         hologram_break1 = new(EntityProps(550, 350, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
         hologram_break2 = new(EntityProps(1500, 900, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
-        robot1 = new(EntityTurret(500, 510))
+        robot1 = new(EntityRobot1(800, 450))
+        robot2 = new(EntityRobot1(500, 750))
+        robot3 = new(EntityRobot1(1200, 510))
         first = true
+    end
+    if player:getNeedRestart(5) then
+        entities = {}
+        player:setNeedRestart(5, false)
     end
     if (scene == "scene6_salle") then
         player.setPosition(1030, 1050)
@@ -60,6 +76,8 @@ function load(scene)
         world.spawnEntity(hologram_break1)
         world.spawnEntity(hologram_break2)
         world.spawnEntity(robot1)
+        world.spawnEntity(robot2)
+        world.spawnEntity(robot3)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
@@ -113,12 +131,15 @@ function update()
             play_door = true
         end
         if x < 0 then
+            player:plusNb_salle_pass()
             setScene("scene7_angle_droit")
         end
         if y > 1050 then
+            player:plusNb_salle_pass()
             setScene("scene6_salle")
         end
         if x > 1910 then
+            player:plusNb_salle_pass()
             setScene("scene4_angle_haut_gauche")
         end
     end

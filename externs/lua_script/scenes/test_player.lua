@@ -36,7 +36,15 @@ local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
+    if player:getNb_salle_pass() > 6 then
+        entities = {}
+        first = false
+        player:restartNb_salle_pass()
+        for i = 1, 17 do
+            player:setNeedRestart(i, true)
+        end
+    end
+    if first == false or player:getNeedRestart(1) then
         tube_bleu_casser = new(EntityProps(600, 700, assets["tube_bleu_casser"], 126, 156, {{8, 148},{0, 248}, {162, 248}, {162, 148}}, 1))
         tube_bleu_transform1 = new(EntityProps(200, 900, assets["tube_bleu_transform"], 65, 204, {{6, 153},{0, 204}, {131, 204}, {125, 153}}, 1.2))
         tube_bleu_transform2 = new(EntityProps(1300, 400, assets["tube_bleu_transform"], 65, 204, {{6, 153},{0, 204}, {131, 204}, {125, 153}}, 1.2))
@@ -49,6 +57,10 @@ function load(scene)
         tube_vert_femme1 = new(EntityProps(1650, 350, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         first = true
+    end
+    if player:getNeedRestart(1) then
+        entities = {}
+        player:setNeedRestart(1, false)
     end
     local robot3 = new(EntityRobot3(800, 800))
     if (scene ~= nil) and (scene == "scene2_angle_g") then
@@ -126,6 +138,7 @@ function update()
             play_door = true
         end
         if x > 930 and x < 1100 and y < 210 then
+            player:plusNb_salle_pass()
             setScene("scene2_angle_g")
         end
     end
