@@ -212,17 +212,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
     end
 
     function event(e)
-        if keyboard.keyPressed(keys.L) and not this.big_attack then
-            this.big_attack = true
-            this.clock_big_attack:restart()
-            this.clock_attack:restart()
-            this.nb_laser = 0
-            this.selected_time_attack = 1
-            if this.selected_time_attack > #this.time_attack then
-                this.selected_time_attack = 1
-            end
-            print(this.selected_time_attack)
-        end
+        
     end
 
 }]
