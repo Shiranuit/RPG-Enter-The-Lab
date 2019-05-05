@@ -16,10 +16,11 @@ function spell.createFromFile(filename)
                 for k, v in pairs(env) do
                     data[k] = v
                 end
+                local cd = stopwatch.create()
                 local sp = setmetatable({}, {
                     __type = "spell",
                     __env = data,
-                    __cd = stopwatch.create(),
+                    __cd = cd,
                     __isInCD = false,
                     __status = "idle",
                     __index = function(self, key)
@@ -127,36 +128,38 @@ end
 function spell.update(self)
     check(self, "spell", 1)
 
-    local meta = getmetatable(self)
-    if meta.__status == "idle" and not meta.__isInCD then
-        meta.__cd:restart()
-        meta.__isInCD = false
-    end
-    if meta.__status == "enable" then
-        if self:cooldownStartAtEnd() or self:getMaxCooldown() == 0 then
+    if not isPaused() then
+        local meta = getmetatable(self)
+        if meta.__status == "idle" and not meta.__isInCD then
             meta.__cd:restart()
             meta.__isInCD = false
-        else
-            if not meta.__isInCD and self:getMaxCooldown() > 0 then
+        end
+        if meta.__status == "enable" then
+            if self:cooldownStartAtEnd() or self:getMaxCooldown() == 0 then
                 meta.__cd:restart()
+                meta.__isInCD = false
+            else
+                if not meta.__isInCD and self:getMaxCooldown() > 0 then
+                    meta.__cd:restart()
+                    meta.__isInCD = true
+                end
+            end
+            if meta.__env["cast"] then
+                return meta.__env.cast(self)
+            end
+        elseif meta.__status == "disable" and not meta.__isInCD then
+            if self:cooldownStartAtEnd() and self:getMaxCooldown() > 0 then
                 meta.__isInCD = true
+                meta.__cd:restart()
             end
         end
-        if meta.__env["cast"] then
-            return meta.__env.cast(self)
+        if (meta.__isInCD and self:getCooldown() <= 0) or self:getMaxCooldown() <= 0 then
+            meta.__isInCD = false
+            meta.__status = "idle"
         end
-    elseif meta.__status == "disable" and not meta.__isInCD then
-        if self:cooldownStartAtEnd() and self:getMaxCooldown() > 0 then
-            meta.__isInCD = true
-            meta.__cd:restart()
+        if meta.__env["update"] then
+            return meta.__env.update(self)
         end
-    end
-    if (meta.__isInCD and self:getCooldown() <= 0) or self:getMaxCooldown() <= 0 then
-        meta.__isInCD = false
-        meta.__status = "idle"
-    end
-    if meta.__env["update"] then
-        return meta.__env.update(self)
     end
 end
 

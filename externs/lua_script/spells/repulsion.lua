@@ -11,7 +11,7 @@ function cooldownStartAtEnd()
 end
 
 function getCost()
-    return 5
+    return 3
 end
 
 function cooldownStartAtEnd()
@@ -37,6 +37,7 @@ end
 function cast(self)
     status, hor, ver = player.getStatus()
     player.activateSpell()
+    player.removeMana(getCost())
     world.spawnEntity(animationSpell["repulsionSpell"])
     animationSpell["repulsionSpell"].restart()
     player.removeMana(getCost())

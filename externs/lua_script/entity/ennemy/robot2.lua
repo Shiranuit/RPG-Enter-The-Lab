@@ -37,6 +37,10 @@ Class "EntityRobot2" extends "EntityLiving" [{
         initHitboxes()
     end
 
+    function getExperience()
+        return 55
+    end
+
     function setPosition(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)
@@ -68,7 +72,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
 
     function draw()
         if super.isAlive() then
-            if this.clock:getEllapsedTime() > 100000 then
+            if this.clock:getEllapsedTime() > 100000 and _G.freeze ~= true then
                 this.clock:restart()
                 this.sprite:next()
                 if this.sprite:hasEnded() then
@@ -80,7 +84,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
             super.drawHealth()
 
             if this.is_attack then
-                if this.clock_attack:getEllapsedTime() > 80000 then
+                if this.clock_attack:getEllapsedTime() > 80000 and _G.freeze ~= true then
                     this.clock_attack:restart()
                     this.attack:next()
                     if this.attack:hasEnded() then

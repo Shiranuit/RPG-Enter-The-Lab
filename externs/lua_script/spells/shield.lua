@@ -11,11 +11,12 @@ function cooldownStartAtEnd()
 end
 
 function getCost()
-    return 25
+    return 0.3
 end
 
 function cast(self)
     local x, y = player.getPosition()
+    player.removeMana(getCost())
     animationSpell["shieldSpell"].setPosition(x, y + 1)
     if animationSpell["shieldSpell"].hasEnded() then
         self:disable()

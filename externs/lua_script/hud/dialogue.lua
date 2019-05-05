@@ -378,6 +378,50 @@ function event_robot(e)
         can_aff = true
         already_aff_robot[nb_dialogue_robot] = true
     end
+    if nb_dialogue_robot == 11 and not already_aff_robot[nb_dialogue_robot] then
+        for i = 1, 3 do
+            
+            line_robot[i] = file_dial_robot:read()
+        end
+        
+        line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
+        dialogue:setString(line_robots)
+        can_aff = true
+        already_aff_robot[nb_dialogue_robot] = true
+    end
+    if nb_dialogue_robot == 12 and not already_aff_robot[nb_dialogue_robot] then
+        for i = 1, 3 do
+            
+            line_robot[i] = file_dial_robot:read()
+        end
+        
+        line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
+        dialogue:setString(line_robots)
+        can_aff = true
+        already_aff_robot[nb_dialogue_robot] = true
+    end
+    if nb_dialogue_robot == 13 and not already_aff_robot[nb_dialogue_robot] then
+        for i = 1, 3 do
+            
+            line_robot[i] = file_dial_robot:read()
+        end
+        
+        line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
+        dialogue:setString(line_robots)
+        can_aff = true
+        already_aff_robot[nb_dialogue_robot] = true
+    end
+    if nb_dialogue_robot == 14 and not already_aff_robot[nb_dialogue_robot] then
+        for i = 1, 3 do
+            
+            line_robot[i] = file_dial_robot:read()
+        end
+        
+        line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
+        dialogue:setString(line_robots)
+        can_aff = true
+        already_aff_robot[nb_dialogue_robot] = true
+    end
 end
 
 function event_homme_quest(e)

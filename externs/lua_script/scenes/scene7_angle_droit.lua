@@ -18,6 +18,7 @@ local tube_vert_femme1
 local tube_vert_femme2
 local robot1
 local robot2
+local robot3
 local play_door = false
 
 local entities = {}
@@ -46,6 +47,7 @@ function load(scene)
         tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         robot1 = new(EntityRobot2(1800, 300))
         robot2 = new(EntityRobot2(1800, 850))
+        robot3 = new(EntityRobot2(700, 500))
         first = true
     end
     if player:getNeedRestart(7) then
@@ -73,6 +75,7 @@ function load(scene)
         world.spawnEntity(tube_vert_femme2)
         world.spawnEntity(robot1)
         world.spawnEntity(robot2)
+        world.spawnEntity(robot3)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})

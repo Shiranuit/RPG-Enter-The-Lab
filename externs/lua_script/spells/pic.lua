@@ -7,7 +7,7 @@ function getMaxCooldown(self)
 end
 
 function getCost()
-    return 1
+    return 10
 end
 
 function cooldownStartAtEnd()

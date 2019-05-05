@@ -57,6 +57,7 @@ function unload()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
+    bosshealth = nil
 end
 
 function HitBoxWall(x_or, y_or, pts)

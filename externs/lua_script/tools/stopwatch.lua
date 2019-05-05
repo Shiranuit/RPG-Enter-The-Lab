@@ -13,7 +13,7 @@ function stopwatch.create()
         __time = 0,
         __clock = lsfml.clock.create(),
         __pause = false,
-        __gstate = _G.pause,
+        __gstate = isPaused(),
         __tostring = stringify,
     })
 end
@@ -22,17 +22,27 @@ function stopwatch.restart(self)
     check(self, "stopwatch", 1)
 
     local meta = getmetatable(self)
-    meta.__clock:restart()
+    lsfml.clock.restart(meta.__clock)
     meta.__time = 0
     meta.__pause = false
+end
+
+function stopwatch.isPaused(self)
+    check(self, "stopwatch", 1)
+
+    local meta = getmetatable(self)
+    return meta.__pause
 end
 
 function stopwatch.pause(self)
     check(self, "stopwatch", 1)
 
     local meta = getmetatable(self)
-    meta.__time = self:getEllapsedTime()
-    meta.__pause = true
+    if not meta.__pause then
+        meta.__time = meta.__time + lsfml.clock.getEllapsedTime(meta.__clock)
+        meta.__pause = true
+        lsfml.clock.restart(meta.__clock)
+    end
 end
 
 function stopwatch.start(self)
@@ -41,7 +51,7 @@ function stopwatch.start(self)
     local meta = getmetatable(self)
     if meta.__pause then
         meta.__pause = false
-        meta.__clock:restart()
+        lsfml.clock.restart(meta.__clock)
     end
 end
 
@@ -49,22 +59,22 @@ function stopwatch.getEllapsedTime(self)
     check(self, "stopwatch", 1)
 
     local meta = getmetatable(self)
-    if meta.__gstate ~= _G.pause then
-        if _G.pause then
+    if meta.__gstate ~= isPaused() then
+        if isPaused() then
             if not meta.__pause then
-                meta.__time = meta.__time + meta.__clock:getEllapsedTime()
+                local time = lsfml.clock.getEllapsedTime(meta.__clock)
+                meta.__time = meta.__time + time
             end
-            meta.__pause = true
         else
-            meta.__pause = false
-            meta.__clock:restart()
+            lsfml.clock.restart(meta.__clock)
         end
+        meta.__gstate = isPaused()
     end
-    meta.__gstate = _G.pause
-    if meta.__pause then
+    if meta.__pause or isPaused() then
+        lsfml.clock.restart(meta.__clock)
         return meta.__time
     else
-        return meta.__time + meta.__clock:getEllapsedTime()
+        return meta.__time + lsfml.clock.getEllapsedTime(meta.__clock)
     end
 end
 

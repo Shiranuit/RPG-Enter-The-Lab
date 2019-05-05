@@ -3,7 +3,7 @@
 -- =========================================
 
 assets = {}
-pause = false
+local paused = false
 local pstate = false
 local scenes = {}
 local scene_name = "main_menu"
@@ -19,6 +19,16 @@ function dofile(filename)
     else
         return odofile()
     end
+end
+
+function setPaused(state)
+    check(state, "boolean", 1)
+
+    paused = state
+end
+
+function isPaused()
+    return paused
 end
 
 local function loadScene(name)
@@ -100,6 +110,8 @@ dofile("quete/quete.lua")
 class.createFromFile("helpers/ray_caster.lua")
 class.createFromFile("entity/entity.lua")
 class.createFromFile("entity/entity_laser.lua")
+class.createFromFile("entity/entity_boule_magie.lua")
+class.createFromFile("entity/entity_blackhole.lua")
 class.createFromFile("entity/entity_slash.lua")
 class.createFromFile("entity/entity_slash_weapon.lua")
 class.createFromFile("entity/entity_scythe_weapon.lua")
@@ -109,6 +121,7 @@ class.createFromFile("stats/stats.lua")
 class.createFromFile("entity/entity_living.lua")
 class.createFromFile("entity/entity_pnj.lua")
 class.createFromFile("entity/entity_item.lua")
+class.createFromFile("entity/entity_blackhole.lua")
 class.createFromFile("entity/entity_player.lua")
 class.createFromFile("entity/entity_props.lua")
 class.createFromFile("entity/ennemy/robot1.lua")
@@ -151,9 +164,9 @@ dofile("assets.lua")
 
 animationSpell = {
     rayonSpell = new(EntitySpell({
-        spell = assets["rayonAnimation"],
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
         damage = 1000000,
+        spell = assets["rayonAnimation"],
         rect = {0, 0, 19, 114},
         ox = 0,
         oy = 0,
@@ -163,9 +176,9 @@ animationSpell = {
         time = 10000,
     })),
     rayonIdleAnimation = new(EntitySpell({
-        spell = assets["rayonIdleAnimation"],
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
         damage = 1000000,
+        spell = assets["rayonIdleAnimation"],
         rect = {0, 114, 19, 114},
         ox = 0,
         oy = 0,
@@ -175,9 +188,9 @@ animationSpell = {
         time = 10000,
     })),
     rayonEndAnimation = new(EntitySpell({
-        spell = assets["rayonEndAnimation"],
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
         damage = 1000000,
+        spell = assets["rayonEndAnimation"],
         rect = {0, 228, 19, 114},
         ox = 0,
         oy = 0,
@@ -285,10 +298,12 @@ temp_hud = hud.createFromFile("hud/temp_hud.lua", nil, false)
 dialogue_hud = hud.createFromFile("hud/dialogue.lua", nil, true)
 quete_hud = hud.createFromFile("hud/hud_quete.lua", nil, true)
 
+
 -- =========================================
 -- =                 SCENES                =
 -- =========================================
 
+loadScene("menu/respawn.lua")
 loadScene("menu/main_menu.lua")
 loadScene("menu/options_menu.lua")
 loadScene("scenes/test_player.lua")
@@ -358,16 +373,16 @@ end
 
 -- Called each time we need to update the game-logic
 function update()
-    if pstate ~= _G.pause then
-        if _G.pause then
+    if pstate ~= isPaused() then
+        if isPaused() then
             _G.game_pause()
         else
             _G.game_resume()
         end
-        pstate = _G.pause
+        pstate = isPaused()
     end
     if scenes[scene_name] then
-        if not _G.pause then
+        if not isPaused() then
             scenes[scene_name].update()
             for i=1, #spells do
                 spells[i]:update()

@@ -182,10 +182,10 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function setMaximumStamina(stamina)
-        check(life ,"number", 1)
+        check(stamina ,"number", 1)
 
-        assert(life > 0, "The Maximum stamina must be positive", 3)
-        this.max_stamina = life
+        assert(stamina > 0, "The Maximum stamina must be positive", 3)
+        this.max_stamina = stamina
         if this.stamina > this.max_stamina then this.stamina = this.max_stamina end
     end
 
@@ -471,7 +471,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
             this.stamina = this.stamina + 1 * DeltaTime
         end
         if this.max_mana > this.mana and this.status ~= "spell" then
-            this.mana = this.mana + 0.1 * DeltaTime
+            this.mana = this.mana + 0.01 * DeltaTime
         end
         if super.isDead() then
             if (this.status ~= "death") then
@@ -479,6 +479,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 this.pos_rect = {12, 30000, 0, 2500, 220, 500}
                 this.clock:restart()
                 this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
+                setScene("respawn")
             end
         end
         if this.status == "spell" then
