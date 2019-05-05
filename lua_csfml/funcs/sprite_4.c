@@ -21,7 +21,7 @@ int sprite_set_color(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2) && lua_isinteger(L, 3) &&
         lua_isinteger(L, 4) && lua_isinteger(L, 5)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         color.r = lua_tointeger(L, 2);
         color.g = lua_tointeger(L, 3);
         color.b = lua_tointeger(L, 4);
@@ -44,7 +44,7 @@ int sprite_copy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         new = (sfSprite **)lua_newuserdata(L, sizeof(sfSprite **));
         *new = sfSprite_copy(sprite);
     } else {

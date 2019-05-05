@@ -59,7 +59,7 @@ Class "EntityBouleElec" extends "Entity" [{
         local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "enemy")
         for i=1, #entities do
             if class.isInstanceOf(entities[i], "EntityLiving") and not this.hit[entities[i].getUUID()] then
-                entities[i].hit(this.damage, player)
+                entities[i].hit(this.damage * DeltaTime * player.getAttack(), player)
                 this.hit[entities[i].getUUID()] = true
             end
         end

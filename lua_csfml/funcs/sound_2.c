@@ -19,7 +19,7 @@ int sound_get_loop(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         lua_pushboolean(L, sfSound_getLoop(sound));
     } else {
         luaL_error(L, "Expected (Sound)");
@@ -37,7 +37,7 @@ int sound_get_min_distance(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         lua_pushnumber(L, sfSound_getMinDistance(sound));
     } else {
         luaL_error(L, "Expected (Sound)");
@@ -55,7 +55,7 @@ int sound_get_pitch(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         lua_pushnumber(L, sfSound_getPitch(sound));
     } else {
         luaL_error(L, "Expected (Sound)");
@@ -73,7 +73,7 @@ int sound_get_playing_offset(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         lua_pushinteger(L, sfSound_getPlayingOffset(sound).microseconds);
     } else {
         luaL_error(L, "Expected (Sound)");
@@ -92,7 +92,7 @@ int sound_get_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         vec = sfSound_getPosition(sound);
         lua_pushnumber(L, vec.x);
         lua_pushnumber(L, vec.y);

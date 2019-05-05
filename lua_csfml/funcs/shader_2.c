@@ -55,7 +55,7 @@ int shader_set_color_parameter(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isstring(L, 2) &&
         lua_istable(L, 3) && lua_iscolor(L, 3)) {
-        shader = userdata_pointer(L, 1, sfShader);
+        shader = USERDATA_POINTER(L, 1, sfShader);
         sfShader_setColorParameter(shader, lua_tostring(L, 2),
         lua_tocolor(L, 3));
     } else {
@@ -75,8 +75,8 @@ int shader_set_texture_parameter(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isstring(L, 2) && lua_isuserdata(L, 3)) {
-        shader = userdata_pointer(L, 1, sfShader);
-        texture = userdata_pointer(L, 2, sfTexture);
+        shader = USERDATA_POINTER(L, 1, sfShader);
+        texture = USERDATA_POINTER(L, 2, sfTexture);
         sfShader_setTextureParameter(shader, lua_tostring(L, 2),
         texture);
     } else {
@@ -96,7 +96,7 @@ int shader_set_float2_parameter(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isstring(L, 2) &&
         lua_isnumber(L, 3) && lua_isnumber(L, 4)) {
-        shader = userdata_pointer(L, 1, sfShader);
+        shader = USERDATA_POINTER(L, 1, sfShader);
         sfShader_setFloat2Parameter(shader, lua_tostring(L, 2),
         lua_tonumber(L, 3), lua_tonumber(L, 4));
     } else {

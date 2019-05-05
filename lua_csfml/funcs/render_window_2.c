@@ -21,9 +21,9 @@ int win_draw_vertex_array(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
-        vertexs = userdata_pointer(L, 2, sfVertexArray);
-        state = lua_isnil(L, 3) ? 0 : userdata_pointer(L, 3, sfRenderStates);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
+        vertexs = USERDATA_POINTER(L, 2, sfVertexArray);
+        state = lua_isnil(L, 3) ? 0 : USERDATA_POINTER(L, 3, sfRenderStates);
         sfRenderWindow_drawVertexArray(window, vertexs, state);
     } else {
         luaL_error(L, "Expected (Window, VertexArray, RenderStates)");
@@ -44,9 +44,9 @@ int win_draw_rectangle_shape(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
-        rect = userdata_pointer(L, 2, sfRectangleShape);
-        state = lua_isnil(L, 3) ? 0 : userdata_pointer(L, 3, sfRenderStates);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
+        rect = USERDATA_POINTER(L, 2, sfRectangleShape);
+        state = lua_isnil(L, 3) ? 0 : USERDATA_POINTER(L, 3, sfRenderStates);
         sfRenderWindow_drawRectangleShape(window, rect, state);
     } else {
         luaL_error(L, "Expected (Window, RectangleShape, RenderStates)");
@@ -67,9 +67,9 @@ int win_draw_shape(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
-        shape = userdata_pointer(L, 2, sfShape);
-        state = lua_isnil(L, 3) ? 0 : userdata_pointer(L, 3, sfRenderStates);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
+        shape = USERDATA_POINTER(L, 2, sfShape);
+        state = lua_isnil(L, 3) ? 0 : USERDATA_POINTER(L, 3, sfRenderStates);
         sfRenderWindow_drawShape(window, shape, state);
     } else {
         luaL_error(L, "Expected (Window, Shape, RenderStates)");
@@ -90,9 +90,9 @@ int win_draw_sprite(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
-        sprite = userdata_pointer(L, 2, sfSprite);
-        state = lua_isnil(L, 3) ? 0 : userdata_pointer(L, 3, sfRenderStates);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
+        sprite = USERDATA_POINTER(L, 2, sfSprite);
+        state = lua_isnil(L, 3) ? 0 : USERDATA_POINTER(L, 3, sfRenderStates);
         sfRenderWindow_drawSprite(window, sprite, state);
     } else {
         luaL_error(L, "Expected (Window, Sprite, RenderStates)");
@@ -113,9 +113,9 @@ int win_draw_text(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         (lua_isnil(L, 3) || lua_isuserdata(L, 3))) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
-        text = userdata_pointer(L, 2, sfText);
-        state = lua_isnil(L, 3) ? 0 : userdata_pointer(L, 3, sfRenderStates);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
+        text = USERDATA_POINTER(L, 2, sfText);
+        state = lua_isnil(L, 3) ? 0 : USERDATA_POINTER(L, 3, sfRenderStates);
         sfRenderWindow_drawText(window, text, state);
     } else {
         luaL_error(L, "Expected (Window, Text, RenderStates)");

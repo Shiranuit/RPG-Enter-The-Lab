@@ -20,7 +20,7 @@ int sprite_set_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         if (!get_vector_2f(L, &vector, 2)) {
             luaL_error(L, "Expected (Sprite, Table)");
             return (0);
@@ -43,7 +43,7 @@ int sprite_set_scale(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfSprite_setScale(sprite, vector);
@@ -64,7 +64,7 @@ int sprite_get_scale(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         vector = sfSprite_getPosition(sprite);
         lua_pushnumber(L, vector.x);
         lua_pushnumber(L, vector.y);
@@ -84,7 +84,7 @@ int sprite_get_rotation(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         nb = sfSprite_getRotation(sprite);
         lua_pushnumber(L, nb);
     } else {
@@ -104,7 +104,7 @@ int sprite_set_rotation(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         nb = lua_tonumber(L, 2);
         sfSprite_setRotation(sprite, nb);
     } else {

@@ -5,6 +5,7 @@
 hud = {}
 hudorder = {}
 huds = {}
+local openCount = 0
 local shouldRender = true
 
 function hud.createFromFile(filename, zindex, canBeClosed)
@@ -61,10 +62,21 @@ function hud.open(self)
         hudorder[#hudorder + 1] = self
         local meta = getmetatable(self)
         meta.__status = "open"
+        if meta.__canBeClosed then
+            openCount = openCount + 1
+        end
         if meta.__env.open then
             meta.__env.open(self)
         end
     end
+end
+
+function hud.areAllClosed()
+    return openCount == 0
+end
+
+function hud.openCount()
+    return openCount
 end
 
 function hud.close(self)
@@ -79,6 +91,7 @@ function hud.close(self)
                     break
                 end
             end
+            openCount = openCount - 1
             meta.__status = "close"
             if meta.__env.close then
                 meta.__env.close(self)

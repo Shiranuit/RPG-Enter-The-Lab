@@ -21,7 +21,7 @@ int music_set_loop(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isboolean(L, 2)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         nb = lua_toboolean(L, 2);
         sfMusic_setLoop(music, nb);
     } else {

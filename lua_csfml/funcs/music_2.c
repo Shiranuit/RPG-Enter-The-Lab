@@ -20,7 +20,7 @@ int music_play(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         sfMusic_play(music);
     } else {
         luaL_error(L, "Expected (Music)");
@@ -38,7 +38,7 @@ int music_stop(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         sfMusic_stop(music);
     } else {
         luaL_error(L, "Expected (Music)");
@@ -57,7 +57,7 @@ int music_set_volume(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         nb = lua_tonumber(L, 2);
         sfMusic_setVolume(music, nb);
     } else {
@@ -77,7 +77,7 @@ int music_set_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         if (!get_vector_3f(L, &vector, 2))
             return (0);
         sfMusic_setPosition(music, vector);
@@ -98,7 +98,7 @@ int music_get_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         vector = sfMusic_getPosition(music);
         lua_pushnumber(L, vector.x);
         lua_pushnumber(L, vector.y);

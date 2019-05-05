@@ -37,7 +37,7 @@ int soundbuffer_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSoundBuffer);
+        sound = USERDATA_POINTER(L, 1, sfSoundBuffer);
         sfSoundBuffer_destroy(sound);
     } else {
         luaL_error(L, "Expected (SoundBuffer)");

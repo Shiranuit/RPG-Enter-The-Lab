@@ -103,7 +103,6 @@ Class "EntitySpell" extends "Entity" [{
             local entities = world.getEntitiesInHitbox(box, "enemy")
             for i = 1, #entities do
                 if (class.isInstanceOf(entities[i], "EntityLiving")) then
-                    entities[i].hit(this.damage * DeltaTime, player)
                     local x, y = entities[i].getPosition()
                     local px, py = player.getPosition()
                     local pos_x = x - px
@@ -111,6 +110,7 @@ Class "EntitySpell" extends "Entity" [{
                     local total = math.abs(pos_x) + math.abs(pos_y)
                     entities[i].move((pos_x / total) * this.knockback, (pos_y / total) * this.knockback)
                     print("HEAL : "..entities[i].getHealth())
+                    entities[i].hit(this.damage * DeltaTime * player.getAttack(), player)
                 end
             end
             this.make_damage = false

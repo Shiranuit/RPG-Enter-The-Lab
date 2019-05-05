@@ -20,7 +20,7 @@ int texture_create_from_image(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        image = userdata_pointer(L, 1, sfImage);
+        image = USERDATA_POINTER(L, 1, sfImage);
         sfIntRect rect = {0};
         if (!get_int_rect(L, &rect, 2)) return (0);
         texture = (sfTexture **)lua_newuserdata(L, sizeof(sfTexture **));
@@ -48,7 +48,7 @@ int texture_get_size(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         size = sfTexture_getSize(texture);
         lua_pushinteger(L, size.x);
         lua_pushinteger(L, size.y);
@@ -68,7 +68,7 @@ int texture_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         sfTexture_destroy(texture);
     } else {
         luaL_error(L, "Expected (Texture)");
@@ -86,7 +86,7 @@ int texture_is_repeated(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         lua_pushboolean(L, sfTexture_isRepeated(texture));
     } else {
         luaL_error(L, "Expected (Texture)");

@@ -82,6 +82,10 @@ function close(self)
 
 end
 
+function getSlotCount()
+    return #slots
+end
+
 function setItemInSlot(self, slot, itemstack)
     check(slot, "number", 2)
     cassert(type(itemstack) == "nil" and type(itemstack) == "itemstack", "itemstack must be an itemstack", 3)
@@ -157,10 +161,10 @@ function draw(self)
 end
 
 function update(self)
-    local att_str = tostring(math.floor(player.getAttack() * 100)).."%"
-    local def_str = tostring(math.floor(player.getDefense() * 100) - 100).."%"
-    local par_str = tostring(math.floor(player.getParade() * 100) - 100).."%"
-    local spe_str = tostring(math.floor(player.getSpeed()))
+    local att_str = "+"..tostring(math.floor(player.getAttack() * 100) - 100).."%"
+    local def_str = "+"..tostring(math.floor(player.getDefense() * 100) - 100).."%"
+    local par_str = "+"..tostring(math.floor(player.getParade() * 100) - 100).."%"
+    local spe_str = "+"..tostring(math.floor(player.getSpeed()))
     attack:setString("Attack: "..string.rep(" ", 6 - #att_str)..att_str)
     defense:setString("Defense: "..string.rep(" ", 5 - #def_str)..def_str)
     parade:setString("Parade: "..string.rep(" ", 6 - #par_str)..par_str)
@@ -198,6 +202,7 @@ function event(self, e)
                 help_item:setName(tostring(item_stack:getUserdata().name or item_stack:getItem():getName()))
                 local stat = item_stack:getStats()
                 help_item:setString("Rarity : "..string.rep(" ", 10 - #(stat.rarity or "Unknown"))..(stat.rarity or "Unknown").."\nDammage : "..string.rep(" ", 8 - #tostring(stat.dammage or 0)).."+"..tostring(stat.dammage or 0).."\nDefense : "..string.rep(" ", 8 - #tostring(stat.defense or 0)).."+"..tostring(stat.defense or 0).."\nSpeed : "..string.rep(" ", 10 - #tostring(stat.speed or 0)).."+"..tostring(stat.speed or 0).."\nParade : "..string.rep(" ", 9 - #tostring(stat.parade or 0)).."+"..tostring(stat.parade or 0).."\nHealth : "..string.rep(" ", 9 - #tostring(stat.max_health or 0)).."+"..tostring(stat.max_health or 0).."\nMana : "..string.rep(" ", 11 - #tostring(stat.max_mana or 0)).."+"..tostring(stat.max_mana or 0).."\nStamina : "..string.rep(" ", 8 - #tostring(stat.max_stamina or 0)).."+"..tostring(stat.max_stamina or 0).."\n")
+                break
             end
         end
     end

@@ -20,7 +20,7 @@ int sprite_rotate(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         nb = lua_tonumber(L, 2);
         sfSprite_rotate(sprite, nb);
     } else {
@@ -40,7 +40,7 @@ int sprite_get_origin(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         vector = sfSprite_getOrigin(sprite);
         lua_pushnumber(L, vector.x);
         lua_pushnumber(L, vector.y);
@@ -61,7 +61,7 @@ int sprite_scale(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfSprite_scale(sprite, vector);
@@ -82,7 +82,7 @@ int sprite_set_origin(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfSprite_setOrigin(sprite, vector);
@@ -103,7 +103,7 @@ int sprite_set_texture_rect(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         if (!get_int_rect(L, &rect, 2))
             return (0);
         sfSprite_setTextureRect(sprite, rect);

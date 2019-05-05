@@ -19,7 +19,7 @@ int vertex_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         free(vertex);
     } else {
         luaL_error(L, "Expected (Vertex)");
@@ -49,7 +49,7 @@ int vertex_set_x(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         vertex->position.x = lua_tonumber(L, 2);
     } else {
         luaL_error(L, "Expected (Vertex, Number)");
@@ -67,7 +67,7 @@ int vertex_set_y(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         vertex->position.y = lua_tonumber(L, 2);
     } else {
         luaL_error(L, "Expected (Vertex, Number)");
@@ -85,7 +85,7 @@ int vertex_set_tx(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         vertex->texCoords.x = lua_tonumber(L, 2);
     } else {
         luaL_error(L, "Expected (Vertex, Number)");

@@ -29,7 +29,7 @@ int clock_copy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        clock = userdata_pointer(L, 1, sfClock);
+        clock = USERDATA_POINTER(L, 1, sfClock);
         new = (sfClock **)lua_newuserdata(L, sizeof(sfClock **));
         *new = sfClock_copy(clock);
     } else {
@@ -48,7 +48,7 @@ int clock_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        clock = userdata_pointer(L, 1, sfClock);
+        clock = USERDATA_POINTER(L, 1, sfClock);
         sfClock_destroy(clock);
     } else {
         luaL_error(L, "Expected (Clock)");
@@ -67,7 +67,7 @@ int clock_get_ellapsed_time(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        clock = userdata_pointer(L, 1, sfClock);
+        clock = USERDATA_POINTER(L, 1, sfClock);
         time = sfClock_getElapsedTime(clock);
         lua_pushinteger(L, time.microseconds);
     } else {
@@ -86,7 +86,7 @@ int clock_restart(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        clock = userdata_pointer(L, 1, sfClock);
+        clock = USERDATA_POINTER(L, 1, sfClock);
         sfClock_restart(clock);
     } else {
         luaL_error(L, "Expected (Clock)");

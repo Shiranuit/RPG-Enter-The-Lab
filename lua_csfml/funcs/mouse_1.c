@@ -20,7 +20,7 @@ int mouse_get_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
         pos = sfMouse_getPositionRenderWindow(window);
         lua_pushinteger(L, pos.x);
         lua_pushinteger(L, pos.y);
@@ -40,7 +40,7 @@ int mouse_set_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2) && lua_isinteger(L, 3)) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
         sfMouse_setPositionRenderWindow((sfVector2i){lua_tointeger(L, 2),
         lua_tointeger(L, 3)}, window);
     } else {

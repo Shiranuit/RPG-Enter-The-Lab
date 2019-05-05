@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define check_type(L, i, t) (lua_type(L, i) == t)
-#define userdata_pointer(L, i, type) (*(type **)lua_touserdata(L, i))
+#define CHECK_TYPE(L, i, t) (lua_type(L, i) == t)
+#define USERDATA_POINTER(L, i, type) (*(type **)lua_touserdata(L, i))
 
 #endif /* !LUA_INCLUDE_H_ */

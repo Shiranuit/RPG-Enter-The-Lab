@@ -43,17 +43,22 @@ assets["xp_bar"] = lsfml.texture.createFromFile("./assets/hud/xp_bar.png", {0, 0
 assets["xp_bar_empty"] = lsfml.texture.createFromFile("./assets/hud/xp_bar_empty.png", {0, 0, 1080, 80})
 assets["circle"] = lsfml.texture.createFromFile("./assets/hud/circle.png", {0, 0, 71, 71})
 
+assets["scythe_right"] = lsfml.texture.createFromFile("./assets/hud/boomrang_dot.png", {0, 0, 71, 71})
+assets["scythe_left"] = lsfml.texture.createFromFile("./assets/hud/slash_dot.png", {0, 0, 71, 71})
+
 -- =======================
--- =    ENTITY MOB   =
+-- =    ENTITY MOB       =
 -- =======================
 
 assets["robot1"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot1.png", {0, 0, 4095, 2972})
 assets["robot2"] = lsfml.texture.createFromFile("./assets/ennemy/robo/robot2.png", {0, 0, 7216, 4200})
 assets["turret"] = lsfml.texture.createFromFile("./assets/ennemy/tourelle.png", {0, 0, 156, 312})
 assets["soucoupe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/soucoupe/soucoupe250x86.png", {0, 0, 1993, 258})
+assets["scythe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/scythe/scythe.png", {0, 0, 673, 610})
+assets["mage"] = lsfml.texture.createFromFile("./assets/ennemy/boss/mage/mage.png", {0, 0, 480, 846})
 
 -- =======================
--- =    ENTITY PNJ   =
+-- =    ENTITY PNJ       =
 -- =======================
 
 assets["pnj_homme"] = lsfml.texture.createFromFile("./assets/pnj/pnj_homme.png", {0, 0, 1100, 560})
@@ -140,8 +145,6 @@ assets["casque5"] = lsfml.texture.createFromFile("./assets/items/armure/casque5.
 assets["jambiere5"] = lsfml.texture.createFromFile("./assets/items/armure/jambiere5.png", {0, 0, 64, 64})
 assets["plastron5"] = lsfml.texture.createFromFile("./assets/items/armure/plastron5.png", {0, 0, 64, 64})
 
-assets["scythe"] = lsfml.texture.createFromFile("./assets/ennemy/boss/scythe/scythe.png", {0, 0, 673, 610})
-
 -- ==========================
 -- =     MAP BACKGROUND     =
 -- ==========================
@@ -227,6 +230,7 @@ assets["rayon_idle"] = lsfml.sound.createFromFile("./assets/sound/rayon_idle.ogg
 assets["rayon_end"] = lsfml.sound.createFromFile("./assets/sound/rayon_end.ogg")
 assets["pic"] = lsfml.sound.createFromFile("./assets/sound/pic.ogg")
 assets["robot2_sound"] = lsfml.sound.createFromFile("./assets/sound/robot2.ogg")
+assets["robot1_sound"] = lsfml.sound.createFromFile("./assets/sound/robot1.ogg")
 
 -- =======================
 -- =        MUSICS       =

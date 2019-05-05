@@ -19,7 +19,7 @@ int texture_is_smooth(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         lua_pushboolean(L, sfTexture_isSmooth(texture));
     } else {
         luaL_error(L, "Expected (Texture)");
@@ -37,7 +37,7 @@ int texture_set_repeated(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isboolean(L, 2)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         sfTexture_setRepeated(texture, lua_toboolean(L, 2));
     } else {
         luaL_error(L, "Expected (Texture, Boolean)");
@@ -55,7 +55,7 @@ int texture_set_smooth(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isboolean(L, 2)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         sfTexture_setSmooth(texture, lua_toboolean(L, 2));
     } else {
         luaL_error(L, "Expected (Texture, Boolean)");
@@ -75,8 +75,8 @@ int texture_update_from_image(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) &&
         lua_isinteger(L, 3) && lua_isinteger(L, 4)) {
-        texture = userdata_pointer(L, 1, sfTexture);
-        image = userdata_pointer(L, 2, sfImage);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
+        image = USERDATA_POINTER(L, 2, sfImage);
         sfTexture_updateFromImage(texture, image,
         (unsigned int)lua_tointeger(L, 3), (unsigned int)lua_tointeger(L, 4));
     } else {

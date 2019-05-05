@@ -19,7 +19,7 @@ int sound_get_status(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         sfSoundStatus status = sfSound_getStatus(sound);
         lua_pushstring(L, status == 0 ? "stopped" :
         (status == 1 ? "paused" : "playing"));
@@ -39,7 +39,7 @@ int sound_get_volume(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         lua_pushnumber(L, sfSound_getVolume(sound));
     } else {
         luaL_error(L, "Expected (Sound)");
@@ -57,7 +57,7 @@ int sound_get_is_relative_to_lister(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         lua_pushboolean(L, sfSound_isRelativeToListener(sound));
     } else {
         luaL_error(L, "Expected (Sound)");
@@ -75,7 +75,7 @@ int sound_pause(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         sfSound_pause(sound);
     } else {
         luaL_error(L, "Expected (Sound)");
@@ -93,7 +93,7 @@ int sound_play(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sound = userdata_pointer(L, 1, sfSound);
+        sound = USERDATA_POINTER(L, 1, sfSound);
         sfSound_play(sound);
     } else {
         luaL_error(L, "Expected (Sound)");

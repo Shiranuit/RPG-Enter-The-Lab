@@ -19,7 +19,7 @@ int vertexarray_resize(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
-        varray = userdata_pointer(L, 1, sfVertexArray);
+        varray = USERDATA_POINTER(L, 1, sfVertexArray);
         sfVertexArray_resize(varray, lua_tointeger(L, 2));
     } else {
         luaL_error(L, "Expected (VertexArray, Number)");
@@ -37,7 +37,7 @@ int vertexarray_set_primitive_type(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
-        varray = userdata_pointer(L, 1, sfVertexArray);
+        varray = USERDATA_POINTER(L, 1, sfVertexArray);
         sfVertexArray_setPrimitiveType(varray, lua_tointeger(L, 2));
     } else {
         luaL_error(L, "Expected (VertexArray, String)");
