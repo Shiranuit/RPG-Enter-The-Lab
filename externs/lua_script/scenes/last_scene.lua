@@ -34,6 +34,7 @@ function load(scene)
         world.spawnEntity(player)
         world.spawnEntity(mage)
     end
+    bosshealth:setEntity(mage)
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {965, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
@@ -56,6 +57,7 @@ function unload()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
+    bosshealth = nil
 end
 
 function draw()
