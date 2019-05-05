@@ -50,7 +50,7 @@ function draw(self)
 end
 
 function update(self)
-
+    text_quest_press:setString("["..keyboard.getKeyName(controls.getControl("hide/show")).."] Hide/Show")
 end
 
 function event(self, e)
