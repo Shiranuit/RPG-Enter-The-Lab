@@ -391,7 +391,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
             this.scythe:setRotation(this.scythe_angle)
             if this.scythe_angle % 360 == 90 or this.scythe_angle % 360 == 270 then
                 local nx, ny = super.getPosition()
-                world.spawnEntity(new(EntitySlashWeapon(nx, ny, this.vec_slash, 20, 20, final, this.size_slash)))
+                world.spawnEntity(new(EntitySlashWeapon(nx, ny, this.vec_slash, 20 * player.getAttack(), 20, final, this.size_slash)))
             elseif this.scythe_angle % 360 == 180 then
                 this.scythe_attack = "none"
             end
