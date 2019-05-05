@@ -79,6 +79,7 @@ end
 
 math.randomseed(os.time())
 local owindow = window
+
 dofile("tools/keyboard.lua")
 dofile("entity/ennemy/boss/scythe_func.lua")
 dofile("entity/ennemy/boss/soucoupe_func.lua")
