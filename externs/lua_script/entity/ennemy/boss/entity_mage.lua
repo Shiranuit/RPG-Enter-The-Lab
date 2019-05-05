@@ -296,25 +296,6 @@ Class "EntityMageBoss" extends "EntityLiving" [{
     end
 
     function event(e)
-        local event = e:getEvent()
-        if event[1] == "key_pressed" and event[2] == keys.L then
-            this.blackHole()
-        end
-        if event[1] == "key_pressed" and event[2] == keys.K then
-            this.tpAttack()
-        end
-        if event[1] == "key_pressed" and event[2] == keys.O then
-            this.KageBunshin()
-        end
-        if event[1] == "key_pressed" and event[2] == keys.P then
-            this.missile()
-        end
-        if event[1] == "key_pressed" and event[2] == keys.N then
-            this.laserForm()
-        end
-        if event[1] == "key_pressed" and event[2] == keys.J then
-            this.phase = 7
-            this.laser()
-        end
+        
     end
 }]
