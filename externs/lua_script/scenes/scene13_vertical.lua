@@ -52,19 +52,25 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if y < 200 then
-        setScene("scene14_escalier")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if y > 1050 then
-        setScene("scene10_intersection_haut")
+    if canPass then
+        if y < 200 then
+            setScene("scene14_escalier")
+        end
+        if y > 1050 then
+            setScene("scene10_intersection_haut")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

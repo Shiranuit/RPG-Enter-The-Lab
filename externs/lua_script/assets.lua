@@ -220,6 +220,11 @@ assets["deny"] = lsfml.sound.createFromFile("./assets/sound/denied.wav")
 assets["time"] = lsfml.sound.createFromFile("./assets/sound/time.ogg")
 assets["elec"] = lsfml.sound.createFromFile("./assets/sound/elec.ogg")
 assets["repulsion"] = lsfml.sound.createFromFile("./assets/sound/shockwave.ogg")
+assets["bouleelec"] = lsfml.sound.createFromFile("./assets/sound/bouleelec.ogg")
+assets["rayon_start"] = lsfml.sound.createFromFile("./assets/sound/rayon_start.ogg")
+assets["rayon_idle"] = lsfml.sound.createFromFile("./assets/sound/rayon_idle.ogg")
+assets["rayon_end"] = lsfml.sound.createFromFile("./assets/sound/rayon_end.ogg")
+assets["pic"] = lsfml.sound.createFromFile("./assets/sound/pic.ogg")
 
 -- =======================
 -- =        MUSICS       =

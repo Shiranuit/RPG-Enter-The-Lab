@@ -3,7 +3,7 @@ function getName(self)
 end
 
 function getMaxCooldown(self)
-    return 5
+    return 20
 end
 
 function cooldownStartAtEnd()
@@ -28,6 +28,7 @@ end
 
 function enable(self)
     player.removeMana(getCost())
+    assets["shield"]:play()
     player.activateSpell()
     animationSpell["shieldSpell"].restart()
     world.spawnEntity(animationSpell["shieldSpell"])

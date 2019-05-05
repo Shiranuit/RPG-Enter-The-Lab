@@ -14,6 +14,7 @@ local hologram1
 local hologram2
 local hologram_break1
 local hologram_break2
+local robot1
 
 local entities = {}
 local hitb = nil
@@ -28,6 +29,7 @@ function load(scene)
         hologram2 = new(EntityProps(450, 950, assets["hologram"], 77, 155, {{0, 136},{0, 155}, {155, 155}, {155, 136}}, 1))
         hologram_break1 = new(EntityProps(550, 350, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
         hologram_break2 = new(EntityProps(1500, 900, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
+        robot1 = new(EntityTurret(500, 510))
         first = true
     end
     if (scene == "scene13_vertical") then
@@ -50,6 +52,7 @@ function load(scene)
         world.spawnEntity(hologram2)
         world.spawnEntity(hologram_break1)
         world.spawnEntity(hologram_break2)
+        world.spawnEntity(robot1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
@@ -60,6 +63,9 @@ function load(scene)
 
         HitBoxWall(0, 0, {{30, 0}, {30, 600}, {-50, 600}, {-50, 0}})
         HitBoxWall(0, 0, {{30, 760}, {30, 1080}, {-50, 1080}, {-50, 760}})
+
+        HitBoxWall(0, 0, {{-10, 0}, {-10, 1080}})
+        HitBoxWall(0, 0, {{1920, 0}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -85,22 +91,28 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x < 0 then
-        setScene("scene11_angle_droit")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if y < 200 then
-        setScene("scene13_vertical")
-    end
-    if x > 1910 then
-        setScene("scene9_horizontal")
+    if canPass then
+        if x < 0 then
+            setScene("scene11_angle_droit")
+        end
+        if y < 200 then
+            setScene("scene13_vertical")
+        end
+        if x > 1910 then
+            setScene("scene9_horizontal")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

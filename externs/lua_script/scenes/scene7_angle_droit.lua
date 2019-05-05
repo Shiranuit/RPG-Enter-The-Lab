@@ -16,6 +16,7 @@ local tube_vert_homme1
 local tube_vert_homme2
 local tube_vert_femme1
 local tube_vert_femme2
+local robot1
 
 local entities = {}
 local hitb = nil
@@ -32,6 +33,7 @@ function load(scene)
         tube_vert_homme2 = new(EntityProps(800, 420, assets["tube_vert_homme"], 80, 248, {{7, 186},{0, 248}, {160, 248}, {153, 186}}, 1))
         tube_vert_femme1 = new(EntityProps(1650, 350, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
+        robot1 = new(EntityTurret(500, 510))
         first = true
     end
     if (scene == "scene8_salle") then
@@ -53,6 +55,7 @@ function load(scene)
         world.spawnEntity(tube_vert_homme2)
         world.spawnEntity(tube_vert_femme1)
         world.spawnEntity(tube_vert_femme2)
+        world.spawnEntity(robot1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
@@ -63,6 +66,9 @@ function load(scene)
 
         HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1020, 1030}, {1920, 1030}, {1920, 1100}, {1020, 1100}})
+
+        HitBoxWall(0, 0, {{0, 1080}, {1920, 1080}})
+        HitBoxWall(0, 0, {{1920, 0}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -88,19 +94,25 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if y > 1100 then
-        setScene("scene8_salle")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if x > 1910 then
-        setScene("scene5_intersection_bas")
+    if canPass then
+        if y > 1050 then
+            setScene("scene8_salle")
+        end
+        if x > 1910 then
+            setScene("scene5_intersection_bas")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

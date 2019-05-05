@@ -34,6 +34,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         this.dir_x = 0
         this.dir_y = 0
         initHitboxes()
+        super.setType("ennemy")
     end
 
     function setPosition(x, y)

@@ -17,6 +17,10 @@ function cast(self)
         self:disable()
         return
     end
+    if assets["rayon_start"]:getStatus() == "stopped" and assets["rayon_idle"]:getStatus() ~= "playing" then
+        assets["rayon_idle"]:setLoop(true)
+        assets["rayon_idle"]:play()
+    end
     if animationSpell["rayonSpell"].hasEnded() and not is_idle then
         world.removeEntityByUUID(animationSpell["rayonSpell"].getUUID())
         world.spawnEntity(animationSpell["rayonIdleAnimation"])
@@ -56,6 +60,7 @@ end
 
 function enable(self)
     local status, hor, ver , idle = player.getStatus()
+    assets["rayon_start"]:play()
     
     if (hor == "left") then
         animationSpell["rayonSpell"].setRotation(90)
@@ -106,6 +111,8 @@ function enable(self)
 end
 
 function disable(self)
+    assets["rayon_idle"]:setLoop(false)
+    assets["rayon_end"]:play()
     world.removeEntityByUUID(animationSpell["rayonIdleAnimation"].getUUID())
     if not is_idle then
         world.removeEntityByUUID(animationSpell["rayonSpell"].getUUID())

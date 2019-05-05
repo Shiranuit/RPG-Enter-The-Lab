@@ -7,6 +7,15 @@ Class "Entity" [{
         this.scale_y = 0
         this.uuid = uuid.randomUUID()
         this.hitbox = {}
+        this.type = "neutral"
+    end
+
+    function setType(typ)
+        this.type = typ
+    end
+
+    function getType()
+        return this.type
     end
 
     function getPosition()

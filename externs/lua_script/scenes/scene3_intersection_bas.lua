@@ -71,7 +71,12 @@ function load(scene)
         HitBoxWall(0, 0, {{1880, 690}, {1880, 1080}, {1920, 1080}, {1920, 690}})
 
         HitBoxWall(0, 0, {{0, 1030}, {950, 1030}, {950, 1100}, {0, 1100}})
-        HitBoxWall(0, 0, {{1120, 1030}, {1920, 1030}, {1920, 1100}, {1100, 1120}})
+        HitBoxWall(0, 0, {{1120, 1030}, {1920, 1030}, {1920, 1100}, {1120, 1100}})
+
+        HitBoxWall(0, 0, {{-10, 0}, {-10, 1080}})
+        HitBoxWall(0, 0, {{0, 1080}, {1920, 1080}})
+
+        HitBoxWall(0, 0, {{1920, 0}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -97,22 +102,28 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x < 0 then
-        setScene("scene9_horizontal")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if y > 1100 then
-        setScene("scene4_angle_haut_gauche")
-    end
-    if x > 1910 then
-        setScene("scene2_angle_g")
+    if canPass then
+        if x < 0 then
+            setScene("scene9_horizontal")
+        end
+        if y > 1050 then
+            setScene("scene4_angle_haut_gauche")
+        end
+        if x > 1910 then
+            setScene("scene2_angle_g")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

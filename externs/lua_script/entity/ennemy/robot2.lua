@@ -13,8 +13,8 @@ Class "EntityRobot2" extends "EntityLiving" [{
         super(x, y)
         super.setHealthBarVisible(true)
         super.setHealthBarOffset(0, -875 * 0.25)
-        super.setMaximumHealth(100)
-        super.setHealth(100)
+        super.setMaximumHealth(200)
+        super.setHealth(200)
         this.sprite = animation.create(assets["robot2"], {0, 0, 902, 875})
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(451, 875)
@@ -31,6 +31,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
         this.max_distance = 110
         this.last_animation = false
         this.is_attack = false
+        super.setType("ennemy")
         initHitboxes()
     end
 

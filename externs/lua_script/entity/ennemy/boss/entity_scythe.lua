@@ -35,7 +35,9 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.clock = stopwatch.create()
         this.phase = 1
         initHitboxes()
+        super.setType("ennemy")
     end
+
 
     function hit(damage, source)
         if super.isAlive() and this.attack ~= "asmat_entity" then

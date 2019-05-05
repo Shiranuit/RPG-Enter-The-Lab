@@ -35,7 +35,6 @@ Class "EntitySpell" extends "Entity" [{
         this.one_animation = info.one_animation or true
         this.damage_loop = info.damage_loop or false
         this.once = false
-        this.damage = info.damage or 0
         this.matrix = transform.trans(info.ox or 0, info.oy or 0) * transform.scale(info.scale or 1, info.scale or 1)
         this.one_animation = info.one_animation or false
         this.moving_x = 0
@@ -104,7 +103,6 @@ Class "EntitySpell" extends "Entity" [{
             for i = 1, #entities do
                 if (class.isInstanceOf(entities[i], "EntityLiving")) then
                     entities[i].hit(this.damage * DeltaTime, player)
-                    print("HEAL : "..entities[i].getHealth())
                 end
             end
             this.make_damage = false

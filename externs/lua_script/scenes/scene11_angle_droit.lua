@@ -14,6 +14,7 @@ local hologram_break1
 local hologram_break2
 local torch1
 local torch2
+local robot1
 
 local entities = {}
 local hitb = nil
@@ -28,6 +29,7 @@ function load(scene)
         hologram_break2 = new(EntityProps(300, 400, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
         torch1 = new(EntityProps(1800, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
         torch2 = new(EntityProps(1800, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
+        robot1 = new(EntityTurret(500, 510))
         first = true
     end
     if (scene == "scene12_salle") then
@@ -47,6 +49,7 @@ function load(scene)
         world.spawnEntity(hologram_break2)
         world.spawnEntity(torch1)
         world.spawnEntity(torch2)
+        world.spawnEntity(robot1)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {1920, 220}, {1920, 0}})
@@ -57,6 +60,9 @@ function load(scene)
 
         HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1020, 1030}, {1920, 1030}, {1920, 1100}, {1020, 1100}})
+
+        HitBoxWall(0, 0, {{0, 1080}, {1920, 1080}})
+        HitBoxWall(0, 0, {{1920, 0}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -82,19 +88,25 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if y > 1100 then
-        setScene("scene12_salle")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
     end
-    if x > 1910 then
-        setScene("scene10_intersection_haut")
+    if canPass then
+        if y > 1050 then
+            setScene("scene12_salle")
+        end
+        if x > 1910 then
+            setScene("scene10_intersection_haut")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

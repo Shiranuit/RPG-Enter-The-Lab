@@ -30,6 +30,7 @@ function cast(self)
     world.spawnEntity(animationSpell["elecSpell"])
     animationSpell["elecSpell"].restart()
     player.removeMana(getCost())
+    assets["elec"]:play()
     local status, hor, ver = player.getStatus()
     local x_player, y_player = player.getPosition()
     local size = 200

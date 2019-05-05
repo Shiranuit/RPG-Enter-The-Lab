@@ -24,6 +24,8 @@ function load(scene)
 
         HitBoxWall(0, 0, {{0, 1030}, {880, 1030}, {880, 1100}, {0, 1100}})
         HitBoxWall(0, 0, {{1020, 1030}, {1920, 1030}, {1920, 1100}, {1020, 1100}})
+
+        HitBoxWall(0, 0, {{0, 1080}, {1920, 1080}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
@@ -49,16 +51,22 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 900 and x < 1000 and y > 1050 and boss_start == false then
-        setScene("scene17_right_start")
+    local canPass = true
+    for i=1, #entities do
+        if entities[i].getType() == "ennemy" then
+            canPass = false
+        end
+    end
+    if canPass then
+        if x > 900 and x < 1000 and y > 1050 and boss_start == false then
+            setScene("scene17_right_start")
+        end
     end
     if keyboard.keyPressed(keys.A) then
         player.hit(10 * DeltaTime, "World")
-        print(player.getHealth())
     end
     if keyboard.keyPressed(keys.E) then
         player.respawn()
-        print(player.getHealth())
     end
 end
 

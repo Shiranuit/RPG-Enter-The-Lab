@@ -3,20 +3,20 @@
 -- =                  ITEMS                =
 -- =========================================
 
-item.create("key", assets["key"], 1, {type="item"})
-item.create("core", assets["core"], 64, {type="item"})
-item.create("seringue", assets["seringue"], 64, {type="item"})
-item.create("seringue_mana", assets["seringue_mana"], 64, {type="item"})
-item.create("companion_cube", assets["companion_cube"], 64, {type="item"})
-item.create("parchemin_1", assets["parchemin__1"], 1, {type="item"})
-item.create("parchemin_2", assets["parchemin__2"], 1, {type="item"})
-item.create("parchemin_3", assets["parchemin__3"], 1, {type="item"})
-item.create("parchemin_4", assets["parchemin__4"], 1, {type="item"})
-item.create("parchemin_5", assets["parchemin__5"], 1, {type="item"})
-item.create("parchemin_6", assets["parchemin__6"], 1, {type="item"})
-item.create("parchemin", assets["parchemin"], 1, {type="item"})
-item.create("metal_scrap", assets["metal_scrap"], 64, {type="item"})
-item.create("tablette", assets["tablette"], 1, {type="item"})
+item.create("key", assets["key"], 1, {type="item", name="Key"})
+item.create("core", assets["core"], 64, {type="item", name="Core"})
+item.create("seringue", assets["seringue"], 64, {type="item", name="Seringue"})
+item.create("seringue_mana", assets["seringue_mana"], 64, {type="item", name="Seringue bleu"})
+item.create("companion_cube", assets["companion_cube"], 64, {type="item", name="Companion Cube"})
+item.create("parchemin_1", assets["parchemin__1"], 1, {type="item", name="Morceau de parchemin"})
+item.create("parchemin_2", assets["parchemin__2"], 1, {type="item", name="Morceau de parchemin"})
+item.create("parchemin_3", assets["parchemin__3"], 1, {type="item", name="Morceau de parchemin"})
+item.create("parchemin_4", assets["parchemin__4"], 1, {type="item", name="Morceau de parchemin"})
+item.create("parchemin_5", assets["parchemin__5"], 1, {type="item", name="Morceau de parchemin"})
+item.create("parchemin_6", assets["parchemin__6"], 1, {type="item", name="Morceau de parchemin"})
+item.create("parchemin", assets["parchemin"], 1, {type="item", name="Parchemin entier"})
+item.create("metal_scrap", assets["metal_scrap"], 64, {type="item", name="Bout de metal"})
+item.create("tablette", assets["tablette"], 1, {type="item", name="tablette"})
 
 -- =========================================
 -- =                  ARMORS               =
@@ -47,4 +47,4 @@ item.create("plastron5", assets["plastron5"], 1, {type="equipement", subtype="ch
 -- =                  WEAPONS              =
 -- =========================================
 
-item.create("scythe", assets["scythe_item"], 1, {type="weapon"})
+item.create("scythe", assets["scythe_item"], 1, {type="weapon", name="Scythe"})
