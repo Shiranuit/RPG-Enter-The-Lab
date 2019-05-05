@@ -16,11 +16,10 @@ function spell.createFromFile(filename)
                 for k, v in pairs(env) do
                     data[k] = v
                 end
-                local cd = stopwatch.create()
                 local sp = setmetatable({}, {
                     __type = "spell",
                     __env = data,
-                    __cd = cd,
+                    __cd = stopwatch.create(),
                     __isInCD = false,
                     __status = "idle",
                     __index = function(self, key)

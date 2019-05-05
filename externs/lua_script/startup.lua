@@ -371,6 +371,7 @@ end
 
 -- Called each time we need to update the game-logic
 function update()
+    stopwatch.update()
     if pstate ~= isPaused() then
         if isPaused() then
             _G.game_pause()
