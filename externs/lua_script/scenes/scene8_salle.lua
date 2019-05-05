@@ -18,6 +18,9 @@ local tube_vert_homme2
 local tube_vert_femme1 
 local tube_vert_femme2
 local robot1
+local door
+local canPass = false
+local stopwatch = stopwatch.create()
 
 local entities = {}
 local hitb = nil
@@ -36,6 +39,9 @@ function load(scene)
         tube_vert_femme1 = new(EntityProps(1650, 350, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         robot1 = new(EntityTurret(500, 510))
+        door = animation.create(assets["door"], {0, 0 , 400, 351})
+        door:setPosition(965, 80)
+        door:scale(0.38, 0.38)
         first = true
     end
     if scene == "scene7_angle_droit" then
@@ -83,11 +89,18 @@ end
 
 function draw()
     window:draw(background)
+    if canPass then
+        if stopwatch:getEllapsedTime() > 100000 then
+            stopwatch:restart()
+            door:next()
+        end
+    end
+    door:draw()
 end
 
 function update()
     local x, y = player.getPosition()
-    local canPass = true
+    canPass = true
     for i=1, #entities do
         if entities[i].getType() == "ennemy" then
             canPass = false

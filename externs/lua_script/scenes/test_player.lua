@@ -6,11 +6,17 @@ local background = lsfml.sprite.create()
 local touche = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 touche:setTexture(assets["hud_touche"], false)
+local canPass = false
 
 local pnj = new(EntityPnj("homme", 1150, 450, assets["pnj_homme"], 110, 560, {{0, 0},{0, 560}, {220, 560}, {220, 0}}, 0.3, 220, 560))
-local item1 = new(EntityItem(itemstack.create(items["core"], 2)))
+local stopwatch = stopwatch.create()
+local door = animation.create(assets["door"], {0, 0 , 400, 351})
+local item1 = new(EntityItem(itemstack.create(items["parchemin_6"], 2)))
 item1.setPosition(500, 500)
 local robot1 = new(EntityTurret(500, 510))
+
+door:setPosition(965, 80)
+door:scale(0.38, 0.38)
 
 local first = false
 local tube_bleu_casser
@@ -71,7 +77,7 @@ function load(scene)
         world.spawnEntity(pnj)
     end
     if (hitb == nil) then
-        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {965, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
         HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
@@ -96,11 +102,18 @@ end
 
 function draw()
     window:draw(background)
+    if canPass then
+        if stopwatch:getEllapsedTime() > 100000 then
+            stopwatch:restart()
+            door:next()
+        end
+    end
+    door:draw()
 end
 
 function update()
     local x, y = player.getPosition()
-    local canPass = true
+    canPass = true
     for i=1, #entities do
         if entities[i].getType() == "ennemy" then
             canPass = false

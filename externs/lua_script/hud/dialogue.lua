@@ -33,6 +33,20 @@ for i = 1, 3 do
 end
 local line_quetes = line_quete[1].."\n"..line_quete[2].."\n"..line_quete[3]
 
+-- =============================================
+-- =               DIALOGUE_END                =
+-- =============================================
+local file_dial_end = io.open("./assets/dialogue_script/dialogue_script_end.txt", "r")
+local nb_dialogue_end = 0
+local line_end = {}
+local already_aff_end = {false}
+local nb_read_to_do_end = 3
+
+for i = 1, 3 do
+    line_end[i] = file_dial_end:read()
+end
+local line_ends = line_end[1].."\n"..line_end[2].."\n"..line_end[3]
+
 -- ==============================================
 -- =               DIALOGUE_ROBOT               =
 -- ==============================================
@@ -63,6 +77,15 @@ dial:setScale(1, 1)
 function next_homme()
     nb_dialogue_homme = nb_dialogue_homme + 1
     if nb_dialogue_homme > nb_read_to_do_homme then
+        return true
+    else
+        return false
+    end
+end
+
+function next_end()
+    nb_dialogue_end = nb_dialogue_end + 1
+    if nb_dialogue_end > nb_read_to_do_end then
         return true
     else
         return false
@@ -116,14 +139,14 @@ end
 
 function itIsRob(self, quete)
     name = "robot"
-    if quest ~= 2 then
+    if quest ~= 2 and quest ~= 3 then
         quest = quete
     end
 end
 
 function itIsHom(self, quete)
     name = "homme"
-    if quest ~= 2 then
+    if quest ~= 2 or quest ~= 3 then
         quest = quete
     end
 end
@@ -143,6 +166,11 @@ function restart_dialogue()
     nb_dialogue_quete = 0
     line_quete = {}
     already_aff_quete = {false}
+
+    file_dial_end = io.open("./assets/dialogue_script/dialogue_script_end.txt", "r")
+    nb_dialogue_end = 0
+    line_end = {}
+    already_aff_end = {false}
 end
 
 function update(self)
@@ -350,17 +378,6 @@ function event_robot(e)
         can_aff = true
         already_aff_robot[nb_dialogue_robot] = true
     end
-    if nb_dialogue_robot == 11 and not already_aff_robot[nb_dialogue_robot] then
-        for i = 1, 3 do
-            
-            line_robot[i] = file_dial_robot:read()
-        end
-        
-        line_robots = line_robot[1].."\n"..line_robot[2].."\n"..line_robot[3]
-        dialogue:setString(line_robots)
-        can_aff = true
-        already_aff_robot[nb_dialogue_robot] = true
-    end
 end
 
 function event_homme_quest(e)
@@ -425,12 +442,55 @@ function event_homme_quest(e)
     end
 end
 
+function event_homme_end(e)
+    if nb_dialogue_end == 0 then
+        dialogue:setString(line_ends)
+        can_aff = true
+    end
+    if nb_dialogue_end == 1 and not already_aff_end[nb_dialogue_end] then
+        for i = 1, 3 do
+            
+            line_end[i] = file_dial_end:read()
+        end
+        
+        line_ends = line_end[1].."\n"..line_end[2].."\n"..line_end[3]
+        dialogue:setString(line_ends)
+        can_aff = true
+        already_aff_end[nb_dialogue_end] = true
+    end
+    if nb_dialogue_end == 2 and not already_aff_end[nb_dialogue_end] then
+        for i = 1, 3 do
+            
+            line_end[i] = file_dial_end:read()
+        end
+        
+        line_ends = line_end[1].."\n"..line_end[2].."\n"..line_end[3]
+        dialogue:setString(line_ends)
+        can_aff = true
+        already_aff_end[nb_dialogue_end] = true
+    end
+    if nb_dialogue_end == 3 and not already_aff_end[nb_dialogue_end] then
+        for i = 1, 3 do
+            
+            line_end[i] = file_dial_end:read()
+        end
+        
+        line_ends = line_end[1].."\n"..line_end[2].."\n"..line_end[3]
+        dialogue:setString(line_ends)
+        can_aff = true
+        already_aff_end[nb_dialogue_end] = true
+    end
+end
+
 function event(self, e)
     if file_dial_homme and name == "homme" and quest == 1 then
         event_homme_first(e)
     end
-    if file_dial_homme and name == "homme" and quest == 2 then
+    if file_dial_quete and name == "homme" and quest == 2 then
         event_homme_quest(e)
+    end
+    if file_dial_end and name == "homme" and quest == 3 then
+        event_homme_end(e)
     end
     if file_dial_robot and name == "robot" then
         event_robot(e)

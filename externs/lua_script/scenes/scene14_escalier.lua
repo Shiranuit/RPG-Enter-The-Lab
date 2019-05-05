@@ -34,6 +34,10 @@ local pot5_2
 local pot5_3
 local pot5_4
 local robot1
+local door
+local canPass = false
+local stopwatch = stopwatch.create()
+
 
 local entities = {}
 local hitb = nil
@@ -67,6 +71,9 @@ function load(scene)
     pot5_3 = new(EntityProps(494, 816, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
     pot5_4 = new(EntityProps(404, 905, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
     robot1 = new(EntityTurret(500, 510))
+    door = animation.create(assets["door"], {0, 0 , 400, 351})
+        door:setPosition(880, 80)
+        door:scale(0.38, 0.38)
     if (scene == "scene15_start") then
         player.setPosition(980, 250)
     end
@@ -135,11 +142,19 @@ end
 
 function draw()
     window:draw(background)
+    if canPass then
+        if stopwatch:getEllapsedTime() > 100000 then
+            stopwatch:restart()
+            door:next()
+        end
+    end
+    door:draw()
+    
 end
 
 function update()
     local x, y = player.getPosition()
-    local canPass = true
+    canPass = true
     for i=1, #entities do
         if entities[i].getType() == "ennemy" then
             canPass = false

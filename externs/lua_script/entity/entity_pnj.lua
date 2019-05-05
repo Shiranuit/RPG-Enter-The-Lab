@@ -110,7 +110,6 @@ Class "EntityPnj" extends "EntityLiving" [{
             dialogue_hud:restart_dialogue()
             
             this.dial_open = false
-            this.fin = true
         end
     end
 
@@ -154,26 +153,51 @@ Class "EntityPnj" extends "EntityLiving" [{
         end
     end
 
+    local function dialogue_png_end(event, x, y, nx, ny)
+        if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
+            dialogue_hud:open()
+            this.dial_open = true
+        end
+        if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
+            if dialogue_hud:next_end() then
+                dialogue_hud:close()
+                dialogue_hud:restart_dialogue()
+                this.dial_open = false
+            else
+            end
+        end
+        if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
+            dialogue_hud:close()
+            dialogue_hud:restart_dialogue()
+            --dialogue_hud:next_end()
+            this.dial_open = false
+        end
+    end
+
     function event(e)
         local event = e:getEvent()
         local x, y = player.getPosition()
         local nx, ny = super.getPosition()
+        local nb_parchemin = quete()
 
         dialogue_hud:set_Position(nx / 1.2, ny / 3.4)
         this.val = dialogue_hud:getQuest()
+        if this.val == nil then
+            this.val = 1
+        end
         if math.abs(x - nx) + math.abs(y - ny) < 100 then
-            if this.name == "homme" and this.val ~= 2 then
-                quete()
+            if this.name == "homme" and this.val == 1 then
                 dialogue_hud:itIsHom(this.nb_dial)
                 dialogue_png_homme(event, x, y, nx, ny)
             end
-            if this.name == "homme" and this.val == 2 then
-                dialogue_hud:itIsHom(this.val)
-                dialogue_png_quete(event, x, y, nx, ny)
-            end
-            if this.name == "homme" and this.val == 3 then
-                dialogue_hud:itIsHom(this.val)
-                dialogue_png_end(event, x, y, nx, ny)
+            if this.name == "homme" and this.val == 2 or this.val == 3 then
+                if nb_parchemin ~= 6 then
+                    dialogue_hud:itIsHom(this.val)
+                    dialogue_png_quete(event, x, y, nx, ny)
+                else
+                    dialogue_hud:itIsHom(3)
+                    dialogue_png_end(event, x, y, nx, ny)
+                end
             end
             if this.name == "robot" then
                 dialogue_hud:itIsRob(this.nb_dial)

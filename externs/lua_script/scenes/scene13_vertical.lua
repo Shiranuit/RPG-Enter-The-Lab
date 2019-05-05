@@ -7,6 +7,9 @@ background:setTexture(assets["labo_vertical"], false)
 
 local entities = {}
 local hitb = nil
+local door
+local canPass = false
+local stopwatch = stopwatch.create()
 
 function load(scene)
     if (scene == "scene14_escalier") then
@@ -19,6 +22,9 @@ function load(scene)
     if #entities == 0 then
         world.spawnEntity(scythe)
         world.spawnEntity(player)
+        door = animation.create(assets["door"], {0, 0 , 400, 351})
+        door:setPosition(965, 80)
+        door:scale(0.38, 0.38)
     end
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
@@ -48,11 +54,18 @@ end
 
 function draw()
     window:draw(background)
+    if canPass then
+        if stopwatch:getEllapsedTime() > 100000 then
+            stopwatch:restart()
+            door:next()
+        end
+    end
+    door:draw()
 end
 
 function update()
     local x, y = player.getPosition()
-    local canPass = true
+    canPass = true
     for i=1, #entities do
         if entities[i].getType() == "ennemy" then
             canPass = false

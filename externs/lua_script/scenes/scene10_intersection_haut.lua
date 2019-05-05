@@ -15,6 +15,9 @@ local hologram2
 local hologram_break1
 local hologram_break2
 local robot1
+local door
+local canPass = false
+local stopwatch = stopwatch.create()
 
 local entities = {}
 local hitb = nil
@@ -30,6 +33,9 @@ function load(scene)
         hologram_break1 = new(EntityProps(550, 350, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
         hologram_break2 = new(EntityProps(1500, 900, assets["hologram_break"], 77, 39, {{0, 20},{0, 39}, {155, 39}, {155, 20}}, 1))
         robot1 = new(EntityTurret(500, 510))
+        door = animation.create(assets["door"], {0, 0 , 400, 351})
+        door:setPosition(965, 80)
+        door:scale(0.38, 0.38)
         first = true
     end
     if (scene == "scene13_vertical") then
@@ -87,11 +93,18 @@ end
 
 function draw()
     window:draw(background)
+    if canPass then
+        if stopwatch:getEllapsedTime() > 100000 then
+            stopwatch:restart()
+            door:next()
+        end
+    end
+    door:draw()
 end
 
 function update()
     local x, y = player.getPosition()
-    local canPass = true
+    canPass = true
     for i=1, #entities do
         if entities[i].getType() == "ennemy" then
             canPass = false

@@ -201,6 +201,7 @@ assets["tube_vert_casser"] = lsfml.texture.createFromFile("./assets/map/to_give/
 assets["tube_vert_empty"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_vert_empty.png", {0, 0, 159, 248})
 assets["tube_vert_femme"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_vert_femme.png", {0, 0, 159, 248})
 assets["tube_vert_homme"] = lsfml.texture.createFromFile("./assets/map/to_give/tube_vert_homme.png", {0, 0, 160, 248})
+assets["door"] = lsfml.texture.createFromFile("./assets/map/hodooor400x351.png", {0, 0, 5200, 351})
 
 -- =======================
 -- =        FONTS        =

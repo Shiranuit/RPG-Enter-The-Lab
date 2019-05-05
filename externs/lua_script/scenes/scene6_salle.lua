@@ -19,6 +19,9 @@ local mini_tube1
 local mini_tube2
 local mini_tp1
 local robot1
+local door
+local canPass = false
+local stopwatch = stopwatch.create()
 
 local entities = {}
 local hitb = nil
@@ -38,6 +41,9 @@ function load(scene)
         mini_tube2 = new(EntityProps(1825, 980, assets["mini_tube"], 200, 200, {}, 1))
         mini_tp1 = new(EntityProps(1875, 600, assets["mini_tp"], 200, 200, {}, 1))
         robot1 = new(EntityTurret(500, 510))
+        door = animation.create(assets["door"], {0, 0 , 400, 351})
+        door:setPosition(965, 80)
+        door:scale(0.38, 0.38)
         first = true
     end
     if scene == "scene5_intersection_bas" then
@@ -86,11 +92,18 @@ end
 
 function draw()
     window:draw(background)
+    if canPass then
+        if stopwatch:getEllapsedTime() > 100000 then
+            stopwatch:restart()
+            door:next()
+        end
+    end
+    door:draw()
 end
 
 function update()
     local x, y = player.getPosition()
-    local canPass = true
+    canPass = true
     for i=1, #entities do
         if entities[i].getType() == "ennemy" then
             canPass = false

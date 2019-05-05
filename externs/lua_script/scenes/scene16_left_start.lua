@@ -139,17 +139,17 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 500 and x < 700 and y < 300 and keyboard.keyPressed(keys.F) and canP3 == true then
+    if x > 500 and x < 700 and y < 300 and keyboard.keyPressed(keys.F) and canP3 == true and canPass then
         world.removeEntityByUUID(parchemin3.getUUID())
         player.getInventory():insertItemStack(par3)
         canP3 = false
     end
-    if x > 100 and x < 300 and y > 500 and y < 700 and keyboard.keyPressed(keys.F) and canP4 == true then
+    if x > 100 and x < 300 and y > 500 and y < 700 and keyboard.keyPressed(keys.F) and canP4 == true and canPass then
         world.removeEntityByUUID(parchemin4.getUUID())
         player.getInventory():insertItemStack(par4)
         canP4 = false
     end
-    if x > 1400 and x < 1700 and y > 800 and y < 1000 and keyboard.keyPressed(keys.F) and canP5 == true then
+    if x > 1400 and x < 1700 and y > 800 and y < 1000 and keyboard.keyPressed(keys.F) and canP5 == true and canPass then
         world.removeEntityByUUID(parchemin5.getUUID())
         player.getInventory():insertItemStack(par5)
         canP5 = false

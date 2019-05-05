@@ -133,7 +133,7 @@ end
 
 function update()
     local x, y = player.getPosition()
-    if x > 1450 and x < 1750 and y > 450 and y < 650 and keyboard.keyPressed(keys.F) and canP6 == true then
+    if x > 1450 and x < 1750 and y > 450 and y < 650 and keyboard.keyPressed(keys.F) and canP6 == true and canPass then
         world.removeEntityByUUID(parchemin6.getUUID())
         player.getInventory():insertItemStack(par6)
         canP6 = false
