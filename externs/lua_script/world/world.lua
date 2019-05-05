@@ -77,7 +77,19 @@ function world.getEntityByUUID(uuid)
 end
 
 function world.getEntities()
-    return entities
+    local back = {}
+    for i=1, #entities do
+        local name = ""
+        if #entities[i].getHitboxs() > 0 then
+            local name = entities[i].getHitboxs()[1].getType()
+        else
+            name = entities[i].getType()
+        end
+        if name == "enemy" or name == "hard" or name == "ennemy" then
+            back[#back + 1] = entities[i]
+        end
+    end
+    return back
 end
 
 function world.clearEntities()
