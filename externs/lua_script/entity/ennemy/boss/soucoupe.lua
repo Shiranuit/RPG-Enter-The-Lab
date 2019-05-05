@@ -13,8 +13,8 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         super(x, y)
         super.setHealthBarVisible(true)
         super.setHealthBarOffset(0, -86 * 2)
-        super.setMaximumHealth(100)
-        super.setHealth(100)
+        super.setMaximumHealth(1000)
+        super.setHealth(1000)
         this.sprite = animation.create(assets["soucoupe"], {0, 0, 249, 86})
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(124, 86)
@@ -33,6 +33,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         this.move_y = 0
         this.dir_x = 0
         this.dir_y = 0
+        this.time = 2000000
         initHitboxes()
     end
 
@@ -57,10 +58,9 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
 
     function laser(x, y)
         local px, py = super.getPosition()
-        local pos1 = vector.new(px, py)
+        py = py - 86
         local pos2 = vector.new(x, y)
-        local dir = pos2 - pos1
-        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 20, final)))
+        world.spawnEntity(new(EntityLaser(px, py, pos2, 5, 20, final)))
     end
 
     function draw()
@@ -87,7 +87,9 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
 
         if super.getHealth() > 33.3 and super.getHealth() < 66.6 then
             this.sprite:changeRect({0, 86, 249, 86})
+            this.time = 1500000
         elseif super.getHealth() < 33.3 then
+            this.time = 1000000
             this.sprite:changeRect({0, 172, 249, 86})
         end
 
@@ -103,12 +105,14 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                         world.spawnEntity(new(EntityTurret(sprite_x, sprite_y + 100)))
                     end
                 else
-                    -- for i = 1, 30 do
-                    --     laser(500 * math.cos(2 * 3.14 * 1 / i), 500 * math.sin( 2 * 3.14 * 1 / i ))
-                    -- end
+                    for angle = 1, 360, 10 do
+                        if not(angle > 30 and angle < 60) and not(angle > 120 and angle < 150) and not(angle > 210 and angle < 240) and not(angle > 320 and angle < 350) then
+                            laser(math.cos(math.rad(angle)), math.sin(math.rad(angle)))
+                        end
+                    end
                 end
             end
-            if (this.clock_move:getEllapsedTime() > 1200000) then
+            if (this.clock_move:getEllapsedTime() > this.time) then
                 local res_x, res_y = soucoupe_func[math.random(1, #soucoupe_func)]()
                 while this.move_x == res_x and res_y == this.move_y do
                     res_x, res_y = soucoupe_func[math.random(1, #soucoupe_func)]()
