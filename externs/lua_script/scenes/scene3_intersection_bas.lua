@@ -143,12 +143,7 @@ function update()
             setScene("scene2_angle_g")
         end
     end
-    if keyboard.keyPressed(keys.A) then
-        player.hit(10 * DeltaTime, "World")
-    end
-    if keyboard.keyPressed(keys.E) then
-        player.respawn()
-    end
+
 end
 
 

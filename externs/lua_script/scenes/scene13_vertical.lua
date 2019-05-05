@@ -89,12 +89,7 @@ function update()
             setScene("scene10_intersection_haut")
         end
     end
-    if keyboard.keyPressed(keys.A) then
-        player.hit(10 * DeltaTime, "World")
-    end
-    if keyboard.keyPressed(keys.E) then
-        player.respawn()
-    end
+
 end
 
 

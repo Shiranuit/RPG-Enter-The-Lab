@@ -81,12 +81,7 @@ function update()
         setScene("scene17_right_start")
         player:plusNb_salle_pass()
     end
-    if keyboard.keyPressed(keys.A) then
-        player.hit(10 * DeltaTime, "World")
-    end
-    if keyboard.keyPressed(keys.E) then
-        player.respawn()
-    end
+
 end
 
 
