@@ -18,9 +18,11 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         this.sprite:setPosition(x, y)
         this.anim = stopwatch.create()
         this.tp_attack = stopwatch.create()
+        this.rayon_attack = stopwatch.create()
         this.scale = 1
         this.phase = 1
         this.action = {act = "none"}
+        this.rayon = {}
         super.setType("ennemy")
     end
 
@@ -179,12 +181,33 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         this.tp_attack:restart()
     end
 
+    local function doLaser()
+        if this.action.laser then
+            if this.rayon_attack:getEllapsedTime() > 5000000 then
+                this.rayon_attack:restart()
+                for i = 1, #this.rayon do
+                    world.removeEntityByUUID(this.rayon[i]:getUUID())
+                end
+            end
+        end
+    end
+
+    function laser()
+        this.action.laser = true
+        this.rayon_attack:restart()
+        local x, y = super.getPosition()
+        for i = 1, this.phase do
+            this.rayon[i] = world.spawnEntity(new(EntityRayon(x, y - 90 , (360/this.phase) * i, 0.5, final)))
+        end
+    end
+
     function update()
         super.update()
         this.look(player.getPosition())
         doTeleport()
         doBlackHole()
         doTpAttack()
+        doLaser()
     end
 
     function event(e)
@@ -194,6 +217,10 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         end
         if event[1] == "key_pressed" and event[2] == keys.K then
             this.tpAttack()
+        end
+        if event[1] == "key_pressed" and event[2] == keys.J then
+            this.phase = 7
+            this.laser()
         end
     end
 }]
