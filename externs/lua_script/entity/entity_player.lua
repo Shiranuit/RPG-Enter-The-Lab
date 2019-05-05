@@ -54,6 +54,28 @@ Class "EntityPlayer" extends "EntityLiving" [{
         box.setPosition(super.getPosition())
         super.addHitbox(box)
         this.isInQuest = false
+        this.nb_salle_pass = 0
+        this.needRestart = {false}
+    end
+
+    function setNeedRestart(self, i, need)
+        this.needRestart[i] = need
+    end
+
+    function getNeedRestart(self, i, need)
+        return this.needRestart[i]
+    end
+
+    function getNb_salle_pass(self)
+        return this.nb_salle_pass
+    end
+
+    function plusNb_salle_pass(self)
+        this.nb_salle_pass = this.nb_salle_pass + 1
+    end
+
+    function restartNb_salle_pass(self)
+        this.nb_salle_pass = 0
     end
 
     function getIsInQuest()
@@ -456,7 +478,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
             this.stamina = this.stamina + 1 * DeltaTime
         end
         if this.getMaximumMana() > this.mana and this.status ~= "spell" then
-            this.mana = this.mana + 0.1 * DeltaTime
+            this.mana = this.mana + 0.01 * DeltaTime
         end
         if super.isDead() then
             if (this.status ~= "death") then
@@ -464,6 +486,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 this.pos_rect = {12, 30000, 0, 2500, 220, 500}
                 this.clock:restart()
                 this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
+                setScene("respawn")
             end
         end
         if this.status == "spell" then

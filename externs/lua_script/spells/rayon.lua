@@ -8,6 +8,10 @@ function getMaxCooldown(self)
     return 1.5
 end
 
+function getCost()
+    return 0.1
+end
+
 function cooldownStartAtEnd()
     return true
 end
@@ -17,6 +21,7 @@ function cast(self)
         self:disable()
         return
     end
+    player.removeMana(getCost())
     if assets["rayon_start"]:getStatus() == "stopped" and assets["rayon_idle"]:getStatus() ~= "playing" then
         assets["rayon_idle"]:setLoop(true)
         assets["rayon_idle"]:play()
@@ -63,6 +68,7 @@ end
 function enable(self)
     local status, hor, ver , idle = player.getStatus()
     assets["rayon_start"]:play()
+    player.removeMana(getCost() * 0.5)
     
     if (hor == "left") then
         animationSpell["rayonSpell"].setRotation(90)
@@ -113,6 +119,7 @@ function enable(self)
 end
 
 function disable(self)
+    player.removeMana(getCost() * 0.5)
     assets["rayon_idle"]:setLoop(false)
     assets["rayon_end"]:play()
     world.removeEntityByUUID(animationSpell["rayonIdleAnimation"].getUUID())

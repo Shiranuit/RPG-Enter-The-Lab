@@ -11,7 +11,7 @@ function cooldownStartAtEnd()
 end
 
 function getCost()
-    return 15
+    return 1
 end
 
 function cooldownStartAtEnd()
@@ -35,6 +35,7 @@ function cast(self)
     local x_player, y_player = player.getPosition()
     local status, hor, ver , idle = player.getStatus()
     local pos1 = vector.new(x_player, y_player)
+    player.removeMana(getCost())
     assets["bouleelec"]:play()
 
     if (hor == "left") then

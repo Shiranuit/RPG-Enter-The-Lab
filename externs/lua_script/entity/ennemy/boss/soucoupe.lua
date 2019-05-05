@@ -44,6 +44,10 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         super.setType("ennemy")
     end
 
+    function getExperience()
+        return 500
+    end
+
     function setPosition(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)

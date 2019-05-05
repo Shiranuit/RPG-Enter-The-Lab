@@ -29,7 +29,7 @@ item.create("plastron1", assets["plastron1"], 1, {type="equipement", subtype="ch
 item.create("botte2", assets["botte2"], 1, {type="equipement", subtype="boot", name="Botte en tissu"})
 item.create("casque2", assets["casque2"], 1, {type="equipement", subtype="helmet", name="Chapeau en tissu"})
 item.create("jambiere2", assets["jambiere2"], 1, {type="equipement", subtype="pant", name="Pantalon en tissu"})
-item.create("plastron2", assets["plastron1"], 1, {type="equipement", subtype="chestplate", name="Robe en tissu"})
+item.create("plastron2", assets["plastron2"], 1, {type="equipement", subtype="chestplate", name="Robe en tissu"})
 item.create("botte3", assets["botte3"], 1, {type="equipement", subtype="boot", name="Botte en Fer"})
 item.create("casque3", assets["casque3"], 1, {type="equipement", subtype="helmet", name="Casque en Fer"})
 item.create("jambiere3", assets["jambiere3"], 1, {type="equipement", subtype="pant", name="Jambiere en Fer"})
