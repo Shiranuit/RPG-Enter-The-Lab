@@ -67,12 +67,6 @@ function load(self)
             -- slots[1]:setItemStack(itemstack.create(items["boots3"], math.random(1, item:getMaxStackSize())))
     --     end
     -- end
-    slots[1]:setItemStack(itemstack.create(items["parchemin_1"], 1))
-    slots[2]:setItemStack(itemstack.create(items["parchemin_2"], 1))
-    slots[3]:setItemStack(itemstack.create(items["parchemin_3"], 1))
-    slots[4]:setItemStack(itemstack.create(items["parchemin_4"], 1))
-    slots[5]:setItemStack(itemstack.create(items["parchemin_5"], 1))
-    slots[6]:setItemStack(itemstack.create(items["parchemin_6"], 1))
 end
 
 function open(self)
