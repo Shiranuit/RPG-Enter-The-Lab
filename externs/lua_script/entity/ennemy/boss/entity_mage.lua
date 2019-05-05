@@ -170,7 +170,6 @@ Class "EntityMageBoss" extends "EntityLiving" [{
                 local dir = pos2 - pos1
                 world.spawnEntity(new(EntityBouleMagie(px, py, dir, 5, 20, final)))
                 teleport(math.random(200, 1800), math.random(200, 800))
-                this.tp_time:restart()
             end
         end
     end
