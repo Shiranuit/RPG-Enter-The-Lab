@@ -14,6 +14,7 @@ Class "EntityLaser" extends "Entity" [{
         this.angle = -math.deg(math.atan2(0, 1) - math.atan2(dir.y, dir.x))
         this.sprite = lsfml.sprite.create()
         this.sprite:setTexture(assets["laser_projectile"], false)
+        assets["laser_sound"]:play()
         this.sprite:setPosition(x, y)
         this.sprite:scale(scale_x, scale_y)
         this.sprite:setOrigin(0, 0)

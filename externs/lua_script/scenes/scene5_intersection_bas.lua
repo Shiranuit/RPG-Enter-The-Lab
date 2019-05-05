@@ -17,6 +17,7 @@ local hologram2
 local hologram_break1
 local hologram_break2
 local robot1
+local play_door = false
 
 local entities = {}
 local hitb = nil
@@ -107,6 +108,10 @@ function update()
         end
     end
     if canPass then
+        if not play_door then
+            assets["door_sound"]:play()
+            play_door = true
+        end
         if x < 0 then
             setScene("scene7_angle_droit")
         end

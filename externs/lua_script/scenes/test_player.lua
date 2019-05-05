@@ -14,6 +14,7 @@ local door = animation.create(assets["door"], {0, 0 , 400, 351})
 local item1 = new(EntityItem(itemstack.create(items["parchemin_6"], 2)))
 item1.setPosition(500, 500)
 local robot1 = new(EntityTurret(500, 510))
+local play_door = false
 
 door:setPosition(965, 80)
 door:scale(0.38, 0.38)
@@ -120,6 +121,10 @@ function update()
         end
     end
     if canPass then
+        if not play_door then
+            assets["door_sound"]:play()
+            play_door = true
+        end
         if x > 930 and x < 1100 and y < 210 then
             setScene("scene2_angle_g")
         end

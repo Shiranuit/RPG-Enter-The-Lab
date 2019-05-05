@@ -94,7 +94,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
 
         elseif not this.last_animation then
             assets["robot2_sound"]:setLoop(false)
-            this.sprite:changeRect({180, 3600, 455, 600})
+            this.sprite:changeRect({0, 3756, 520, 470})
             this.last_animation = true
             this.clock:restart()
         end

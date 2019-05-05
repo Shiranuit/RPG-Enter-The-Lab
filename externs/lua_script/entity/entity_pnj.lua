@@ -163,14 +163,16 @@ Class "EntityPnj" extends "EntityLiving" [{
                 dialogue_hud:close()
                 dialogue_hud:restart_dialogue()
                 this.dial_open = false
+                --setScene("last_scene")
             else
             end
         end
         if event[1] == "key_pressed" and event[2] == controls.getControl("skip_all") and this.dial_open then
             dialogue_hud:close()
             dialogue_hud:restart_dialogue()
-            --dialogue_hud:next_end()
+            dialogue_hud:next_end()
             this.dial_open = false
+            setScene("last_scene")
         end
     end
 
@@ -191,6 +193,7 @@ Class "EntityPnj" extends "EntityLiving" [{
                 dialogue_png_homme(event, x, y, nx, ny)
             end
             if this.name == "homme" and this.val == 2 or this.val == 3 then
+                player:setIsInQuest(true)
                 if nb_parchemin ~= 6 then
                     dialogue_hud:itIsHom(this.val)
                     dialogue_png_quete(event, x, y, nx, ny)

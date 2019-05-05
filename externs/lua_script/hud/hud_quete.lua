@@ -55,7 +55,7 @@ end
 
 function event(self, e)
     local event = e:getEvent()
-    if event[1] == "key_pressed" and event[2] == controls.getControl("hide/show") then
+    if event[1] == "key_pressed" and event[2] == controls.getControl("hide/show") and player:getIsInQuest() then
         if self:isOpen() then
             hud.close(self)
         else
