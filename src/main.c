@@ -55,7 +55,7 @@ int main(void)
     int code = 0;
     lua_State *lua = init_lua();
     sfRenderWindow *window = sfRenderWindow_create(
-    (sfVideoMode){1920, 1080, 32}, "Enter the Lab", sfClose, 0);
+    (sfVideoMode){1920, 1080, 32}, "Enter The Lab", sfClose, 0);
     sfRenderWindow **win = (sfRenderWindow **)
     lua_newuserdata(lua, sizeof(sfRenderWindow *));
 

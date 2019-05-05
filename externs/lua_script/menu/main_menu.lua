@@ -8,8 +8,8 @@ background:setTexture(assets["background"], false)
 
 title:setFont(assets["fsys"])
 title:setCharacterSize(200)
-title:setString("Enter the Lab")
-title:setPosition(500, 50)
+title:setString("Enter The Lab")
+title:setPosition(350, 50)
 
 local play_button = button.create{
     x = 750,
