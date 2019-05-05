@@ -108,6 +108,7 @@ Class "EntityPnj" extends "EntityLiving" [{
     local function dialogue_png_homme(event, x, y, nx, ny)
         if event[1] == "key_pressed" and event[2] == controls.getControl("action") and this.dial_open then
             dialogue_hud:next_homme()
+            this.canPass = true
         end
         if event[1] == "key_pressed" and event[2] == controls.getControl("action") and not this.dial_open then
             dialogue_hud:open()
@@ -172,7 +173,7 @@ Class "EntityPnj" extends "EntityLiving" [{
                 dialogue_hud:close()
                 dialogue_hud:restart_dialogue()
                 this.dial_open = false
-                --setScene("last_scene")
+                setScene("last_scene")
             else
             end
         end
