@@ -17,8 +17,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
 
     function __EntityScytheBoss(x, y)
         super(x, y)
-        super.setMaximumHealth(1500)
-        super.setHealth(1500)
+        super.setMaximumHealth(3000)
+        super.setHealth(3000)
         this.sprite = lsfml.sprite.create()
         this.sprite:setPosition(x, y)
         this.sprite:setTexture(assets["scythe"], false)

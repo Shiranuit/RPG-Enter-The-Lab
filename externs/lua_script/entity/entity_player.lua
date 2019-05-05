@@ -128,7 +128,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         check(mana, "number", 1)
 
         cassert(mana >= 0, "The mana must be positive", 3)
-        cassert(mana < this.max_mana, "The mana cant exceed the max mana", 3)
+        cassert(mana <= this.getMaximumMana(), "The mana cant exceed the max mana", 3)
         this.mana = mana
     end
 
@@ -137,7 +137,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
         cassert(mana >= 0, "The added mana must be positive", 3)
         this.mana = this.mana + mana
-        if this.mana > this.max_mana then this.mana = this.max_mana end
+        if this.mana > this.getMaximumMana() then this.mana = this.getMaximumMana() end
     end
 
     function removeMana(mana)
@@ -164,7 +164,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
         assert(stamina > 0, "The Maximum stamina must be positive", 3)
         this.max_stamina = stamina
-        if this.stamina > this.max_stamina then this.stamina = this.max_stamina end
+        if this.stamina > this.getMaximumStamina() then this.stamina = this.getMaximumStamina() end
     end
 
     function getStamina()
@@ -172,25 +172,25 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function setStamina(stamina)
-        check(stamina, "stamina", 1)
+        check(stamina, "number", 1)
 
         cassert(stamina > 0, "The stamina must be positive", 3)
-        cassert(stamina < this.max_stamina, "The stamina cant exceed the max stamina", 3)
+        cassert(stamina <= this.getMaximumStamina(), "The stamina cant exceed the max stamina", 3)
         this.stamina = stamina
     end
 
     function addStamina(stamina)
-        check(stamina, "stamina", 1)
+        check(stamina, "number", 1)
 
-        cassert(life > 0, "The added stamina must be positive", 3)
+        cassert(stamina > 0, "The added stamina must be positive", 3)
         this.stamina = this.stamina + stamina
         if this.stamina > this.getMaximumStamina() then this.stamina = this.getMaximumStamina() end
     end
 
     function removeStamina(stamina)
-        check(stamina, "stamina", 1)
+        check(stamina, "number", 1)
 
-        cassert(life > 0, "The removed stamina must be positive", 3)
+        cassert(stamina > 0, "The removed stamina must be positive", 3)
         this.stamina = this.stamina - stamina
         if this.stamina < 0 then this.stamina = 0 end
     end
@@ -385,6 +385,13 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.setMaximumHealth(health + this.base_health + math.min(this.getLevel() * 9, 180))
     end
 
+    function onLevelUp()
+        computeMaxHealth()
+        this.setHealth(this.getMaximumHealth())
+        this.setMana(this.getMaximumMana())
+        this.setStamina(this.getMaximumStamina())
+    end
+
     local function slashAttack()
         if this.isAlive() and this.scythe_attack == "slash_attack" then
             if this.dir_slash == -1 then
@@ -445,10 +452,10 @@ Class "EntityPlayer" extends "EntityLiving" [{
         if this.is_sprinting == true and this.status ~= "idle" then
             this.stamina = this.stamina - 1 * DeltaTime
             speed = speed * 2
-        elseif this.max_stamina > this.stamina and (not keyboard.keyPressed(controls.getControl("sprint")) or this.status == "idle") then
+        elseif this.getMaximumStamina() > this.stamina and (not keyboard.keyPressed(controls.getControl("sprint")) or this.status == "idle") then
             this.stamina = this.stamina + 1 * DeltaTime
         end
-        if this.max_mana > this.mana and this.status ~= "spell" then
+        if this.getMaximumMana() > this.mana and this.status ~= "spell" then
             this.mana = this.mana + 0.1 * DeltaTime
         end
         if super.isDead() then

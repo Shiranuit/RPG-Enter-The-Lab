@@ -39,6 +39,15 @@ Class "EntityBlackHole" extends "Entity" [{
 
     function update()
         super.update()
+        if _G.freeze then
+            if not this.lifetime:isPaused() then
+                this.lifetime:pause()
+            end
+        else
+            if this.lifetime:isPaused() then
+                this.lifetime:start()
+            end
+        end
         this.angle = this.angle + this.speed * DeltaTime
         this.sprite:setRotation(this.angle)
         this.scale = this.scale + 0.02 * DeltaTime

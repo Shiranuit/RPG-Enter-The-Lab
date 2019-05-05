@@ -8,19 +8,28 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         super.addHitbox(box)
     end
 
-    function __EntityMageBoss(x, y)
+    function __EntityMageBoss(x, y, clone)
         super(x, y)
         initHitboxes()
-        super.setMaximumHealth(10000)
-        super.setHealth(10000)
+        if clone then
+            super.setMaximumHealth(15)
+            super.setHealth(15)
+            this.mx = 15
+        else
+            super.setMaximumHealth(10000)
+            super.setHealth(10000)
+            this.mx = 10000
+        end
+        this.clone = clone
         this.sprite = animation.create(assets["mage"], {0, 0, 96, 180})
         this.sprite:setOrigin(45, 192)
         this.sprite:setPosition(x, y)
         this.anim = stopwatch.create()
         this.tp_attack = stopwatch.create()
         this.scale = 1
-        this.phase = 1
+        this.phase = 7
         this.action = {act = "none"}
+        this.form = 0
         super.setType("ennemy")
     end
 
@@ -48,18 +57,26 @@ Class "EntityMageBoss" extends "EntityLiving" [{
             super.hit(damage, source)
             local mx = this.getMaximumHealth()
 
-            if this.getHealth() < mx * 0.15 and this.phase < 5 then
-                this.phase = 5
-                bosshealth:setPhase(this.phase)
-            elseif this.getHealth() < mx * 0.33 and this.phase < 4 then
-                this.phase = 4
-                bosshealth:setPhase(this.phase)
-            elseif this.getHealth() < mx * 0.50 and this.phase < 3 then
-                this.phase = 3
-                bosshealth:setPhase(this.phase)
-            elseif this.getHealth() < mx * 0.75 and this.phase < 2 then
-                this.phase = 2
-                bosshealth:setPhase(this.phase)
+            if not this.clone then
+                if this.getHealth() < mx * 0.10 and this.phase < 7 then
+                    this.phase = 7
+                    bosshealth:setPhase(this.phase)
+                elseif this.getHealth() < mx * 0.25 and this.phase < 6 then
+                    this.phase = 6
+                    bosshealth:setPhase(this.phase)
+                elseif this.getHealth() < mx * 0.40 and this.phase < 5 then
+                    this.phase = 5
+                    bosshealth:setPhase(this.phase)
+                elseif this.getHealth() < mx * 0.55 and this.phase < 4 then
+                    this.phase = 4
+                    bosshealth:setPhase(this.phase)
+                elseif this.getHealth() < mx * 0.70 and this.phase < 3 then
+                    this.phase = 3
+                    bosshealth:setPhase(this.phase)
+                elseif this.getHealth() < mx * 0.85 and this.phase < 2 then
+                    this.phase = 2
+                    bosshealth:setPhase(this.phase)
+                end
             end
             if super.isDead() then
                 -- for i=1, math.random(1, 4) do
@@ -122,6 +139,12 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         this.action.blackhole = true
     end
 
+    function missile()
+        if this.action.act == "none" then
+            this.action.act = "missile"
+        end
+    end
+
     local function doTeleport()
         if this.action.act == "teleport" then
             if not this.action.tp_revert then
@@ -140,11 +163,27 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         end
     end
 
+    function KageBunshin()
+        if this.action.act == "none" then
+            this.action.act = "KageBunshin"
+        end
+    end
+
+    local function doKageBunshin()
+        if this.action.act == "KageBunshin" and not this.clone then
+            local nx, ny = super.getPosition()
+            world.spawnEntity(new(EntityMageBoss(nx, ny, true))).teleport(math.random(200, 1800), math.random(300, 800))
+            world.spawnEntity(new(EntityMageBoss(nx, ny, true))).teleport(math.random(200, 1800), math.random(300, 800))
+            this.action.act = "none"
+            this.teleport(math.random(200, 1800), math.random(300, 800))
+        end
+    end
+
     local function doBlackHole()
-        if this.action.blackhole then
+        if this.action.blackhole and not this.clone then
             if this.action.act == "none" then
                 this.action.act = "blackhole"
-                this.action.blackhole_entity = world.spawnEntity(new(EntityBlackHole(0.5, 5 * this.phase, final)))
+                this.action.blackhole_entity = world.spawnEntity(new(EntityBlackHole(0.5, math.max(5 * this.phase, 15), final)))
             end
             if this.action.act == "blackhole" then
                 if this.action.blackhole_entity.asExpired() then
@@ -174,6 +213,33 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         end
     end
 
+    function laserForm()
+        if this.action.act == "none" then
+            this.action.act = "laser_form"
+        end
+    end
+
+    function doLaserForm()
+        if this.action.act == "laser_form" then
+            for i=1, #mage_points[this.form + 1] do
+                local data = mage_points[this.form + 1][i]
+                world.spawnEntity(new(EntityLaserBeam(data[1], data[2], vector.new(data[3], data[4]), 1 * DeltaTime * this.phase, 2, data[5], data[6], data[7], final)))
+            end
+            this.form = (this.form + 1) % (math.min(#mage_points, this.phase))
+            this.action.act = "none"
+        end
+    end
+
+    local function doMissile()
+        if this.action.act == "missile" then
+            local nx, ny = super.getPosition()
+            for i=1, this.phase * 2 do
+                world.spawnEntity(new(EntityVortexMissile(math.random(1, 100) - 50 + nx, math.random(1, 100) - 50 + ny, 5 + this.phase * 2, 15 - this.phase, final)))
+            end
+            this.action.act = "none"
+        end
+    end
+
     function tpAttack()
         this.action.tpAttack = true
         this.tp_attack:restart()
@@ -184,6 +250,9 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         this.look(player.getPosition())
         doTeleport()
         doBlackHole()
+        doKageBunshin()
+        doMissile()
+        doLaserForm()
         doTpAttack()
     end
 
@@ -194,6 +263,15 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         end
         if event[1] == "key_pressed" and event[2] == keys.K then
             this.tpAttack()
+        end
+        if event[1] == "key_pressed" and event[2] == keys.O then
+            this.KageBunshin()
+        end
+        if event[1] == "key_pressed" and event[2] == keys.P then
+            this.missile()
+        end
+        if event[1] == "key_pressed" and event[2] == keys.N then
+            this.laserForm()
         end
     end
 }]

@@ -1,34 +1,36 @@
-Class "EntityBouleMagie" extends "Entity" [{
-    function __EntityBouleMagie(x, y, dir, damage, speed, source)
+Class "EntityLaserBeam" extends "Entity" [{
+    function __EntityLaserBeam(x, y, dir, damage, speed, mvx, mvy, in_angle, source)
         check(x, "number", 1)
         check(y, "number", 2)
         check(dir, "Vector2D", 3)
         check(damage, "number", 4)
         check(speed, "number", 5)
+        check(mvx, "number", 6)
+        check(mvy, "number", 7)
+        check(in_angle, "number", 8)
 
         super(x, y)
+        this.in_angle = in_angle
         this.source = source
-        this.angle = 0
-        this.count = 0
         this.lifetime = stopwatch.create()
+        this.angle = math.deg(math.atan2(0, 1) - math.atan2(dir.y, dir.x))
         this.sprite = lsfml.sprite.create()
-        this.sprite:setTexture(assets["vortex"], false)
+        this.sprite:setTexture(assets["laser_beam"], false)
         this.sprite:setPosition(x, y)
-        this.sprite:scale(0.25, 0.25)
-        this.sprite:setOrigin(194, 202)
+        this.sprite:scale(4, 1)
+        this.sprite:setOrigin(0, 16)
+        this.sprite:setRotation(this.angle)
         this.dir = dir:normalize()
-        this.odir = dir:normalize()
         this.damage = damage
         this.speed = speed
-        this.hit = false
-        this.before1 = 0
-        this.before2 = 0
+        this.mvx = mvx
+        this.mvy = mvy
         local box = new(Hitbox("projectile"))
-        box.setPoints({{0, 0}, {386, 0}, {386, 393}, {0, 393}})
-        box.setOrigin(194, 202)
+        box.setPoints({{0, 0}, {580, 0}, {580, 32}, {0, 32}})
+        box.setOrigin(0, 16)
         box.setPosition(super.getPosition())
+        box.setScale(4, 1)
         box.setRotation(this.angle)
-        box.setScale(0.25, 0.25)
         super.addHitbox(box)
     end
 
@@ -36,7 +38,7 @@ Class "EntityBouleMagie" extends "Entity" [{
         check(x, "number", 1)
         check(y, "number", 2)
 
-        this.odir = vector.new(x, y):normalize()
+
     end
 
     function draw()
@@ -52,20 +54,18 @@ Class "EntityBouleMagie" extends "Entity" [{
 
     function update()
         super.update()
-        this.count = this.count + 1
-        this.angle = this.angle + 1
+        this.angle = this.angle + this.in_angle
         this.sprite:setRotation(this.angle)
-        this.dir = this.dir:normalize()
-        this.move(this.dir.x * this.speed * DeltaTime, this.dir.y * this.speed * DeltaTime)
-        local nx, ny = super.getPosition()
-        if this.lifetime:getEllapsedTime() > 5000000 or nx < 0 or nx > 1920 or ny < 0 or ny > 1080 then
+        super.setRotation(this.angle)
+        this.sprite:move(this.mvx * this.speed * DeltaTime, this.mvy * this.speed * DeltaTime)
+        super.move(this.mvx * this.speed * DeltaTime, this.mvy * this.speed * DeltaTime)
+        if this.lifetime:getEllapsedTime() > 5000000 then
             world.removeEntityByUUID(super.getUUID())
             return
         end
         if not this.hit then
-            if hitbox.rectIntersect(super.getHitboxs()[1].getBoundingBox(), player.getHitboxs()[1].getBoundingBox()) then
+            if hitbox.SAT(super.getHitboxs()[1], player.getHitboxs()[1]) then
                 player.hit(this.damage * DeltaTime, this.source)
-                this.hit = true
             end
         end
     end

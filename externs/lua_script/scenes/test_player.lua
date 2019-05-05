@@ -50,7 +50,7 @@ function load(scene)
         tube_vert_femme2 = new(EntityProps(350, 550, assets["tube_vert_femme"], 78, 248, {{8, 186},{0, 248}, {159, 248}, {151, 186}}, 1))
         first = true
     end
-    local robot3 = new(EntityRobot3(800, 800))
+    local robot3 = new(EntityRobot1(800, 800))
     if (scene ~= nil) and (scene == "scene2_angle_g") then
         player.setPosition(1050, 240)
     else
