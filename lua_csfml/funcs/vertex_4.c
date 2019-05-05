@@ -19,7 +19,7 @@ int vertex_get_g(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         lua_pushinteger(L, vertex->color.g);
     } else {
         luaL_error(L, "Expected (Vertex)");
@@ -37,7 +37,7 @@ int vertex_get_b(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         lua_pushinteger(L, vertex->color.b);
     } else {
         luaL_error(L, "Expected (Vertex)");
@@ -55,7 +55,7 @@ int vertex_get_a(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         lua_pushinteger(L, vertex->color.a);
     } else {
         luaL_error(L, "Expected (Vertex)");

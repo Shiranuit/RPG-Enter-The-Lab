@@ -18,7 +18,7 @@ Class "EntitySlash" extends "Entity" [{
         this.dir = dir:normalize()
         this.damage = damage
         this.speed = speed
-        this.hit = {}
+        this.hit = false
         local box = new(Hitbox("projectile"))
         box.setPoints({{0, 0}, {47, 24}, {61, 48}, {66, 73}, {61, 100}, {47, 120}, {0, 147}})
         box.setOrigin(48, 147 / 2)
@@ -54,11 +54,11 @@ Class "EntitySlash" extends "Entity" [{
             world.removeEntityByUUID(super.getUUID())
             return
         end
-        local entities = world.getEntitiesInHitbox(super.getHitboxs()[1], "player")
-        for i=1, #entities do
-            if class.isInstanceOf(entities[i], "EntityLiving") and not this.hit[entities[i].getUUID()] then
-                entities[i].hit(this.damage, this.source)
-                this.hit[entities[i].getUUID()] = true
+        if not this.hit then
+            local success = hitbox.SAT(super.getHitboxs()[1], player.getHitboxs()[1])
+            if success then
+                player.hit(this.damage, this.source)
+                this.hit = true
             end
         end
     end

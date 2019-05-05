@@ -20,7 +20,7 @@ int text_move(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfText_move(text, vector);
@@ -41,7 +41,7 @@ int text_rotate(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         nb = lua_tonumber(L, 3);
         sfText_rotate(text, nb);
     } else {
@@ -61,7 +61,7 @@ int text_scale(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfText_scale(text, vector);
@@ -82,7 +82,7 @@ int text_set_rotation(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         nb = lua_tonumber(L, 3);
         sfText_setRotation(text, nb);
     } else {
@@ -102,7 +102,7 @@ int text_get_origin(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         vector = sfText_getOrigin(text);
         lua_pushnumber(L, vector.x);
         lua_pushnumber(L, vector.y);

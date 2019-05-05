@@ -31,13 +31,13 @@ void delete_lua(lua_State *L)
     lua_close(L);
 }
 
-void run_file(lua_State *L, char const *filename)
+void run_file(lua_State *lua, char const *filename)
 {
     int len = -1;
     char const *error = 0;
 
-    if (luaL_dofile(L, filename) != LUA_OK) {
-        error = lua_tostring(L, -1);
+    if (luaL_dofile(lua, filename) != LUA_OK) {
+        error = lua_tostring(lua, -1);
         while (error[++len]);
         write(1, "[ERROR] ", 9);
         write(1,  error, len);
@@ -45,9 +45,9 @@ void run_file(lua_State *L, char const *filename)
     }
 }
 
-int pcall(lua_State *L, int args, int result)
+int pcall(lua_State *lua, int args, int result)
 {
-    return lua_pcall(L, args, result, 0);
+    return lua_pcall(lua, args, result, 0);
 }
 
 int main(void)

@@ -21,8 +21,8 @@ int sprite_set_texture(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isuserdata(L, 2) && lua_isboolean(L, 3)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
-        texture = userdata_pointer(L, 2, sfTexture);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
+        texture = USERDATA_POINTER(L, 2, sfTexture);
         nb = lua_toboolean(L, 3);
         sfSprite_setTexture(sprite, texture, nb);
     } else {
@@ -43,7 +43,7 @@ int sprite_get_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         vector = sfSprite_getPosition(sprite);
         lua_pushnumber(L, vector.x);
         lua_pushnumber(L, vector.y);
@@ -74,7 +74,7 @@ int sprite_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         sfSprite_destroy(sprite);
     } else {
         luaL_error(L, "Expected (Sprite)");
@@ -93,7 +93,7 @@ int sprite_move(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        sprite = userdata_pointer(L, 1, sfSprite);
+        sprite = USERDATA_POINTER(L, 1, sfSprite);
         if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfSprite_move(sprite, vector);

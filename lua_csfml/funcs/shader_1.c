@@ -18,7 +18,7 @@ int shader_bind(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        shader = userdata_pointer(L, 1, sfShader);
+        shader = USERDATA_POINTER(L, 1, sfShader);
         sfShader_bind(shader);
     } else {
         luaL_error(L, "Expected (Shader)");
@@ -78,7 +78,7 @@ int shader_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        shader = userdata_pointer(L, 1, sfShader);
+        shader = USERDATA_POINTER(L, 1, sfShader);
         sfShader_destroy(shader);
     } else {
         luaL_error(L, "Expected (Shader)");

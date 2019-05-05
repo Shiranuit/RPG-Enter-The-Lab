@@ -19,7 +19,7 @@ int vertex_set_ty(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isnumber(L, 2)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         vertex->texCoords.y = lua_tonumber(L, 2);
     } else {
         luaL_error(L, "Expected (Vertex, Number)");
@@ -37,7 +37,7 @@ int vertex_set_r(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         vertex->color.r = lua_tointeger(L, 2);
     } else {
         luaL_error(L, "Expected (Vertex, Number)");
@@ -55,7 +55,7 @@ int vertex_set_g(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         vertex->color.g = lua_tointeger(L, 2);
     } else {
         luaL_error(L, "Expected (Vertex, Number)");
@@ -73,7 +73,7 @@ int vertex_set_b(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         vertex->color.b = lua_tointeger(L, 2);
     } else {
         luaL_error(L, "Expected (Vertex, Number)");
@@ -91,7 +91,7 @@ int vertex_set_a(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
-        vertex = userdata_pointer(L, 1, sfVertex);
+        vertex = USERDATA_POINTER(L, 1, sfVertex);
         vertex->color.a = lua_tointeger(L, 2);
     } else {
         luaL_error(L, "Expected (Vertex, Number)");

@@ -41,7 +41,7 @@ int font_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        font = userdata_pointer(L, 1, sfFont);
+        font = USERDATA_POINTER(L, 1, sfFont);
         sfFont_destroy(font);
     } else {
         luaL_error(L, "Expected (Font)");

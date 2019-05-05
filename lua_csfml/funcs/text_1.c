@@ -30,7 +30,7 @@ int text_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         sfText_destroy(text);
     } else {
         luaL_error(L, "Expected (Text)");
@@ -50,7 +50,7 @@ int text_get_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         vector = sfText_getPosition(text);
         lua_pushnumber(L, vector.x);
         lua_pushnumber(L, vector.y);
@@ -71,7 +71,7 @@ int text_set_scale(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfText_setScale(text, vector);
@@ -92,7 +92,7 @@ int text_set_position(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         if (!get_vector_2f(L, &vector, 2))
             return (0);
         sfText_setPosition(text, vector);

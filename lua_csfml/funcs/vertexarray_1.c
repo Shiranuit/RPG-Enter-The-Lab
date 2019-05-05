@@ -19,7 +19,7 @@ int vertexarray_append(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_istable(L, 2) && lua_isvertex(L, 2)) {
-        varray = userdata_pointer(L, 1, sfVertexArray);
+        varray = USERDATA_POINTER(L, 1, sfVertexArray);
         sfVertexArray_append(varray, lua_tovertex(L, 2));
     } else {
         luaL_error(L, "Expected (VertexArray, Table)");
@@ -37,7 +37,7 @@ int vertexarray_clear(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        varray = userdata_pointer(L, 1, sfVertexArray);
+        varray = USERDATA_POINTER(L, 1, sfVertexArray);
         sfVertexArray_clear(varray);
     } else {
         luaL_error(L, "Expected (VertexArray)");
@@ -56,7 +56,7 @@ int vertexarray_copy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        varray = userdata_pointer(L, 1, sfVertexArray);
+        varray = USERDATA_POINTER(L, 1, sfVertexArray);
         new = (sfVertexArray **)lua_newuserdata(L, sizeof(sfVertexArray **));
         *new = sfVertexArray_copy(varray);
     } else {
@@ -84,7 +84,7 @@ int vertexarray_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        varray = userdata_pointer(L, 1, sfVertexArray);
+        varray = USERDATA_POINTER(L, 1, sfVertexArray);
         sfVertexArray_destroy(varray);
     } else {
         luaL_error(L, "Expected (VertexArray)");

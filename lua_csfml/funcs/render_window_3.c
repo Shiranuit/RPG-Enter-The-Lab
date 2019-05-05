@@ -19,7 +19,7 @@ int win_get_size(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
         vector = sfWindow_getSize((sfWindow *)window);
         lua_pushnumber(L, vector.x);
         lua_pushnumber(L, vector.y);
@@ -40,7 +40,7 @@ int win_set_framerate_limit(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
         fps = lua_tointeger(L, 2);
         sfRenderWindow_setFramerateLimit(window, fps);
     } else {
@@ -59,7 +59,7 @@ int win_set_mouse_cursor_grabbed(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isboolean(L, 2)) {
-        window = userdata_pointer(L, 1, sfRenderWindow);
+        window = USERDATA_POINTER(L, 1, sfRenderWindow);
         sfRenderWindow_setMouseCursorGrabbed(window, lua_toboolean(L, 2));
     } else {
         luaL_error(L, "Expected (Window, Boolean)");

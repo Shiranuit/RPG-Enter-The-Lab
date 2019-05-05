@@ -42,7 +42,7 @@ int music_destroy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         sfMusic_destroy(music);
     } else {
         luaL_error(L, "Expected (Music)");
@@ -61,7 +61,7 @@ int music_get_duration(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         time_m = sfMusic_getDuration(music);
         lua_pushinteger(L, time_m.microseconds);
     } else {
@@ -81,7 +81,7 @@ int music_get_volume(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         vol = sfMusic_getVolume(music);
         lua_pushnumber(L, vol);
     } else {
@@ -100,7 +100,7 @@ int music_pause(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        music = userdata_pointer(L, 1, sfMusic);
+        music = USERDATA_POINTER(L, 1, sfMusic);
         sfMusic_pause(music);
     } else {
         luaL_error(L, "Expected (Music)");

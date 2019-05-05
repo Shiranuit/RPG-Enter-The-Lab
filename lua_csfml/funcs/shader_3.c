@@ -19,7 +19,7 @@ int shader_set_float3_parameter(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isstring(L, 2) &&
         lua_isnumber(L, 3) && lua_isnumber(L, 4) && lua_isnumber(L, 5)) {
-        shader = userdata_pointer(L, 1, sfShader);
+        shader = USERDATA_POINTER(L, 1, sfShader);
         sfShader_setFloat3Parameter(shader, lua_tostring(L, 2),
         lua_tonumber(L, 3), lua_tonumber(L, 4), lua_tonumber(L, 5));
     } else {
@@ -40,7 +40,7 @@ int shader_set_float4_parameter(lua_State *L)
     if (lua_isuserdata(L, 1) && lua_isstring(L, 2) &&
         lua_isnumber(L, 3) && lua_isnumber(L, 4) && lua_isnumber(L, 5) &&
         lua_isnumber(L, 6)) {
-        shader = userdata_pointer(L, 1, sfShader);
+        shader = USERDATA_POINTER(L, 1, sfShader);
         sfShader_setFloat4Parameter(shader, lua_tostring(L, 2),
         lua_tonumber(L, 3), lua_tonumber(L, 4), lua_tonumber(L, 5),
         lua_tonumber(L, 6));
@@ -61,7 +61,7 @@ int shader_set_float_parameter(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isstring(L, 2) && lua_isnumber(L, 3)) {
-        shader = userdata_pointer(L, 1, sfShader);
+        shader = USERDATA_POINTER(L, 1, sfShader);
         sfShader_setFloatParameter(shader, lua_tostring(L, 2),
         lua_tonumber(L, 3));
     } else {
@@ -80,7 +80,7 @@ int shader_setcurrenttextureparameter(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isstring(L, 2)) {
-        shader = userdata_pointer(L, 1, sfShader);
+        shader = USERDATA_POINTER(L, 1, sfShader);
         sfShader_setCurrentTextureParameter(shader, lua_tostring(L, 2));
     } else {
         luaL_error(L, "Expected (Shader, String)");
@@ -99,8 +99,8 @@ int shader_set_transform_parameter(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isstring(L, 2) && lua_isnumber(L, 3)) {
-        shader = userdata_pointer(L, 1, sfShader);
-        transform = userdata_pointer(L, 3, sfTransform);
+        shader = USERDATA_POINTER(L, 1, sfShader);
+        transform = USERDATA_POINTER(L, 3, sfTransform);
         sfShader_setTransformParameter(shader, lua_tostring(L, 2),
         *transform);
     } else {

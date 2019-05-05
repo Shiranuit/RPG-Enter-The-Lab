@@ -20,7 +20,7 @@ int text_set_character_size(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         size = lua_tointeger(L, 2);
         sfText_setCharacterSize(text, size);
     } else {
@@ -41,7 +41,7 @@ int text_set_color(lua_State *L)
     }
     if (lua_isuserdata(L, 1) && lua_isinteger(L, 2) && lua_isinteger(L, 3) &&
         lua_isinteger(L, 4) && lua_isinteger(L, 5)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         color.r = lua_tointeger(L, 2);
         color.g = lua_tointeger(L, 3);
         color.b = lua_tointeger(L, 4);
@@ -64,7 +64,7 @@ int text_get_string(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        text = userdata_pointer(L, 1, sfText);
+        text = USERDATA_POINTER(L, 1, sfText);
         str = sfText_getString(text);
         lua_pushstring(L, str);
     } else {

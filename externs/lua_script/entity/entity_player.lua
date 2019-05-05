@@ -29,6 +29,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
         super.getStats().setAttack(info.attack or 1)
         super.getStats().setParade(info.parade or 1)
         super.getStats().setSpeed(info.speed or 20)
+        this.scythe_in_cd = false
+        this.scythe_launch_cd = stopwatch.create()
         this.scythe_time = stopwatch.create()
         this.scythe_attack = "none"
         super.setLevel(info.level or 1)
@@ -352,12 +354,12 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
                 end
             end
-        elseif event[1] == "mouse_pressed" then
+        elseif event[1] == "mouse_pressed" and hud.areAllClosed() then
             if this.hasScythe() then
                 if event[4] == mouse.LEFT and this.scythe_attack == "none" then
                     this.scythe_time:restart()
                     this.scythe_attack = "slash"
-                elseif event[4] == mouse.RIGHT and this.scythe_attack == "none" then
+                elseif event[4] == mouse.RIGHT and this.scythe_attack == "none" and not this.scythe_in_cd then
                     this.scythe_time:restart()
                     this.scythe_attack = "scythe_launch"
                     this.my_scythe = world.spawnEntity(new(EntityScytheWeapon(super.getPosition())))
@@ -396,9 +398,26 @@ Class "EntityPlayer" extends "EntityLiving" [{
         end
     end
 
+    function isScytheBoomrangInCooldown()
+        return this.scythe_in_cd
+    end
+
+    function getScytheBoomrangCooldown()
+        return math.max(5000000 - this.scythe_launch_cd:getEllapsedTime(), 0) / 1000000
+    end
+
+    function getScytheAttack()
+        return this.scythe_attack
+    end
+
     function update()
         super.update()
         slashAttack()
+        if this.scythe_in_cd then
+            if this.scythe_launch_cd:getEllapsedTime() > 5000000 then
+                this.scythe_in_cd = false
+            end
+        end
         if this.scythe_attack == "scythe_launch" then
             if this.my_scythe and this.my_scythe.isRevert() then
                 local nx, ny = super.getPosition()
@@ -407,6 +426,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 if dist < this.my_scythe.getSpeed() then
                     world.removeEntityByUUID(this.my_scythe.getUUID())
                     this.scythe_attack = "none"
+                    this.scythe_launch_cd:restart()
+                    this.scythe_in_cd = true
                 end
             end
         end

@@ -43,6 +43,9 @@ assets["xp_bar"] = lsfml.texture.createFromFile("./assets/hud/xp_bar.png", {0, 0
 assets["xp_bar_empty"] = lsfml.texture.createFromFile("./assets/hud/xp_bar_empty.png", {0, 0, 1080, 80})
 assets["circle"] = lsfml.texture.createFromFile("./assets/hud/circle.png", {0, 0, 71, 71})
 
+assets["scythe_right"] = lsfml.texture.createFromFile("./assets/hud/boomrang_dot.png", {0, 0, 71, 71})
+assets["scythe_left"] = lsfml.texture.createFromFile("./assets/hud/slash_dot.png", {0, 0, 71, 71})
+
 -- =======================
 -- =    ENTITY MOB   =
 -- =======================

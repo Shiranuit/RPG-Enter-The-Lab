@@ -15,6 +15,24 @@ local hand2 = lsfml.sprite.create()
 local touche = lsfml.sprite.create()
 local touch_pos = {0, 0}
 local touch_show = false
+local scythe_left = lsfml.sprite.create()
+local scythe_right = lsfml.sprite.create()
+local scythe_right_text = lsfml.text.create()
+
+scythe_right_text:setCharacterSize(24)
+scythe_right_text:setPosition(705 - 74, 889 + 66 * 0.5 + 35)
+scythe_right_text:setFont(assets["fsys"])
+
+scythe_left:setTexture(assets["scythe_left"], false)
+scythe_right:setTexture(assets["scythe_right"], false)
+
+scythe_left:setPosition(705 - 158, 889 + 66 * 0.5 + 35)
+scythe_right:setPosition(705 - 74, 889 + 66 * 0.5 + 35)
+
+scythe_left:setOrigin(35, 35)
+scythe_right:setOrigin(35, 35)
+
+scythe_left:setRotation(-135)
 
 local touch_text = lsfml.text.create()
 local healtext = lsfml.text.create()
@@ -161,6 +179,13 @@ function draw(self)
         window:draw(touche)
         window:draw(touch_text)
     end
+    if player.hasScythe() then
+        window:draw(scythe_left)
+        window:draw(scythe_right)
+        if player.isScytheBoomrangInCooldown() then
+            window:draw(scythe_right_text)
+        end
+    end
 end
 
 local function update_stamina()
@@ -269,6 +294,21 @@ function update(self)
     update_hand2()
     update_sort_bar()
     update_experience()
+    scythe_left:setColor(255, 255, 255, 255)
+    scythe_right:setColor(255, 255, 255, 255)
+    if player.getScytheAttack() == "slash" or player.getScytheAttack() == "slash_attack" then
+        scythe_left:setColor(75, 75, 75, 255)
+    elseif player.getScytheAttack() == "scythe_launch" then
+        scythe_left:setColor(75, 75, 75, 255)
+        scythe_right:setColor(75, 75, 75, 255)
+    end
+    if player.isScytheBoomrangInCooldown() then
+        scythe_right:setColor(75, 75, 75, 255)
+        local cd = tostring(player.getScytheBoomrangCooldown()):sub(1, 4)
+        scythe_right_text:setString(cd)
+        local nx, ny = lsfml.text.getCenter(cd, 24)
+        scythe_right_text:setPosition(705 - 74 - nx, 889 + 66 * 0.5 + 35 - ny)
+    end
 end
 
 function event(self, e)

@@ -20,7 +20,7 @@ int texture_bind(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         sfTexture_bind(texture);
     } else {
         luaL_error(L, "Expected (Texture)");
@@ -39,7 +39,7 @@ int texture_copy(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         ptr = (sfTexture **)lua_newuserdata(L, sizeof(sfTexture **));
         *ptr = sfTexture_copy(texture);
     } else {
@@ -59,7 +59,7 @@ int texture_copy_to_image(lua_State *L)
         return (0);
     }
     if (lua_isuserdata(L, 1)) {
-        texture = userdata_pointer(L, 1, sfTexture);
+        texture = USERDATA_POINTER(L, 1, sfTexture);
         image = (sfImage **)lua_newuserdata(L, sizeof(sfImage **));
         *image = sfTexture_copyToImage(texture);
     } else {
