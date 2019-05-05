@@ -201,7 +201,7 @@ animationSpell = {
     })),
     picSpell = new(EntitySpell({
         hitbox = {{0, 0}, {457, 0}, {457, 224}, {0, 224}},
-        damage = 15,
+        damage = 305,
         spell = assets["picAnimation"],
         rect = {0, 0, 457, 224},
         ox = 457,
