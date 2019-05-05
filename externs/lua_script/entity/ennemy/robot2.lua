@@ -19,7 +19,9 @@ Class "EntityRobot2" extends "EntityLiving" [{
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(451, 875)
         this.sprite:scale(0.20, 0.20)
-
+        assets["robot2_sound"]:setVolume(30)
+        assets["robot2_sound"]:setLoop(true)
+        assets["robot2_sound"]:play()
         this.attack = animation.create(assets["laser"], {0, 0, 46, 19})
         this.attack:setOrigin(9, 9)
         this.attack:scale(3, 3)
@@ -90,7 +92,8 @@ Class "EntityRobot2" extends "EntityLiving" [{
             end
 
         elseif not this.last_animation then
-            this.sprite:changeRect({0, 2000, 455, 455})
+            assets["robot2_sound"]:setLoop(false)
+            this.sprite:changeRect({0, 3756, 520, 470})
             this.last_animation = true
             this.clock:restart()
         end
@@ -103,6 +106,8 @@ Class "EntityRobot2" extends "EntityLiving" [{
                     world.removeEntityByUUID(this.getUUID())
                 end
             end
+            assets["robot2_sound"]:setLoop(false)
+            assets["robot2_sound"]:setVolume(0)
             this.sprite:draw()
             super.drawHitbox()
             super.drawHealth()
