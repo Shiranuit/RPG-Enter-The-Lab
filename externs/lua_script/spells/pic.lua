@@ -30,6 +30,7 @@ function cast(self)
     world.spawnEntity(animationSpell["picSpell"])
     animationSpell["picSpell"].restart()
     player.removeMana(getCost())
+    assets["pic"]:play()
     local x_player, y_player = player.getPosition()
     local size = 300
     local big = 100

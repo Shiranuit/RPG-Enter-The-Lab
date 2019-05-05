@@ -35,6 +35,7 @@ function cast(self)
     local x_player, y_player = player.getPosition()
     local status, hor, ver , idle = player.getStatus()
     local pos1 = vector.new(x_player, y_player)
+    assets["bouleelec"]:play()
 
     if (hor == "left") then
         local pos2 = vector.new(x_player - 5, y_player)

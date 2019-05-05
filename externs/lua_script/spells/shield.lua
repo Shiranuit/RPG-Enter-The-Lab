@@ -28,6 +28,7 @@ end
 
 function enable(self)
     player.removeMana(getCost())
+    assets["shield"]:play()
     player.activateSpell()
     animationSpell["shieldSpell"].restart()
     world.spawnEntity(animationSpell["shieldSpell"])

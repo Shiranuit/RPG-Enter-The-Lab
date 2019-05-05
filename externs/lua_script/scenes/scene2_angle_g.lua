@@ -114,6 +114,7 @@ function update()
     if keyboard.keyPressed(keys.E) then
         player.respawn()
     end
+    
 end
 
 

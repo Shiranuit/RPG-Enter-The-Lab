@@ -17,6 +17,7 @@ end
 function cast(self)
     world.spawnEntity(animationSpell["healSpell"])
     player.removeMana(getCost())
+    assets["heal"]:play()
     player.heal(40)
     animationSpell["healSpell"].restart()
 end
