@@ -88,12 +88,12 @@ Class "EntityRobot2" extends "EntityLiving" [{
             end
 
         elseif not this.last_animation then
-            this.sprite:changeRect({0, 2000, 455, 455})
+            this.sprite:changeRect({180, 3600, 455, 600})
             this.last_animation = true
             this.clock:restart()
         end
         if this.last_animation then
-            if this.clock:getEllapsedTime() > 10000 then
+            if this.clock:getEllapsedTime() > 80000 then
                 this.clock:restart()
                 this.sprite:next()
                 if this.sprite:hasEnded() then
