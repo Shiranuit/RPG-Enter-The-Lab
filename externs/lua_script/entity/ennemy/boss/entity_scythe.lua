@@ -175,7 +175,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 local pos1 = vector.new(px, py)
                 local pos2 = vector.new(player.getPosition())
                 local dir = pos2 - pos1
-                world.spawnEntity(new(EntitySlash(px, py, dir, this.phase < 4 and 10 or 20, 20, final)))
+                local damage = 1 + this.getLevel() * 2 / 100
+                world.spawnEntity(new(EntitySlash(px, py, dir, (this.phase < 4 and 10 or 20) * damage, 20, final)))
             end
         end
         local step = this.dir == 1 and 10 or -10
@@ -191,7 +192,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 local pos = axis * dist
                 player.move(pos.x, pos.y)
                 if not this.hit_entity then
-                    player.hit((this.phase < 4 and 20 or 40) * DeltaTime, final)
+                    local damage = 1 + this.getLevel() * 2 / 100
+                    player.hit((this.phase < 4 and 20 or 40) * DeltaTime * damage, final)
                     this.hit_entity = true
                 end
                 return
@@ -237,7 +239,8 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
             local pos2 = vector.new(px, py)
             local pos1 = vector.new(super.getPosition())
             local dir = pos2 - pos1
-            world.spawnEntity(new(EntityVortex(px, py, dir, this.phase < 4 and 20 or 40, 5, scythe_func[this.func], final)))
+            local damage = 1 + this.getLevel() * 2 / 100
+            world.spawnEntity(new(EntityVortex(px, py, dir, (this.phase < 4 and 20 or 40) * damage, 5, scythe_func[this.func], final)))
             local step = 15
             super.setRotation(angle + step)
             this.sprite:setRotation(angle + step)
