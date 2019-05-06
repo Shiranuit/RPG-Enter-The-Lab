@@ -182,7 +182,7 @@ animationSpell = {
     })),
     rayonIdleAnimation = new(EntitySpell({
         hitbox = {{0, 0}, {19, 0}, {19, 114}, {0, 114}},
-        damage = 0.5,
+        damage = 0.1,
         spell = assets["rayonIdleAnimation"],
         rect = {0, 114, 19, 114},
         ox = 0,
