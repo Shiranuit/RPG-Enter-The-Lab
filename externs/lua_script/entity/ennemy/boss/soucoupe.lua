@@ -117,6 +117,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         end
         if super.getHealth() > 0.66 * super.getMaximumHealth() then
             this.time = 3000000
+            this.sprite:changeRect({0, 0, 249, 86})
         elseif super.getHealth() > 0.33 * super.getMaximumHealth() and super.getHealth() < 0.66 * super.getMaximumHealth() then
             this.sprite:changeRect({0, 86, 249, 86})
             this.time = 2500000

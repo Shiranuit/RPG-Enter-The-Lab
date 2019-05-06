@@ -292,6 +292,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
             super.respawn()
             setScene("test_player")
             this.setPosition(550, 680)
+            this.mana = this.getMaximumMana()
+            this.stamina = this.getMaximumStamina()
             this.addExperience(-math.floor(this.getExperience()) / 2)
             this.stamina = this.max_stamina
             this.pos_rect = {12, 30000, 2640, 2500, 220, 500}
@@ -478,7 +480,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
             this.stamina = this.stamina + 1 * DeltaTime
         end
         if this.getMaximumMana() > this.mana and this.status ~= "spell" then
-            this.mana = this.mana + 0.01 * DeltaTime
+            this.mana = this.mana + 0.1 * DeltaTime
         end
         if super.isDead() then
             if (this.status ~= "death") then

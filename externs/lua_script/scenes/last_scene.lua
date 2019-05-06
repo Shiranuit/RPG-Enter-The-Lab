@@ -53,6 +53,7 @@ function HitBoxWall(x_or, y_or, pts)
 end
 
 function unload()
+    mage.setHealth(mage.getMaximumHealth())
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()

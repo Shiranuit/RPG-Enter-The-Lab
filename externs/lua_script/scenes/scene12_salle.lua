@@ -56,6 +56,7 @@ function load(scene)
 end
 
 function unload()
+    soucoupe.setHealth(soucoupe.getMaximumHealth())
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()

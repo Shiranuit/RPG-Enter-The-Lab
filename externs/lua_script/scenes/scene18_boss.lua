@@ -50,6 +50,7 @@ function load(scene)
 end
 
 function unload()
+    scythe.setHealth(scythe.getMaximumHealth())
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
