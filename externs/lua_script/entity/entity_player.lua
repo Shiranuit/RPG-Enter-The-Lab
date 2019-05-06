@@ -292,6 +292,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
             super.respawn()
             setScene("test_player")
             this.setPosition(550, 680)
+            this.mana = this.getMaximumMana()
+            this.stamina = this.getMaximumStamina()
             this.addExperience(-math.floor(this.getExperience()) / 2)
             this.stamina = this.max_stamina
             this.pos_rect = {12, 30000, 2640, 2500, 220, 500}

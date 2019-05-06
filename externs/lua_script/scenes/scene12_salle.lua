@@ -31,7 +31,6 @@ function load(scene)
         door:scale(0.38, 0.38)
         first = true
     end
-    bosshealth:setEntity(soucoupe)
     if player:getNeedRestart(12) then
         entities = {}
         player:setNeedRestart(12, false)
@@ -45,6 +44,7 @@ function load(scene)
         world.spawnEntity(player)
         world.spawnEntity(robot1)
     end
+    bosshealth:setEntity(soucoupe)
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {960, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
@@ -53,9 +53,17 @@ function load(scene)
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
+    local ents = world.getEntities()
+    for i=1, #ents do
+        if type(ents[i]) == "EntitySoucoupe" then
+            bosshealth:setEntity(ents[i])
+            break
+        end
+    end
 end
 
 function unload()
+    soucoupe.setHealth(soucoupe.getMaximumHealth())
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()

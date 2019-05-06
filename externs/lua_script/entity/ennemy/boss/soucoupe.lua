@@ -78,6 +78,22 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         world.spawnEntity(new(EntityLaser(px, py, pos2, 3, 20, final)))
     end
 
+    function hit(damage, source)
+        if super.isAlive() then
+            super.hit(damage, source)
+            if super.isDead() then
+                for i=1, math.random(1, 4) do
+                    world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
+                end
+                if not _G.par5 then
+                    world.spawnEntity(new(EntityItem(itemstack.create(items["parchemin_5"], 1)))).setPosition(super.getPosition())
+                    _G.par5 = true
+                end
+                world.removeEntityByUUID(this.getUUID())
+            end
+        end
+    end
+
     function laser_to_coord(x, y)
         local px, py = super.getPosition()
         py = py - 150
@@ -109,14 +125,9 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         if player:isDead() then
             return
         end
-        if super.isDead() then
-            for i=1, math.random(1, 4) do
-                world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
-            end
-            world.removeEntityByUUID(this.getUUID())
-        end
         if super.getHealth() > 0.66 * super.getMaximumHealth() then
             this.time = 3000000
+            this.sprite:changeRect({0, 0, 249, 86})
         elseif super.getHealth() > 0.33 * super.getMaximumHealth() and super.getHealth() < 0.66 * super.getMaximumHealth() then
             this.sprite:changeRect({0, 86, 249, 86})
             this.time = 2500000

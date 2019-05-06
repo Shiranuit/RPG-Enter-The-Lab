@@ -57,6 +57,15 @@ Class "EntityTurret" extends "EntityLiving" [{
         end
     end
 
+    function hit(damage, source)
+        if super.isAlive() then
+            super.hit(damage, source)
+            if super.isDead() then
+                world.removeEntityByUUID(this.getUUID())
+            end
+        end
+    end
+
     function laser()
         local x, y = player.getPosition()
         y = y - 62.5
@@ -86,9 +95,6 @@ Class "EntityTurret" extends "EntityLiving" [{
                 end
                 this.attack:draw()
             end
-        else
-            world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
-            world.removeEntityByUUID(this.getUUID())
         end
     end
 
