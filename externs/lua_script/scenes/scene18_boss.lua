@@ -8,6 +8,7 @@ background:setTexture(assets["boss"], false)
 local first = false
 local entities = {}
 local hitb = nil
+local scythe
 
 function load(scene)
     if player:getNb_salle_pass() > 6 then
