@@ -53,6 +53,13 @@ function load(scene)
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
+    local ents = world.getEntities()
+    for i=1, #ents do
+        if type(ents[i]) == "EntitySoucoupe" then
+            bosshealth:setEntity(ents[i])
+            break
+        end
+    end
 end
 
 function unload()

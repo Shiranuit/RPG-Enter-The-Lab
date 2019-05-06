@@ -20,16 +20,11 @@ door:scale(0.38, 0.38)
 local first = false
 
 
-local entities = {}
 local hitb = nil
 
 function load(scene)
-    if first == false then
-        mage = new(EntityMageBoss(800, 500))
-        first = true
-    end
+    mage = new(EntityMageBoss(800, 500))
     player.setPosition(1050, 240)
-    world.setEntities(entities)
     if #entities == 0 then
         world.spawnEntity(player)
         world.spawnEntity(mage)
@@ -53,8 +48,6 @@ function HitBoxWall(x_or, y_or, pts)
 end
 
 function unload()
-    mage.setHealth(mage.getMaximumHealth())
-    entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()

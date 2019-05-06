@@ -38,6 +38,9 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         super.setType("ennemy")
     end
 
+    function setPhase(num)
+        this.phase = num
+    end
 
     function hit(damage, source)
         if super.isAlive() and this.attack ~= "asmat_entity" then
@@ -62,7 +65,6 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                     world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
                 end
                 world.spawnEntity(new(EntityItem(itemstack.create(items["scythe"], 1)))).setPosition(super.getPosition())
-                world.spawnEntity(new(EntityItem(itemstack.create(items["parchemin_5"], 1)))).setPosition(super.getPosition())
                 world.removeEntityByUUID(this.getUUID())
             end
         end

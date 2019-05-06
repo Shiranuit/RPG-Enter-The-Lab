@@ -55,6 +55,9 @@ Class "EntityMageBoss" extends "EntityLiving" [{
         end
     end
 
+    function setPhase(num)
+        this.phase = num
+    end
 
     function hit(damage, source)
         if super.isAlive() then
