@@ -489,6 +489,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 this.clock:restart()
                 this.sprite:setTextureRect(table.unpack(this.pos_rect, 3))
                 setScene("respawn")
+                assets["robot1_sound"]:setLoop(false)
+                assets["robot2_sound"]:setLoop(false)
             end
         end
         if this.status == "spell" then

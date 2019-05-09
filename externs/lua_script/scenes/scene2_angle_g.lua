@@ -15,8 +15,6 @@ local hologram_break1
 local hologram_break2
 local torch1
 local torch2
-local robot1 = new(EntityRobot1(800, 800))
-local soucoupe = new(EntitySoucoupe(800, 800))
 local play_door = false
 
 local entities = {}

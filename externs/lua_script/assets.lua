@@ -169,6 +169,11 @@ assets["start_cave"] = lsfml.texture.createFromFile("./assets/map/cave/arriver.p
 assets["left_start"] = lsfml.texture.createFromFile("./assets/map/cave/grotte_gauche.png", {0, 0, 1920, 1080})
 assets["right_start"] = lsfml.texture.createFromFile("./assets/map/cave/avant_boss.png", {0, 0, 1920, 1080})
 assets["boss"] = lsfml.texture.createFromFile("./assets/map/cave/boss.png", {0, 0, 1920, 1080})
+assets["blank"] = lsfml.texture.createFromFile("./assets/menu/blank.png", {0, 0, 1337, 940})
+assets["arrow"] = lsfml.texture.createFromFile("./assets/menu/arrow_right.png", {0, 0, 210, 210})
+assets["arrowr"] = lsfml.texture.createFromFile("./assets/menu/arrow_left.png", {0, 0, 210, 210})
+assets["arrow_active"] = lsfml.texture.createFromFile("./assets/menu/arrow_right_active.png", {0, 0, 210, 210})
+assets["arrowr_active"] = lsfml.texture.createFromFile("./assets/menu/arrow_left_active.png", {0, 0, 210, 210})
 
 -- =======================
 -- =     MAP TEXTURE     =

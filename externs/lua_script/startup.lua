@@ -309,6 +309,7 @@ quete_hud = hud.createFromFile("hud/hud_quete.lua", nil, true)
 -- =========================================
 
 loadScene("menu/respawn.lua")
+loadScene("menu/howtoplay_menu.lua")
 loadScene("menu/main_menu.lua")
 loadScene("menu/options_menu.lua")
 loadScene("scenes/test_player.lua")
