@@ -7,6 +7,7 @@
 -- =      TEXTURES       =
 -- =======================
 
+assets["black"] = lsfml.texture.createFromFile("./assets/menu/black.png", {0, 0, 1920, 1080})
 assets["background"] = lsfml.texture.createFromFile("./assets/menu/main_menu_background.png", {0, 0, 1920, 1080})
 assets["button_idle"] = lsfml.texture.createFromFile("./assets/menu/button_idle.png", {0, 0, 421, 171})
 assets["button_pressed"] = lsfml.texture.createFromFile("./assets/menu/button_pressed.png", {0, 0, 421, 171})
@@ -174,6 +175,8 @@ assets["arrow"] = lsfml.texture.createFromFile("./assets/menu/arrow_right.png", 
 assets["arrowr"] = lsfml.texture.createFromFile("./assets/menu/arrow_left.png", {0, 0, 210, 210})
 assets["arrow_active"] = lsfml.texture.createFromFile("./assets/menu/arrow_right_active.png", {0, 0, 210, 210})
 assets["arrowr_active"] = lsfml.texture.createFromFile("./assets/menu/arrow_left_active.png", {0, 0, 210, 210})
+
+assets["loading"] = lsfml.texture.createFromFile("./assets/menu/loading_screen.png", {0, 0, 7840, 196})
 
 -- =======================
 -- =     MAP TEXTURE     =
