@@ -479,7 +479,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         if this.status == "respawn" then
             return
         end
-        local speed = this.getStats().getSpeed() * DeltaTime
+        local speed = this.getSpeed() * DeltaTime
         if this.is_sprinting == true and this.status ~= "idle" then
             this.stamina = this.stamina - 1 * DeltaTime
             speed = speed * 2
