@@ -24,7 +24,7 @@ local canPass = false
 local stopwatch = stopwatch.create()
 local play_door = false
 
-
+local sounds = {}
 local entities = {}
 local hitb = nil
 
@@ -38,6 +38,9 @@ function load(scene)
             player:setNeedRestart(i, true)
         end
     end
+    soundmanager.setSounds(sounds)
+    soundmanager.setLoop(true)
+    soundmanager.play("robot2")
     if first == false or player:getNeedRestart(10) then
         torch1 = new(EntityProps(100, 850, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
         torch2 = new(EntityProps(100, 450, assets["torch_empty"], 27, 84, {{0, 95},{0, 84}, {55, 84}, {55, 95}}, 1))
@@ -51,8 +54,8 @@ function load(scene)
         robot2 = new(EntityRobot2(400, 800))
         robot3 = new(EntityRobot2(1100, 800))
         robot1.setLevel(3 + player:get_nbr_restart())
-        robot1.setLevel(5 + player:get_nbr_restart())
-        robot1.setLevel(5 + player:get_nbr_restart())
+        robot2.setLevel(5 + player:get_nbr_restart())
+        robot3.setLevel(5 + player:get_nbr_restart())
         door = animation.create(assets["door"], {0, 0 , 400, 351})
         door:setPosition(965, 80)
         door:scale(0.38, 0.38)
@@ -112,7 +115,10 @@ function load(scene)
 end
 
 function unload()
-    assets["robot2_sound"]:stop()
+    soundmanager.setLoop(false)
+    soundmanager.stop("robot2")
+    sounds = soundmanager.getSounds()
+    soundmanager.clear()
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()

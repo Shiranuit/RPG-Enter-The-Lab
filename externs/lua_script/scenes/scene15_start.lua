@@ -41,6 +41,8 @@ local hitb = nil
 local robot1
 local robot2
 
+local sounds = {}
+
 function load(scene)
     if player:getNb_salle_pass() > 6 then
         entities = {}
@@ -51,6 +53,9 @@ function load(scene)
             player:setNeedRestart(i, true)
         end
     end
+    soundmanager.setSounds(sounds)
+    soundmanager.setLoop(true)
+    soundmanager.play("robot1")
     if first_load == false or player:getNeedRestart(14) then
         status1 = new(EntityProps(368, 209, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
         status2 = new(EntityProps(87, 815, assets["status"], 50, 150, {{0, 127}, {13, 147}, {23, 174}, {100, 174}, {62, 130}}, 1))
@@ -150,7 +155,10 @@ function load(scene)
 end
 
 function unload()
-    assets["robot1_sound"]:stop()
+    soundmanager.setLoop(false)
+    soundmanager.stop("robot1")
+    sounds = soundmanager.getSounds()
+    soundmanager.clear()
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()

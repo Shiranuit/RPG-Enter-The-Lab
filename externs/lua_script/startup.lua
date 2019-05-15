@@ -585,12 +585,12 @@ function game_pause()
     if assets["slash_sound"]:isPlaying() then
         assets["slash_sound"]:pause()
     end
-    if assets["robot1_sound"]:isPlaying() then
-        assets["robot2_sound"]:pause()
-    end
-    if assets["robot2_sound"]:isPlaying() then
-        assets["robot2_sound"]:pause()
-    end
+    -- if assets["robot1_sound"]:isPlaying() then
+    --     assets["robot2_sound"]:pause()
+    -- end
+    -- if assets["robot2_sound"]:isPlaying() then
+    --     assets["robot2_sound"]:pause()
+    -- end
     if assets["scythe_ulti"]:isPlaying() then
         assets["scythe_ulti"]:pause()
     end
@@ -615,12 +615,12 @@ function game_resume()
     if assets["slash_sound"]:isPaused() then
         assets["slash_sound"]:play()
     end
-    if assets["robot1_sound"]:isPaused() then
-        assets["robot2_sound"]:play()
-    end
-    if assets["robot2_sound"]:isPaused() then
-        assets["robot2_sound"]:play()
-    end
+    -- if assets["robot1_sound"]:isPaused() then
+    --     assets["robot2_sound"]:play()
+    -- end
+    -- if assets["robot2_sound"]:isPaused() then
+    --     assets["robot2_sound"]:play()
+    -- end
     if assets["scythe_ulti"]:isPaused() then
         assets["scythe_ulti"]:play()
     end

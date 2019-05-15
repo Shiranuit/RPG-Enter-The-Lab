@@ -19,7 +19,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(270, 462)
         this.sprite:scale(0.25, 0.25)
-        this.sounds = lsfml.sound.createFromFile("./assets/sound/robot1.ogg")
+        this.sounds, this.sound_id = soundmanager.add("robot1", assets["robot1_sound"])
         this.sounds:setVolume(30)
         this.sounds:setLoop(true)
         this.sounds:play()
@@ -40,9 +40,6 @@ Class "EntityRobot1" extends "EntityLiving" [{
 
     function setLoop()
         if this.isAlive() then
-        assets["robot1_sound"]:setVolume(30)
-        assets["robot1_sound"]:setLoop(true)
-        assets["robot1_sound"]:play()
         end
     end
 
@@ -80,6 +77,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
             world.removeEntityByUUID(this.getUUID())
             this.sounds:setLoop(false)
             this.sounds:stop()
+            soundmanager.remove(this.sound_id, "robot1")
         end
     end
 
