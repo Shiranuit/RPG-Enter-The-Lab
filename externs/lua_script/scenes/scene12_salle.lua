@@ -5,6 +5,8 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 
+local door_box
+
 local first = false
 local door
 local canPass = false
@@ -36,7 +38,7 @@ function load(scene)
         player:setNeedRestart(12, false)
     end
     if scene == "scene11_angle_droit" then
-        player.setPosition(1050, 210)
+        player.setPosition(1050, 240)
     end
     world.setEntities(entities)
     if #entities == 0 then
@@ -76,6 +78,12 @@ function HitBoxWall(x_or, y_or, pts)
     box.setPoints(pts)
     box.setPosition(x_or, y_or)
     hitbox.add(box)
+    if door_box == nil then
+        door_box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+        door_box.setPoints({{0, 220}, {1920, 220}})
+        door_box.setPosition(0, 0)
+        hitbox.add(door_box)
+    end
 end
 
 function draw()
@@ -101,6 +109,7 @@ function update()
         if not play_door then
             assets["door_sound"]:play()
             play_door = true
+            door_box.setType("soft")
         end
         if y < 200 then
             player:plusNb_salle_pass()

@@ -5,6 +5,8 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_escalier"], false)
 
+local door_box
+
 local first = false
 local geant_tapis_gauche
 local grand_tapis_droite
@@ -154,6 +156,12 @@ function load(scene)
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
+    if door_box == nil then
+        door_box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+        door_box.setPoints({{0, 220}, {1920, 220}})
+        door_box.setPosition(0, 0)
+        hitbox.add(door_box)
+    end
 end
 
 function unload()
@@ -188,6 +196,7 @@ function update()
     for i=1, #entities do
         if entities[i].getType() == "ennemy" then
             canPass = false
+            door_box.setType("soft")
         end
     end
     if canPass then

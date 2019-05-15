@@ -5,6 +5,8 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_intersection_haut"], false)
 
+local door_box
+
 local first = false
 local torch1
 local torch2
@@ -56,7 +58,7 @@ function load(scene)
         player:setNeedRestart(10, false)
     end
     if (scene == "scene13_vertical") then
-        player.setPosition(1030, 200)
+        player.setPosition(1030, 240)
     end
     if (scene == "scene11_angle_droit") then
         player.setPosition(30, 700)
@@ -96,6 +98,12 @@ function load(scene)
     hitbox.setHitboxes(hitb)
     robot2.setLoop()
     robot3.setLoop()
+    if door_box == nil then
+        door_box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+        door_box.setPoints({{0, 220}, {1920, 220}})
+        door_box.setPosition(0, 0)
+        hitbox.add(door_box)
+    end
 end
 
 function unload()
@@ -136,6 +144,7 @@ function update()
         if not play_door then
             assets["door_sound"]:play()
             play_door = true
+            door_box.setType("soft")
         end
         if x < 0 then
             player:plusNb_salle_pass()

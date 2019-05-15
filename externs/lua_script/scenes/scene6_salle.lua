@@ -5,6 +5,8 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_pop"], false)
 
+local door_box
+
 local first = false
 local table1
 local table2
@@ -72,7 +74,7 @@ function load(scene)
         player:setNeedRestart(6, false)
     end
     if scene == "scene5_intersection_bas" then
-        player.setPosition(1050, 210)
+        player.setPosition(1050, 240)
     end
     world.setEntities(entities)
     if #entities == 0 then
@@ -105,6 +107,12 @@ function load(scene)
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
+    if door_box == nil then
+        door_box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+        door_box.setPoints({{0, 220}, {1920, 220}})
+        door_box.setPosition(0, 0)
+        hitbox.add(door_box)
+    end
 end
 
 function unload()
@@ -144,6 +152,7 @@ function update()
         if not play_door then
             assets["door_sound"]:play()
             play_door = true
+            door_box.setType("soft")
         end
         if y < 200 then
             player:plusNb_salle_pass()

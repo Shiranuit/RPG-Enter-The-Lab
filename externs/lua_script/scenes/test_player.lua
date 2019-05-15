@@ -12,6 +12,7 @@ local pnj = new(EntityPnj("homme", 1150, 450, assets["pnj_homme"], 110, 560, {{0
 local stopwatch = stopwatch.create()
 local door = animation.create(assets["door"], {0, 0 , 400, 351})
 local play_door = false
+local door_box
 
 door:setPosition(965, 80)
 door:scale(0.38, 0.38)
@@ -85,13 +86,20 @@ function load(scene)
         world.spawnEntity(pnj)
     end
     if (hitb == nil) then
-        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {965, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
+        HitBoxWall(0, 0, {{0, 0}, {0, 220}, {965, 220}, {965, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
         HitBoxWall(0, 0, {{0, 1030}, {1890, 1030}})
         HitBoxWall(0, 0, {{30, 30}, {30, 1050}})
         HitBoxWall(0, 0, {{1880, 1050}, {1880, 40}})
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
+
+    if door_box == nil then
+        door_box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+        door_box.setPoints({{0, 220}, {1920, 220}})
+        door_box.setPosition(0, 0)
+        hitbox.add(door_box)
+    end
 end
 
 function HitBoxWall(x_or, y_or, pts)
@@ -126,6 +134,7 @@ function update()
         if not play_door then
             assets["door_sound"]:play()
             play_door = true
+            door_box.setType("soft")
         end
         if x > 930 and x < 1100 and y < 210 then
             player:plusNb_salle_pass()
