@@ -206,7 +206,7 @@ loading_anim:setPosition(800, 450)
 loading_anim:scale(1.5, 1.5)
 background:setTexture(assets["black"], false)
 loading_bar:setTexture(assets["loading_bar"], false)
-loading_bar:setPosition(0, 950)
+loading_bar:setPosition(0, 920)
 loading_bar:scale(0.79, 0.5)
 
 local stopwatch = stopwatch.create()
