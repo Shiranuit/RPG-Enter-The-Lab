@@ -42,12 +42,6 @@ Class "EntityRobot2" extends "EntityLiving" [{
         return 50 * this.getLevel()
     end
 
-    function setLoop()
-        if this.isAlive() then
-            --ICIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi
-        end
-    end
-
     function setPosition(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)
