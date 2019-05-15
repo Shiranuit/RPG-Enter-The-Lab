@@ -37,6 +37,14 @@ Class "EntityRobot1" extends "EntityLiving" [{
         initHitboxes()
     end
 
+    function setLoop()
+        if this.isAlive() then
+        assets["robot1_sound"]:setVolume(30)
+        assets["robot1_sound"]:setLoop(true)
+        assets["robot1_sound"]:play()
+        end
+    end
+
     function setPosition(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)

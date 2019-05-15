@@ -88,6 +88,7 @@ function load(scene)
 end
 
 function unload()
+    assets["robot1_sound"]:stop()
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()

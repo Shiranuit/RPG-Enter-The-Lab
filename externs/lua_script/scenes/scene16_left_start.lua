@@ -139,9 +139,14 @@ function load(scene)
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
+    robot1.setLoop()
+    robot2.setLoop()
+    robot3.setLoop()
+    robot4.setLoop()
 end
 
 function unload()
+    assets["robot2_sound"]:stop()
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()

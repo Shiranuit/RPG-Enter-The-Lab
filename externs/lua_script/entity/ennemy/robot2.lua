@@ -41,6 +41,14 @@ Class "EntityRobot2" extends "EntityLiving" [{
         return 55
     end
 
+    function setLoop()
+        if this.isAlive() then
+        assets["robot2_sound"]:setVolume(30)
+        assets["robot2_sound"]:setLoop(true)
+        assets["robot2_sound"]:play()
+        end
+    end
+
     function setPosition(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)
