@@ -45,6 +45,11 @@ updateProgress()
 assets["info"] = lsfml.texture.createFromFile("./assets/hud/info_window.png", {0, 0, 940, 1450})
 updateProgress()
 
+assets["slider_bar"] = lsfml.texture.createFromFile("./assets/menu/slider_bar.png", {0, 0, 940, 1450})
+updateProgress()
+assets["slider_button"] = lsfml.texture.createFromFile("./assets/menu/slider_button.png", {0, 0, 940, 1450})
+updateProgress()
+
 assets["empty_boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshealth_empty.png", {0, 0, 426, 33})
 updateProgress()
 assets["boss_health1"] = lsfml.texture.createFromFile("./assets/hud/bosshealth1.png", {0, 0, 426, 33})
