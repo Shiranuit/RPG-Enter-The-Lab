@@ -138,7 +138,7 @@ function update()
         end
         if x > 930 and x < 1100 and y < 210 then
             player:plusNb_salle_pass()
-            setScene("last_scene")
+            setScene("scene2_angle_g")
         end
     end
 end

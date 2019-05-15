@@ -124,6 +124,13 @@ Class "EntityTurret" extends "EntityLiving" [{
                 end
                 this.attack:draw()
             end
+        elseif not this.last_animation then
+            this.last_animation = true
+        end
+        if this.last_animation then
+            --if math.random(0, 100) < 100 then
+                world.spawnEntity(new(EntityItem(itemstack.create(items.companion_cube, 1)))).setPosition(super.getPosition())
+            --end
         end
     end
 
