@@ -171,8 +171,29 @@ spells_tab = {
 -- =             LOADING ASSETS            =
 -- =========================================
 
+window = setmetatable({}, {
+    __index = lsfml.window,
+    __gc = lsfml.window.destroy,
+    __ptr = owindow,
+    __type = "window",
+})
+
+
+assets["black"] = lsfml.texture.createFromFile("./assets/menu/black.png", {0, 0, 1920, 1080})
+assets["loading"] = lsfml.texture.createFromFile("./assets/menu/loading_screen.png", {0, 0, 7840, 196})
+local background = lsfml.sprite.create()
+local loading_anim = animation.create(assets["loading"], {0, 0 , 195.65, 196})
+loading_anim:setPosition(800, 450)
+loading_anim:scale(1.5, 1.5)
+background:setTexture(assets["black"], false)
+local stopwatch = stopwatch.create()
+local watch = stopwatch.create()
+
 function loading(count, total)
-    print(count / total * 100)
+    --print(count / total * 100)
+    window:draw(background)
+    loading_anim:next()
+    loading_anim:draw()
 end
 
 function loadingAssets()
@@ -185,7 +206,6 @@ function loadingAssets()
         for k, v in code:gmatch("updateProgress") do
             total = total + 1
         end
-        print(total)
         local func, err = load(code, "Loading Assets", "t", _G)
         if func then
             local assets_load = coroutine.create( func )
@@ -389,12 +409,7 @@ player = new(EntityPlayer({
 
 -- Called at the beginning of the program
 function init()
-    window = setmetatable({}, {
-        __index = lsfml.window,
-        __gc = lsfml.window.destroy,
-        __ptr = owindow,
-        __type = "window",
-    })
+
     setScene("main_menu")
 end
 
