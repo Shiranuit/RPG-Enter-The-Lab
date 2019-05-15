@@ -62,13 +62,18 @@ function setScene(name)
     if name ~= "main_menu" then
         player_hud:open()
     end
+    print(name, scene_name)
     if scenes[scene_name] and scenes[scene_name].unload then
-        scenes[scene_name].unload()
+        if name ~= "options_menu" or scene_name == "main_menu" then
+            scenes[scene_name].unload()
+        end
         prevScene = scene_name
         prevDeadScene = scene_name
     end
     if scenes[name] and scenes[name].load then
-        scenes[name].load(scene_name)
+        if scene_name ~= "options_menu" or name == "main_menu" then
+            scenes[name].load(scene_name)
+        end
     end
     scene_name = name
 end

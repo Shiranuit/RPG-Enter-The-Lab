@@ -103,6 +103,8 @@ function load()
     world.updateDisable()
     world.eventDisable()
     hud.renderDisable()
+    player.setLevel(1)
+    player.setExperience(0)
 end
 
 function unload()

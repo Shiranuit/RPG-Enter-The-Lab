@@ -46,7 +46,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.status_horizontal = "none"
         this.inventory = hud.createFromFile("hud/inventory_hud.lua")
         this.is_sprinting = false
-        this.is_damageable = true
         local box = new(Hitbox("player"))
         box.setPoints({{0, 0}, {220, 0}, {220, 220}, {0, 220}})
         box.setOrigin(220 / 2, 220)
@@ -86,9 +85,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.isInQuest = quest
     end
 
-    function damageable(bool)
-        this.is_damageable = bool
-    end
     function activateSpell()
         if this.status == "spell" then
             return
@@ -230,14 +226,12 @@ Class "EntityPlayer" extends "EntityLiving" [{
     ---------------------------------
 
     function hit(damage, source)
-        if this.is_damageable then
-            local defense = this.getDefense()
-            super.hit(damage * (1 - (defense - 1)), source)
-            if super.isDead() then
-                if this.scythe_attack == "scythe_launch" and this.my_scythe then
-                    world.removeEntityByUUID(this.my_scythe.getUUID())
-                    this.scythe_attack = "none"
-                end
+        local defense = this.getDefense()
+        super.hit(damage * (1 - (defense - 1)), source)
+        if super.isDead() then
+            if this.scythe_attack == "scythe_launch" and this.my_scythe then
+                world.removeEntityByUUID(this.my_scythe.getUUID())
+                this.scythe_attack = "none"
             end
         end
     end
