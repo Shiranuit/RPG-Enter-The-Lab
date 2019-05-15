@@ -34,6 +34,16 @@ Class "EntityRobot3" extends "EntityLiving" [{
         return 100 * this.getLevel()
     end
 
+    function hit(damage, source)
+        if math.random(0, 100) < 25 then
+            for i=1, math.random(1, 2) do
+                world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
+            end
+        end
+        world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
+        world.removeEntityByUUID(this.getUUID())
+    end
+
     function setPosition(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)
@@ -63,15 +73,6 @@ Class "EntityRobot3" extends "EntityLiving" [{
             end
             this.sprite:draw()
             super.drawHitbox()
-
-        else
-            if math.random(0, 100) < 25 then
-                for i=1, math.random(1, 2) do
-                    world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
-                end
-            end
-            world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
-            world.removeEntityByUUID(this.getUUID())
         end
         super.drawHealth()
     end

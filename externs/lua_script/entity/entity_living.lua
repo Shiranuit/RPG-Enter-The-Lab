@@ -51,7 +51,7 @@ Class "EntityLiving" extends "Entity" [{
         while this.experience > this.next_exp_stage do
             this.lvl = this.lvl + 1
             this.experience = this.experience - this.next_exp_stage
-            this.next_exp_stage = this.next_exp_stage * 1.01 ^ this.lvl
+            this.next_exp_stage = this.next_exp_stage * 1.1 ^ this.lvl
             if final and final.onLevelUp then
                 final.onLevelUp(this.lvl)
             end
@@ -65,7 +65,7 @@ Class "EntityLiving" extends "Entity" [{
         while this.experience > this.next_exp_stage do
             this.lvl = this.lvl + 1
             this.experience = this.experience - this.next_exp_stage
-            this.next_exp_stage = this.next_exp_stage * 1.01 ^ this.lvl
+            this.next_exp_stage = this.next_exp_stage * 1.1 ^ this.lvl
             if final and final.onLevelUp then
                 final.onLevelUp(this.lvl)
             end
