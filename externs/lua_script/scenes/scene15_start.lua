@@ -133,7 +133,7 @@ function load(scene)
         world.spawnEntity(pot5_2)
         world.spawnEntity(pot5_3)
         world.spawnEntity(pot5_4)
-        if canP2 then
+        if canP1 then
             world.spawnEntity(parchemin1)
         end
         if canP2 then
