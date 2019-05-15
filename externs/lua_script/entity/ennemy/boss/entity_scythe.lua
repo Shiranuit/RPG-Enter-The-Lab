@@ -286,6 +286,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                     local rng = math.random(1, 100)
                     if this.attack ~= "idle" and rng < chance then
                         this.attack = "asmat_entity"
+                        assets["scythe_ulti"]:play()
                     end
                 end
             end

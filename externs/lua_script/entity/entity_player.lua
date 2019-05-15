@@ -53,6 +53,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         box.setPosition(super.getPosition())
         super.addHitbox(box)
         this.isInQuest = false
+        this.charging = false
         this.nb_salle_pass = 0
         this.needRestart = {false}
         this.nbr_restart = 0
@@ -83,6 +84,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function restartNb_salle_pass(self)
+        assets["alarm"]:play()
         this.nb_salle_pass = 0
     end
 
@@ -383,6 +385,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
                         this.scythe:setRotation(45)
                         this.scythe:setScale(-0.5 * this.size_slash, 0.5 * this.size_slash)
                     end
+                    this.charging = false
+                    assets["spell_charging"]:stop()
                 elseif event[4] == mouse.RIGHT then
 
                 end
@@ -651,6 +655,10 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 else
                     this.scythe:setRotation(45)
                     this.scythe:setScale(-0.5 * size, 0.5 * size)
+                end
+                if size > 0.5 and not this.charging then
+                    assets["spell_charging"]:play()
+                    this.charging = true
                 end
             end
             if this.scythe_attack ~= "none" and this.scythe_attack ~= "scythe_launch" then

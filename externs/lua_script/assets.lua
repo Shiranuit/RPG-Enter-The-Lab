@@ -247,6 +247,12 @@ assets["robot1_sound"] = lsfml.sound.createFromFile("./assets/sound/robot1.ogg")
 assets["laser_sound"] = lsfml.sound.createFromFile("./assets/sound/laser.ogg")
 assets["door_sound"] = lsfml.sound.createFromFile("./assets/sound/door.ogg")
 assets["soucoupe_turret"] = lsfml.sound.createFromFile("./assets/sound/soucoupe_patter_turret.ogg")
+assets["mage_teleport"] = lsfml.sound.createFromFile("./assets/sound/mage_teleport.ogg")
+assets["scythe_ulti"] = lsfml.sound.createFromFile("./assets/sound/scythe_ulti.ogg")
+assets["slash_sound"] = lsfml.sound.createFromFile("./assets/sound/slash.ogg")
+assets["spell_charging"] = lsfml.sound.createFromFile("./assets/sound/spell_charging.ogg")
+assets["alarm"] = lsfml.sound.createFromFile("./assets/sound/alarm.ogg")
+assets["bubble"] = lsfml.sound.createFromFile("./assets/sound/bubble.ogg")
 
 -- ==============================
 -- =       SOUNDS TURRETS       =
@@ -272,7 +278,6 @@ assets["there_you_are"] = lsfml.sound.createFromFile("./assets/sound/turret/ther
 assets["who_are_you"] = lsfml.sound.createFromFile("./assets/sound/turret/who are you.wav")
 assets["whooooah"] = lsfml.sound.createFromFile("./assets/sound/turret/whooooah.wav")
 assets["why"] = lsfml.sound.createFromFile("./assets/sound/turret/why.wav")
-
 
 -- =======================
 -- =        MUSICS       =
