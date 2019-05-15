@@ -498,7 +498,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
             this.stamina = this.stamina + 1 * DeltaTime
         end
         if this.getMaximumMana() > this.mana and this.status ~= "spell" then
-            this.mana = this.mana + 0.1 * DeltaTime
+            this.mana = this.mana + 0.3 * DeltaTime
         end
         if super.isDead() then
             if (this.status ~= "death") then
