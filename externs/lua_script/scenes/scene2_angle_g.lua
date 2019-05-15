@@ -23,6 +23,7 @@ local hitb = nil
 function load(scene)
     if player:getNb_salle_pass() > 6 then
         first = false
+        player:add_nbr_restart()
         player:restartNb_salle_pass()
         player:setNeedRestart(true)
     end

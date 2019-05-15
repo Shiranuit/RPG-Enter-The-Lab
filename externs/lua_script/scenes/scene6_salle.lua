@@ -32,6 +32,7 @@ local canPass = false
 local stopwatch = stopwatch.create()
 local play_door = false
 
+
 local entities = {}
 local hitb = nil
 
@@ -39,6 +40,7 @@ function load(scene)
     if player:getNb_salle_pass() > 6 then
         entities = {}
         first = false
+        player:add_nbr_restart()
         player:restartNb_salle_pass()
         for i = 1, 17 do
             player:setNeedRestart(i, true)
@@ -64,6 +66,13 @@ function load(scene)
         robot5 = new(EntityTurret(879, 654))
         robot6 = new(EntityTurret(1198, 654))
         robot7 = new(EntityTurret(1035, 700))
+        robot1.setLevel(2 + player:get_nbr_restart())
+        robot2.setLevel(2 + player:get_nbr_restart())
+        robot3.setLevel(2 + player:get_nbr_restart())
+        robot4.setLevel(2 + player:get_nbr_restart())
+        robot5.setLevel(2 + player:get_nbr_restart())
+        robot6.setLevel(2 + player:get_nbr_restart())
+        robot7.setLevel(2 + player:get_nbr_restart())
         door = animation.create(assets["door"], {0, 0 , 400, 351})
         door:setPosition(965, 80)
         door:scale(0.38, 0.38)

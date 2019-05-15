@@ -246,6 +246,33 @@ assets["robot2_sound"] = lsfml.sound.createFromFile("./assets/sound/robot2.ogg")
 assets["robot1_sound"] = lsfml.sound.createFromFile("./assets/sound/robot1.ogg")
 assets["laser_sound"] = lsfml.sound.createFromFile("./assets/sound/laser.ogg")
 assets["door_sound"] = lsfml.sound.createFromFile("./assets/sound/door.ogg")
+assets["soucoupe_turret"] = lsfml.sound.createFromFile("./assets/sound/soucoupe_patter_turret.ogg")
+
+-- ==============================
+-- =       SOUNDS TURRETS       =
+-- ==============================
+
+assets["activated"] = lsfml.sound.createFromFile("./assets/sound/turret/activated.wav")
+assets["are_you_still_here"] = lsfml.sound.createFromFile("./assets/sound/turret/are you still there.wav")
+assets["can_i_help_you"] = lsfml.sound.createFromFile("./assets/sound/turret/can i help you.wav")
+assets["deploying"] = lsfml.sound.createFromFile("./assets/sound/turret/deploying.wav")
+assets["error"] = lsfml.sound.createFromFile("./assets/sound/turret/error.wav")
+assets["excuse_me"] = lsfml.sound.createFromFile("./assets/sound/turret/excuse me.wav")
+assets["goodbye"] = lsfml.sound.createFromFile("./assets/sound/turret/goodbye.wav")
+assets["hello_friend"] = lsfml.sound.createFromFile("./assets/sound/turret/hello friend.wav")
+assets["i_dont_hate_you"] = lsfml.sound.createFromFile("./assets/sound/turret/i dont hate you.wav")
+assets["is_anyone_there"] = lsfml.sound.createFromFile("./assets/sound/turret/is anyone there.wav")
+assets["please_put_me_down"] = lsfml.sound.createFromFile("./assets/sound/turret/please put me down.wav")
+assets["sentry_mode_activated"] = lsfml.sound.createFromFile("./assets/sound/turret/sentry mode activated.wav")
+assets["sorry"] = lsfml.sound.createFromFile("./assets/sound/turret/sorry.wav")
+assets["stop_shooting"] = lsfml.sound.createFromFile("./assets/sound/turret/stop shooting.wav")
+assets["target_acquired"] = lsfml.sound.createFromFile("./assets/sound/turret/target acquired.wav")
+assets["target_lost"] = lsfml.sound.createFromFile("./assets/sound/turret/target lost.wav")
+assets["there_you_are"] = lsfml.sound.createFromFile("./assets/sound/turret/there you are.wav")
+assets["who_are_you"] = lsfml.sound.createFromFile("./assets/sound/turret/who are you.wav")
+assets["whooooah"] = lsfml.sound.createFromFile("./assets/sound/turret/whooooah.wav")
+assets["why"] = lsfml.sound.createFromFile("./assets/sound/turret/why.wav")
+
 
 -- =======================
 -- =        MUSICS       =

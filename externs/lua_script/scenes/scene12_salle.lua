@@ -14,6 +14,7 @@ local stopwatch = stopwatch.create()
 local play_door = false
 local soucoupe
 
+
 local entities = {}
 local hitb = nil
 
@@ -21,6 +22,7 @@ function load(scene)
     if player:getNb_salle_pass() > 6 then
         entities = {}
         first = false
+        player:add_nbr_restart()
         player:restartNb_salle_pass()
         for i = 1, 17 do
             player:setNeedRestart(i, true)

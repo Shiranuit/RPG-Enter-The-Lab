@@ -21,6 +21,7 @@ local robot2
 local robot3
 local play_door = false
 
+
 local entities = {}
 local hitb = nil
 
@@ -28,6 +29,7 @@ function load(scene)
     if player:getNb_salle_pass() > 6 then
         entities = {}
         first = false
+        player:add_nbr_restart()
         player:restartNb_salle_pass()
         for i = 1, 17 do
             player:setNeedRestart(i, true)
@@ -48,6 +50,9 @@ function load(scene)
         robot1 = new(EntityRobot2(1800, 300))
         robot2 = new(EntityRobot2(1800, 850))
         robot3 = new(EntityRobot2(700, 500))
+        robot1.setLevel(4 + player:get_nbr_restart())
+        robot2.setLevel(4 + player:get_nbr_restart())
+        robot3.setLevel(4 + player:get_nbr_restart())
         first = true
     end
     if player:getNeedRestart(7) then

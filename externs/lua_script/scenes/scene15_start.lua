@@ -44,6 +44,7 @@ function load(scene)
     if player:getNb_salle_pass() > 6 then
         entities = {}
         first = false
+        player:add_nbr_restart()
         player:restartNb_salle_pass()
         for i = 1, 17 do
             player:setNeedRestart(i, true)
@@ -78,6 +79,7 @@ function load(scene)
             parchemin2 = new(EntityProps(600, 100, assets["parchemin_2"], 98, 62, {}, 1))
         end
         robot1 = new(EntityRobot1(200, 600))
+        robot1.setLevel(6)
         first_load = true
     end
     if player:getNeedRestart(14) then

@@ -24,15 +24,44 @@ Class "EntityTurret" extends "EntityLiving" [{
         this.attack:setOrigin(9, 9)
         this.attack:scale(1, 1)
 
+        this.clock_random = stopwatch.create()
+        this.clock_sounds = stopwatch.create()
+        this.clock_rand = math.random(3, 15) * 1000000
         this.clock = stopwatch.create()
         this.clock_attack = stopwatch.create()
         this.status = "idle"
         this.speed = 2
+        this.tab_sound = {}
         this.max_distance = 750
         this.last_animation = false
         this.is_attack = false
         super.setType("ennemy")
         initHitboxes()
+        initSounds()
+    end
+
+    function initSounds()
+        this.tab_sound[1] = assets["activated"]
+        this.tab_sound[2] = assets["why"]
+        this.tab_sound[3] = assets["are_you_still_here"]
+        this.tab_sound[4] = assets["can_i_help_you"]
+        this.tab_sound[5] = assets["deploying"]
+        this.tab_sound[6] = assets["error"]
+        this.tab_sound[7] = assets["excuse_me"]
+        this.tab_sound[8] = assets["goodbye"]
+        this.tab_sound[9] = assets["hello_friend"]
+        this.tab_sound[10] = assets["i_dont_hate_you"]
+        this.tab_sound[11] = assets["is_anyone_there"]
+        this.tab_sound[12] = assets["please_put_me_down"]
+        this.tab_sound[13] = assets["sentry_mode_activated"]
+        this.tab_sound[14] = assets["sorry"]
+        this.tab_sound[15] = assets["stop_shooting"]
+        this.tab_sound[16] = assets["target_acquired"]
+        this.tab_sound[17] = assets["target_lost"]
+        this.tab_sound[18] = assets["there_you_are"]
+        this.tab_sound[19] = assets["who_are_you"]
+        this.tab_sound[20] = assets["whooooah"]
+        
     end
 
     function getExperience()
@@ -148,6 +177,15 @@ Class "EntityTurret" extends "EntityLiving" [{
                 this.attack:setPosition(sprite_x - 30, sprite_y - 90)
                 this.attack:setRotation(180)
             end
+        end
+        if this.clock_random:getEllapsedTime() > 2000000 then
+            this.clock_rand = math.random(3, 15) * 1000000
+            this.clock_random:restart()
+        end
+        if this.clock_sounds:getEllapsedTime() > this.clock_rand then
+            this.clock_sounds:restart()
+            local rand = math.random(1, 20)
+            this.tab_sound[rand]:play()
         end
     end 
 
