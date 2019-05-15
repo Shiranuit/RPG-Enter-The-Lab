@@ -126,6 +126,11 @@ function update()
 end
 
 function event(e)
+    local event = e:getEvent()
+    if event[1] == "key_pressed" and event[2] == keys.Escape then
+        setScene("main_menu")
+        return
+    end
     exit_button:event(e)
     right_button:event(e)
     left_button:event(e)
