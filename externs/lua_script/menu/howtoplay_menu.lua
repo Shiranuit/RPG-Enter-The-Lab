@@ -39,10 +39,12 @@ local right_button = button.create{
     height = 210,
     callback = function(self, ...)
         local event = {...}
-        if event[1] == "click" then
-            nb_hud = nb_hud + 1
-        elseif event[1] == "enter" then
-            assets["button_hover_sfx"]:play()
+        if nb_hud <= 1 then
+            if event[1] == "click" then
+                nb_hud = nb_hud + 1
+            elseif event[1] == "enter" then
+                assets["button_hover_sfx"]:play()
+            end
         end
     end,
     idle = assets["arrow"],
@@ -57,10 +59,12 @@ local left_button = button.create{
     height = 210,
     callback = function(self, ...)
         local event = {...}
-        if event[1] == "click" then
-            nb_hud = nb_hud - 1
-        elseif event[1] == "enter" then
-            assets["button_hover_sfx"]:play()
+        if nb_hud >= 2 then
+            if event[1] == "click" then
+                nb_hud = nb_hud - 1
+            elseif event[1] == "enter" then
+                assets["button_hover_sfx"]:play()
+            end
         end
     end,
     idle = assets["arrowr"],
@@ -92,6 +96,8 @@ function load()
     nb_hud = 1
     player_hud:close()
     exit_button:setStatus("released")
+    right_button:setStatus("released")
+    left_button:setStatus("released")
     world.renderDisable()
     world.updateDisable()
     world.eventDisable()
@@ -121,10 +127,6 @@ end
 
 function event(e)
     exit_button:event(e)
-    if nb_hud <= 1 then
-        right_button:event(e)
-    end
-    if nb_hud >= 2 then
-        left_button:event(e)
-    end
+    right_button:event(e)
+    left_button:event(e)
 end

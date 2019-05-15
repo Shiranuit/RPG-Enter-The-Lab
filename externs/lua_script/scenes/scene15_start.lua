@@ -82,8 +82,11 @@ function load(scene)
             parchemin2 = new(EntityProps(600, 100, assets["parchemin_2"], 98, 62, {}, 1))
         end
         robot1 = new(EntityRobot1(200, 600))
-        robot2 = new(EntityRobot3(1050, 600))
+        robot2 = new(EntityRobot3(800, 600))
+        robot3 = new(EntityRobot3(1300, 600))
         robot1.setLevel(6)
+        robot2.setLevel(3)
+        robot3.setLevel(3)
         first_load = true
     end
     if player:getNeedRestart(14) then

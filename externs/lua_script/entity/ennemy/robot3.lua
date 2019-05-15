@@ -35,13 +35,16 @@ Class "EntityRobot3" extends "EntityLiving" [{
     end
 
     function hit(damage, source)
-        if math.random(0, 100) < 25 then
-            for i=1, math.random(1, 2) do
-                world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
+        super.hit(damage, source)
+        if this.isDead() then
+            if math.random(0, 100) < 25 then
+                for i=1, math.random(1, 2) do
+                    world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
+                end
             end
+            world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
+            world.removeEntityByUUID(this.getUUID())
         end
-        world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
-        world.removeEntityByUUID(this.getUUID())
     end
 
     function setPosition(x, y)
