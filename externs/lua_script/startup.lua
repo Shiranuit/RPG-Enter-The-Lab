@@ -62,7 +62,6 @@ function setScene(name)
     if name ~= "main_menu" then
         player_hud:open()
     end
-    print(name, scene_name)
     if scenes[scene_name] and scenes[scene_name].unload then
         if name ~= "options_menu" or scene_name == "main_menu" then
             scenes[scene_name].unload()
