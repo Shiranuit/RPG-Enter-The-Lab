@@ -26,7 +26,7 @@ item.create("botte1", assets["botte1"], 1, {type="equipement", subtype="boot", n
 item.create("casque1", assets["casque1"], 1, {type="equipement", subtype="helmet", name="Casque en bois", desc="Mieux que rien..."})
 item.create("jambiere1", assets["jambiere1"], 1, {type="equipement", subtype="pant", name="Jambiere en bois", desc="Difficile de courir."})
 item.create("plastron1", assets["plastron1"], 1, {type="equipement", subtype="chestplate", name="Plastron en bois", desc="Impossible a enlever."})
-item.create("botte2", assets["botte2"], 1, {type="equipement", subtype="boot", name="Botte en tissu", desc="Faite gaffe où\nvous marchez."})
+item.create("botte2", assets["botte2"], 1, {type="equipement", subtype="boot", name="Botte en tissu", desc="Faite gaffe ou\nvous marchez."})
 item.create("casque2", assets["casque2"], 1, {type="equipement", subtype="helmet", name="Chapeau en tissu", desc="Merlin !!?"})
 item.create("jambiere2", assets["jambiere2"], 1, {type="equipement", subtype="pant", name="Pantalon en tissu", desc="Mieux qu'un jean !"})
 item.create("plastron2", assets["plastron2"], 1, {type="equipement", subtype="chestplate", name="Robe en tissu", desc="Pas que pour les\nfilles"})

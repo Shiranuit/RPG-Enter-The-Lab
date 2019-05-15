@@ -76,7 +76,7 @@ function load(scene)
         pot5_2 = new(EntityProps(114, 320, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_3 = new(EntityProps(1129, 244, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
         pot5_4 = new(EntityProps(739, 400, assets["pot5"], 17, 84, {{0, 74}, {0, 84}, {34, 84}, {31, 74}}, 1))
-        if one then
+        if canP6 then
             parchemin6 = new(EntityProps(1550, 550, assets["parchemin_6"], 17, 0, {}, 1))
         end
         robot1 = new(EntityRobot1(700, 510))
@@ -123,9 +123,8 @@ function load(scene)
         world.spawnEntity(pot5_2)
         world.spawnEntity(pot5_3)
         world.spawnEntity(pot5_4)
-        if one then
+        if canP6 then
             world.spawnEntity(parchemin6)
-            one = false
         end
         world.spawnEntity(robot1)
         world.spawnEntity(robot2)

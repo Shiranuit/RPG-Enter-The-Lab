@@ -164,7 +164,7 @@ function load(scene)
     hitbox.setHitboxes(hitb)
     if door_box == nil then
         door_box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
-        door_box.setPoints({{0, 220}, {1920, 220}})
+        door_box.setPoints({{0, 215}, {1920, 215}})
         door_box.setPosition(0, 0)
         hitbox.add(door_box)
     end

@@ -19,9 +19,10 @@ Class "EntityRobot2" extends "EntityLiving" [{
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(451, 875)
         this.sprite:scale(0.20, 0.20)
-        assets["robot2_sound"]:setVolume(30)
-        assets["robot2_sound"]:setLoop(true)
-        assets["robot2_sound"]:play()
+        this.sounds = lsfml.sound.createFromFile("./assets/sound/robot2.ogg")
+        this.sounds:setVolume(30)
+        this.sounds:setLoop(true)
+        this.sounds:play()
         this.attack = animation.create(assets["laser"], {0, 0, 46, 19})
         this.attack:setOrigin(9, 9)
         this.attack:scale(3, 3)
@@ -43,9 +44,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
 
     function setLoop()
         if this.isAlive() then
-        assets["robot2_sound"]:setVolume(30)
-        assets["robot2_sound"]:setLoop(true)
-        assets["robot2_sound"]:play()
+            --ICIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi
         end
     end
 
@@ -64,6 +63,21 @@ Class "EntityRobot2" extends "EntityLiving" [{
         local success, nx, ny = super.move(x, y)
         if success then
             this.sprite:move(nx, ny)
+        end
+    end
+
+    function hit(damage, source)
+        super.hit(damage, source)
+        if this.isDead() then
+            if math.random(0, 100) < 20 then
+                for i=1, math.random(1, 2) do
+                    world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
+                end
+            end
+            world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
+            world.removeEntityByUUID(this.getUUID())
+            this.sounds:setLoop(false)
+            this.sounds:stop()
         end
     end
 
@@ -114,15 +128,6 @@ Class "EntityRobot2" extends "EntityLiving" [{
             if this.clock:getEllapsedTime() > 80000 then
                 this.clock:restart()
                 this.sprite:next()
-                if this.sprite:hasEnded() then
-                    if math.random(0, 100) < 20 then
-                        for i=1, math.random(1, 2) do
-                            world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
-                        end
-                    end
-                    world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
-                    world.removeEntityByUUID(this.getUUID())
-                end
             end
             assets["robot2_sound"]:setLoop(false)
             assets["robot2_sound"]:setVolume(0)
