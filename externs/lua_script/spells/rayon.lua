@@ -59,7 +59,7 @@ function cast(self)
     animationSpell["rayonIdleAnimation"].makeDamage()
     animationSpell["rayonEndAnimation"].makeDamage()
     animationSpell["rayonSpell"].makeDamage()
-    --player.activateSpell()
+    player.activateSpell()
 end
 
 function isInstant(self)
@@ -70,7 +70,7 @@ function enable(self)
     local status, hor, ver , idle = player.getStatus()
     assets["rayon_start"]:play()
     player.removeMana(getCost() * 0.5)
-    
+
     if (hor == "left") then
         animationSpell["rayonSpell"].setRotation(90)
         animationSpell["rayonIdleAnimation"].setRotation(90)
