@@ -246,6 +246,12 @@ assets["robot2_sound"] = lsfml.sound.createFromFile("./assets/sound/robot2.ogg")
 assets["robot1_sound"] = lsfml.sound.createFromFile("./assets/sound/robot1.ogg")
 assets["laser_sound"] = lsfml.sound.createFromFile("./assets/sound/laser.ogg")
 assets["door_sound"] = lsfml.sound.createFromFile("./assets/sound/door.ogg")
+assets["mage_teleport"] = lsfml.sound.createFromFile("./assets/sound/mage_teleport.ogg")
+assets["scythe_ulti"] = lsfml.sound.createFromFile("./assets/sound/scythe_ulti.ogg")
+assets["slash_sound"] = lsfml.sound.createFromFile("./assets/sound/slash.ogg")
+assets["spell_charging"] = lsfml.sound.createFromFile("./assets/sound/spell_charging.ogg")
+assets["alarm"] = lsfml.sound.createFromFile("./assets/sound/alarm.ogg")
+assets["bubble"] = lsfml.sound.createFromFile("./assets/sound/bubble.ogg")
 
 -- =======================
 -- =        MUSICS       =
