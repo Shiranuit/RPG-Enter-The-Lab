@@ -44,32 +44,42 @@ function event(self, e)
         if not isPaused() then
             if menu_spell:isClose() then
                 if keyboard.keyPressed(controls.getControl("spell_1")) and spells_tab[selected_spell_name[1]] then
-                    if player.getMana() >= spells_tab[selected_spell_name[1]]:getCost() then
+                    if player.getMana() >= spells_tab[selected_spell_name[1]]:getCost() and not player.isInSpell() then
+                        status_sort[1] = "up"
+                    elseif player.isInSpell() and spells_tab[selected_spell_name[1]]:getStatus() == "enable" then 
                         status_sort[1] = "up"
                     else
                         assets["deny"]:play()
                     end
                 elseif keyboard.keyPressed(controls.getControl("spell_2")) and spells_tab[selected_spell_name[2]] then
-                    if player.getMana() >= spells_tab[selected_spell_name[2]]:getCost() then
+                    if player.getMana() >= spells_tab[selected_spell_name[2]]:getCost() and not player.isInSpell() then
                         status_sort[2] = "up"
+                    elseif player.isInSpell() and spells_tab[selected_spell_name[2]]:getStatus() == "enable" then 
+                        status_sort[1] = "up"
                     else
                         assets["deny"]:play()
                     end
                 elseif keyboard.keyPressed(controls.getControl("spell_3")) and spells_tab[selected_spell_name[3]] then
-                    if player.getMana() >= spells_tab[selected_spell_name[3]]:getCost() then
+                    if player.getMana() >= spells_tab[selected_spell_name[3]]:getCost() and not player.isInSpell() then
                         status_sort[3] = "up"
+                    elseif player.isInSpell() and spells_tab[selected_spell_name[3]]:getStatus() == "enable" then 
+                        status_sort[1] = "up"
                     else
                         assets["deny"]:play()
                     end
                 elseif keyboard.keyPressed(controls.getControl("spell_4")) and spells_tab[selected_spell_name[4]] then
-                    if player.getMana() >= spells_tab[selected_spell_name[4]]:getCost() then
+                    if player.getMana() >= spells_tab[selected_spell_name[4]]:getCost() and not player.isInSpell() then
                         status_sort[4] = "up"
+                    elseif player.isInSpell() and spells_tab[selected_spell_name[4]]:getStatus() == "enable" then 
+                        status_sort[1] = "up"
                     else
                         assets["deny"]:play()
                     end
                 elseif keyboard.keyPressed(controls.getControl("spell_5")) and spells_tab[selected_spell_name[5]] then
-                    if player.getMana() >= spells_tab[selected_spell_name[5]]:getCost() then
+                    if player.getMana() >= spells_tab[selected_spell_name[5]]:getCost() and not player.isInSpell() then
                         status_sort[5] = "up"
+                    elseif player.isInSpell() and spells_tab[selected_spell_name[5]]:getStatus() == "enable" then 
+                        status_sort[1] = "up"
                     else
                         assets["deny"]:play()
                     end

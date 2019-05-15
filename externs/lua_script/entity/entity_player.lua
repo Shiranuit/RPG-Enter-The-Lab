@@ -96,6 +96,14 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.isInQuest = quest
     end
 
+    function isInSpell()
+        if this.status == "spell" then
+            return true
+        else
+            return false
+        end
+    end
+
     function activateSpell()
         if this.status == "spell" then
             return

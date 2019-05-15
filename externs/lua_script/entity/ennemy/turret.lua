@@ -103,7 +103,7 @@ Class "EntityTurret" extends "EntityLiving" [{
         local pos2 = vector.new(x, y)
         local dir = pos2 - pos1
         local damage = 1 + this.getLevel() * 2 / 100
-        world.spawnEntity(new(EntityLaser(px, py, dir, 1 * damage, 40, final, 1, 1)))
+        world.spawnEntity(new(EntityLaser(px, py, dir, 2 * damage, 40, final, 1, 1)))
     end
 
     function draw()
