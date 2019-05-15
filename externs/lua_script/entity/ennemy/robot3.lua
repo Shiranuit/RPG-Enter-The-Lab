@@ -13,8 +13,8 @@ Class "EntityRobot3" extends "EntityLiving" [{
         super(x, y)
         super.setHealthBarVisible(true)
         super.setHealthBarOffset(0, -875 * 0.25)
-        super.setMaximumHealth(250)
-        super.setHealth(250)
+        super.setMaximumHealth(200)
+        super.setHealth(200)
         this.sprite = animation.create(assets["robot3"], {0, 0, 73, 63})
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(32.5, 64)
@@ -31,7 +31,7 @@ Class "EntityRobot3" extends "EntityLiving" [{
     end
 
     function getExperience()
-        return 101
+        return 100
     end
 
     function setPosition(x, y)

@@ -19,6 +19,7 @@ local hologram_break2
 local robot1
 local robot2
 
+
 local play_door = false
 local entities = {}
 local hitb = nil
@@ -27,6 +28,7 @@ function load(scene)
     if player:getNb_salle_pass() > 6 then
         entities = {}
         first = false
+        player:add_nbr_restart()
         player:restartNb_salle_pass()
         for i = 1, 17 do
             player:setNeedRestart(i, true)
@@ -48,6 +50,8 @@ function load(scene)
         robot2 = new(EntityRobot2(1200, 900))
         first = true
     end
+    robot1.setLevel(1 + player:get_nbr_restart())
+    robot2.setLevel(1 + player:get_nbr_restart())
     if player:getNeedRestart(3) then
         entities = {}
         player:setNeedRestart(3, false)

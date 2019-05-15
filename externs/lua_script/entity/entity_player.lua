@@ -55,6 +55,15 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.isInQuest = false
         this.nb_salle_pass = 0
         this.needRestart = {false}
+        this.nbr_restart = 0
+    end
+
+    function add_nbr_restart(self)
+        this.nbr_restart = this.nbr_restart + 1
+    end
+
+    function get_nbr_restart(self)
+        return this.nbr_restart
     end
 
     function setNeedRestart(self, i, need)

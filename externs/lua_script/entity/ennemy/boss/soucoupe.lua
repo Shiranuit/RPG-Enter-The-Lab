@@ -171,6 +171,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                     local entities = world.getEntitiesInHitbox(this.box_verify, "enemy")
                     if #entities < 2 then
                         world.spawnEntity(new(EntityTurret(sprite_x, sprite_y + 100)))
+                        assets["soucoupe_turret"]:play()
                     end
                 elseif super.getHealth() < 0.66 * super.getMaximumHealth() and math.random(1, 5) == 3 and not this.big_attack then
                     this.big_attack = true

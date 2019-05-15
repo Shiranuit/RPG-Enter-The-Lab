@@ -5,6 +5,8 @@
 local background = lsfml.sprite.create()
 background:setTexture(assets["labo_angle_haut_gauche"], false)
 
+local door_box
+
 local first = false
 local tube_bleu_homme1
 local tube_bleu_homme2
@@ -23,6 +25,7 @@ local canPass = false
 local stopwatch = stopwatch.create()
 local play_door = false
 
+
 local entities = {}
 local hitb = nil
 
@@ -30,6 +33,7 @@ function load(scene)
     if player:getNb_salle_pass() > 6 then
         entities = {}
         first = false
+        player:add_nbr_restart()
         player:restartNb_salle_pass()
         for i = 1, 17 do
             player:setNeedRestart(i, true)
@@ -51,6 +55,9 @@ function load(scene)
         door = animation.create(assets["door"], {0, 0 , 400, 351})
         door:setPosition(880, 80)
         door:scale(0.38, 0.38)
+        robot1.setLevel(2 + player:get_nbr_restart())
+        robot2.setLevel(2 + player:get_nbr_restart())
+        robot3.setLevel(2 + player:get_nbr_restart())
         first = true
     end
     if player:getNeedRestart(4) then
@@ -61,7 +68,7 @@ function load(scene)
         player.setPosition(30, 630)
     end
     if (scene == "scene3_intersection_bas") then
-        player.setPosition(950, 200)
+        player.setPosition(950, 240)
     end
     world.setEntities(entities)
     if #entities == 0 then
@@ -92,6 +99,12 @@ function load(scene)
     end
     hitbox.setHitboxes(hitb)
     robot3.setLoop()
+    if door_box == nil then
+        door_box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
+        door_box.setPoints({{0, 210}, {1920, 210}})
+        door_box.setPosition(0, 0)
+        hitbox.add(door_box)
+    end
 end
 
 function unload()
@@ -132,6 +145,7 @@ function update()
         if not play_door then
             assets["door_sound"]:play()
             play_door = true
+            door_box.setType("soft")
         end
         if y < 200 then
             player:plusNb_salle_pass()
