@@ -38,7 +38,7 @@ Class "EntityRobot2" extends "EntityLiving" [{
     end
 
     function getExperience()
-        return 50
+        return 50 * this.getLevel()
     end
 
     function setLoop()

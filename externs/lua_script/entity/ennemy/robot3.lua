@@ -31,7 +31,7 @@ Class "EntityRobot3" extends "EntityLiving" [{
     end
 
     function getExperience()
-        return 100
+        return 100 * this.getLevel()
     end
 
     function setPosition(x, y)

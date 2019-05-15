@@ -65,7 +65,7 @@ Class "EntityTurret" extends "EntityLiving" [{
     end
 
     function getExperience()
-        return 10
+        return 10 * this.getLevel()
     end
 
     function setPosition(x, y)
