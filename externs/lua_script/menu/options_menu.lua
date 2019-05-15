@@ -2,7 +2,7 @@
 -- =              OPTION MENU              =
 -- =========================================
 
-local text_slide = {lsfml.text.create(), lsfml.text.create()}
+local text_slide = {lsfml.text.create(), lsfml.text.create(), lsfml.text.create()}
 local background = lsfml.sprite.create()
 background:setTexture(assets["background"], false)
 local textRender = lsfml.text.create()
@@ -10,14 +10,19 @@ local offset = 1
 textRender:setFont(assets["fsys"])
 textRender:setCharacterSize(50)
 text_slide[1]:setFont(assets["fsys"])
-text_slide[1]:setCharacterSize(40)
-text_slide[1]:setString("Scroll down")
-text_slide[1]:setPosition(1675, 20)
+text_slide[1]:setCharacterSize(60)
+text_slide[1]:setString("[Scroll down]")
+text_slide[1]:setPosition(850, 950)
 
 text_slide[2]:setFont(assets["fsys"])
-text_slide[2]:setCharacterSize(40)
-text_slide[2]:setString("Scroll up")
-text_slide[2]:setPosition(1675, 950)
+text_slide[2]:setCharacterSize(60)
+text_slide[2]:setString("[Scroll up]")
+text_slide[2]:setPosition(830, 950)
+
+text_slide[3]:setFont(assets["fsys"])
+text_slide[3]:setCharacterSize(60)
+text_slide[3]:setString("[Scroll up/down]")
+text_slide[3]:setPosition(800, 950)
 
 local selected = nil
 
@@ -84,6 +89,8 @@ function draw()
         window:draw(text_slide[2])
     elseif offset == #shortcuts - 15 then
         window:draw(text_slide[1])
+    else
+        window:draw(text_slide[3])
     end
     for i=offset, math.min(offset + 9, #shortcuts) do
         textRender:setString(shortcuts[i].text)
