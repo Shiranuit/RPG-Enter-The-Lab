@@ -83,6 +83,10 @@ function getScene()
     return scene_name
 end
 
+function updateProgress()
+    coroutine.yield()
+end
+
 math.randomseed(os.time())
 local owindow = window
 
@@ -167,7 +171,37 @@ spells_tab = {
 -- =             LOADING ASSETS            =
 -- =========================================
 
-dofile("assets.lua")
+function loading(count, total)
+    print(count / total * 100)
+end
+
+function loadingAssets()
+    local handle = io.open("./externs/lua_script/assets.lua", "r")
+    if handle then
+        local code = handle:read("*all")
+        handle:close()
+
+        local total = 0
+        for k, v in code:gmatch("updateProgress") do
+            total = total + 1
+        end
+        print(total)
+        local func, err = load(code, "Loading Assets", "t", _G)
+        if func then
+            local assets_load = coroutine.create( func )
+            local count = 0
+            while coroutine.status(assets_load) ~= "dead" do
+                count = count + 1
+                loading(count, total)
+                coroutine.resume( assets_load )
+            end
+        else
+            error(err)
+        end
+    end
+end
+
+loadingAssets()
 
 -- =========================================
 -- =        LOADING SPELL ANIMATION        =
