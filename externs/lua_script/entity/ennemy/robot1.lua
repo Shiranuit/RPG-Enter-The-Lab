@@ -201,7 +201,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
                 this.attack:setRotation(180)
             end
         end
-    end 
+    end
 
     function event(e)
 

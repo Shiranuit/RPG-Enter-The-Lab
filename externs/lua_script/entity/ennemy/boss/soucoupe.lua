@@ -40,6 +40,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         this.nb_laser = 0
         this.safe = 0
         this.safe2 = 180
+        this.spawn = true
         initHitboxes()
         super.setType("ennemy")
     end
@@ -75,7 +76,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         local px, py = super.getPosition()
         py = py - 86
         local pos2 = vector.new(x, y)
-        world.spawnEntity(new(EntityLaser(px, py, pos2, 3, 20, final)))
+        world.spawnEntity(new(EntityLaser(px, py, pos2, 5, 20, final)))
     end
 
     function hit(damage, source)
@@ -85,9 +86,8 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                 for i=1, math.random(1, 4) do
                     world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
                 end
-                if not _G.par5 then
+                if not player:getInventory():hasItemInInventory("parchemin_5") then
                     world.spawnEntity(new(EntityItem(itemstack.create(items["parchemin_5"], 1)))).setPosition(super.getPosition())
-                    _G.par5 = true
                 end
                 world.removeEntityByUUID(this.getUUID())
             end
@@ -100,7 +100,7 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
         local pos1 = vector.new(px, py)
         local pos2 = vector.new(x, y)
         local dir = pos2 - pos1
-        world.spawnEntity(new(EntityLaser(px, py, dir, 5, 15, final)))
+        world.spawnEntity(new(EntityLaser(px, py, dir, 8, 15, final)))
     end
 
     function draw()
@@ -144,12 +144,12 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                 laser_to_coord(sprite_x, sprite_y + 10)
                 this.clock_attack:restart()
             elseif this.clock_attack:getEllapsedTime() > 25000 and this.selected_time_attack == 3 then
-                laser_to_coord(0, sprite_x)
-                laser_to_coord(1920, sprite_x)
+                laser_to_coord(0, sprite_x - 150)
+                laser_to_coord(1920, sprite_x - 150)
                 this.clock_attack:restart()
             elseif this.clock_attack:getEllapsedTime() > 25000 and this.selected_time_attack == 4 then
-                laser_to_coord(1920, sprite_x)
-                laser_to_coord(0, sprite_x)
+                laser_to_coord(1920, sprite_x - 150)
+                laser_to_coord(0, sprite_x - 150)
                 if not(this.move_x > 500 and sprite_x < 1200 and sprite_x > 1000) and not(this.move_x < 500 and sprite_x < 1000 and sprite_x > 800) then
                     laser_to_coord(sprite_x, sprite_y + 10)
                 end
@@ -200,8 +200,9 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                     end
                 end
             end
-            if (this.clock_move:getEllapsedTime() > this.time) then
+            if (this.clock_move:getEllapsedTime() > this.time or this.spawn) then
                 local res_x, res_y
+                this.spawn = false
                 if not this.big_attack then
                     res_x, res_y = soucoupe_func[math.random(1, #soucoupe_func)]()
                     while this.move_x == res_x and res_y == this.move_y do
