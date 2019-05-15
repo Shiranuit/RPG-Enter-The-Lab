@@ -19,10 +19,10 @@ Class "EntityRobot2" extends "EntityLiving" [{
         this.sprite:setPosition(x, y)
         this.sprite:setOrigin(451, 875)
         this.sprite:scale(0.20, 0.20)
-        -- this.sounds = lsfml.sound.createFromFile("./assets/sound/robot2.ogg")
-        -- this.sounds:setVolume(30)
-        -- this.sounds:setLoop(true)
-        -- this.sounds:play()
+        this.sounds, this.sound_id = soundmanager.add("robot2", assets["robot2_sound"])
+        this.sounds:setVolume(30)
+        this.sounds:setLoop(true)
+        this.sounds:play()
         this.attack = animation.create(assets["laser"], {0, 0, 46, 19})
         this.attack:setOrigin(9, 9)
         this.attack:scale(3, 3)
@@ -76,8 +76,9 @@ Class "EntityRobot2" extends "EntityLiving" [{
             end
             world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
             world.removeEntityByUUID(this.getUUID())
-            -- this.sounds:setLoop(false)
-            -- this.sounds:stop()
+            this.sounds:setLoop(false)
+            this.sounds:stop()
+            soundmanager.remove(this.sound_id, "robot2")
         end
     end
 

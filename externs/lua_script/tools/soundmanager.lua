@@ -13,8 +13,26 @@ function soundmanager.add(category, soundbuff)
     local sounds_cat = sounds[category]
     local mysound = lsfml.sound.create()
     mysound:setBuffer(soundbuff)
-    sounds_cat[#sounds_cat + 1] = mysound
-    return mysound
+    local id = uuid.randomUUID()
+    sounds[category][#sounds[category] + 1] = {mysound, id}
+    return mysound, id
+end
+
+function soundmanager.remove(uuid, category)
+    check(uuid, "string", 1)
+    check(category, "string", 2)
+
+    if category then
+        if sounds[category] then
+            for i=1, #sounds[category] do
+                if sounds[category][i][2] == uuid then
+                    print("Here")
+                    table.remove(sounds[category], i)
+                    return
+                end
+            end
+        end
+    end
 end
 
 function soundmanager.clear(category)
@@ -46,13 +64,13 @@ function soundmanager.setVolume(value, category)
     if category then
         if sounds[category] then
             for i=1, #sounds[category] do
-                sounds[category][i]:setVolume(value)
+                sounds[category][i][1]:setVolume(value)
             end
         end
     else
         for k, v in pairs(sounds) do
             for i=1, #v do
-                v[i]:setVolume(value)
+                v[i][1]:setVolume(value)
             end
         end
     end
@@ -64,13 +82,13 @@ function soundmanager.play(category)
     if category then
         if sounds[category] then
             for i=1, #sounds[category] do
-                sounds[category][i]:play()
+                sounds[category][i][1]:play()
             end
         end
     else
         for k, v in pairs(sounds) do
             for i=1, #v do
-                v[i]:play()
+                v[i][1]:play()
             end
         end
     end
@@ -82,13 +100,13 @@ function soundmanager.pause(category)
     if category then
         if sounds[category] then
             for i=1, #sounds[category] do
-                sounds[category][i]:pause()
+                sounds[category][i][1]:pause()
             end
         end
     else
         for k, v in pairs(sounds) do
             for i=1, #v do
-                v[i]:pause()
+                v[i][1]:pause()
             end
         end
     end
@@ -100,13 +118,13 @@ function soundmanager.stop(category)
     if category then
         if sounds[category] then
             for i=1, #sounds[category] do
-                sounds[category][i]:stop()
+                sounds[category][i][1]:stop()
             end
         end
     else
         for k, v in pairs(sounds) do
             for i=1, #v do
-                v[i]:stop()
+                v[i][1]:stop()
             end
         end
     end
@@ -119,13 +137,13 @@ function soundmanager.setLoop(bool, category)
     if category then
         if sounds[category] then
             for i=1, #sounds[category] do
-                sounds[category][i]:setLoop(bool)
+                sounds[category][i][1]:setLoop(bool)
             end
         end
     else
         for k, v in pairs(sounds) do
             for i=1, #v do
-                v[i]:setLoop(bool)
+                v[i][1]:setLoop(bool)
             end
         end
     end
@@ -138,13 +156,13 @@ function soundmanager.setPitch(value, category)
     if category then
         if sounds[category] then
             for i=1, #sounds[category] do
-                sounds[category][i]:setPitch(value)
+                sounds[category][i][1]:setPitch(value)
             end
         end
     else
         for k, v in pairs(sounds) do
             for i=1, #v do
-                v[i]:setPitch(value)
+                v[i][1]:setPitch(value)
             end
         end
     end

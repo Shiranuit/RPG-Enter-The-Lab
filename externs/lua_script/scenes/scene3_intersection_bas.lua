@@ -23,6 +23,7 @@ local robot2
 local play_door = false
 local entities = {}
 local hitb = nil
+local sounds = {}
 
 function load(scene)
     if player:getNb_salle_pass() > 6 then
@@ -34,6 +35,10 @@ function load(scene)
             player:setNeedRestart(i, true)
         end
     end
+    soundmanager.setSounds(sounds)
+    soundmanager.setLoop(true)
+    soundmanager.play("robot2")
+    soundmanager.play("robot1")
     bosshealth:setEntity(scythe)
     if first == false or player:getNeedRestart(3) then
         torch1 = new(EntityProps(100, 450, assets["torch"], 27, 111, {{0, 95},{0, 111}, {55, 111}, {55, 95}}, 1))
@@ -56,6 +61,7 @@ function load(scene)
         entities = {}
         player:setNeedRestart(3, false)
     end
+
     if (scene == "scene9_horizontal") then
         player.setPosition(30, 630)
     end
@@ -106,6 +112,11 @@ function load(scene)
 end
 
 function unload()
+    soundmanager.setLoop(false)
+    soundmanager.stop("robot2")
+    soundmanager.stop("robot1")
+    sounds = soundmanager.getSounds()
+    soundmanager.clear()
     entities = world.getEntities()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
