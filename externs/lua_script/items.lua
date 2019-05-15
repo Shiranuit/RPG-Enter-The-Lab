@@ -47,4 +47,4 @@ item.create("plastron5", assets["plastron5"], 1, {type="equipement", subtype="ch
 -- =                  WEAPONS              =
 -- =========================================
 
-item.create("scythe", assets["scythe_item"], 1, {type="weapon", name="Scythe", desc="Equipez la dans le\nslot du bas de\nvotre inventaire.\nVous pouvez charger\nvos attaques."})
+item.create("scythe", assets["scythe_item"], 1, {type="weapon", name="Scythe", desc="Equipez la dans le\nslot du bas de\nvotre inventaire.\nVous pouvez charger\nvos attaques.", damage=50, rarity="God"})

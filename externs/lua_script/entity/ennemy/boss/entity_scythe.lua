@@ -64,7 +64,10 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
                 for i=1, math.random(1, 4) do
                     world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
                 end
-                world.spawnEntity(new(EntityItem(itemstack.create(items["scythe"], 1)))).setPosition(super.getPosition())
+                local scythe_item = itemstack.create(items["scythe"], 1)
+                scythe_item:getStats().rarity = "God"
+                scythe_item:getStats().damage = 50
+                world.spawnEntity(new(EntityItem(scythe_item))).setPosition(super.getPosition())
                 world.removeEntityByUUID(this.getUUID())
             end
         end

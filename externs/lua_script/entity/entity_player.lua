@@ -238,11 +238,14 @@ Class "EntityPlayer" extends "EntityLiving" [{
 
     function hit(damage, source)
         local defense = this.getDefense()
-        super.hit(damage * (1 - (defense - 1)), source)
-        if super.isDead() then
-            if this.scythe_attack == "scythe_launch" and this.my_scythe then
-                world.removeEntityByUUID(this.my_scythe.getUUID())
-                this.scythe_attack = "none"
+        local rng = math.random( 0, 100 ) / 100
+        if rng > this.getParade() - 1 then
+            super.hit(damage * (1 - (defense - 1)), source)
+            if super.isDead() then
+                if this.scythe_attack == "scythe_launch" and this.my_scythe then
+                    world.removeEntityByUUID(this.my_scythe.getUUID())
+                    this.scythe_attack = "none"
+                end
             end
         end
     end
