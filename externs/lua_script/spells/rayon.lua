@@ -59,6 +59,7 @@ function cast(self)
     animationSpell["rayonIdleAnimation"].makeDamage()
     animationSpell["rayonEndAnimation"].makeDamage()
     animationSpell["rayonSpell"].makeDamage()
+    --player.activateSpell()
 end
 
 function isInstant(self)
