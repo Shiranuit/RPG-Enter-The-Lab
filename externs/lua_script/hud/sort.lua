@@ -55,7 +55,7 @@ function event(self, e)
                     if player.getMana() >= spells_tab[selected_spell_name[2]]:getCost() and not player.isInSpell() then
                         status_sort[2] = "up"
                     elseif player.isInSpell() and spells_tab[selected_spell_name[2]]:getStatus() == "enable" then 
-                        status_sort[1] = "up"
+                        status_sort[2] = "up"
                     else
                         assets["deny"]:play()
                     end
@@ -63,7 +63,7 @@ function event(self, e)
                     if player.getMana() >= spells_tab[selected_spell_name[3]]:getCost() and not player.isInSpell() then
                         status_sort[3] = "up"
                     elseif player.isInSpell() and spells_tab[selected_spell_name[3]]:getStatus() == "enable" then 
-                        status_sort[1] = "up"
+                        status_sort[3] = "up"
                     else
                         assets["deny"]:play()
                     end
@@ -71,7 +71,7 @@ function event(self, e)
                     if player.getMana() >= spells_tab[selected_spell_name[4]]:getCost() and not player.isInSpell() then
                         status_sort[4] = "up"
                     elseif player.isInSpell() and spells_tab[selected_spell_name[4]]:getStatus() == "enable" then 
-                        status_sort[1] = "up"
+                        status_sort[4] = "up"
                     else
                         assets["deny"]:play()
                     end
@@ -79,7 +79,7 @@ function event(self, e)
                     if player.getMana() >= spells_tab[selected_spell_name[5]]:getCost() and not player.isInSpell() then
                         status_sort[5] = "up"
                     elseif player.isInSpell() and spells_tab[selected_spell_name[5]]:getStatus() == "enable" then 
-                        status_sort[1] = "up"
+                        status_sort[5] = "up"
                     else
                         assets["deny"]:play()
                     end
