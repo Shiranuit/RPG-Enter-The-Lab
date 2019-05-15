@@ -151,7 +151,6 @@ function load(scene)
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
-    robot1.setLoop()
 end
 
 function unload()
