@@ -121,7 +121,6 @@ Class "EntityRobot1" extends "EntityLiving" [{
                             world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
                         end
                     end
-                    
                     world.spawnEntity(new(EntityItem(itemstack.create(items.metal_scrap, 5)))).setPosition(super.getPosition())
                     world.removeEntityByUUID(this.getUUID())
                 end
@@ -195,7 +194,7 @@ Class "EntityRobot1" extends "EntityLiving" [{
                 this.attack:setRotation(180)
             end
         end
-    end 
+    end
 
     function event(e)
 
