@@ -136,7 +136,20 @@ function getSlotAt(self, x, y)
     end
 end
 
-function getSlot_tab(self)
+function hasItemInInventory(self, name)
+    check(self, "hud", 1)
+    check(name, "string", 2)
+
+    for i=1, #slots do
+        local itemstack = slots[i]:getItemStack()
+        if itemstack and itemstack:getItem() and itemstack:getItem():getName() == name then
+            return true
+        end
+    end
+    return false
+end
+
+function getSlots(self)
     return slots
 end
 

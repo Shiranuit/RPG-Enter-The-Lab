@@ -86,9 +86,8 @@ Class "EntitySoucoupe" extends "EntityLiving" [{
                 for i=1, math.random(1, 4) do
                     world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
                 end
-                if not _G.par5 then
+                if not player:getInventory():hasItemInInventory("parchemin_5") then
                     world.spawnEntity(new(EntityItem(itemstack.create(items["parchemin_5"], 1)))).setPosition(super.getPosition())
-                    _G.par5 = true
                 end
                 world.removeEntityByUUID(this.getUUID())
             end
