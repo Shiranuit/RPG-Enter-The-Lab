@@ -2,7 +2,7 @@
 -- =              OPTION MENU              =
 -- =========================================
 
-local text_slide = {lsfml.text.create(), lsfml.text.create(), lsfml.text.create()}
+local text_slide = {lsfml.text.create(), lsfml.text.create(), lsfml.text.create(), lsfml.text.create()}
 local background = lsfml.sprite.create()
 background:setTexture(assets["background"], false)
 local textRender = lsfml.text.create()
@@ -23,6 +23,11 @@ text_slide[3]:setFont(assets["fsys"])
 text_slide[3]:setCharacterSize(60)
 text_slide[3]:setString("[Scroll up/down]")
 text_slide[3]:setPosition(800, 950)
+
+text_slide[4]:setFont(assets["fsys"])
+text_slide[4]:setCharacterSize(60)
+text_slide[4]:setString("Press [Escape]\nto go back")
+text_slide[4]:setPosition(20, 900)
 
 local selected = nil
 
@@ -84,6 +89,7 @@ end
 
 function draw()
     window:draw(background)
+    window:draw(text_slide[4])
     local shortcuts = controls.getControls()
     if offset == #shortcuts - 9 then
         window:draw(text_slide[2])
