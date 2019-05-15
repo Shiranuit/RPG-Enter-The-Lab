@@ -29,7 +29,7 @@ Class "EntityScytheBoss" extends "EntityLiving" [{
         this.revert = false
         this.dir = 0
         this.speed = 2
-        this.max_distance = 300
+        this.max_distance = 250
         this.func = 1
         this.cooldown = false
         this.clock = stopwatch.create()
