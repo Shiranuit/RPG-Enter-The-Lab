@@ -87,10 +87,6 @@ Class "EntityMageBoss" extends "EntityLiving" [{
                 end
             end
             if super.isDead() then
-                -- for i=1, math.random(1, 4) do
-                --     world.spawnEntity(new(EntityItem(itemstack.generateEquipment()))).setPosition(super.getPosition())
-                -- end
-                -- world.spawnEntity(new(EntityItem(itemstack.create(items["scythe"], 1)))).setPosition(super.getPosition())
                 for i = 1, #this.rayon do
                     world.removeEntityByUUID(this.rayon[i]:getUUID())
                 end
