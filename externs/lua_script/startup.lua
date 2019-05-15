@@ -71,7 +71,9 @@ function setScene(name)
     end
     if scenes[name] and scenes[name].load then
         if scene_name ~= "options_menu" or name == "main_menu" then
-            scenes[name].load(scene_name)
+            local pre = scene_name
+            scene_name = name
+            scenes[name].load(pre)
         end
     end
     scene_name = name
@@ -490,10 +492,58 @@ function game_pause()
     if assets["time"]:isPlaying() then
         assets["time"]:pause()
     end
+    if assets["alarm"]:isPlaying() then
+        assets["alarm"]:pause()
+    end
+    if assets["slash_sound"]:isPlaying() then
+        assets["slash_sound"]:pause()
+    end
+    if assets["robot1_sound"]:isPlaying() then
+        assets["robot2_sound"]:pause()
+    end
+    if assets["robot2_sound"]:isPlaying() then
+        assets["robot2_sound"]:pause()
+    end
+    if assets["scythe_ulti"]:isPlaying() then
+        assets["scythe_ulti"]:pause()
+    end
+    if assets["mage_teleport"]:isPlaying() then
+        assets["mage_teleport"]:pause()
+    end
+    if assets["door_sound"]:isPlaying() then
+        assets["door_sound"]:pause()
+    end
+    if assets["laser_sound"]:isPlaying() then
+        assets["laser_sound"]:pause()
+    end
 end
 
 function game_resume()
     if assets["time"]:isPaused() then
         assets["time"]:play()
+    end
+    if assets["alarm"]:isPaused() then
+        assets["alarm"]:play()
+    end
+    if assets["slash_sound"]:isPaused() then
+        assets["slash_sound"]:play()
+    end
+    if assets["robot1_sound"]:isPaused() then
+        assets["robot2_sound"]:play()
+    end
+    if assets["robot2_sound"]:isPaused() then
+        assets["robot2_sound"]:play()
+    end
+    if assets["scythe_ulti"]:isPaused() then
+        assets["scythe_ulti"]:play()
+    end
+    if assets["mage_teleport"]:isPaused() then
+        assets["mage_teleport"]:play()
+    end
+    if assets["door_sound"]:isPaused() then
+        assets["door_sound"]:play()
+    end
+    if assets["laser_sound"]:isPaused() then
+        assets["laser_sound"]:play()
     end
 end

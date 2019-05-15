@@ -25,10 +25,8 @@ local hitb = nil
 function load(scene)
     mage = new(EntityMageBoss(800, 500))
     player.setPosition(1050, 240)
-    if #entities == 0 then
-        world.spawnEntity(player)
-        world.spawnEntity(mage)
-    end
+    world.spawnEntity(player)
+    world.spawnEntity(mage)
     bosshealth:setEntity(mage)
     if (hitb == nil) then
         HitBoxWall(0, 0, {{0, 0}, {0, 220}, {965, 220}, {960, 190}, {1115, 190}, {1115, 220}, {1920, 220}, {1920, 0}})
