@@ -46,7 +46,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.status_horizontal = "none"
         this.inventory = hud.createFromFile("hud/inventory_hud.lua")
         this.is_sprinting = false
-        this.is_damageable = true
         local box = new(Hitbox("player"))
         box.setPoints({{0, 0}, {220, 0}, {220, 220}, {0, 220}})
         box.setOrigin(220 / 2, 220)
@@ -54,6 +53,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
         box.setPosition(super.getPosition())
         super.addHitbox(box)
         this.isInQuest = false
+        this.charging = false
         this.nb_salle_pass = 0
         this.needRestart = {false}
         this.nbr_restart = 0
@@ -84,6 +84,7 @@ Class "EntityPlayer" extends "EntityLiving" [{
     end
 
     function restartNb_salle_pass(self)
+        assets["alarm"]:play()
         this.nb_salle_pass = 0
     end
 
@@ -95,9 +96,6 @@ Class "EntityPlayer" extends "EntityLiving" [{
         this.isInQuest = quest
     end
 
-    function damageable(bool)
-        this.is_damageable = bool
-    end
     function activateSpell()
         if this.status == "spell" then
             return
@@ -239,14 +237,12 @@ Class "EntityPlayer" extends "EntityLiving" [{
     ---------------------------------
 
     function hit(damage, source)
-        if this.is_damageable then
-            local defense = this.getDefense()
-            super.hit(damage * (1 - (defense - 1)), source)
-            if super.isDead() then
-                if this.scythe_attack == "scythe_launch" and this.my_scythe then
-                    world.removeEntityByUUID(this.my_scythe.getUUID())
-                    this.scythe_attack = "none"
-                end
+        local defense = this.getDefense()
+        super.hit(damage * (1 - (defense - 1)), source)
+        if super.isDead() then
+            if this.scythe_attack == "scythe_launch" and this.my_scythe then
+                world.removeEntityByUUID(this.my_scythe.getUUID())
+                this.scythe_attack = "none"
             end
         end
     end
@@ -389,6 +385,8 @@ Class "EntityPlayer" extends "EntityLiving" [{
                         this.scythe:setRotation(45)
                         this.scythe:setScale(-0.5 * this.size_slash, 0.5 * this.size_slash)
                     end
+                    this.charging = false
+                    assets["spell_charging"]:stop()
                 elseif event[4] == mouse.RIGHT then
 
                 end
@@ -657,6 +655,10 @@ Class "EntityPlayer" extends "EntityLiving" [{
                 else
                     this.scythe:setRotation(45)
                     this.scythe:setScale(-0.5 * size, 0.5 * size)
+                end
+                if size > 0.5 and not this.charging then
+                    assets["spell_charging"]:play()
+                    this.charging = true
                 end
             end
             if this.scythe_attack ~= "none" and this.scythe_attack ~= "scythe_launch" then

@@ -66,10 +66,8 @@ end
 function update()
     local x, y = player.getPosition()
     canPass = true
-    for i=1, #entities do
-        if entities[i].getType() == "ennemy" then
-            canPass = false
-        end
+    if mage.isAlive() then
+        canPass = false
     end
     if canPass then
         if not play_door then

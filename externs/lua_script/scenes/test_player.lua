@@ -42,6 +42,10 @@ function load(scene)
             player:setNeedRestart(i, true)
         end
     end
+
+    assets["bubble"]:setVolume(60)
+    assets["bubble"]:setLoop(true)
+    assets["bubble"]:play()
     if first == false or player:getNeedRestart(1) then
         tube_bleu_casser = new(EntityProps(600, 700, assets["tube_bleu_casser"], 126, 156, {{8, 148},{0, 248}, {162, 248}, {162, 148}}, 1))
         tube_bleu_transform1 = new(EntityProps(200, 900, assets["tube_bleu_transform"], 65, 204, {{6, 153},{0, 204}, {131, 204}, {125, 153}}, 1.2))
@@ -65,7 +69,7 @@ function load(scene)
     else
         player.setPosition(550, 680)
         assets["ambiance_music"]:setLoop(true)
-        assets["ambiance_music"]:setVolume(30)
+        assets["ambiance_music"]:setVolume(15)
         assets["ambiance_music"]:play()
     end
     world.setEntities(entities)
@@ -114,6 +118,8 @@ function unload()
     hitb = hitbox.getHitboxes()
     world.clearEntities()
     hitbox.clear()
+    assets["bubble"]:setLoop(false)
+    assets["bubble"]:stop()
 end
 
 function draw()

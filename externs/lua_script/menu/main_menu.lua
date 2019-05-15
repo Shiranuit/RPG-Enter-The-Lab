@@ -103,6 +103,10 @@ function load()
     world.updateDisable()
     world.eventDisable()
     hud.renderDisable()
+    player.setLevel(1)
+    player.setExperience(0)
+    player.computeMaxHealth()
+    player.setHealth(player.getMaximumHealth())
 end
 
 function unload()

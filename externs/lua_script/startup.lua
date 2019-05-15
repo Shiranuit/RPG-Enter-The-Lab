@@ -63,18 +63,28 @@ function setScene(name)
         player_hud:open()
     end
     if scenes[scene_name] and scenes[scene_name].unload then
-        scenes[scene_name].unload()
+        if name ~= "options_menu" or scene_name == "main_menu" then
+            scenes[scene_name].unload()
+        end
         prevScene = scene_name
         prevDeadScene = scene_name
     end
     if scenes[name] and scenes[name].load then
-        scenes[name].load(scene_name)
+        if scene_name ~= "options_menu" or name == "main_menu" then
+            local pre = scene_name
+            scene_name = name
+            scenes[name].load(pre)
+        end
     end
     scene_name = name
 end
 
 function getScene()
     return scene_name
+end
+
+function updateProgress()
+    coroutine.yield()
 end
 
 math.randomseed(os.time())
@@ -161,7 +171,37 @@ spells_tab = {
 -- =             LOADING ASSETS            =
 -- =========================================
 
-dofile("assets.lua")
+function loading(count, total)
+    print(count / total * 100)
+end
+
+function loadingAssets()
+    local handle = io.open("./externs/lua_script/assets.lua", "r")
+    if handle then
+        local code = handle:read("*all")
+        handle:close()
+
+        local total = 0
+        for k, v in code:gmatch("updateProgress") do
+            total = total + 1
+        end
+        print(total)
+        local func, err = load(code, "Loading Assets", "t", _G)
+        if func then
+            local assets_load = coroutine.create( func )
+            local count = 0
+            while coroutine.status(assets_load) ~= "dead" do
+                count = count + 1
+                loading(count, total)
+                coroutine.resume( assets_load )
+            end
+        else
+            error(err)
+        end
+    end
+end
+
+loadingAssets()
 
 -- =========================================
 -- =        LOADING SPELL ANIMATION        =
@@ -486,10 +526,58 @@ function game_pause()
     if assets["time"]:isPlaying() then
         assets["time"]:pause()
     end
+    if assets["alarm"]:isPlaying() then
+        assets["alarm"]:pause()
+    end
+    if assets["slash_sound"]:isPlaying() then
+        assets["slash_sound"]:pause()
+    end
+    if assets["robot1_sound"]:isPlaying() then
+        assets["robot2_sound"]:pause()
+    end
+    if assets["robot2_sound"]:isPlaying() then
+        assets["robot2_sound"]:pause()
+    end
+    if assets["scythe_ulti"]:isPlaying() then
+        assets["scythe_ulti"]:pause()
+    end
+    if assets["mage_teleport"]:isPlaying() then
+        assets["mage_teleport"]:pause()
+    end
+    if assets["door_sound"]:isPlaying() then
+        assets["door_sound"]:pause()
+    end
+    if assets["laser_sound"]:isPlaying() then
+        assets["laser_sound"]:pause()
+    end
 end
 
 function game_resume()
     if assets["time"]:isPaused() then
         assets["time"]:play()
+    end
+    if assets["alarm"]:isPaused() then
+        assets["alarm"]:play()
+    end
+    if assets["slash_sound"]:isPaused() then
+        assets["slash_sound"]:play()
+    end
+    if assets["robot1_sound"]:isPaused() then
+        assets["robot2_sound"]:play()
+    end
+    if assets["robot2_sound"]:isPaused() then
+        assets["robot2_sound"]:play()
+    end
+    if assets["scythe_ulti"]:isPaused() then
+        assets["scythe_ulti"]:play()
+    end
+    if assets["mage_teleport"]:isPaused() then
+        assets["mage_teleport"]:play()
+    end
+    if assets["door_sound"]:isPaused() then
+        assets["door_sound"]:play()
+    end
+    if assets["laser_sound"]:isPaused() then
+        assets["laser_sound"]:play()
     end
 end
