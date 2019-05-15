@@ -101,7 +101,6 @@ function load(scene)
         hitb = hitbox.getHitboxes()
     end
     hitbox.setHitboxes(hitb)
-    robot3.setLoop()
     if door_box == nil then
         door_box = new(Hitbox("hard", {takeDamage=false, doDamage=false}))
         door_box.setPoints({{0, 205}, {1920, 205}})

@@ -38,11 +38,6 @@ Class "EntityRobot1" extends "EntityLiving" [{
         initHitboxes()
     end
 
-    function setLoop()
-        if this.isAlive() then
-        end
-    end
-
     function setPosition(x, y)
         check(x ,"number", 1)
         check(y ,"number", 2)
