@@ -378,13 +378,7 @@ assets["tube_vert_homme"] = lsfml.texture.createFromFile("./assets/map/to_give/t
 updateProgress()
 assets["door"] = lsfml.texture.createFromFile("./assets/map/hodooor400x351.png", {0, 0, 5200, 351})
 updateProgress()
--- =======================
--- =        FONTS        =
--- =======================
 
-
-assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
-updateProgress()
 -- =======================
 -- =       SOUNDS        =
 -- =======================

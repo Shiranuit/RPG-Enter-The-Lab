@@ -167,6 +167,13 @@ spells_tab = {
     tempSpell = spell.createFromFile("spells/temp.lua"),
 }
 
+-- =======================
+-- =        FONTS        =
+-- =======================
+
+
+assets["fsys"] = lsfml.font.createFromFile("./assets/fonts/fsys.ttf")
+
 -- =========================================
 -- =             LOADING ASSETS            =
 -- =========================================
@@ -178,22 +185,52 @@ window = setmetatable({}, {
     __type = "window",
 })
 
-
+assets["loading_bar"] = lsfml.texture.createFromFile("./assets/menu/loading_bar.png", {0, 0, 2427, 170})
 assets["black"] = lsfml.texture.createFromFile("./assets/menu/black.png", {0, 0, 1920, 1080})
 assets["loading"] = lsfml.texture.createFromFile("./assets/menu/loading_screen.png", {0, 0, 7840, 196})
+local text = lsfml.text.create()
+text:setFont(assets["fsys"])
+text:setCharacterSize(200)
+text:setString("Enter The Lab")
+text:setPosition(350, 50)
+
+local percent = lsfml.text.create()
+percent:setFont(assets["fsys"])
+percent:setCharacterSize(120)
+percent:setPosition(960, 1080)
+
 local background = lsfml.sprite.create()
+local loading_bar = lsfml.sprite.create()
 local loading_anim = animation.create(assets["loading"], {0, 0 , 195.65, 196})
 loading_anim:setPosition(800, 450)
 loading_anim:scale(1.5, 1.5)
 background:setTexture(assets["black"], false)
+loading_bar:setTexture(assets["loading_bar"], false)
+loading_bar:setPosition(0, 950)
+loading_bar:scale(0.79, 0.5)
+
 local stopwatch = stopwatch.create()
 local watch = stopwatch.create()
-
+local prec = 0
 function loading(count, total)
-    --print(count / total * 100)
-    window:draw(background)
-    loading_anim:next()
-    loading_anim:draw()
+    if (count - prec) / total > 0.02 then
+        window:draw(background)
+        loading_bar:setTextureRect(0, 0, count / total * 2427, 170)
+        window:draw(loading_bar)
+        local perc = (math.floor((count / total * 100)*100)/100).."%"
+        local nx, ny = lsfml.text.getCenter(perc, 120)
+        percent:setPosition(960 - nx, 800 - ny)
+        percent:setString(perc)
+        window:draw(text)
+        window:draw(percent)
+        loading_anim:next()
+        if loading_anim:hasEnded() then
+            loading_anim:restart()
+        end
+        loading_anim:draw()
+        window:display()
+        prec = count
+    end
 end
 
 function loadingAssets()
