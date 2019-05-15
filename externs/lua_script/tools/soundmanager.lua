@@ -26,7 +26,6 @@ function soundmanager.remove(uuid, category)
         if sounds[category] then
             for i=1, #sounds[category] do
                 if sounds[category][i][2] == uuid then
-                    print("Here")
                     table.remove(sounds[category], i)
                     return
                 end
