@@ -25,7 +25,7 @@ assets["inventory_hud"] = lsfml.texture.createFromFile("./assets/menu/inventory.
 assets["spell_hub"] = lsfml.texture.createFromFile("./assets/menu/spell_menu.png", {0, 0, 1337, 940})
 assets["other_item"] = lsfml.texture.createFromFile("./assets/hud/other_item.png", {0, 0, 442, 208})
 assets["case_dial"] = lsfml.texture.createFromFile("./assets/hud/case_dial.png", {0, 0, 384, 164})
-assets["info"] = lsfml.texture.createFromFile("./assets/hud/info_window.png", {0, 0, 940, 1400})
+assets["info"] = lsfml.texture.createFromFile("./assets/hud/info_window.png", {0, 0, 940, 1450})
 
 assets["empty_boss_health"] = lsfml.texture.createFromFile("./assets/hud/bosshealth_empty.png", {0, 0, 426, 33})
 assets["boss_health1"] = lsfml.texture.createFromFile("./assets/hud/bosshealth1.png", {0, 0, 426, 33})
